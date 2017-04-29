@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 import redis
-from monitor_settings import *
 import time
 
 
@@ -15,6 +14,7 @@ class StatcollectorMiddleware(object):
         REDIS_HOST = settings.get('REDIS_HOST')
         REDIS_PORT = settings.get('REDIS_PORT')
         REDIS_DB = settings.get('FLASK_DB')
+        STATS_KEYS = settings.get('STATS_KEYS')
         self.r = redis.Redis(host=REDIS_HOST, port=REDIS_PORT, db=REDIS_DB)
         self.stats_keys = STATS_KEYS
 

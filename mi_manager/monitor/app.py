@@ -4,6 +4,8 @@ from flask import Flask, render_template, jsonify, request, current_app
 import redis
 from monitor_settings import *
 from gentools import *
+import dat_service
+import url_extract_tools
 
 app = Flask(__name__)
 
@@ -32,21 +34,33 @@ def signal():
         current_app.spider_is_run = True
     return jsonify('')
 
+
 @app.route('/gen_spider', methods=['GET', 'POST'])
 def gen_spider():
-    if request.method == 'POST':
-        jsonstr = request.args.get('json_result')
-        generate_spider(jsonstr)
-        generate_spider_init(jsonstr)
-    else:
-        return 'did not get data'
+    jsonstr = request.form.get('json_result', '')
+    js = dict(json.loads(jsonstr))
+    start_urls = list(js['start_urls'])
+    spider_name = url_extract_tools.extract_main_url(start_urls)
+    dat_service.save_data(spider_name, jsonstr)
+    return jsonify('ok')
 
 
-@app.before_first_request
-def init():
-    current_app.r = redis.Redis(host=REDIS_HOST, port=REDIS_PORT, db=REDIS_DB)
-    current_app.spider_is_run = True if current_app.r.get('spider_is_run') == '1' else False
+@app.route('/add_ips', methods=['GET', 'POST'])
+def add_ips():
+    jsonstr = request.form.get('ips', '')
+    ips_array = json.loads(jsonstr)['ips']
+    print ips_array
+    with open('static/valid_proxy.txt', 'a') as f:
+        for i in ips_array:
+            f.write(i + '\n')
+    return jsonify('ok')
+
+
+# @app.before_first_request
+# def init():
+#     current_app.r = redis.Redis(host=REDIS_HOST, port=REDIS_PORT, db=REDIS_DB)
+#     current_app.spider_is_run = True if current_app.r.get('spider_is_run') == '1' else False
 
 
 if __name__ == '__main__':
-    app.run(host=APP_HOST, port=APP_PORT,debug=True)
+    app.run(host=APP_HOST, port=APP_PORT, debug=True)

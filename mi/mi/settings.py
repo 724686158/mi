@@ -5,13 +5,19 @@ BOT_NAME = 'mi'
 SPIDER_MODULES = ['mi.spiders']
 NEWSPIDER_MODULE = 'mi.spiders'
 
-#配置
-ROBOTSTXT_OBEY = False   #是否启用robots
-COOKIES_ENABLED = False  #禁止COOKIES
-RETRY_ENABLED = False   #禁止重试
-DOWNLOAD_TIMEOUT = 30   #超时时限
-DOWNLOAD_DELAY = 0.5   #间隔时间
-CONCURRENT_REQUESTS_PER_DOMAIN = 20 #对单个域名最大并发量
+# scrapy基本属性配置
+# 是否启用robots
+ROBOTSTXT_OBEY = False
+# 是否启用COOKIES
+COOKIES_ENABLED = False
+# 是否启用重试
+RETRY_ENABLED = False
+# 超时时限
+DOWNLOAD_TIMEOUT = 30
+# 间隔时间
+DOWNLOAD_DELAY = 0.5
+# 对单个域名最大并发量
+CONCURRENT_REQUESTS_PER_DOMAIN = 20
 #DEPTH_LIMIT = 20 #爬取深度,20是为了避免那些动态生成链接的网站造成的死循环,暂时没遇到这种网站,先禁用了
 
 # redis —— url存储
@@ -31,9 +37,10 @@ item_scraped_count = 'item_scraped_count'
 STATS_KEYS = ["downloader/request_count", "downloader/response_count", "downloader/response_status_count/200", "item_scraped_count"]
 
 # mongodb数据库的配置信息
-MONGO_URI = 'mongodb://192.168.139.239:27017'
+MONGO_HOST = '192.168.139.239'
+MONGO_PORT = 27017
 MONGO_DATABASE = 'mi'
-MONGO_COLLECTION_NAME = "data_20170417_0"
+MONGO_COLLECTION_NAME = 'data_20170429_2'
 
 #监控服务器信息
 MONITOR_HOST = "0.0.0.0"
@@ -42,16 +49,17 @@ MONITOR_PORT = "5020"
 #Mysql数据库的配置信息
 MYSQL_HOST = "192.168.139.239"
 MYSQL_PORT = 3306
-MYSQL_DBNAME = 'data_20170417_0'    #数据库名字
+MYSQL_DBNAME = 'data_20170429_1'    #数据库名字
 MYSQL_USER = 'root'                 #数据库账号
 MYSQL_PASSWD = 'mi'                 #数据库密码
 
 #用于创建电商相关的表
-sql_createtable = "create table ECommerce(eCommerceId int primary key auto_increment, eCommerceName varchar(100), eCommerceUrl varchar(200)) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin; \
-create table ECommerceShop(shopId int primary key auto_increment, eCommerceId int, shopName varchar(100), shopUrl varchar(200), shopLocation varchar(100), shopPhoneNumber varchar(100), FOREIGN KEY (eCommerceId) REFERENCES ECommerce(eCommerceId)) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin auto_increment=1; \
-create table ECommerceShopComment(shopId int primary key, shopTotalRating varchar(50), shopTotalRatingCTC varchar(50), shopGoodQualitySatisficationRating varchar(50), shopGoodQualitySatisficationRatingCTC varchar(50), shopServiceSatisficationRating varchar(50), shopServiceSatisficationRatingCTC varchar(50), shopLogisticsSpeedSatisficationRating varchar(50), shopLogisticsSpeedSatisficationRatingCTC varchar(50), shopGoodDescriptionSatisficationRating varchar(50), shopGoodDescriptionSatisficationRatingCTC varchar(50), shopProcessingReturnAndExchangeGoodSatisficationRating varchar(50), shopProcessingReturnAndExchangeGoodSatisficationRatingCTC varchar(50), shopDisobeyRulesTimes int, FOREIGN KEY (shopId) REFERENCES ECommerceShop(shopId)) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin; \
-create table ECommerceGood(goodId int primary key auto_increment, shopId int, goodName varchar(100), goodUrl varchar(200), goodPrice float, FOREIGN KEY (shopId) REFERENCES ECommerceShop(shopId)) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin auto_increment=1; \
-create table ECommerceGoodComment(goodId int primary key, goodCommentsCount int, goodCommentsUrl varchar(200), goodDisplayPictureCount int, goodAddCommentCount int, goodRankBetterCommentCount int, goodRankMediateCommentCount int, goodRankWorseCommentCount int, FOREIGN KEY (goodId) REFERENCES ECommerceGood(goodId)) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin; \
+sql_createtable = "\
+create table ECommerce(eCommerceId int primary key, eCommerceName varchar(200), eCommerceUrl varchar(200)) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin; \
+create table ECommerceShop(eCommerceId int, shopId bigint, shopName varchar(200), shopUrl varchar(200), shopLocation varchar(200), shopPhoneNumber varchar(200), PRIMARY KEY (shopId, eCommerceId),FOREIGN KEY (eCommerceId) REFERENCES ECommerce(eCommerceId)) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin; \
+create table ECommerceShopComment(eCommerceId int, shopId bigint, shopCommentsUrl varchar(200), shopCommentsData varchar(400), PRIMARY KEY (shopId, eCommerceId),FOREIGN KEY (eCommerceId) REFERENCES ECommerce(eCommerceId)) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin; \
+create table ECommerceGood(eCommerceId int, goodId bigint, shopId bigint, goodName varchar(400), goodUrl varchar(200), goodPrice float, PRIMARY KEY (goodId, eCommerceId),FOREIGN KEY (eCommerceId) REFERENCES ECommerce(eCommerceId)) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin; \
+create table ECommerceGoodComment(eCommerceId int, goodId bigint, goodCommentsUrl varchar(200), goodCommentsData varchar(1600), PRIMARY KEY (goodId, eCommerceId),FOREIGN KEY (eCommerceId) REFERENCES ECommerce(eCommerceId)) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin; \
 "
 
 #日志设置,禁用“LOG_STDOUT=True”
@@ -69,12 +77,12 @@ ITEM_PIPELINES = {
 # 中间件
 # 注意不要使用'scrapy.downloadermiddlewares.retry.RetryMiddleware'，此中间件会造成程序卡死
 DOWNLOADER_MIDDLEWARES = {
-    'mi.middlewares.middleware_proxy.RandomProxyMiddleware':400,# 代理相关
+    #'mi.middlewares.middleware_proxy.RandomProxyMiddleware':400,# 代理相关
     'mi.middlewares.middleware_rotateUserAgent.RotateUserAgentMiddleware': 401,
     'mi.middlewares.middleware_monitor.StatcollectorMiddleware': 402,# 可视化相关
 }
 
-# 代理相关参数
+# 代理相关
 # 存储可信代理的文件路径
 HTTPPROXY_FILE_PATH = "/home/solitarius/mi/mi/mi/proxy/valid_proxy.txt"
 # 请求连接失败重试次数

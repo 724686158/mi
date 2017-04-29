@@ -6,7 +6,7 @@ from scrapy.linkextractors import LinkExtractor
 import jieba.analyse
 class Spider_caijing(RedisCrawlSpider):
     name = 'caijing'
-    redis_key = 'caijing_start_urls'
+    redis_key = 'caijing:start_urls'
     allowed_domains = ['caijing.com.cn']
     rules = [
         Rule(LinkExtractor(allow=('caijing.com.cn/\d{8}/\d*'),deny=('.*photos.*', '.*politics.*')),callback='processArticle',follow=True)

@@ -3,6 +3,7 @@ import json
 def arr2str(arr):
     return ', '.join(map(lambda x: "'" + x + "'", arr))
 
+#新闻类爬虫模板
 spider_template = \
 """# -*- coding: utf-8 -*-
 from scrapy_redis.spiders import RedisCrawlSpider
@@ -49,10 +50,10 @@ def generate_spider(jsonfile):
         arr2str(js['xpath_title']),
         arr2str(js['xpath_content']))
     ok = spider_template % arr
-    filename = "../spiders/" + js['name'] + '_Spider.py'
+    filename = "../spiders/"  + 'spider_'+ js['name'] + '.py'
     with open(filename, 'w') as f:
         f.write(ok)
-
+#爬虫初始化模板
 spider_init_template = \
 """# -*- coding: utf-8 -*-
 import redis
@@ -84,7 +85,7 @@ def generate_spider_init(jsonfile):
         js['name'],
         js['name'])
     ok = spider_init_template % arr
-    filename = "../commands/"  + "SpiderInit_" + js['name'] + ".py"
+    filename = "../commands/" + "spiderInit_" + js['name'] + ".py"
     with open(filename, 'w') as f:
         f.write(ok)
 

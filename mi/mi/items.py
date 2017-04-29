@@ -2,6 +2,13 @@
 
 import scrapy
 
+# DOM树item
+class DomTreeItem(scrapy.Item):
+    # 文章的url
+    url = scrapy.Field();
+    # 文章的html
+    html = scrapy.Field();
+
 # 文章item，文章id用mongodb中自动生成的id来表示
 class ArticleItem(scrapy.Item):
     # 文章标题
@@ -17,8 +24,7 @@ class ArticleItem(scrapy.Item):
     # 文章关键词3
     articleThirdTag = scrapy.Field()
 
-    # 以下三个数据在程序开始时进行预处理，通过配置文件的形式手动存入数据库
-
+# 电商item，电商网站id在新建爬虫时自动生成
 class ECommerce(scrapy.Field):
     # 电商网站Id
     eCommerceId = scrapy.Field()
@@ -27,11 +33,12 @@ class ECommerce(scrapy.Field):
     # 电商网站home页url
     eCommerceHomeUrl = scrapy.Field()
 
+# 电商网站店家item
 class ECommerceShopItem(scrapy.Field):
-    # 店家id
-    shopId = scrapy.Field()
     # 电商网站Id
     eCommerceId = scrapy.Field()
+    # 店家id
+    shopId = scrapy.Field()
     # 店家名字
     shopName = scrapy.Field()
     # 店家链接
@@ -41,38 +48,21 @@ class ECommerceShopItem(scrapy.Field):
     # 店家电话
     shopPhoneNumber=scrapy.Field()
 
+# 电商网站店家评论item
 class ECommerceShopCommentItem(scrapy.Field):
+    # 电商网站Id
+    eCommerceId = scrapy.Field()
     # 店家id
     shopId = scrapy.Field()
-    # 店家总评
-    shopTotalRating = scrapy.Field()
-    # 总评相对于行业其他店家
-    shopTotalRatingCTC = scrapy.Field()
-    # 店家商品质量满意度
-    shopGoodQualitySatisficationRating = scrapy.Field()
-    # 店家商品质量满意度相对于行业其他店家
-    shopGoodQualitySatisficationRatingCTC = scrapy.Field()
-    # 店家服务满意度
-    shopServiceSatisficationRating = scrapy.Field()
-    # 店家服务满意度相对于行业其他店家
-    shopServiceSatisficationRatingCTC = scrapy.Field()
-    # 店家物流速度满意度
-    shopLogisticsSpeedSatisficationRating = scrapy.Field()
-    # 店家物流速度满意度相对于行业其他店家
-    shopLogisticsSpeedSatisficationRatingCTC = scrapy.Field()
-    # 商品描述满意度
-    shopGoodDescriptionSatisficationRating = scrapy.Field()
-    # 商品描述满意度相对于行业其他店家
-    shopGoodDescriptionSatisficationRatingCTC = scrapy.Field()
-    # 处理退换货满意度
-    shopProcessingReturnAndExchangeGoodSatisficationRating = scrapy.Field()
-    # 处理退换货满意度相对于行业其他店家
-    shopProcessingReturnAndExchangeGoodSatisficationRatingCTC = scrapy.Field()
-    # 店家违规次数
-    shopDisobeyRulesTimes = scrapy.Field()
+    # 店家评论页的链接
+    shopCommentsUrl = scrapy.Field()
+    # 店家评论数据
+    shopCommentsData=scrapy.Field()
 
-
+# 电商网站商品item
 class ECommerceGoodItem(scrapy.Item):
+    # 电商网站Id
+    eCommerceId = scrapy.Field()
     # 商品id
     goodId = scrapy.Field()
     # 店家id
@@ -84,21 +74,13 @@ class ECommerceGoodItem(scrapy.Item):
     # 商品价格
     goodPrice=scrapy.Field()
 
+# 电商网站商品评论item
 class ECommerceGoodCommentItem(scrapy.Item):
+    # 电商网站Id
+    eCommerceId = scrapy.Field()
     # 商品的id
     goodId=scrapy.Field()
-    # 商品被评论的数量
-    goodCommentsCount=scrapy.Field()
     # 商品评论页的链接
     goodCommentsUrl=scrapy.Field()
-    # 商品晒单数量
-    goodDisplayPictureCount = scrapy.Field()
-    # 商品追加评论数量
-    goodAddCommentCount = scrapy.Field()
-    # 商品好评数量
-    goodRankBetterCommentCount = scrapy.Field()
-    # 商品中评数量
-    goodRankMediateCommentCount = scrapy.Field()
-    # 商品差评数量
-    goodRankWorseCommentCount = scrapy.Field()
-
+    # 商品评论数据
+    goodCommentsData=scrapy.Field()

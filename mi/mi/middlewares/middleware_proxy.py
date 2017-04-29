@@ -116,7 +116,7 @@ class RandomProxyMiddleware(object):
     def process_response(self, request, response, spider):
         # 对特定的http返回码进行重新抓取,主要针对500和599等
         if "proxy" in request.meta:
-            logger.debug("Use proxy: " + request.meta["proxy"] + "to crawler")
+            logger.debug("Use proxy: " + request.meta["proxy"])
         if request.meta.get('dont_retry', False):
             return response
         if response.status in self.retry_http_codes:

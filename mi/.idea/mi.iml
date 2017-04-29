@@ -7,6 +7,11 @@
       <sourceFolder url="file://$MODULE_DIR$/mi/spiders" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/mi/scrapy_redis" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/mi/commands" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/../mi_manager/monitor/templates" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/mi/data_dir" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/mi/middlewares" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/../mi_manager/monitor" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/mi/pipelines" isTestSource="false" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />

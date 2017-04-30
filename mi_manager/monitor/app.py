@@ -56,6 +56,13 @@ def add_ips():
     return jsonify('ok')
 
 
+@app.route('/target_urls', methods=['GET', 'POST'])
+def target_urls():
+    jsonstr = request.form.get('urls', '')
+    urls_array = json.loads(jsonstr)['urls']
+    print dat_service.split_target_urls(urls_array)
+    return jsonify('ok')
+
 # @app.before_first_request
 # def init():
 #     current_app.r = redis.Redis(host=REDIS_HOST, port=REDIS_PORT, db=REDIS_DB)

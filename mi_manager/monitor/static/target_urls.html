@@ -1,4 +1,4 @@
-﻿<!DOCTYPE HTML>
+<!DOCTYPE HTML>
 <html>
 <head>
     <meta charset="utf-8">
@@ -20,7 +20,7 @@
     <script type="text/javascript" src="lib/DD_belatedPNG_0.0.8a-min.js"></script>
     <script>DD_belatedPNG.fix('*');</script>
     <![endif]-->
-    <title>添加代理IP - MiFront</title>
+    <title>目标URLS - MiFront</title>
 </head>
 <body>
 <header class="navbar-wrapper">
@@ -35,8 +35,8 @@
                 <ul class="cl">
                     <li><a href="index.html">首页</a></li>
                     <li><a href="add_spider.html">添加动态Spider</a></li>
-                    <li class="current"><a href="add_ip.html">添加代理IP</a></li>
-                    <li><a href="target_urls.html">目标URLS</a></li>
+                    <li><a href="add_ip.html">添加代理IP</a></li>
+                    <li class="current"><a href="#">目标URLS</a></li>
                     <li><a href="http://www.zzkun.com" target="_blank">联系我们</a></li>
                 </ul>
             </nav>
@@ -50,22 +50,22 @@
         <i class="Hui-iconfont">&#xe67f;</i>
         <a href="index.html" class="c-primary">首页</a>
         <span class="c-gray en">&gt;</span>
-        <span class="c-gray">添加代理IP</span>
+        <span class="c-gray">目标URLS</span>
     </div>
 </nav>
 <section class="container">
     <div style="margin-top: 15px"></div>
     <div class="panel panel-default">
-        <div class="panel-header">添加代理IP</div>
+        <div class="panel-header">提交目标URLS</div>
         <div class="panel-body">
             <div class="form form-horizontal responsive">
 
                 <div class="row cl">
-                    <label class="form-label col-xs-3">代理IP</label>
+                    <label class="form-label col-xs-3">目标ULRS</label>
                     <div class="formControls col-xs-7">
-                        <textarea cols="" rows="" class="textarea" name="ips" id="ips"
+                        <textarea cols="" rows="" class="textarea" name="urls" id="urls"
                                   style="height: 600px"
-                                  placeholder="ips，一行一个"></textarea>
+                                  placeholder="URL，一行一个"></textarea>
                     </div>
                 </div>
 
@@ -74,7 +74,7 @@
                         <input class="btn btn-primary"
                                type="submit"
                                value="&nbsp;&nbsp;提交&nbsp;&nbsp;"
-                               onclick="submit_add_spider()">
+                               onclick="submit_target_urls()">
                     </div>
                 </div>
             </div>
@@ -223,15 +223,15 @@
 </script>
 
 <script>
-    var POST_URL = "http://192.168.210.220:5020/add_ips";
-    function submit_add_spider() {
+    var POST_URL = "http://192.168.210.220:5020/target_urls";
+    function submit_target_urls() {
         var js = {
-            ips: $("#ips").val().split('\n')
+            urls: $("#urls").val().split('\n')
         };
         var str = JSON.stringify(js);
         console.log(str);
-        $.post(POST_URL, {ips: str}).success(function () {
-            alert("添加代理IP成功！");
+        $.post(POST_URL, {urls: str}).success(function () {
+            alert("提交目标URL成功！");
         });
     }
 </script>

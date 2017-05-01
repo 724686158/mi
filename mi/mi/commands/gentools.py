@@ -38,6 +38,8 @@ class Spider_%s(RedisCrawlSpider):
 """
 def generate_spider(jsonfile):
     print jsonfile
+    print '111111111111111\n'
+    print type(jsonfile)
     js = dict(json.loads(jsonfile))
 
     arr = (
@@ -50,9 +52,9 @@ def generate_spider(jsonfile):
         arr2str(js['xpath_title']),
         arr2str(js['xpath_content']))
     ok = spider_template % arr
-    filename = "../spiders/"  + 'spider_'+ js['name'] + '.py'
+    filename = "../spiders/" + 'spider_'+ js['name'] + '.py'
     with open(filename, 'w') as f:
-        f.write(ok)
+        f.write(ok.encode('utf8'))
 #爬虫初始化模板
 spider_init_template = \
 """# -*- coding: utf-8 -*-

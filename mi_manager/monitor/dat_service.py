@@ -8,8 +8,8 @@ PORT = 7001
 DB_ID = 13
 
 
-def get_redis():
-    return redis.Redis(HOST, PORT, DB_ID)
+def get_redis(db_id=DB_ID):
+    return redis.Redis(HOST, PORT, db_id)
 
 
 def save_data(spider_name, json_str):
@@ -23,11 +23,19 @@ def query_data(spider_name):
     print r.get(spider_name)
 
 
-def split_target_urls(urls):
+def get_site_key():
     r = get_redis()
     st = set()
     for i in r.keys():
         st.add(unicode(i, 'utf8'))
-    A, B = [], []
-    map(lambda url: A.append(url) if get_tld(url, fail_silently=True) in st else B.append(url), urls)
-    return A, B
+    return st
+
+
+def split_target_urls(urls):
+    keys = get_site_key()
+    r = get_redis(14)
+    for url in urls:
+        if get_tld(url, fail_silently=True) in keys:
+            r.rpush(1, url)
+        else:
+            r.rpush(0, url)

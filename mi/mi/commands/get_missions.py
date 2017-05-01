@@ -1,6 +1,6 @@
 import redis
 from tld import get_tld
-import gentools
+import gen_spiderfile
 import json
 
 HOST = '192.168.139.239'
@@ -14,8 +14,7 @@ def init():
         js = r13.get(get_tld(unicode(url, 'utf8')))
         js = js.replace("'", '"')
         js = js.replace('u"', '"')
-        gentools.generate_spider(js)
+        gen_spiderfile.generate_spider(js)
 
 if __name__ == '__main__':
     init()
-

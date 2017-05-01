@@ -26,8 +26,15 @@ class StatcollectorMiddleware(object):
         self.formatStats(spider.crawler.stats.get_stats())
 
     def formatStats(self, stats):
+        time = Time()
+        arr = []
         for key in self.stats_keys:
             key_value = stats.get(key, None)
             if not key_value: continue
-            value = {"value": [Time(), key_value]}
-            self.r.rpush(key, value)
+            value = {"value": [time, key_value]}
+            arr.append(value)
+        if len(arr) == len(self.stats_keys):
+            con = 0
+            for key in self.stats_keys:
+                self.r.rpush(key, arr[con])
+                con = con + 1

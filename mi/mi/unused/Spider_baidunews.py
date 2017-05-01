@@ -12,7 +12,7 @@ class Spider_baidunews(RedisCrawlSpider):
     redis_key = 'baidunews:start_urls'
 
     rules = {
-        Rule(LinkExtractor(allow=('https://.*', 'http://.*'), deny=()),callback='processDom',follow=True),
+        Rule(LinkExtractor(allow=('https://.*', 'http://.*'), deny=('.*music.baidu.*', '.*qzone.*', '.*wenku.baidu.*', '.*tieba.*')),callback='processDom',follow=True),
     }
 
     # 获取商品信息

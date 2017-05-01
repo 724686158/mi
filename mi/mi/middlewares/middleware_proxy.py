@@ -15,7 +15,6 @@ from scrapy.xlib.tx import ResponseFailed
 
 logger = logging.getLogger(__name__)
 
-
 class RandomProxyMiddleware(object):
 
     def __init__(self, settings):
@@ -35,13 +34,14 @@ class RandomProxyMiddleware(object):
             self.priority_adjust = settings.getint('RETRY_PRIORITY_ADJUST')
         #加载proxy文件
         self.proxy_dict = {}
-        if not settings.get('HTTPPROXY_FILE_PATH'):
+        if not settings.get('HTTPPROXY_FILE_URL'):
             raise NotConfigured
-        file_path = settings.get('HTTPPROXY_FILE_PATH')
-        if os.path.exists(file_path):
-            self.proxy_dict = self._load_data(file_path)
-        else:
-            raise ValueError
+        file_url = settings.get('HTTPPROXY_FILE_URL')
+        self.proxy_dict = self.read_url(file_url)
+
+
+
+
 
     @classmethod
     def from_crawler(cls, crawler):
@@ -55,6 +55,15 @@ class RandomProxyMiddleware(object):
                 if url:
                     proxy_dict[url] = {"status":"valid", "chance":self.max_proxy_chance}
         return proxy_dict
+
+    def read_url(self, url):
+        import requests
+        r = requests.get(url)
+        res = {}
+        for i in r.text.split('\n'):
+            if len(i.strip()) > 0:
+                res[i.strip()] = {"status":"valid", "chance":self.max_proxy_chance}
+        return res
 
     def _del_invaild_proxy(self, request):
         # 失败了，减少proxy使用机会chance，当chance为0删除无效的proxy
@@ -116,7 +125,7 @@ class RandomProxyMiddleware(object):
     def process_response(self, request, response, spider):
         # 对特定的http返回码进行重新抓取,主要针对500和599等
         if "proxy" in request.meta:
-            logger.debug("Use proxy: " + request.meta["proxy"])
+            logger.debug("Use proxy: " + request.meta["proxy"].strip())
         if request.meta.get('dont_retry', False):
             return response
         if response.status in self.retry_http_codes:

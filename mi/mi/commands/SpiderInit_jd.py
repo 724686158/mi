@@ -12,15 +12,15 @@ def init():
     except Exception:
         print "insert eCommerceId failed"
 
-    print "pushing caijing_start_url......"
+    print "pushing jd:start_url......"
     try:
         r = redis.Redis(prime_settings.REDIS_HOST, prime_settings.REDIS_PORT)
         r.delete("jd:start_urls")
         r.delete("jd:dupefilter" + "0")
         r.delete("jd:requests")
         r.lpush("jd:start_urls", 'https://item.jd.com/3312381.html')
-        print "pushing jd_start_url success"
+        print "pushing jd:start_url success"
     except Exception:
-        print "pushing jd_start_url failed"
+        print "pushing jd:start_url failed"
 if __name__ == '__main__':
     init()

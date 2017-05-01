@@ -16,7 +16,7 @@ var data = [{'value': [Date(), '0']}]
 var myChart = echarts.init(document.getElementById('main'));
     option = {
     title: {
-        text: '爬虫监控数据',
+        text: '爬虫监视器',
         left:'center'
     },
     tooltip: {
@@ -65,14 +65,17 @@ function ajax_get(name){
     $data = {
             showSymbol: false,
             hoverAnimation: false,
-            name:name,
+            name: chg(name),
             type:'line',
             data:eval(data)
         };
+    console.log(new Date());
+    console.log($data);
+//    return $data;
     series.push($data);
 }, error: function(jqXHR, text, errorThrown){
     is_running = false;
-    data = jqXHR.responseText
+    data = jqXHR.responseText;
     $data = {
             showSymbol: false,
             hoverAnimation: false,
@@ -85,26 +88,43 @@ function ajax_get(name){
 
 }
 
+function chg(str) {
+    switch (str) {
+        case "downloader/request_count":
+            return "请求数";
+        case "downloader/response_count":
+            return "响应数";
+        case "downloader/response_status_count/200":
+            return "正常响应数";
+        case "item_scraped_count":
+            return "收集到的数据包";
+    }
+    return "NULL";
+}
+
 function get_data(){
     series = [];
+    new_keys = [];
     for (i=0;i<STATS_KEYS.length;i++){
-        ajax_get(STATS_KEYS[i])
+        ajax_get(STATS_KEYS[i]);
+        new_keys.push(chg(STATS_KEYS[i]));
     }
+//    console.log(STATS_KEYS);
     myChart.setOption({
         series: series,
         legend: {
-        data:STATS_KEYS,
-        orient:'vertical',
-        left: 'right'
-    },
+            data: new_keys,
+            orient:'vertical',
+            left: 'right'
+        }
     })
 }
 
 var timer = setInterval(function(){
-    get_data()
+    get_data();
     if (!is_running){
         clearInterval(timer);
-    };
+    }
 },{{ timeinterval }});
 </script>
 </body>

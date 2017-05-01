@@ -33,8 +33,6 @@ class MongoPipeline(object):
 
     # 将数据存入到数据库中
     def process_item(self, item, spider):
-        print "catch a item"
-        print type(item)
         if isinstance(item, ArticleItem):
             self.hp_collection_name = settings.MONGO_COLLECTION_NAME
             self.db[self.hp_collection_name + '_' + 'ArticleItem'].insert(dict(item))  # 存入数据库原始数据

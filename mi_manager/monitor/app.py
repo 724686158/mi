@@ -3,7 +3,7 @@ import json
 from flask import Flask, render_template, jsonify, request, current_app
 import redis
 from monitor_settings import *
-from gentools import *
+from gen_spiderInitfile import *
 import dat_service
 import url_extract_tools
 
@@ -63,10 +63,10 @@ def target_urls():
     print dat_service.split_target_urls(urls_array)
     return jsonify('ok')
 
-# @app.before_first_request
-# def init():
-#     current_app.r = redis.Redis(host=REDIS_HOST, port=REDIS_PORT, db=REDIS_DB)
-#     current_app.spider_is_run = True if current_app.r.get('spider_is_run') == '1' else False
+@app.before_first_request
+def init():
+    current_app.r = redis.Redis(host=REDIS_HOST, port=REDIS_PORT, db=REDIS_DB)
+    current_app.spider_is_run = True if current_app.r.get('spider_is_run') == '1' else False
 
 
 if __name__ == '__main__':

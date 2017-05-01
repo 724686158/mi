@@ -28,7 +28,7 @@ FILTER_HOST = '192.168.139.239'
 FILTER_PORT = 7001
 FILTER_DB = 0
 # redis ——用于监控的数据库
-FLASK_DB = 0
+FLASK_DB = 15
 #存储爬虫运行数据的四个队列,需要与monitor.monitor_settings中的一致
 request_count = 'downloader/request_count'
 response_count = 'downloader/response_count'
@@ -40,7 +40,7 @@ STATS_KEYS = ["downloader/request_count", "downloader/response_count", "download
 MONGO_HOST = '192.168.139.239'
 MONGO_PORT = 27017
 MONGO_DATABASE = 'mi'
-MONGO_COLLECTION_NAME = 'data_20170429_2'
+MONGO_COLLECTION_NAME = 'data_20170501_12'
 
 #监控服务器信息
 MONITOR_HOST = "0.0.0.0"
@@ -49,18 +49,18 @@ MONITOR_PORT = "5020"
 #Mysql数据库的配置信息
 MYSQL_HOST = "192.168.139.239"
 MYSQL_PORT = 3306
-MYSQL_DBNAME = 'data_20170429_1'    #数据库名字
+MYSQL_DBNAME = 'data_20170501_12'    #数据库名字
 MYSQL_USER = 'root'                 #数据库账号
 MYSQL_PASSWD = 'mi'                 #数据库密码
 
 #用于创建电商相关的表
-sql_createtable = "\
-create table ECommerce(eCommerceId int primary key, eCommerceName varchar(200), eCommerceUrl varchar(200)) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin; \
-create table ECommerceShop(eCommerceId int, shopId bigint, shopName varchar(200), shopUrl varchar(200), shopLocation varchar(200), shopPhoneNumber varchar(200), PRIMARY KEY (shopId, eCommerceId),FOREIGN KEY (eCommerceId) REFERENCES ECommerce(eCommerceId)) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin; \
-create table ECommerceShopComment(eCommerceId int, shopId bigint, shopCommentsUrl varchar(200), shopCommentsData varchar(400), PRIMARY KEY (shopId, eCommerceId),FOREIGN KEY (eCommerceId) REFERENCES ECommerce(eCommerceId)) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin; \
-create table ECommerceGood(eCommerceId int, goodId bigint, shopId bigint, goodName varchar(400), goodUrl varchar(200), goodPrice float, PRIMARY KEY (goodId, eCommerceId),FOREIGN KEY (eCommerceId) REFERENCES ECommerce(eCommerceId)) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin; \
-create table ECommerceGoodComment(eCommerceId int, goodId bigint, goodCommentsUrl varchar(200), goodCommentsData varchar(1600), PRIMARY KEY (goodId, eCommerceId),FOREIGN KEY (eCommerceId) REFERENCES ECommerce(eCommerceId)) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin; \
-"
+sql_createtable = '\
+create table ECommerce(eCommerceId int primary key, eCommerceName varchar(32), eCommerceUrl varchar(256)) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin; \
+create table ECommerceShop(eCommerceId int, shopId varchar(32), shopName varchar(256), shopUrl varchar(1024), shopLocation varchar(256), shopPhoneNumber varchar(256), PRIMARY KEY (eCommerceId, shopId), FOREIGN KEY (eCommerceId) REFERENCES ECommerce(eCommerceId)) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin; \
+create table ECommerceShopComment(eCommerceId int, shopId varchar(32), shopCommentsUrl varchar(256), shopCommentsData varchar(2048), PRIMARY KEY (eCommerceId, shopId), FOREIGN KEY (eCommerceId) REFERENCES ECommerce(eCommerceId)) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin; \
+create table ECommerceGood(eCommerceId int, goodId varchar(32), shopId varchar(32), goodName varchar(1024), goodUrl varchar(1024), goodPrice varchar(32), PRIMARY KEY (eCommerceId, goodId), FOREIGN KEY (eCommerceId) REFERENCES ECommerce(eCommerceId)) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin; \
+create table ECommerceGoodComment(eCommerceId int, goodId varchar(32), goodCommentsUrl varchar(256), goodCommentsData varchar(2048), PRIMARY KEY (eCommerceId, goodId), FOREIGN KEY (eCommerceId) REFERENCES ECommerce(eCommerceId)) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin; \
+'
 
 #日志设置,禁用“LOG_STDOUT=True”
 #LOG_FILE='mi.log'
@@ -77,14 +77,14 @@ ITEM_PIPELINES = {
 # 中间件
 # 注意不要使用'scrapy.downloadermiddlewares.retry.RetryMiddleware'，此中间件会造成程序卡死
 DOWNLOADER_MIDDLEWARES = {
-    #'mi.middlewares.middleware_proxy.RandomProxyMiddleware':400,# 代理相关
+    'mi.middlewares.middleware_proxy.RandomProxyMiddleware':400,# 代理相关
     'mi.middlewares.middleware_rotateUserAgent.RotateUserAgentMiddleware': 401,
     'mi.middlewares.middleware_monitor.StatcollectorMiddleware': 402,# 可视化相关
 }
 
 # 代理相关
 # 存储可信代理的文件路径
-HTTPPROXY_FILE_PATH = "/home/solitarius/mi/mi/mi/proxy/valid_proxy.txt"
+HTTPPROXY_FILE_URL = 'http://0.0.0.0:5020/static/valid_proxy.txt'
 # 请求连接失败重试次数
 RETRY_TIMES = 6
 # proxy失败重试次数
@@ -94,7 +94,7 @@ RETRY_HTTP_CODES = [500, 503, 504, 599, 403]
 # 下载超时
 DOWNLOAD_TIMEOUT = 6
 
-SCHEDULER = "mi.scrapy_redis.scheduler.Scheduler"
+SCHEDULER = 'mi.scrapy_redis.scheduler.Scheduler'
 SCHEDULER_PERSIST = True
 SCHEDULER_QUEUE_CLASS = 'mi.scrapy_redis.queue.SpiderPriorityQueue'
 

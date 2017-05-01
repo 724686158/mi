@@ -46,12 +46,12 @@ class Spider_jd(RedisCrawlSpider):
             goodItem['goodName'] = ''.join(response.xpath('''//div[@class='itemInfo-wrap']/div[@class='sku-name']/text()''').extract()).strip()
             goodItem['goodUrl'] = response.url
             try:
-                priceResponse = requests.get(url='http://p.3.cn/prices/mgets?skuIds=J_' + str(itemId)).text
+                priceResponse = requests.get(url='https://p.3.cn/prices/mgets?&pduid=1&skuIds=J_' + str(itemId)).text
                 data = json.loads(priceResponse)[0]
                 itemPrice = data['p']
                 goodItem['goodPrice'] = itemPrice
             except:
-                goodItem['goodPrice'] = -404
+                goodItem['goodPrice'] = '无货'
             yield goodItem
 
             # 商品评论信息

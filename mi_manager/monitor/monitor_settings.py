@@ -12,6 +12,6 @@ item_scraped_count = "item_scraped_count"
 STATS_KEYS = ["downloader/request_count", "downloader/response_count", "downloader/response_status_count/200", "item_scraped_count"]
 REDIS_HOST = "192.168.139.239"
 REDIS_PORT = 7001
-REDIS_DB = 0
+REDIS_DB = 15
 APP_HOST = "0.0.0.0"
 APP_PORT = 5020

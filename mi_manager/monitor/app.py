@@ -42,6 +42,7 @@ def gen_spider():
     start_urls = list(js['start_urls'])
     spider_name = url_extract_tools.extract_main_url(start_urls)
     dat_service.save_data(spider_name, jsonstr)
+    generate_spider_init(jsonstr)
     return jsonify('ok')
 
 

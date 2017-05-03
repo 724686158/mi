@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 import json
-from flask import Flask, render_template, jsonify, request, current_app
+from flask import Flask, render_template, jsonify, request, current_app, redirect
 import redis
 from monitor_settings import *
 from gen_spiderInitfile import *
@@ -12,6 +12,11 @@ app = Flask(__name__)
 
 @app.route('/')
 def index():
+    return redirect('/static/index.html')
+
+
+@app.route('/monitor')
+def monitor():
     return render_template('index.html', timeinterval=TIMEINTERVAL, stats_keys=STATS_KEYS)
 
 
@@ -63,6 +68,12 @@ def target_urls():
     urls_array = json.loads(jsonstr)['urls']
     print dat_service.split_target_urls(urls_array)
     return jsonify('ok')
+
+
+@app.route('/get_spider_names', methods=['GET'])
+def get_spider_names():
+    return jsonify(dat_service.get_spider_count_from_db())
+
 
 @app.before_first_request
 def init():

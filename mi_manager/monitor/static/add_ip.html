@@ -222,8 +222,9 @@
     }
 </script>
 
+<script type="text/javascript" src="const.js"></script>
 <script>
-    var POST_URL = "http://192.168.210.220:5020/add_ips";
+    var POST_URL = POST_URL_PREFIX + "/add_ips";
     function submit_add_spider() {
         var js = {
             ips: $("#ips").val().split('\n')

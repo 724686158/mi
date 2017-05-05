@@ -60,7 +60,11 @@ var myChart = echarts.init(document.getElementById('main'));
 myChart.setOption(option);
 
 is_running = true
-function ajax_get(name){
+function ajax_get(name) {
+    var spider_name = "{{ spider_name }}";
+    if (spider_name !== "None") {
+        name = name + "_" + spider_name;
+    }
     $.ajax({url:"/ajax?key="+name, async: false, success: function(data){
     $data = {
             showSymbol: false,

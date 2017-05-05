@@ -17,7 +17,10 @@ def index():
 
 @app.route('/monitor')
 def monitor():
-    return render_template('index.html', timeinterval=TIMEINTERVAL, stats_keys=STATS_KEYS)
+    return render_template('index.html',
+                           timeinterval=TIMEINTERVAL,
+                           stats_keys=STATS_KEYS,
+                           spider_name=request.args.get('spider_name'))
 
 
 @app.route('/ajax')

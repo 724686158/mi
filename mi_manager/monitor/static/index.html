@@ -18,6 +18,7 @@
     <![endif]-->
     <!--[if IE 6]>
     <script type="text/javascript" src="lib/DD_belatedPNG_0.0.8a-min.js"></script>
+
     <script>DD_belatedPNG.fix('*');</script>
     <![endif]-->
     <title>添加动态Spider - MiFront</title>
@@ -65,7 +66,13 @@
 
 <section class="container">
     <div style="margin-top: 15px"></div>
-    <h1 style="margin-left: 15%">Mi 管理中心 欢迎您！</h1>
+    <div class="col-offset-2 col-8">
+        <h1>Mi 管理中心 欢迎您！</h1>
+        <div style="margin-top: 15px"></div>
+        <div id="mon">
+        </div>
+    </div>
+
 </section>
 <footer class="footer mt-20">
     <div class="container">
@@ -206,6 +213,20 @@
     function modalalertdemo() {
         $.Huimodalalert('我是消息框，2秒后我自动滚蛋！', 2000);
     }
+</script>
+
+<script type="text/javascript" src="const.js"></script>
+<script>
+    var GET_URL = POST_URL_PREFIX + "/get_spider_names";
+    var MON_URL = POST_URL_PREFIX + "/monitor";
+    $.get(GET_URL).success(function (dat) {
+        $("#mon").append("<a class=\"btn radius btn-primary\" href='" + MON_URL + "' style='margin: 5px'>爬虫总监视器</a>")
+        for (var i = 0; i < dat.length; ++i) {
+            $("#mon").append("<a class=\"btn radius btn-secondary-outline\" href='"
+                + MON_URL + "?spider_name=" + dat[i]
+                + "' style='margin: 5px'>爬虫" + dat[i] + "监视器</a>")
+        }
+    });
 </script>
 
 

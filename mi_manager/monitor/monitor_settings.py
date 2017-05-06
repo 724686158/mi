@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 TIMEINTERVAL = 500#监控台刷新时间间隔，单位毫秒
-POINTINTERVAL = 50#图上各点之间间隔，越小则表示点越密集
-POINTLENGTH = 5000#图上点的数量，越大则表示图上时间跨度越长
+POINTINTERVAL = 5#图上各点之间间隔，越小则表示点越密集
+POINTLENGTH = 10000#图上点的数量，越大则表示图上时间跨度越长
 
 #存储爬虫运行数据的四个队列,名字不可更改
 request_count = "downloader/request_count"

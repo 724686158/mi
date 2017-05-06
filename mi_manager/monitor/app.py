@@ -59,7 +59,7 @@ def add_ips():
     jsonstr = request.form.get('ips', '')
     ips_array = json.loads(jsonstr)['ips']
     print ips_array
-    with open('static/valid_proxy.txt', 'a') as f:
+    with open('static/valid_proxy.txt', 'w') as f:
         for i in ips_array:
             f.write(i + '\n')
     return jsonify('ok')

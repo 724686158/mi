@@ -13,6 +13,11 @@ class MonitorInit(object):
             r.delete(prime_settings.response_count)
             r.delete(prime_settings.response_status200_count)
             r.delete(prime_settings.item_scraped_count)
+
+            r.delete(prime_settings.request_count + '_' + prime_settings.MI_DSSID)
+            r.delete(prime_settings.response_count + '_' + prime_settings.MI_DSSID)
+            r.delete(prime_settings.response_status200_count + '_' + prime_settings.MI_DSSID)
+            r.delete(prime_settings.item_scraped_count + '_' + prime_settings.MI_DSSID)
             print "pushing start_url success"
         except Exception:
             print "pushing start_url failed"

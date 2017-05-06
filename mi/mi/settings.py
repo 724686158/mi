@@ -73,7 +73,6 @@ ITEM_PIPELINES = {
     'mi.pipelines.pipeline_mongo.MongoPipeline':300,
     'mi.pipelines.pipeline_mysql.MysqlPipeline':301,
     'mi.pipelines.pipeline_monitor.SpiderRunStatspipeline':302#可视化相关
-
 }
 
 # 中间件

@@ -8,7 +8,6 @@ class StatcollectorMiddleware(object):
     # 用于初始化,与实际服务无关
     r = redis.Redis(host="127.0.0.1", port="6379", db=0)
     MI_DSSID = ''
-
     timer = lambda: time.strftime('%Y-%m-%d %H:%M:%S')
     def __init__(self, settings):
         REDIS_HOST = settings.get('REDIS_HOST')
@@ -31,7 +30,16 @@ class StatcollectorMiddleware(object):
         for key in self.stats_keys:
             key_value = stats.get(key, None)
             if not key_value: key_value = 0
-            print str(key) + " is : " + str(key_value)
             value = {"value": [time, key_value]}
-            self.r.rpush(key, value)
             self.r.rpush(key + "_" + str(self.MI_DSSID), value)
+        time = Time()
+        for key in self.stats_keys:
+            sum = 0
+            redis_keys = self.r.keys()
+            for redis_key in redis_keys:
+                if key in redis_key and key != redis_key:
+                    one_part_of_value = self.r.lindex(redis_key, -1)
+                    if one_part_of_value is not None:
+                        sum = sum + eval(one_part_of_value)['value'][1]
+            value = {"value": [time, sum]}
+            self.r.rpush(key, value)

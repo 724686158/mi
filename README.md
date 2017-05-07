@@ -24,3 +24,4 @@
 
 [2017年中国软件杯“分布式爬虫系统”开发记录（五）](http://www.mengzicheng.cn/wordpress/?p=833)
 
+[2017年中国软件杯“分布式爬虫系统”开发记录（六）](http://www.mengzicheng.cn/wordpress/?p=941)

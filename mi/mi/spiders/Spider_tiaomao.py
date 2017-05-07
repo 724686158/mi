@@ -28,6 +28,3 @@ class Spider_tiaomao(RedisCrawlSpider):
         response.url
         url = response.url
         print url
-        # 提取html
-        html = requests.get(url=url).content
-        print html

@@ -10,7 +10,8 @@ NEWSPIDER_MODULE = 'mi.spiders'
 # 是否启用robots
 ROBOTSTXT_OBEY = False
 # 是否启用COOKIES
-COOKIES_ENABLED = False
+COOKIES_ENABLED = True
+COOKIES_DEBUG = True
 # 是否启用重试
 RETRY_ENABLED = False
 # 超时时限
@@ -27,9 +28,22 @@ REDIS_PORT = 7001
 # redis —— 去重队列
 FILTER_HOST = '192.168.139.239'
 FILTER_PORT = 7001
+
+# 用于存储调度队列 ———— 的redis数据据库编号（0～15）
 FILTER_DB = 0
-# redis ——用于监控的数据库
+
+# 用于存储Cookie数据 ———— 的redis数据据库编号（0～15）
+COOKIES_DB = 12
+
+# 用于存储新闻类爬虫配置参数 ———— 的redis数据据库编号（0～15）
+SPIDERS_DB = 13
+
+# 用于存储任务信息 ———— 的redis数据据库编号（0～15）
+MISSIONS_DB = 14
+
+# 用于存储Monitor数据 ———— 的redis数据据库编号（0～15）
 FLASK_DB = 15
+
 #存储爬虫运行数据的四个队列,需要与monitor.monitor_settings中的一致
 request_count = 'downloader/request_count'
 response_count = 'downloader/response_count'
@@ -81,6 +95,7 @@ DOWNLOADER_MIDDLEWARES = {
     #'mi.middlewares.middleware_proxy.RandomProxyMiddleware':400,# 代理相关
     'mi.middlewares.middleware_rotateUserAgent.RotateUserAgentMiddleware': 401,
     'mi.middlewares.middleware_monitor.StatcollectorMiddleware': 402,# 可视化相关
+    'mi.middlewares.middleware_cookie.CookieMiddleware': 700,# 该中间件将重试可能由于临时的问题，例如连接超时或者HTTP 500错误导致失败的页面。尝试加上cookie重新访问
 }
 
 # 代理相关
@@ -91,7 +106,7 @@ RETRY_TIMES = 6
 # proxy失败重试次数
 PROXY_USED_TIMES = 2
 # 重试返回码
-RETRY_HTTP_CODES = [500, 503, 504, 599, 403]
+RETRY_HTTP_CODES = [500, 503, 504, 599, 403, 302]
 # 下载超时
 DOWNLOAD_TIMEOUT = 6
 

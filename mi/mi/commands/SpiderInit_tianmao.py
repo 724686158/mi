@@ -22,5 +22,13 @@ def init():
         print "pushing tianmao:start_url success"
     except Exception:
         print "pushing tianmao:start_url failed"
+
+    try:
+        print "尝试加入cookie用户帐号信息..."
+        r = redis.Redis(prime_settings.REDIS_HOST, prime_settings.COOKIES_DB)
+        r.lpush("tianmao", 'omtbreak')
+        print "尝试加入cookie用户帐号信息成功"
+    except Exception:
+        print "尝试加入cookie用户帐号信息失败"
 if __name__ == '__main__':
     init()

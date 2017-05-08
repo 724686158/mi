@@ -32,6 +32,9 @@ FILTER_PORT = 7001
 # 用于存储调度队列 ———— 的redis数据据库编号（0～15）
 FILTER_DB = 0
 
+# 用于暂存爬虫运行时数据 ———— 的redis数据据库编号（0～15）
+RUNNINGDATA_DB = 11
+
 # 用于存储Cookie数据 ———— 的redis数据据库编号（0～15）
 COOKIES_DB = 12
 
@@ -55,7 +58,7 @@ STATS_KEYS = ["downloader/request_count", "downloader/response_count", "download
 MONGO_HOST = '192.168.139.239'
 MONGO_PORT = 27017
 MONGO_DATABASE = 'mi'
-MONGO_COLLECTION_NAME = 'data_20170506_2'
+MONGO_COLLECTION_NAME = 'data_20170508_1'
 
 #监控服务器信息
 MONITOR_HOST = "0.0.0.0"
@@ -64,7 +67,7 @@ MONITOR_PORT = "5020"
 #Mysql数据库的配置信息
 MYSQL_HOST = "192.168.139.239"
 MYSQL_PORT = 3306
-MYSQL_DBNAME = 'data_20170506_2'    #数据库名字
+MYSQL_DBNAME = 'data_20170508_1'    #数据库名字
 MYSQL_USER = 'root'                 #数据库账号
 MYSQL_PASSWD = 'mi'                 #数据库密码
 

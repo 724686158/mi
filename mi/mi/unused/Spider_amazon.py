@@ -9,8 +9,6 @@ from mi.items import ECommerceGoodCommentItem
 from mi.items import ECommerceShopCommentItem
 from mi.items import ECommerceShopItem
 import re
-import requests
-import json
 class AmazonSpider(RedisCrawlSpider):
 
     name = 'amazon'

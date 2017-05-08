@@ -14,7 +14,7 @@ def init():
 
     print "pushing tianmao:start_url......"
     try:
-        r = redis.Redis(prime_settings.REDIS_HOST, prime_settings.REDIS_PORT)
+        r = redis.Redis(prime_settings.REDIS_HOST, prime_settings.REDIS_PORT, db = prime_settings.FILTER_DB)
         r.delete("tianmao:start_urls")
         r.delete("tianmao:dupefilter" + "0")
         r.delete("tianmao:requests")
@@ -25,7 +25,7 @@ def init():
 
     try:
         print "尝试加入cookie用户帐号信息..."
-        r = redis.Redis(prime_settings.REDIS_HOST, prime_settings.COOKIES_DB)
+        r = redis.Redis(prime_settings.REDIS_HOST, prime_settings.REDIS_PORT, db = prime_settings.COOKIES_DB)
         r.lpush("tianmao", 'omtbreak')
         print "尝试加入cookie用户帐号信息成功"
     except Exception:

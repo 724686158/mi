@@ -1,6 +1,4 @@
 # -*- coding: utf-8 -*-
-# 使用此配置文件运行的爬虫的唯一id
-MI_DSSID = 'JD'
 
 BOT_NAME = 'mi'
 SPIDER_MODULES = ['mi.spiders']
@@ -45,20 +43,16 @@ SPIDERS_DB = 13
 MISSIONS_DB = 14
 
 # 用于存储Monitor数据 ———— 的redis数据据库编号（0～15）
-FLASK_DB = 15
+MONITOR_DB = 15
 
 #存储爬虫运行数据的四个队列,需要与monitor.monitor_settings中的一致
-request_count = 'downloader/request_count'
-response_count = 'downloader/response_count'
-response_status200_count = 'downloader/response_status_count/200'
-item_scraped_count = 'item_scraped_count'
 STATS_KEYS = ["downloader/request_count", "downloader/response_count", "downloader/response_status_count/200", "item_scraped_count"]
 
 # mongodb数据库的配置信息
 MONGO_HOST = '192.168.139.239'
 MONGO_PORT = 27017
 MONGO_DATABASE = 'mi'
-MONGO_COLLECTION_NAME = 'data_20170508_1'
+MONGO_COLLECTION_NAME = 'data_20170509_0'
 
 #监控服务器信息
 MONITOR_HOST = "0.0.0.0"
@@ -67,7 +61,7 @@ MONITOR_PORT = "5020"
 #Mysql数据库的配置信息
 MYSQL_HOST = "192.168.139.239"
 MYSQL_PORT = 3306
-MYSQL_DBNAME = 'data_20170508_1'    #数据库名字
+MYSQL_DBNAME = 'data_20170509_0'    #数据库名字
 MYSQL_USER = 'root'                 #数据库账号
 MYSQL_PASSWD = 'mi'                 #数据库密码
 

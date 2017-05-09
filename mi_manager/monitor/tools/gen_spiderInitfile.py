@@ -35,6 +35,6 @@ def generate_spider_init(jsonfile):
         js['name'],
         js['name'])
     ok = spider_init_template % arr
-    filename = "../spiderInit/" + "spiderInit_" + js['name'] + ".py"
+    filename = "../monitor/spiderInit/" + "spiderInit_" + js['name'] + ".py"
     with open(filename, 'w') as f:
         f.write(ok.encode('utf8'))

@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from tld import get_tld
 
 

@@ -3,7 +3,7 @@ import mi.settings as settings
 import redis
 import requests
 
-r = redis.Redis(host=settings.REDIS_HOST, port=settings.REDIS_PORT, db=settings.FLASK_DB)
+r = redis.Redis(host=settings.REDIS_HOST, port=settings.REDIS_PORT, db=settings.MONITOR_DB)
 class SpiderRunStatspipeline(object):
     def open_spider(self, spider):
 

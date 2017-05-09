@@ -34,11 +34,11 @@ class Command(ScrapyCommand):
 
     def run(self, args, opts):
         # 初始化监控器数据
-        monitor_init = MonitorInit()
-        monitor_init.start()
-        #初始化mysql数据库
-        mysql_init = MysqlInit()
-        mysql_init.start()
+        self.init_monitor()
+        # 初始化mysql数据库
+        self.init_mysql()
+        # 初始化爬虫文件
+        self.init_spiderfiles()
 
         spider_loader = self.crawler_process.spider_loader
         for spidername in args or spider_loader.list():
@@ -47,3 +47,17 @@ class Command(ScrapyCommand):
             os.system("python mi/commands/SpiderInit_" + spidername + ".py")
             self.crawler_process.crawl(spidername, **opts.spargs)
             self.crawler_process.start()
+
+    def init_monitor(self):
+        # 初始化监控器数据
+        monitor_init = MonitorInit()
+        monitor_init.start()
+
+    def init_mysql(self):
+        # 初始化mysql数据库
+        mysql_init = MysqlInit()
+        mysql_init.start()
+
+    def init_spiderfiles(self):
+        # 初始化爬虫文件
+        pass

@@ -1,11 +1,11 @@
 # -*- coding: utf-8 -*-
-import json
-from flask import Flask, render_template, jsonify, request, current_app, redirect
+
 import redis
-from monitor_settings import *
-from gen_spiderInitfile import *
-import dat_service
-import url_extract_tools
+from flask import Flask, render_template, jsonify, request, current_app, redirect
+
+import monitor_settings
+from monitor.tools import dat_service, url_extract_tools
+from monitor.tools.gen_spiderInitfile import *
 
 app = Flask(__name__)
 
@@ -18,15 +18,15 @@ def index():
 @app.route('/monitor')
 def monitor():
     return render_template('index.html',
-                           timeinterval=TIMEINTERVAL,
-                           stats_keys=STATS_KEYS,
+                           timeinterval=monitor_settings.TIMEINTERVAL,
+                           stats_keys=monitor_settings.STATS_KEYS,
                            spider_name=request.args.get('spider_name'))
 
 
 @app.route('/ajax')
 def ajax():
     key = request.args.get('key')
-    result = current_app.r.lrange(key, -POINTLENGTH, -1)[::POINTINTERVAL]
+    result = current_app.r.lrange(key, -monitor_settings.POINTLENGTH, -1)[::monitor_settings.POINTINTERVAL]
     if not current_app.spider_is_run:
         # spider is closed
         return json.dumps(result).replace('"', ''), 404
@@ -80,9 +80,13 @@ def get_spider_names():
 
 @app.before_first_request
 def init():
-    current_app.r = redis.Redis(host=REDIS_HOST, port=REDIS_PORT, db=REDIS_DB)
+    current_app.r = redis.Redis(host=monitor_settings.REDIS_HOST, port=monitor_settings.REDIS_PORT, db=monitor_settings.MONITOR_DB)
     current_app.spider_is_run = True if current_app.r.get('spider_is_run') == '1' else False
 
 
 if __name__ == '__main__':
-    app.run(host=APP_HOST, port=APP_PORT, debug=True)
+    text = 'POST_URL_PREFIX = "http://' + monitor_settings.APP_HOST + ':' + str(monitor_settings.APP_PORT) + '"'
+    filename = "../monitor/static/const.js"
+    with open(filename, 'w') as f:
+        f.write(text.encode('utf8'))
+    app.run(host=monitor_settings.APP_HOST, port=monitor_settings.APP_PORT, debug=True)

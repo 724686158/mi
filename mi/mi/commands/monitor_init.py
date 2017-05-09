@@ -7,7 +7,7 @@ class MonitorInit(object):
         print "pushing start_url......"
         try:
             # 连接数据库
-            r = redis.Redis(prime_settings.REDIS_HOST, prime_settings.REDIS_PORT, db = prime_settings.FLASK_DB)
+            r = redis.Redis(prime_settings.REDIS_HOST, prime_settings.REDIS_PORT, db = prime_settings.MONITOR_DB)
             # 清空monitor的四个队列
 
             r.delete(prime_settings.request_count)

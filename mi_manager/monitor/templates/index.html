@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>爬虫动态监控系统</title>
+    <title>爬虫{{ spider_name }}动态监控系统</title>
     <script src="//cdn.bootcss.com/echarts/3.3.2/echarts.common.js"></script>
     <script src="//cdn.bootcss.com/jquery/3.1.1/jquery.min.js"></script>
 </head>
@@ -16,7 +16,7 @@ var data = [{'value': [Date(), '0']}]
 var myChart = echarts.init(document.getElementById('main'));
     option = {
     title: {
-        text: '爬虫监视器',
+        text: '爬虫{{ spider_name }}监视器',
         left:'center'
     },
     tooltip: {
@@ -62,10 +62,11 @@ myChart.setOption(option);
 is_running = true
 function ajax_get(name) {
     var spider_name = "{{ spider_name }}";
+    var query_name = name;
     if (spider_name !== "None") {
-        name = name + "_" + spider_name;
+        query_name = name + "_" + spider_name;
     }
-    $.ajax({url:"/ajax?key="+name, async: false, success: function(data){
+    $.ajax({url:"/ajax?key="+query_name, async: false, success: function(data){
     $data = {
             showSymbol: false,
             hoverAnimation: false,
@@ -73,8 +74,8 @@ function ajax_get(name) {
             type:'line',
             data:eval(data)
         };
-    console.log(new Date());
-    console.log($data);
+//    console.log(new Date());
+//    console.log($data);
 //    return $data;
     series.push($data);
 }, error: function(jqXHR, text, errorThrown){

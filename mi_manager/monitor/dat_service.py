@@ -2,7 +2,7 @@
 import json
 import redis
 from tld import get_tld
-import monitor.monitor_settings
+import monitor_settings
 
 HOST = '192.168.139.239'
 PORT = 7001
@@ -34,7 +34,7 @@ def get_site_key():
 
 def split_target_urls(urls):
     keys = get_site_key()
-    r = get_redis(monitor.monitor_settings.MISSIONS_DB)
+    r = get_redis(monitor_settings.MISSIONS_DB)
     # 获取新任务后清空数据库
     r.flushdb()
     for url in urls:
@@ -45,7 +45,7 @@ def split_target_urls(urls):
 
 
 def get_spider_count_from_db():
-    r = get_redis(monitor.monitor_settings.MONITOR_DB)
+    r = get_redis(monitor_settings.MONITOR_DB)
     keys = r.keys()
     arr = []
     for i in keys:

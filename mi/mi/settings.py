@@ -52,7 +52,7 @@ STATS_KEYS = ["downloader/request_count", "downloader/response_count", "download
 MONGO_HOST = '192.168.139.239'
 MONGO_PORT = 27017
 MONGO_DATABASE = 'mi'
-MONGO_COLLECTION_NAME = 'data_20170509_0'
+MONGO_COLLECTION_NAME = 'data_20170510_0'
 
 #监控服务器信息
 MONITOR_HOST = "0.0.0.0"
@@ -61,7 +61,7 @@ MONITOR_PORT = "5020"
 #Mysql数据库的配置信息
 MYSQL_HOST = "192.168.139.239"
 MYSQL_PORT = 3306
-MYSQL_DBNAME = 'data_20170509_0'    #数据库名字
+MYSQL_DBNAME = 'data_20170510_0'    #数据库名字
 MYSQL_USER = 'root'                 #数据库账号
 MYSQL_PASSWD = 'mi'                 #数据库密码
 
@@ -97,7 +97,7 @@ DOWNLOADER_MIDDLEWARES = {
 
 # 代理相关
 # 存储可信代理的文件路径
-HTTPPROXY_FILE_URL = 'http://192.168.210.152:5020/static/valid_proxy.txt'
+HTTPPROXY_FILE_URL = 'http://192.168.139.239:5020/static/valid_proxy.txt'
 # 请求连接失败重试次数
 RETRY_TIMES = 6
 # proxy失败重试次数

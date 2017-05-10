@@ -3,9 +3,10 @@
 import redis
 from flask import Flask, render_template, jsonify, request, current_app, redirect
 
+import dat_service
 import monitor_settings
-from monitor.tools import dat_service, url_extract_tools
-from monitor.tools.gen_spiderInitfile import *
+import url_extract_tools
+from gen_spiderInitfile import *
 
 app = Flask(__name__)
 
@@ -85,8 +86,10 @@ def init():
 
 
 if __name__ == '__main__':
+    '''
     text = 'POST_URL_PREFIX = "http://' + monitor_settings.APP_HOST + ':' + str(monitor_settings.APP_PORT) + '"'
-    filename = "../monitor/static/const.js"
+    filename = "./static/const.js"
     with open(filename, 'w') as f:
         f.write(text.encode('utf8'))
+    '''
     app.run(host=monitor_settings.APP_HOST, port=monitor_settings.APP_PORT, debug=True)

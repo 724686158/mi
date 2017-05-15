@@ -8,7 +8,7 @@ STATS_KEYS = ['downloader/request_count', 'downloader/response_count', 'download
 REDIS_HOST = '192.168.139.239'
 REDIS_PORT = 7001
 
-APP_HOST = '192.168.139.239'
+APP_HOST = '192.168.210.152'
 APP_PORT = 5020
 
 # 用于存储调度队列 ———— 的redis数据据库编号（0～15）

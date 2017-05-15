@@ -22,3 +22,5 @@ class MonitorInit(object):
             print "pushing start_url success"
         except Exception:
             print "pushing start_url failed"
+        finally:
+            pass

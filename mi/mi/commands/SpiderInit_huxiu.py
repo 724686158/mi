@@ -8,7 +8,7 @@ def init():
         r.delete("caijing:start_urls")
         r.delete("caijing:dupefilter" + "0")
         r.delete("caijing:requests")
-        r.lpush("caijing:start_urls", 'http://www.caijing.com.cn')
+        r.lpush("caijing:start_urls", 'http://www.globaltimes.cn')
         print "pushing caijing:start_url success"
     except Exception:
         print "pushing caijing:start_url failed"

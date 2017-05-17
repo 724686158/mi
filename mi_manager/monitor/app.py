@@ -1,12 +1,12 @@
 # -*- coding: utf-8 -*-
-
 import redis
-from flask import Flask, render_template, jsonify, request, current_app, redirect
-
+import json
+import os
 import dat_service
 import monitor_settings
 import url_extract_tools
-from gen_spiderInitfile import *
+from flask import Flask, render_template, jsonify, request, current_app, redirect
+from gen_spiderInitfile import generate_spider_init
 
 app = Flask(__name__)
 
@@ -59,10 +59,7 @@ def gen_spider():
 def add_ips():
     jsonstr = request.form.get('ips', '')
     ips_array = json.loads(jsonstr)['ips']
-    print ips_array
-    with open('static/valid_proxy.txt', 'w') as f:
-        for i in ips_array:
-            f.write(i + '\n')
+    dat_service.save_proxys(ips_array)
     return jsonify('ok')
 
 
@@ -70,7 +67,11 @@ def add_ips():
 def target_urls():
     jsonstr = request.form.get('urls', '')
     urls_array = json.loads(jsonstr)['urls']
-    print dat_service.split_target_urls(urls_array)
+    dat_service.split_target_urls(urls_array)
+    for filename in os.listdir(os.getcwd() + '/spiderinit_files'):
+        if 'spiderInit_' in filename:
+            print filename
+            os.system('python ' + os.getcwd() + '/spiderinit_files/' + filename)
     return jsonify('ok')
 
 
@@ -82,14 +83,16 @@ def get_spider_names():
 @app.before_first_request
 def init():
     current_app.r = redis.Redis(host=monitor_settings.REDIS_HOST, port=monitor_settings.REDIS_PORT, db=monitor_settings.MONITOR_DB)
-    current_app.spider_is_run = True if current_app.r.get('spider_is_run') == '1' else False
+    if current_app.r.get('spider_is_run') == '1':
+        current_app.spider_is_run = True
+    else:
+        current_app.spider_is_run = False
 
 
 if __name__ == '__main__':
-    '''
+    #产生包含ip和port的js文件
     text = 'POST_URL_PREFIX = "http://' + monitor_settings.APP_HOST + ':' + str(monitor_settings.APP_PORT) + '"'
-    filename = "./static/const.js"
+    filename = os.getcwd() + "/monitor/static/const.js"
     with open(filename, 'w') as f:
         f.write(text.encode('utf8'))
-    '''
-    app.run(host=monitor_settings.APP_HOST, port=monitor_settings.APP_PORT, debug=True)
+    app.run(host=monitor_settings.APP_HOST, port=monitor_settings.APP_PORT, debug=False)

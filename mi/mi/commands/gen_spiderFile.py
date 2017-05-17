@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-import json
+import os
 def arr2str(arr):
     return ', '.join(map(lambda x: "'" + x + "'", arr))
 
@@ -16,7 +16,7 @@ class Spider_%s(RedisCrawlSpider):
     redis_key = '%s:start_urls'
     allowed_domains = [%s]
     rules = [
-        Rule(LinkExtractor(allow=(%s),deny=(%s)),callback='processArticle',follow=True)
+        Rule(LinkExtractor(allow=(%s),deny=()),callback='processArticle',follow=True)
     ]
 
     def processArticle(self,response):
@@ -34,22 +34,19 @@ class Spider_%s(RedisCrawlSpider):
             yield item
         except:
             self.logger.info('item in article failed')
-
 """
+# 传入字典格式的字符串
 def generate_spider(jsonfile):
-    print jsonfile
-    js = dict(json.loads(jsonfile))
-
+    dic = eval(jsonfile)
     arr = (
-        js['name'],
-        js['name'],
-        js['name'],
-        arr2str(js['allowed_domains']),
-        arr2str(js['rule_allow']),
-        arr2str(js['rule_deny']),
-        arr2str(js['xpath_title']),
-        arr2str(js['xpath_content']))
+        dic['name'],
+        dic['name'],
+        dic['name'],
+        arr2str(dic['allowed_domains']),
+        arr2str(dic['rule_allow']),
+        arr2str(dic['xpath_title']),
+        arr2str(dic['xpath_content']))
     ok = spider_template % arr
-    filename = "../spiders/" + 'spider_'+ js['name'] + '.py'
+    filename = os.getcwd() + '/mi/spiders/spider_'+ dic['name'] + '.py'
     with open(filename, 'w') as f:
         f.write(ok.encode('utf8'))

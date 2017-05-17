@@ -9,15 +9,15 @@ class MysqlInit():
 
     def start(self):
         #新建数据库
-        print "trying to create database"
+        print "尝试创建mysql数据库"
         try:
             self.dbHelper.createDatabase()
         except Exception:
-            print "create database with problem"
+            print "创建mysql数据库失败"
 
         #新建表
-        print "trying to create table"
+        print "尝试创建mysql数据表"
         try:
             self.dbHelper.createTable(self.sql_createtable)
         except Exception:
-            print "create table with problem"
+            print "创建mysql数据表失败"

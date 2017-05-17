@@ -2,25 +2,16 @@
 import redis
 import mi.settings as prime_settings
 class MonitorInit(object):
-    #框架在dupefilter的部分有bug，产生的redis队列在名字的末尾多一个0.暂时先手动加着
     def start(self):
-        print "pushing start_url......"
+        print "尝试清空主监控器记录"
         try:
             # 连接数据库
             r = redis.Redis(prime_settings.REDIS_HOST, prime_settings.REDIS_PORT, db = prime_settings.MONITOR_DB)
             # 清空monitor的四个队列
-
-            r.delete(prime_settings.request_count)
-            r.delete(prime_settings.response_count)
-            r.delete(prime_settings.response_status200_count)
-            r.delete(prime_settings.item_scraped_count)
-
-            r.delete(prime_settings.request_count + '_' + prime_settings.MI_DSSID)
-            r.delete(prime_settings.response_count + '_' + prime_settings.MI_DSSID)
-            r.delete(prime_settings.response_status200_count + '_' + prime_settings.MI_DSSID)
-            r.delete(prime_settings.item_scraped_count + '_' + prime_settings.MI_DSSID)
-            print "pushing start_url success"
+            for keyname in prime_settings.STATS_KEYS:
+                r.delete(keyname)
+            print "清空主监控器记录成功"
         except Exception:
-            print "pushing start_url failed"
+            print "清空主监控器记录失败"
         finally:
             pass

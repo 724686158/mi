@@ -4,7 +4,13 @@ from scrapy.utils.conf import arglist_to_dict
 import os
 from mysql_init import MysqlInit
 from monitor_init import MonitorInit
+import mi.settings as prime_settings
 import subprocess
+import redis
+from gen_spiderFile import generate_spider
+from gen_spiderInitFile import generate_spider_init
+from tld import get_tld
+
 
 class Command(ScrapyCommand):
     requires_project = True
@@ -43,8 +49,6 @@ class Command(ScrapyCommand):
         spider_loader = self.crawler_process.spider_loader
         for spidername in args or spider_loader.list():
             print "*********cralall spidername************" + spidername
-            # 整理爬虫所使用的redis队列
-            os.system("python mi/commands/SpiderInit_" + spidername + ".py")
             self.crawler_process.crawl(spidername, **opts.spargs)
             self.crawler_process.start()
 
@@ -59,5 +63,16 @@ class Command(ScrapyCommand):
         mysql_init.start()
 
     def init_spiderfiles(self):
-        # 初始化爬虫文件
-        pass
+        #清空旧有的爬虫文件爱你
+        for filename in os.listdir(os.getcwd() + '/mi/spiders'):
+            if 'spider_' in filename:
+                os.remove(os.getcwd() + '/mi/spiders/' + filename)
+        r = redis.Redis(prime_settings.REDIS_HOST, prime_settings.REDIS_PORT, db = prime_settings.MISSIONS_DB)
+        missions = r.lrange('1', 0, -1)
+        r2 = redis.Redis(prime_settings.REDIS_HOST, prime_settings.REDIS_PORT, db = prime_settings.SPIDERS_DB)
+        for mission in missions:
+            spidername = get_tld(mission, fail_silently=True)
+            attr = r2.get(spidername)
+            generate_spider(attr)
+
+

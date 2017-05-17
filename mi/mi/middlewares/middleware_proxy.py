@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
+import redis
 import random
 import logging
-import os
 import codecs
 from urllib2 import _parse_proxy
 from twisted.internet import defer
@@ -9,7 +9,6 @@ from twisted.internet.error import TimeoutError, DNSLookupError, \
         ConnectionRefusedError, ConnectionDone, ConnectError, \
         ConnectionLost, TCPTimedOutError
 from urlparse import urlunparse
-from scrapy.exceptions import NotConfigured
 from scrapy.utils.response import response_status_message
 from scrapy.xlib.tx import ResponseFailed
 
@@ -34,14 +33,9 @@ class RandomProxyMiddleware(object):
             self.priority_adjust = settings.getint('RETRY_PRIORITY_ADJUST')
         #加载proxy文件
         self.proxy_dict = {}
-        if not settings.get('HTTPPROXY_FILE_URL'):
-            raise NotConfigured
-        file_url = settings.get('HTTPPROXY_FILE_URL')
-        self.proxy_dict = self.read_url(file_url)
-
-
-
-
+        r = redis.Redis(host=settings.get('REDIS_HOST'), port=settings.get('REDIS_PORT'), db=settings.get('PROXY_DB'))
+        proxys = r.lrange('valid_proxy', 0, -1)
+        self.proxy_dict = self.read_proxy_from_redis(proxys)
 
     @classmethod
     def from_crawler(cls, crawler):
@@ -56,11 +50,9 @@ class RandomProxyMiddleware(object):
                     proxy_dict[url] = {"status":"valid", "chance":self.max_proxy_chance}
         return proxy_dict
 
-    def read_url(self, url):
-        import requests
-        r = requests.get(url)
+    def read_proxy_from_redis(self, proxys):
         res = {}
-        for i in r.text.split('\n'):
+        for i in proxys:
             if len(i.strip()) > 0:
                 res[i.strip()] = {"status":"valid", "chance":self.max_proxy_chance}
         return res
@@ -75,11 +67,8 @@ class RandomProxyMiddleware(object):
                     del self.proxy_dict[proxy]
 
     def _choose_proxy(self, request):
-        # 代理地址的选择方法:
-        # 1）随机选取
-        # 2) 有一定的概率不采用代理
-        if random.random() < 0.95:
-            request.meta['proxy'] = random.choice(self.proxy_dict.keys())
+        # 随机选取代理地址
+        request.meta['proxy'] = random.choice(self.proxy_dict.keys())
         return request
 
     def _set_proxy(self, request, proxy_url):

@@ -10,7 +10,6 @@ with open(filename, 'r') as f:
     while key.__len__() > 0:
         con = con + 1
         print con
-
         key = key.split('\n')[0]
         print key
         info = f.readline().split('\n')[0]

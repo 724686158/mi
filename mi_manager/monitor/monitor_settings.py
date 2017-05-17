@@ -8,11 +8,14 @@ STATS_KEYS = ['downloader/request_count', 'downloader/response_count', 'download
 REDIS_HOST = '192.168.139.239'
 REDIS_PORT = 7001
 
-APP_HOST = '192.168.210.152'
+APP_HOST = '192.168.139.239'
 APP_PORT = 5020
 
 # 用于存储调度队列 ———— 的redis数据据库编号（0～15）
 FILTER_DB = 0
+
+# 用于存储代理ip ———— 的redis数据据库编号（0～15）
+PROXY_DB = 10
 
 # 用于暂存爬虫运行时数据 ———— 的redis数据据库编号（0～15）
 RUNNINGDATA_DB = 11

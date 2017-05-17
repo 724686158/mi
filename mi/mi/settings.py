@@ -30,6 +30,9 @@ FILTER_PORT = 7001
 # 用于存储调度队列 ———— 的redis数据据库编号（0～15）
 FILTER_DB = 0
 
+# 用于存储代理ip ———— 的redis数据据库编号（0～15）
+PROXY_DB = 10
+
 # 用于暂存爬虫运行时数据 ———— 的redis数据据库编号（0～15）
 RUNNINGDATA_DB = 11
 
@@ -89,15 +92,12 @@ ITEM_PIPELINES = {
 # 中间件
 # 注意不要使用'scrapy.downloadermiddlewares.retry.RetryMiddleware'，此中间件会造成程序卡死
 DOWNLOADER_MIDDLEWARES = {
-    #'mi.middlewares.middleware_proxy.RandomProxyMiddleware':400,# 代理相关
+    'mi.middlewares.middleware_proxy.RandomProxyMiddleware':400,# 代理相关
     'mi.middlewares.middleware_rotateUserAgent.RotateUserAgentMiddleware': 401,
     'mi.middlewares.middleware_monitor.StatcollectorMiddleware': 402,# 可视化相关
     'mi.middlewares.middleware_cookie.CookieMiddleware': 700,# 该中间件将重试可能由于临时的问题，例如连接超时或者HTTP 500错误导致失败的页面。尝试加上cookie重新访问
 }
 
-# 代理相关
-# 存储可信代理的文件路径
-HTTPPROXY_FILE_URL = 'http://192.168.139.239:5020/static/valid_proxy.txt'
 # 请求连接失败重试次数
 RETRY_TIMES = 6
 # proxy失败重试次数

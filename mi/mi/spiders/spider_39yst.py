@@ -4,19 +4,19 @@ from mi.items import ArticleItem
 from scrapy.spiders import Rule
 from scrapy.linkextractors import LinkExtractor
 import jieba.analyse
-class Spider_aikan(RedisCrawlSpider):
-    name = 'aikan'
-    redis_key = 'aikan:start_urls'
-    allowed_domains = ['aikanxinwen.com']
+class Spider_39yst(RedisCrawlSpider):
+    name = '39yst'
+    redis_key = '39yst:start_urls'
+    allowed_domains = ['39yst.com']
     rules = [
-        Rule(LinkExtractor(allow=('aikanxinwen.com/view/'),deny=('')),callback='processArticle',follow=True)
+        Rule(LinkExtractor(allow=('39yst.com/\w+/\w+/\d+', '39yst.com/\w+/\d+'),deny=()),callback='processArticle',follow=True)
     ]
 
     def processArticle(self,response):
         try:
             item = ArticleItem()
-            title = response.xpath('''//header[@class='article-header']/h1/text()''').extract()[0]
-            content = ''.join(response.xpath('''//article[@class='article-content article-ar-content']/p/text()''').extract())
+            title = response.xpath('''//div[@class='articlewrap']/h1/text()''').extract()[0]
+            content = ''.join(response.xpath('''//div[@id='articleContent']/p/text()''').extract())
             item['articleTitle'] = title
             item['articleUrl'] = ''.join(response.url)
             item['articleContent'] = content

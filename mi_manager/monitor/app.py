@@ -68,10 +68,10 @@ def target_urls():
     jsonstr = request.form.get('urls', '')
     urls_array = json.loads(jsonstr)['urls']
     dat_service.split_target_urls(urls_array)
-    for filename in os.listdir(os.getcwd() + '/spiderinit_files'):
+    for filename in os.listdir(os.getcwd() + '/monitor/spiderinit_files'):
         if 'spiderInit_' in filename:
             print filename
-            os.system('python ' + os.getcwd() + '/spiderinit_files/' + filename)
+            os.system('python ' + os.getcwd() + '/monitor/spiderinit_files/' + filename)
     return jsonify('ok')
 
 

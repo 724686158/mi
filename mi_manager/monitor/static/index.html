@@ -220,11 +220,11 @@
     var GET_URL = POST_URL_PREFIX + "/get_spider_names";
     var MON_URL = POST_URL_PREFIX + "/monitor";
     $.get(GET_URL).success(function (dat) {
-        $("#mon").append("<a class=\"btn radius btn-primary\" href='" + MON_URL + "' style='margin: 5px'>爬虫总监视器</a>")
+        $("#mon").append("<a class=\"btn radius btn-primary\" href='" + MON_URL + "' style='margin: 5px' target='_blank'>爬虫总监视器</a>")
         for (var i = 0; i < dat.length; ++i) {
             $("#mon").append("<a class=\"btn radius btn-secondary-outline\" href='"
                 + MON_URL + "?spider_name=" + dat[i]
-                + "' style='margin: 5px'>爬虫" + dat[i] + "监视器</a>")
+                + "' style='margin: 5px' target='_blank'>爬虫" + dat[i] + "监视器</a>")
         }
     });
 </script>

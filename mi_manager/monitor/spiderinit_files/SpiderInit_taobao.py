@@ -1,9 +1,12 @@
 # -*- coding: utf-8 -*-
-import redis
-import mi.settings as prime_settings
-from mysqlHelper import MysqlHelper
 import requests
 from lxml import html
+
+import redis
+
+import mi.settings as prime_settings
+from monitor.mysqlHelper import MysqlHelper
+
 
 def init():
 

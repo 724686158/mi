@@ -2,8 +2,11 @@
 import json
 import redis
 import monitor_settings
+from monitor_init import MonitorInit
+from mysql_init import MysqlInit
 from tld import get_tld
 from gen_spiderInitfile import generate_spider_init
+
 def get_redis(db_id):
     return redis.Redis(monitor_settings.REDIS_HOST, monitor_settings.REDIS_PORT, db_id)
 
@@ -52,3 +55,13 @@ def get_spider_count_from_db():
         if 'item_scraped_count_' in i:
             arr.append(i[i.rfind('_') + 1:])
     return arr
+
+def init_monitor():
+    # 初始化监控器数据
+    monitor_init = MonitorInit()
+    monitor_init.start()
+
+def init_mysql():
+    # 初始化mysql数据库
+    mysql_init = MysqlInit()
+    mysql_init.start()

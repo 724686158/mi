@@ -1,7 +1,10 @@
 # -*- coding: utf-8 -*-
 import redis
+
 import mi.settings as prime_settings
-from mysqlHelper import MysqlHelper
+from monitor.mysqlHelper import MysqlHelper
+
+
 def init():
 
     print "try insert eCommerceId......"

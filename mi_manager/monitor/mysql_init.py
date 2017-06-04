@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from mysqlHelper import MysqlHelper
-import mi.settings as prime_settings
+
+import monitor_settings as prime_settings
 
 class MysqlInit():
     def __init__(self):

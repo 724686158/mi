@@ -5,6 +5,8 @@ SPIDER_MODULES = ['mi.spiders']
 NEWSPIDER_MODULE = 'mi.spiders'
 
 # scrapy基本属性配置
+# 自定义命令
+COMMANDS_MODULE = 'mi.commands'
 # 是否启用robots
 ROBOTSTXT_OBEY = False
 # 是否启用COOKIES
@@ -64,18 +66,9 @@ MONITOR_PORT = "5020"
 #Mysql数据库的配置信息
 MYSQL_HOST = "192.168.139.239"
 MYSQL_PORT = 3306
-MYSQL_DBNAME = 'data_20170510_0'    #数据库名字
+MYSQL_DBNAME = 'data_20170531_0'    #数据库名字
 MYSQL_USER = 'root'                 #数据库账号
 MYSQL_PASSWD = 'mi'                 #数据库密码
-
-#用于创建电商相关的表
-sql_createtable = '\
-create table ECommerce(eCommerceId int primary key, eCommerceName varchar(32), eCommerceUrl varchar(256)) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin; \
-create table ECommerceShop(eCommerceId int, shopId varchar(32), shopName varchar(256), shopUrl varchar(1024), shopLocation varchar(256), shopPhoneNumber varchar(256), PRIMARY KEY (eCommerceId, shopId), FOREIGN KEY (eCommerceId) REFERENCES ECommerce(eCommerceId)) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin; \
-create table ECommerceShopComment(eCommerceId int, shopId varchar(32), shopCommentsUrl varchar(256), shopCommentsData varchar(2048), PRIMARY KEY (eCommerceId, shopId), FOREIGN KEY (eCommerceId) REFERENCES ECommerce(eCommerceId)) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin; \
-create table ECommerceGood(eCommerceId int, goodId varchar(32), shopId varchar(32), goodName varchar(1024), goodUrl varchar(1024), goodPrice varchar(32), PRIMARY KEY (eCommerceId, goodId), FOREIGN KEY (eCommerceId) REFERENCES ECommerce(eCommerceId)) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin; \
-create table ECommerceGoodComment(eCommerceId int, goodId varchar(32), goodCommentsUrl varchar(256), goodCommentsData varchar(2048), PRIMARY KEY (eCommerceId, goodId), FOREIGN KEY (eCommerceId) REFERENCES ECommerce(eCommerceId)) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin; \
-'
 
 #日志设置,禁用“LOG_STDOUT=True”
 #LOG_FILE='mi.log'
@@ -111,8 +104,6 @@ SCHEDULER = 'mi.scrapy_redis.scheduler.Scheduler'
 SCHEDULER_PERSIST = True
 SCHEDULER_QUEUE_CLASS = 'mi.scrapy_redis.queue.SpiderPriorityQueue'
 
-#自定义命令
-COMMANDS_MODULE = 'mi.commands'
 
 #没有这个会出现异常
 DOWNLOAD_HANDLERS = {'s3': None,}

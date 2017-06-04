@@ -8,7 +8,7 @@ STATS_KEYS = ['downloader/request_count', 'downloader/response_count', 'download
 REDIS_HOST = '192.168.139.239'
 REDIS_PORT = 7001
 
-APP_HOST = '192.168.139.239'
+APP_HOST = '192.168.210.152'
 APP_PORT = 5020
 
 # 用于存储调度队列 ———— 的redis数据据库编号（0～15）
@@ -32,3 +32,22 @@ MISSIONS_DB = 14
 # 用于存储Monitor数据 ———— 的redis数据据库编号（0～15）
 MONITOR_DB = 15
 
+# 临时路径,用于解决开发环境和生产环境中路径当前路径不一直的问题（开发环境中设为空）
+#TEMP_PATH = '/monitor'
+TEMP_PATH = ''
+
+#Mysql数据库的配置信息
+MYSQL_HOST = "192.168.139.239"
+MYSQL_PORT = 3306
+MYSQL_DBNAME = 'data_20170531_0'    #数据库名字
+MYSQL_USER = 'root'                 #数据库账号
+MYSQL_PASSWD = 'mi'                 #数据库密码
+
+#用于创建电商相关的表
+sql_createtable = '\
+create table ECommerce(eCommerceId int primary key, eCommerceName varchar(32), eCommerceUrl varchar(256)) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin; \
+create table ECommerceShop(eCommerceId int, shopId varchar(32), shopName varchar(256), shopUrl varchar(1024), shopLocation varchar(256), shopPhoneNumber varchar(256), PRIMARY KEY (eCommerceId, shopId), FOREIGN KEY (eCommerceId) REFERENCES ECommerce(eCommerceId)) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin; \
+create table ECommerceShopComment(eCommerceId int, shopId varchar(32), shopCommentsUrl varchar(256), shopCommentsData varchar(2048), PRIMARY KEY (eCommerceId, shopId), FOREIGN KEY (eCommerceId) REFERENCES ECommerce(eCommerceId)) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin; \
+create table ECommerceGood(eCommerceId int, goodId varchar(32), shopId varchar(32), goodName varchar(1024), goodUrl varchar(1024), goodPrice varchar(32), PRIMARY KEY (eCommerceId, goodId), FOREIGN KEY (eCommerceId) REFERENCES ECommerce(eCommerceId)) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin; \
+create table ECommerceGoodComment(eCommerceId int, goodId varchar(32), goodCommentsUrl varchar(256), goodCommentsData varchar(2048), PRIMARY KEY (eCommerceId, goodId), FOREIGN KEY (eCommerceId) REFERENCES ECommerce(eCommerceId)) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin; \
+'

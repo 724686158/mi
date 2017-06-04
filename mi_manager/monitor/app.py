@@ -5,6 +5,9 @@ import os
 import dat_service
 import monitor_settings
 import url_extract_tools
+
+
+
 from flask import Flask, render_template, jsonify, request, current_app, redirect
 from gen_spiderInitfile import generate_spider_init
 
@@ -68,17 +71,25 @@ def target_urls():
     jsonstr = request.form.get('urls', '')
     urls_array = json.loads(jsonstr)['urls']
     dat_service.split_target_urls(urls_array)
-    for filename in os.listdir(os.getcwd() + '/monitor/spiderinit_files'):
+    for filename in os.listdir(os.getcwd() + monitor_settings.TEMP_PATH + '/spiderinit_files'):
         if 'spiderInit_' in filename:
             print filename
-            os.system('python ' + os.getcwd() + '/monitor/spiderinit_files/' + filename)
+            os.system('python ' + os.getcwd() + monitor_settings.TEMP_PATH + '/spiderinit_files/' + filename)
     return jsonify('ok')
 
 
 @app.route('/get_spider_names', methods=['GET'])
 def get_spider_names():
     return jsonify(dat_service.get_spider_count_from_db())
+# 慎用
+@app.route('/init_monitor', methods=['GET'])
+def init_monitor():
+    return jsonify(dat_service.init_monitor())
 
+# 在个API暂时没有实际意义
+@app.route('/init_mysql', methods=['GET'])
+def init_mysql():
+    return jsonify(dat_service.init_mysql())
 
 @app.before_first_request
 def init():
@@ -92,7 +103,14 @@ def init():
 if __name__ == '__main__':
     #产生包含ip和port的js文件
     text = 'POST_URL_PREFIX = "http://' + monitor_settings.APP_HOST + ':' + str(monitor_settings.APP_PORT) + '"'
-    filename = os.getcwd() + "/monitor/static/const.js"
+    filename = os.getcwd() + monitor_settings.TEMP_PATH + '/static/const.js'
     with open(filename, 'w') as f:
         f.write(text.encode('utf8'))
+    # 初始化监控器数据
+    dat_service.init_monitor()
+    # 初始化mysql数据库
+    dat_service.init_mysql()
+
     app.run(host=monitor_settings.APP_HOST, port=monitor_settings.APP_PORT, debug=False)
+
+

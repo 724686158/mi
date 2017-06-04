@@ -48,6 +48,6 @@ def generate_spider_init(jsonfile):
         dic['name'],
         dic['name'])
     ok = spider_init_template % arr
-    filename = os.getcwd() + '/monitor/spiderinit_files/spiderInit_' + dic['name'] + '.py'
+    filename = os.getcwd() + monitor_settings.TEMP_PATH + '/spiderinit_files/spiderInit_' + dic['name'] + '.py'
     with open(filename, 'w') as f:
         f.write(ok.encode('utf8'))

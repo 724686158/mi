@@ -10,7 +10,6 @@ from scrapy_redis.spiders import RedisCrawlSpider
 from mi.items import ArticleItem
 from scrapy.spiders import Rule
 from scrapy.linkextractors import LinkExtractor
-import jieba.analyse
 class Spider_%s(RedisCrawlSpider):
     name = '%s'
     redis_key = '%s:start_urls'
@@ -27,26 +26,30 @@ class Spider_%s(RedisCrawlSpider):
             item['articleTitle'] = title
             item['articleUrl'] = ''.join(response.url)
             item['articleContent'] = content
-            tags = jieba.analyse.extract_tags(content, topK=20, withWeight=5)
-            item['articleFirstTag'] = ''.join(tags[0][0])
-            item['articleSecondTag'] = ''.join(tags[1][0])
-            item['articleThirdTag'] = ''.join(tags[2][0])
             yield item
         except:
             self.logger.info('item in article failed')
 """
 # 传入字典格式的字符串
 def generate_spider(jsonfile):
-    dic = eval(jsonfile)
-    arr = (
-        dic['name'],
-        dic['name'],
-        dic['name'],
-        arr2str(dic['allowed_domains']),
-        arr2str(dic['rule_allow']),
-        arr2str(dic['xpath_title']),
-        arr2str(dic['xpath_content']))
-    ok = spider_template % arr
-    filename = os.getcwd() + '/mi/spiders/spider_'+ dic['name'] + '.py'
-    with open(filename, 'w') as f:
-        f.write(ok.encode('utf8'))
+    try:
+        dic = eval(jsonfile)
+        arr = (
+            dic['name'],
+            dic['name'],
+            dic['name'],
+            arr2str(dic['allowed_domains']),
+            arr2str(dic['rule_allow']),
+            arr2str(dic['xpath_title']),
+            arr2str(dic['xpath_content']))
+        ok = spider_template % arr
+        filename = os.getcwd() + '/mi/spiders/spider_'+ dic['name'] + '.py'
+        with open(filename, 'w') as f:
+            f.write(ok.encode('utf8'))
+            print 'success'
+        return True
+    except:
+        print 'fall'
+        return False
+    finally:
+        f.close()

@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 
 BOT_NAME = 'mi'
-SPIDER_MODULES = ['mi.spiders']
-NEWSPIDER_MODULE = 'mi.spiders'
+SPIDER_MODULES = ['mi.spiders', 'mi.spiders_of_eCommerce']
+NEWSPIDER_MODULES = 'mi.spiders'
 
 # scrapy基本属性配置
 # 自定义命令
@@ -14,12 +14,19 @@ COOKIES_ENABLED = True
 COOKIES_DEBUG = True
 # 是否启用重试
 RETRY_ENABLED = False
+
+# 时候启用自动限速
+AUTOTHROTTLE_ENABLED = True
+AUTOTHROTTLE_START_DELAY = 1.0
+AUTOTHROTTLE_MAX_DELAY = 20.0
+AUTOTHROTTLE_DEBUG = True
+
 # 超时时限
-DOWNLOAD_TIMEOUT = 30
+#DOWNLOAD_TIMEOUT = 10
 # 间隔时间
-DOWNLOAD_DELAY = 0.5
+#DOWNLOAD_DELAY = 0.5
 # 对单个域名最大并发量
-CONCURRENT_REQUESTS_PER_DOMAIN = 20
+#CONCURRENT_REQUESTS_PER_DOMAIN = 20
 #DEPTH_LIMIT = 20 #爬取深度,20是为了避免那些动态生成链接的网站造成的死循环,暂时没遇到这种网站,先禁用了
 
 # redis —— url存储
@@ -57,7 +64,7 @@ STATS_KEYS = ["downloader/request_count", "downloader/response_count", "download
 MONGO_HOST = '192.168.139.239'
 MONGO_PORT = 27017
 MONGO_DATABASE = 'mi'
-MONGO_COLLECTION_NAME = 'data_20170510_0'
+MONGO_COLLECTION_NAME = 'data_20170605_03'
 
 #监控服务器信息
 MONITOR_HOST = "0.0.0.0"
@@ -66,7 +73,7 @@ MONITOR_PORT = "5020"
 #Mysql数据库的配置信息
 MYSQL_HOST = "192.168.139.239"
 MYSQL_PORT = 3306
-MYSQL_DBNAME = 'data_20170531_0'    #数据库名字
+MYSQL_DBNAME = 'data_20170607_01'    #数据库名字
 MYSQL_USER = 'root'                 #数据库账号
 MYSQL_PASSWD = 'mi'                 #数据库密码
 

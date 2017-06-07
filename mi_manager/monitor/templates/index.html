@@ -16,7 +16,7 @@ var data = [{'value': [Date(), '0']}]
 var myChart = echarts.init(document.getElementById('main'));
     option = {
     title: {
-        text: ('{{ spidername }}' === '') ? '爬虫信息汇总' : '爬虫-{{ spider_name }}',
+        text: ('{{ spider_name }}' === 'None') ? '爬虫信息汇总' : '爬虫-{{ spider_name }}',
         left:'center'
     },
     tooltip: {

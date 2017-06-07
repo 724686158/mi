@@ -26,8 +26,6 @@ class ArticleItem(scrapy.Item):
 
 # 电商item，电商网站id在新建爬虫时自动生成
 class ECommerce(scrapy.Field):
-    # 电商网站Id
-    eCommerceId = scrapy.Field()
     # 电商网站名字
     eCommerceName = scrapy.Field()
     # 电商网站home页url
@@ -35,8 +33,8 @@ class ECommerce(scrapy.Field):
 
 # 电商网站店家item
 class ECommerceShopItem(scrapy.Field):
-    # 电商网站Id
-    eCommerceId = scrapy.Field()
+    # 电商网站名字
+    eCommerceName = scrapy.Field()
     # 店家id
     shopId = scrapy.Field()
     # 店家名字
@@ -50,8 +48,8 @@ class ECommerceShopItem(scrapy.Field):
 
 # 电商网站店家评论item
 class ECommerceShopCommentItem(scrapy.Field):
-    # 电商网站Id
-    eCommerceId = scrapy.Field()
+    # 电商网站名字
+    eCommerceName = scrapy.Field()
     # 店家id
     shopId = scrapy.Field()
     # 店家评论页的链接
@@ -61,8 +59,8 @@ class ECommerceShopCommentItem(scrapy.Field):
 
 # 电商网站商品item
 class ECommerceGoodItem(scrapy.Item):
-    # 电商网站Id
-    eCommerceId = scrapy.Field()
+    # 电商网站名字
+    eCommerceName = scrapy.Field()
     # 商品id
     goodId = scrapy.Field()
     # 店家id
@@ -76,8 +74,8 @@ class ECommerceGoodItem(scrapy.Item):
 
 # 电商网站商品评论item
 class ECommerceGoodCommentItem(scrapy.Item):
-    # 电商网站Id
-    eCommerceId = scrapy.Field()
+    # 电商网站名字
+    eCommerceName = scrapy.Field()
     # 商品的id
     goodId=scrapy.Field()
     # 商品评论页的链接

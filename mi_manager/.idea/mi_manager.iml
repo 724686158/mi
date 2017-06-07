@@ -8,6 +8,8 @@
       <sourceFolder url="file://$MODULE_DIR$/monitor/static" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/monitor/templates" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/spiders" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/monitor/spiderInitfiles_of_news" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/monitor/spiderInitfiles_of_eCommerce" isTestSource="false" />
     </content>
     <orderEntry type="jdk" jdkName="Python 2.7.13 (C:\Python27\python.exe)" jdkType="Python SDK" />
     <orderEntry type="sourceFolder" forTests="false" />

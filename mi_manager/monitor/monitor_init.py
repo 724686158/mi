@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 import redis
-import monitor_settings as prime_settings
+import settings as prime_settings
 class MonitorInit(object):
     def start(self):
         print "尝试清空主监控器记录"

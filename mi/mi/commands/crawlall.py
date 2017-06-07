@@ -1,11 +1,10 @@
 # -*- coding: utf-8 -*-
 import redis
-import scrapy.cmdline as cmd
 import mi.settings as prime_settings
 from scrapy.commands import ScrapyCommand
 from scrapy.utils.conf import arglist_to_dict
 from tld import get_tld
-from gen_spiderFile import generate_spider
+from gen_spiderFile_with_whiteList import generate_spider
 
 
 
@@ -36,29 +35,15 @@ class Command(ScrapyCommand):
             raise UsageError("Invalid -a value, use -a NAME=VALUE", print_help=False)
 
     def run(self, args, opts):
-        # 初始化爬虫文件
-        '''
-        bo = self.init_spiderfiles()
-        if bo:
-            print '加载爬虫文件成功'
-        else:
-            print '加载爬虫文件失败'
-        :param args:
-        :param opts:
-        :return:
-        '''
         r = redis.Redis(prime_settings.REDIS_HOST, prime_settings.REDIS_PORT, db=prime_settings.MISSIONS_DB)
-        missions = r.lrange('1', 0, -1)
-        r2 = redis.Redis(prime_settings.REDIS_HOST, prime_settings.REDIS_PORT, db=prime_settings.SPIDERS_DB)
-        for mission in missions:
-            spidername = get_tld(mission, fail_silently=True)
-            attr = r2.get(spidername)
-            dic = eval(attr)
-            print dic['name']
-            self.crawler_process.crawl(dic['name'], **opts.spargs)
+        news_spiders_need_fuzzymatching = r.lrange('0', 0, -1)
+        news_spiders_in_whitelist = r.lrange('1', 0, -1)
+        ec_spiders = r.lrange('2', 0, -1)
+        all_urls = news_spiders_need_fuzzymatching + news_spiders_in_whitelist + ec_spiders
+        for url in all_urls:
+            spidername = get_tld(url, fail_silently=True)
+            self.crawler_process.crawl(spidername, **opts.spargs)
             self.crawler_process.start()
-
-
 
     def init_spiderfiles(self):
         try:
@@ -68,7 +53,7 @@ class Command(ScrapyCommand):
             for mission in missions:
                 spidername = get_tld(mission, fail_silently=True)
                 attr = r2.get(spidername)
-                bo = generate_spider(attr)
+                bo = generate_spider(spidername, attr)
                 if bo != True:
                     return False
             return True

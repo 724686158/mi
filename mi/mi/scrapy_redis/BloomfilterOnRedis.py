@@ -1,6 +1,5 @@
 # encoding=utf-8
 
-
 class SimpleHash(object):
     def __init__(self, cap, seed):
         self.cap = cap

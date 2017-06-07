@@ -2,8 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://C:\Users\zhangzhengkun\Desktop\SoftwareCup\version04_final\mi_master\.idea\mi_master.iml" filepath="C:\Users\zhangzhengkun\Desktop\SoftwareCup\version04_final\mi_master\.idea\mi_master.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/mi_manager.iml" filepath="$PROJECT_DIR$/.idea/mi_manager.iml" />
+      <module fileurl="file://C:\Users\zhangzhengkun\Desktop\SoftwareCup\version04_final\mi_master\.idea\mi_master.iml" filepath="C:\Users\zhangzhengkun\Desktop\SoftwareCup\version04_final\mi_master\.idea\mi_master.iml" />
     </modules>
   </component>
 </project>

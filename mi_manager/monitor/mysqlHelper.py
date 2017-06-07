@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 import pymysql
-import mi.settings as prime_settings
+import settings as prime_settings
 class MysqlHelper():
     def __init__(self):
         self.host = prime_settings.MYSQL_HOST

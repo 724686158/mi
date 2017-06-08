@@ -14,6 +14,9 @@
       <sourceFolder url="file://$MODULE_DIR$/mi/pipelines" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/mi/spiders_depot" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/mi/spiders_of_eCommerce" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/mi/spiders_of_news_in_whiteList" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/mi/spiders_of_news_need_fuzzymatching" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/mi/tools" isTestSource="false" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />

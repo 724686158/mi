@@ -34,13 +34,12 @@ class MongoPipeline(object):
     # 将数据存入到数据库中
     def process_item(self, item, spider):
         if isinstance(item, ArticleItem):
-            self.hp_collection_name = settings.MONGO_COLLECTION_NAME
-            tags = jieba.analyse.extract_tags(item['articleContent'], topK=20, withWeight=5)
-            item['articleFirstTag'] = ''.join(tags[0][0])
-            item['articleSecondTag'] = ''.join(tags[1][0])
-            item['articleThirdTag'] = ''.join(tags[2][0])
-            self.db[self.hp_collection_name + '_' + 'ArticleItem'].insert(dict(item))  # 存入数据库原始数据
+            if len(item['articleContent']) > 0:
+                tags = jieba.analyse.extract_tags(item['articleContent'], topK=20, withWeight=5)
+                item['articleFirstTag'] = ''.join(tags[0][0])
+                item['articleSecondTag'] = ''.join(tags[1][0])
+                item['articleThirdTag'] = ''.join(tags[2][0])
+                self.db['Article'].insert(dict(item))  # 存入数据库原始数据
         if isinstance(item, DomTreeItem):
-            self.hp_collection_name = settings.MONGO_COLLECTION_NAME
-            self.db[self.hp_collection_name + '_' + "DomTreeItem"].insert(dict(item))  # 存入数据库原始数据
+            self.db["DomTree"].insert(dict(item))  # 存入数据库原始数据
         return item

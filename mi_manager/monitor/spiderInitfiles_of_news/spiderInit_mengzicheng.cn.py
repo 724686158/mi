@@ -7,7 +7,7 @@ def init():
         r.delete("mengzicheng.cn:start_urls")
         r.delete("mengzicheng.cn:dupefilter" + "0")
         r.delete("mengzicheng.cn:requests")
-        r.lpush("mengzicheng.cn:start_urls", 'http://www.mengzicheng.cn/wordpress/wp-admin/post.php?post=1106&action=edit')
+        r.lpush("mengzicheng.cn:start_urls", 'http://www.mengzicheng.cn/wordpress/?p=1106')
         r2 = redis.Redis("192.168.139.239", 7001, 15)
         for keyname in 'downloader/request_count', 'downloader/response_count', 'downloader/response_status_count/200', 'item_scraped_count':
             r2.delete(keyname + "_" + "mengzicheng.cn")

@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 BOT_NAME = 'mi'
-SPIDER_MODULES = ['mi.spiders', 'mi.spiders_of_eCommerce']
+SPIDER_MODULES = ['mi.spiders', 'mi.spiders_of_eCommerce', 'mi.spiders_of_news_in_whiteList', 'mi.spiders_of_news_need_fuzzymatching']
 NEWSPIDER_MODULES = 'mi.spiders'
 
 # scrapy基本属性配置
@@ -63,14 +63,12 @@ STATS_KEYS = ["downloader/request_count", "downloader/response_count", "download
 # mongodb数据库的配置信息
 MONGO_HOST = '192.168.139.239'
 MONGO_PORT = 27017
-MONGO_DATABASE = 'mi'
-MONGO_COLLECTION_NAME = 'data_20170605_03'
-
+MONGO_DATABASE = 'data_20170605_03'
 #监控服务器信息
 MONITOR_HOST = "0.0.0.0"
 MONITOR_PORT = "5020"
 
-#Mysql数据库的配置信息
+# mysql数据库的配置信息
 MYSQL_HOST = "192.168.139.239"
 MYSQL_PORT = 3306
 MYSQL_DBNAME = 'data_20170607_01'    #数据库名字
@@ -105,12 +103,12 @@ PROXY_USED_TIMES = 2
 # 重试返回码
 RETRY_HTTP_CODES = [500, 503, 504, 599, 403, 302]
 # 下载超时
-DOWNLOAD_TIMEOUT = 6
+DOWNLOAD_TIMEOUT = 10
 
 SCHEDULER = 'mi.scrapy_redis.scheduler.Scheduler'
 SCHEDULER_PERSIST = True
 SCHEDULER_QUEUE_CLASS = 'mi.scrapy_redis.queue.SpiderPriorityQueue'
 
 
-#没有这个会出现异常
+# 没有这个会出现异常
 DOWNLOAD_HANDLERS = {'s3': None,}

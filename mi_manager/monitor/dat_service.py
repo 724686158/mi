@@ -3,6 +3,8 @@ import os
 import json
 import redis
 import settings
+from mysqlHelper import MysqlHelper
+from mongoHelper import MongoHelper
 from monitor_init import MonitorInit
 from mysql_init import MysqlInit
 from tld import get_tld
@@ -21,11 +23,10 @@ def save_data(spider_name, json_str):
     js = dict(json.loads(json_str))
     r.set(spider_name, js)
 
-
 def query_data(spider_name):
     r = get_redis(settings.SPIDERS_DB)
 
-
+# 获取新闻爬虫白名单
 def get_whitelist():
     r = get_redis(settings.SPIDERS_DB)
     st = set()
@@ -95,3 +96,64 @@ def exec_init_of_missions():
             os.system('python2 ' + filename)
         else:
             print 'eCommerce_spider Init_' + mission + '.py' + ' not exist'
+
+def get_data_from_mongo(table_name):
+    dic = []
+    if(table_name == 'Article'):
+        dic.append(('url', '标题', '正文', '关键词'))
+        mongo = MongoHelper()
+        db = mongo.connectDatabase()
+        items = db['Article'].find()
+        for item in items:
+            t = (item['articleUrl'], item['articleTitle'], item['articleContent'], item['articleFirstTag'] + ' ' + item['articleSecondTag'] + ' ' + item['articleThirdTag'])
+            dic.append(t)
+    return dic
+
+def get_data_from_mysql(table_name):
+    dic = []
+    if (table_name == 'ECommerce'):
+        dic.append(('电商网站', '网站首页'))
+        mysql = MysqlHelper()
+        #sql = """SELECT * FROM %s LIMIT 0, 1000;""".encode(encoding='utf-8')
+        sql = """SELECT * FROM ECommerce;""".encode(encoding='utf-8')
+        results = mysql.select(sql)
+        for col in results:
+            t = (col['eCommerceName'], col['eCommerceUrl'])
+            dic.append(t)
+    if (table_name == 'ECommerceShop'):
+        dic.append(('电商网站', '店铺ID', '店铺名称', '店铺链接', '店铺所在地', '店铺电话', '更新时间'))
+        mysql = MysqlHelper()
+        # sql = """SELECT * FROM %s LIMIT 0, 1000;""".encode(encoding='utf-8')
+        sql = """SELECT * FROM ECommerceShop;""".encode(encoding='utf-8')
+        results = mysql.select(sql)
+        for col in results:
+            t = (col['eCommerceName'], col['shopId'], col['shopName'], col['shopUrl'], col['shopLocation'], col['shopPhoneNumber'], col['updateTime'])
+            dic.append(t)
+    if (table_name == 'ECommerceShopComment'):
+        dic.append(('电商网站', '店铺ID', '评论链接', '评论数据', '更新时间'))
+        mysql = MysqlHelper()
+        # sql = """SELECT * FROM %s LIMIT 0, 1000;""".encode(encoding='utf-8')
+        sql = """SELECT * FROM ECommerceShopComment;""".encode(encoding='utf-8')
+        results = mysql.select(sql)
+        for col in results:
+            t = (col['eCommerceName'], col['shopId'], col['shopCommentsUrl'], col['shopCommentsData'], col['updateTime'])
+            dic.append(t)
+    if (table_name == 'ECommerceGood'):
+        dic.append(('电商网站', '店铺ID', '店家ID', '商品名字', '商品链接', '商品价格', '更新时间'))
+        mysql = MysqlHelper()
+        # sql = """SELECT * FROM %s LIMIT 0, 1000;""".encode(encoding='utf-8')
+        sql = """SELECT * FROM ECommerceGood;""".encode(encoding='utf-8')
+        results = mysql.select(sql)
+        for col in results:
+            t = (col['eCommerceName'], col['goodId'], col['shopId'], col['goodName'], col['goodUrl'], col['goodPrice'], col['updateTime'])
+            dic.append(t)
+    if (table_name == 'ECommerceGoodComment'):
+        dic.append(('电商网站', '店铺ID', '评论链接', '评论数据', '更新时间'))
+        mysql = MysqlHelper()
+        # sql = """SELECT * FROM %s LIMIT 0, 1000;""".encode(encoding='utf-8')
+        sql = """SELECT * FROM ECommerceGoodComment;""".encode(encoding='utf-8')
+        results = mysql.select(sql)
+        for col in results:
+            t = (col['eCommerceName'], col['goodId'], col['goodCommentsUrl'], col['goodCommentsData'], col['updateTime'])
+            dic.append(t)
+    return dic

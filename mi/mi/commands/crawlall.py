@@ -1,11 +1,11 @@
 # -*- coding: utf-8 -*-
 import redis
-import mi.settings as prime_settings
 from scrapy.commands import ScrapyCommand
 from scrapy.utils.conf import arglist_to_dict
 from tld import get_tld
-from gen_spiderFile_with_whiteList import generate_spider
 
+import mi.settings as prime_settings
+from tools.gen_spiderFile_in_whiteList import generate_spider
 
 
 class Command(ScrapyCommand):

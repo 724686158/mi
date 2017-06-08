@@ -43,7 +43,7 @@ def generate_spider(spidername, jsonfile):
             arr2str(dic['xpath_title']),
             arr2str(dic['xpath_content']))
         ok = spider_template % arr
-        filename = os.getcwd() + '/mi/spiders/spider_'+ spidername.replace('.', '')  + '.py'
+        filename = os.getcwd() + '/mi/spiders_of_news_in_whiteList/spider_'+ spidername.replace('.', '')  + '.py'
         with open(filename, 'w') as f:
             f.write(ok.encode('utf8'))
             print 'success'

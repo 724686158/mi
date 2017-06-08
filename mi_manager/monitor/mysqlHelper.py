@@ -30,7 +30,6 @@ class MysqlHelper():
 
     def createDatabase(self):
         conn = self.connectMysql()
-
         sql = "create database if not exists " + self.db
         cur = conn.cursor()
         cur.execute(sql)
@@ -47,9 +46,6 @@ class MysqlHelper():
 
     def insert(self, sql, *params):
         conn = self.connectDatabase()
-
-        print sql
-        print params
         cur = conn.cursor();
         cur.execute(sql, params)
         conn.commit()
@@ -58,7 +54,6 @@ class MysqlHelper():
 
     def update(self, sql, *params):
         conn = self.connectDatabase()
-
         cur = conn.cursor()
         cur.execute(sql, params)
         conn.commit()
@@ -72,3 +67,13 @@ class MysqlHelper():
         conn.commit()
         cur.close()
         conn.close()
+
+    def select(self, sql):
+        conn = self.connectDatabase()
+        cur = conn.cursor()
+        cur.execute(sql)
+        result = cur.fetchall()
+        conn.commit()
+        cur.close()
+        conn.close()
+        return result

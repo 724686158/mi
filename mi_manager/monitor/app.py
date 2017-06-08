@@ -98,14 +98,27 @@ def init_monitor():
 @app.route('/init_mysql', methods=['GET'])
 def init_mysql():
     return jsonify(dat_service.init_mysql())
-
+# 记得改名字为/get_table
 @app.route('/get_dat', methods=['GET'])
-def get_dat():
+def get_table():
     # todo
-    return jsonify([('ID', 'URL', '状态'),
-                    ('001', 'http://www.h-ui.net/Hui-3.3-table.shtml', '状态A'),
-                    ('002', 'http://172.20.140.14:5020/static/show/demo.html', '状态B'),
-                    ('003', 'https://www.datatables.net/', '状态C')])
+    data_dic = dat_service.get_data_from_mysql('ECommerce')
+    '''
+    table_name = request.args.get('table_name')
+    if table_name is None:
+        table_name = 'Article'
+    if(table_name == 'Article'):
+        data_dic = dat_service.get_data_from_mongo(table_name)
+    elif(table_name == 'ECommerce' or table_name == 'ECommerceShop' or table_name == 'ECommerceShopComment' or table_name == 'ECommerceGood' or table_name == 'ECommerceGoodComment'):
+        data_dic = dat_service.get_data_from_mysql(table_name)
+    '''
+    return jsonify(data_dic)
+"""
+return jsonify([('ID', 'URL', '状态'),
+                ('001', 'http://www.h-ui.net/Hui-3.3-table.shtml', '状态A'),
+                ('002', 'http://172.20.140.14:5020/static/show/demo.html', '状态B'),
+                ('003', 'https://www.datatables.net/', '状态C')])
+"""
 
 @app.before_first_request
 def init():

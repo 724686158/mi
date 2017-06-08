@@ -2,56 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="a39a0442-fbe6-436f-9f04-2e92cc314079" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/mi_manager/monitor/static/lib/dtables/images/Sorting icons.psd" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/mi_manager/monitor/static/lib/dtables/images/favicon.ico" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/mi_manager/monitor/static/lib/dtables/images/sort_asc.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/mi_manager/monitor/static/lib/dtables/images/sort_asc_disabled.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/mi_manager/monitor/static/lib/dtables/images/sort_both.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/mi_manager/monitor/static/lib/dtables/images/sort_desc.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/mi_manager/monitor/static/lib/dtables/images/sort_desc_disabled.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/vcs.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/mi_manager/monitor/static/lib/dtables/css/dataTables.bootstrap.css" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/mi_manager/monitor/static/lib/dtables/css/dataTables.bootstrap.min.css" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/mi_manager/monitor/static/lib/dtables/css/dataTables.bootstrap4.css" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/mi_manager/monitor/static/lib/dtables/css/dataTables.bootstrap4.min.css" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/mi_manager/monitor/static/lib/dtables/css/dataTables.foundation.css" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/mi_manager/monitor/static/lib/dtables/css/dataTables.foundation.min.css" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/mi_manager/monitor/static/lib/dtables/css/dataTables.jqueryui.css" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/mi_manager/monitor/static/lib/dtables/css/dataTables.jqueryui.min.css" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/mi_manager/monitor/static/lib/dtables/css/dataTables.material.css" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/mi_manager/monitor/static/lib/dtables/css/dataTables.material.min.css" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/mi_manager/monitor/static/lib/dtables/css/dataTables.semanticui.css" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/mi_manager/monitor/static/lib/dtables/css/dataTables.semanticui.min.css" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/mi_manager/monitor/static/lib/dtables/css/dataTables.uikit.css" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/mi_manager/monitor/static/lib/dtables/css/dataTables.uikit.min.css" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/mi_manager/monitor/static/lib/dtables/css/jquery.dataTables.css" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/mi_manager/monitor/static/lib/dtables/css/jquery.dataTables.min.css" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/mi_manager/monitor/static/lib/dtables/css/jquery.dataTables_themeroller.css" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/mi_manager/monitor/static/lib/dtables/js/dataTables.bootstrap.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/mi_manager/monitor/static/lib/dtables/js/dataTables.bootstrap.min.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/mi_manager/monitor/static/lib/dtables/js/dataTables.bootstrap4.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/mi_manager/monitor/static/lib/dtables/js/dataTables.bootstrap4.min.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/mi_manager/monitor/static/lib/dtables/js/dataTables.foundation.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/mi_manager/monitor/static/lib/dtables/js/dataTables.foundation.min.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/mi_manager/monitor/static/lib/dtables/js/dataTables.jqueryui.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/mi_manager/monitor/static/lib/dtables/js/dataTables.jqueryui.min.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/mi_manager/monitor/static/lib/dtables/js/dataTables.material.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/mi_manager/monitor/static/lib/dtables/js/dataTables.material.min.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/mi_manager/monitor/static/lib/dtables/js/dataTables.semanticui.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/mi_manager/monitor/static/lib/dtables/js/dataTables.semanticui.min.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/mi_manager/monitor/static/lib/dtables/js/dataTables.uikit.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/mi_manager/monitor/static/lib/dtables/js/dataTables.uikit.min.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/mi_manager/monitor/static/lib/dtables/js/jquery.dataTables.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/mi_manager/monitor/static/lib/dtables/js/jquery.dataTables.min.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/mi_manager/monitor/static/lib/dtables/js/jquery.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/mi_manager/monitor/static/show/demo.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/version02.iml" afterPath="$PROJECT_DIR$/.idea/version02.iml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/mi_tools/vague_urls/__init__.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/mi_tools/vague_urls/articles_urls.txt" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/mi_tools/vague_urls/runner.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mi_manager/monitor/app.py" afterPath="$PROJECT_DIR$/mi_manager/monitor/app.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mi_manager/monitor/settings.py" afterPath="$PROJECT_DIR$/mi_manager/monitor/settings.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mi_manager/monitor/static/const.js" afterPath="$PROJECT_DIR$/mi_manager/monitor/static/const.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mi_manager/monitor/static/index.html" afterPath="$PROJECT_DIR$/mi_manager/monitor/static/index.html" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -69,28 +23,7 @@
   </component>
   <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
   <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="app.py" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/mi_manager/monitor/app.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="492">
-              <caret line="116" column="0" lean-forward="true" selection-start-line="116" selection-start-column="0" selection-end-line="116" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="demo.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/mi_manager/monitor/static/show/demo.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-578">
-              <caret line="53" column="0" lean-forward="false" selection-start-line="53" selection-start-column="0" selection-end-line="53" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-    </leaf>
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300" />
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -103,7 +36,11 @@
     <findStrings>
       <find>hp_collection_name</find>
       <find>Houseinf</find>
+      <find>grandfather</find>
     </findStrings>
+    <replaceStrings>
+      <replace>hehehe</replace>
+    </replaceStrings>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -123,6 +60,8 @@
         <option value="$PROJECT_DIR$/mi_manager/monitor/settings.py" />
         <option value="$PROJECT_DIR$/mi_manager/monitor/static/show/demo.html" />
         <option value="$PROJECT_DIR$/mi_manager/monitor/app.py" />
+        <option value="$PROJECT_DIR$/mi_tools/vague_urls/runner.py" />
+        <option value="$PROJECT_DIR$/mi_tools/vague_urls/__init__.py" />
       </list>
     </option>
   </component>
@@ -176,11 +115,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="mi_manager" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="monitor" />
+              <option name="myItemId" value="mi_tools" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -194,55 +129,11 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="mi_manager" />
+              <option name="myItemId" value="mi_tools" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="monitor" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="static" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="mi" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="mi" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="mi_manager" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="monitor" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="static" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="show" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="mi" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="mi" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="mi_manager" />
+              <option name="myItemId" value="vague_urls" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -265,6 +156,7 @@
       <recent name="$PROJECT_DIR$/mi/scrapy_redis_source_code" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\BDCloud\Work\SoftwareCup\mi\mi_tools" />
       <recent name="D:\BDCloud\Work\SoftwareCup\mi\mi_manager\monitor\static" />
       <recent name="D:\BDCloud\Work\SoftwareCup\mi\mi_manager\monitor\static\lib" />
       <recent name="$PROJECT_DIR$" />
@@ -610,6 +502,14 @@
       <option name="presentableId" value="Default" />
       <updated>1491116761651</updated>
     </task>
+    <task id="LOCAL-00001" summary="version-0.78 添加数据展示前端页面和接口">
+      <created>1496894570078</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1496894570078</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TestHistory">
@@ -619,9 +519,8 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
-    <editor active="true" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.21002132" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.21002132" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
@@ -648,6 +547,10 @@
   <component name="VcsContentAnnotationSettings">
     <option name="myLimit" value="2678400000" />
   </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="version-0.78 添加数据展示前端页面和接口" />
+    <option name="LAST_COMMIT_MESSAGE" value="version-0.78 添加数据展示前端页面和接口" />
+  </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <option name="time" value="5" />
@@ -655,9 +558,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/project_mi/start.py" />
-    <entry file="file://$PROJECT_DIR$/torutials/torutials/spiders/__init__.py" />
-    <entry file="file://$PROJECT_DIR$/torutials/torutials/items.py" />
     <entry file="file://$PROJECT_DIR$/torutials/torutials/pipelines.py" />
     <entry file="file://$PROJECT_DIR$/torutials/torutials/settings.py" />
     <entry file="file://$PROJECT_DIR$/project_mi/project_mi/pipelines.py" />
@@ -740,10 +640,34 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/mi_tools/vague_urls/.idea/misc.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mi_tools/vague_urls/__init__.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mi_tools/vague_urls/runner.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="294">
+          <caret line="32" column="18" lean-forward="true" selection-start-line="32" selection-start-column="18" selection-end-line="32" selection-end-column="18" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/mi_manager/monitor/app.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="492">
-          <caret line="116" column="0" lean-forward="true" selection-start-line="116" selection-start-column="0" selection-end-line="116" selection-end-column="0" />
+          <caret line="116" column="0" lean-forward="false" selection-start-line="116" selection-start-column="0" selection-end-line="116" selection-end-column="0" />
           <folding />
         </state>
       </provider>

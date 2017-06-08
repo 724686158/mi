@@ -8,7 +8,7 @@
       <sourceFolder url="file://$MODULE_DIR$/project_mi/project_mi" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/project_mi/project_mi/spiders" isTestSource="false" />
     </content>
-    <orderEntry type="inheritedJdk" />
+    <orderEntry type="jdk" jdkName="Python 2.7.13 (C:\Python27\python.exe)" jdkType="Python SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
   </component>
   <component name="TestRunnerService">

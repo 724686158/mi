@@ -99,6 +99,14 @@ def init_monitor():
 def init_mysql():
     return jsonify(dat_service.init_mysql())
 
+@app.route('/get_dat', methods=['GET'])
+def get_dat():
+    # todo
+    return jsonify([('ID', 'URL', '状态'),
+                    ('001', 'http://www.h-ui.net/Hui-3.3-table.shtml', '状态A'),
+                    ('002', 'http://172.20.140.14:5020/static/show/demo.html', '状态B'),
+                    ('003', 'https://www.datatables.net/', '状态C')])
+
 @app.before_first_request
 def init():
     current_app.r = redis.Redis(host=settings.REDIS_HOST, port=settings.REDIS_PORT, db=settings.MONITOR_DB)
@@ -109,7 +117,7 @@ def init():
 
 
 if __name__ == '__main__':
-    #产生包含ip和port的js文件
+    # 产生包含ip和port的js文件
     text = 'POST_URL_PREFIX = "http://' + settings.APP_HOST + ':' + str(settings.APP_PORT) + '"'
     filename = os.getcwd() + settings.TEMP_PATH + '/static/const.js'
     with open(filename, 'w') as f:

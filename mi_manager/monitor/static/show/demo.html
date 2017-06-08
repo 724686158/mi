@@ -1,0 +1,108 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport"
+          content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no"/>
+    <meta http-equiv="Cache-Control" content="no-siteapp"/>
+    <!--[if lt IE 9]>
+    <script type="text/javascript" src="../lib/html5shiv.js"></script>
+    <script type="text/javascript" src="../lib/respond.min.js"></script>
+    <![endif]-->
+    <link rel="stylesheet" type="text/css" href="../static/h-ui/css/H-ui.min.css"/>
+    <link rel="stylesheet" type="text/css" href="../lib/Hui-iconfont/1.0.8/iconfont.min.css"/>
+    <link rel="stylesheet" type="text/css" href="../lib/dtables/css/jquery.dataTables.min.css"/>
+    <!--[if lt IE 9]>
+    <link href="../static/h-ui/css/H-ui.ie.css" rel="stylesheet" type="text/css"/>
+    <![endif]-->
+    <!--[if IE 6]>
+    <script type="text/javascript" src="../lib/DD_belatedPNG_0.0.8a-min.js"></script>
+
+    <script>DD_belatedPNG.fix('*');</script>
+    <![endif]-->
+    <title>Mi</title>
+</head>
+<body>
+<header class="navbar-wrapper">
+    <div class="navbar navbar-black navbar-fixed-top">
+        <div class="container cl">
+            <a class="logo navbar-logo hidden-xs" href="#">Mi</a>
+            <a aria-hidden="false"
+               class="nav-toggle Hui-iconfont visible-xs"
+               href="javascript:;">&#xe667;</a>
+            <nav class="nav navbar-nav nav-collapse" role="navigathttp://www.h-ui.net/ion" id="Hui-navbar">
+                <ul class="cl">
+                    <li class="current"><a href="#">首页</a></li>
+                </ul>
+            </nav>
+            <nav class="navbar-userbar hidden-xs"></nav>
+        </div>
+    </div>
+</header>
+
+
+<section class="container">
+    <div style="margin-top: 15px"></div>
+    <div class="col-offset-1 col-10">
+        <h1>查看爬虫结果</h1>
+        <div style="margin-top: 15px"></div>
+
+        <table class="table table-border table-bg table-bordered" id="myTable">
+            <thead id="tab_head">
+
+            </thead>
+            <tbody id="tab_dat">
+
+            </tbody>
+        </table>
+        <div style="margin-top: 50px"></div>
+    </div>
+
+</section>
+<footer class="footer mt-20">
+    <div class="container">
+        <p>Copyright &copy;Mi All Rights Reserved. <br>
+            未经允许，禁止转载、抄袭、镜像<br>
+            用心做，做不一样的</p>
+    </div>
+</footer>
+
+
+<script type="text/javascript" src="../lib/jquery/1.9.1/jquery.min.js"></script>
+<script type="text/javascript" src="../static/h-ui/js/H-ui.min.js"></script>
+<script type="text/javascript" src="../lib/jquery.SuperSlide/2.1.1/jquery.SuperSlide.min.js"></script>
+<script type="text/javascript" src="../lib/jquery.validation/1.14.0/jquery.validate.min.js"></script>
+<script type="text/javascript" src="../lib/jquery.validation/1.14.0/validate-methods.js"></script>
+<script type="text/javascript" src="../lib/jquery.validation/1.14.0/messages_zh.min.js"></script>
+<script type="text/javascript" src="../lib/dtables/js/jquery.dataTables.min.js"></script>
+
+<script type="text/javascript" src="../const.js"></script>
+
+<script>
+    var GET_URL = POST_URL_PREFIX + "/get_dat";
+    console.log(GET_URL);
+    $.get(GET_URL).success(function (dat) {
+        console.log(dat);
+        for (var i = 0; i < dat.length; ++i) {
+            var str = '<tr>';
+            for (var j = 0; j < dat[i].length; ++j) {
+                str += '<th>' + dat[i][j] + '</th>';
+            }
+            str += '</tr>';
+            if (i === 0) {
+                $('#tab_head').append(str);
+            } else {
+                $('#tab_dat').append(str);
+            }
+        }
+        $(document).ready(function(){
+            $('#myTable').DataTable();
+        });
+    });
+
+</script>
+
+</body>
+</html>

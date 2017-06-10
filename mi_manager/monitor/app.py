@@ -98,10 +98,9 @@ def init_monitor():
 @app.route('/init_mysql', methods=['GET'])
 def init_mysql():
     return jsonify(dat_service.init_mysql())
-# 记得改名字为/get_table
-@app.route('/get_dat', methods=['GET'])
+
+@app.route('/get_table', methods=['GET'])
 def get_table():
-    # todo
     data_dic = dat_service.get_data_from_mysql('ECommerce')
     '''
     table_name = request.args.get('table_name')
@@ -136,5 +135,3 @@ if __name__ == '__main__':
     with open(filename, 'w') as f:
         f.write(text.encode('utf8'))
     app.run(host=settings.APP_HOST, port=settings.APP_PORT, debug=False)
-
-

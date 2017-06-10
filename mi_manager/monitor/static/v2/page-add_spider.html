@@ -1,0 +1,99 @@
+﻿<div class="panel panel-default">
+    <div class="panel-header">添加新闻Spider</div>
+    <div class="panel-body">
+        <form action="" method="post" class="form form-horizontal responsive" id="demoform">
+
+            <div class="row cl">
+                <label class="form-label col-xs-3">start_urls</label>
+                <div class="formControls col-xs-8">
+                        <textarea cols="" rows="" class="textarea" name="beizhu" id="start_urls"
+                                  placeholder="start_urls，一行一个" onkeyup="$.Huitextarealength(this,500)"></textarea>
+                    <p class="textarea-numberbar"><em class="textarea-length">0</em>/500</p>
+                </div>
+            </div>
+
+            <div class="row cl">
+                <label class="form-label col-xs-3">name</label>
+                <div class="formControls col-xs-8">
+                    <input type="text" class="input-text" id="name" placeholder="唯一指定爬虫名">
+                </div>
+            </div>
+
+            <div class="row cl">
+                <label class="form-label col-xs-3">allowed_domains</label>
+                <div class="formControls col-xs-8">
+                        <textarea cols="" rows="" class="textarea" name="beizhu" id="allowed_domains"
+                                  placeholder="allowed_domains，一行一个" onkeyup="$.Huitextarealength(this,500)"></textarea>
+                    <p class="textarea-numberbar"><em class="textarea-length">0</em>/500</p>
+                </div>
+            </div>
+
+            <div class="row cl">
+                <label class="form-label col-xs-3">rule_allow</label>
+                <div class="formControls col-xs-8">
+                        <textarea cols="" rows="" class="textarea" name="beizhu" id="rule_allow"
+                                  placeholder="rule_allow，一行一个" onkeyup="$.Huitextarealength(this,500)"></textarea>
+                    <p class="textarea-numberbar"><em class="textarea-length">0</em>/500</p>
+                </div>
+            </div>
+
+            <div class="row cl">
+                <label class="form-label col-xs-3">rule_deny</label>
+                <div class="formControls col-xs-8">
+                        <textarea cols="" rows="" class="textarea" name="beizhu" id="rule_deny"
+                                  placeholder="rule_deny，一行一个" onkeyup="$.Huitextarealength(this,500)"></textarea>
+                    <p class="textarea-numberbar"><em class="textarea-length">0</em>/500</p>
+                </div>
+            </div>
+
+            <div class="row cl">
+                <label class="form-label col-xs-3">xpath_title</label>
+                <div class="formControls col-xs-8">
+                        <textarea cols="" rows="" class="textarea" name="beizhu" id="xpath_title"
+                                  placeholder="xpath_title，一行一个" onkeyup="$.Huitextarealength(this,500)"></textarea>
+                    <p class="textarea-numberbar"><em class="textarea-length">0</em>/500</p>
+                </div>
+            </div>
+
+            <div class="row cl">
+                <label class="form-label col-xs-3">xpath_content</label>
+                <div class="formControls col-xs-8">
+                        <textarea cols="" rows="" class="textarea" name="beizhu" id="xpath_content"
+                                  placeholder="xpath_content，一行一个" onkeyup="$.Huitextarealength(this,500)"></textarea>
+                    <p class="textarea-numberbar"><em class="textarea-length">0</em>/500</p>
+                </div>
+            </div>
+
+            <div class="row cl">
+                <div class="col-xs-8 col-xs-offset-3">
+                    <input class="btn btn-primary"
+                           type="submit"
+                           value="&nbsp;&nbsp;提交&nbsp;&nbsp;"
+                           onclick="submit_add_spider()">
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script type="text/javascript" src="../const.js"></script>
+
+<script>
+    var POST_URL = POST_URL_PREFIX + "/gen_spider";
+    function submit_add_spider() {
+        var js = {
+            name: $("#name").val(),
+            start_urls: $("#start_urls").val().split('\n'),
+            allowed_domains: $("#allowed_domains").val().split("\n"),
+            rule_allow: $("#rule_allow").val().split("\n"),
+            rule_deny: $("#rule_deny").val().split("\n"),
+            xpath_title: $("#xpath_title").val().split("\n"),
+            xpath_content: $("#xpath_content").val().split("\n")
+        };
+        var str = JSON.stringify(js);
+        console.log(str);
+        $.post(POST_URL, {json_result: str}).success(function () {
+            alert("添加spider" + js.name + "成功！");
+        });
+    }
+</script>

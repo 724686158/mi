@@ -1,0 +1,41 @@
+﻿<div class="row">
+    <div class="col-md-10">
+        <div class="box box-success">
+            <div class="box-header with-border">
+                <h3 class="box-title">添加代理IP</h3>
+            </div>
+            <div class="box-body">
+
+                <textarea cols="" rows="" class="textarea form-control" name="ips" id="ips"
+                          style="height: 400px"
+                          placeholder="ips，一行一个"></textarea>
+            </div>
+            <div class="box-footer">
+                <div class="pull-right">
+                    <button type="submit" class="btn btn-success"
+                        onclick="submit_add_spider()">
+                    提交
+                </button>
+                </div>
+
+              </div>
+            <!-- /.box-body -->
+        </div>
+    </div>
+</div>
+
+
+<script type="text/javascript" src="../const.js"></script>
+<script>
+    var POST_URL = POST_URL_PREFIX + "/add_ips";
+    function submit_add_spider() {
+        var js = {
+            ips: $("#ips").val().split('\n')
+        };
+        var str = JSON.stringify(js);
+        console.log(str);
+        $.post(POST_URL, {ips: str}).success(function () {
+            alert("添加代理IP成功！");
+        });
+    }
+</script>

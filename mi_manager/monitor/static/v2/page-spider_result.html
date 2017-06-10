@@ -1,0 +1,63 @@
+<div class="row">
+    <div class="col-md-12">
+        <div class="box box-success">
+            <div class="box-header with-border">
+                <h3 id="hd_name" class="box-title">
+                    爬虫结果
+                </h3>
+            </div>
+            <div class="box-body">
+                <table class="table table-border table-bg table-bordered" id="myTable">
+                    <thead id="tab_head">
+
+                    </thead>
+                    <tbody id="tab_dat">
+
+                    </tbody>
+                </table>
+            </div>
+            <div class="box-footer">
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<link rel="stylesheet" type="text/css" href="plugins/datatables/jquery.dataTables.min.css"/>
+<script type="text/javascript" src="plugins/datatables/jquery.dataTables.min.js"></script>
+<script type="text/javascript" src="plugins/datatables/dataTables.bootstrap.min.js"></script>
+
+<script type="text/javascript" src="../const.js"></script>
+
+<script>
+    function getQueryString(name) {
+        var x = _file_name.split('=');
+        return x[1];
+    }
+    $('#hd_name').html("爬虫结果：" + getQueryString('name'))
+</script>
+
+<script>
+    var GET_URL = POST_URL_PREFIX + "/get_table?table_name=" + getQueryString('name');
+    console.log(GET_URL);
+    $.get(GET_URL).success(function (dat) {
+        console.log(dat);
+        for (var i = 0; i < dat.length; ++i) {
+            var str = '<tr>';
+            for (var j = 0; j < dat[i].length; ++j) {
+                str += '<th>' + dat[i][j] + '</th>';
+            }
+            str += '</tr>';
+            if (i === 0) {
+                $('#tab_head').append(str);
+            } else {
+                $('#tab_dat').append(str);
+            }
+        }
+        $(document).ready(function(){
+            $('#myTable').DataTable();
+        });
+    });
+
+</script>
+

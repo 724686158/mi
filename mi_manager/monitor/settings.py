@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 # mi_manager
-APP_HOST = '172.20.140.18'
+APP_HOST = 'localhost'
 APP_PORT = 5020
 # redis服务器
 REDIS_HOST = '122.114.62.116'

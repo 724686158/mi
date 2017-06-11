@@ -1,1 +1,1 @@
-POST_URL_PREFIX = "http://172.20.140.18:5020"
+POST_URL_PREFIX = "http://localhost:5020"

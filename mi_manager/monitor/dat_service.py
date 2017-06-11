@@ -74,7 +74,7 @@ def init_mysql():
 
 def exec_init_of_missions():
     oscwd = os.getcwd()
-    r = redis.Redis(settings.REDIS_HOST, settings.REDIS_PORT, db=settings.MISSIONS_DB)
+    r = get_redis(settings.MISSIONS_DB)
     news_spiders_need_fuzzymatching = r.lrange('0', 0, -1)
     news_spiders_in_whitelist = r.lrange('1', 0, -1)
     mission_urls = news_spiders_in_whitelist + news_spiders_need_fuzzymatching
@@ -157,3 +157,32 @@ def get_data_from_mysql(table_name):
             t = (col['eCommerceName'], col['goodId'], col['goodCommentsUrl'], col['goodCommentsData'], col['updateTime'])
             dic.append(t)
     return dic
+def batch_import_spider(txt):
+    print '==============='
+    print txt
+    '''
+    r = get_redis(settings.SPIDERS_DB)
+    filename = "spiders_swap.txt"
+        key = f.readline()
+        con = 0
+        while key.__len__() > 0:
+            con = con + 1
+            print con
+            key = key.split('\n')[0]
+            print key
+            info = f.readline().split('\n')[0]
+            print info
+            #r.set(key, info)
+            key = f.readline()
+            if key.__len__() < 2:
+                key = f.readline()
+    '''
+def batch_export_spider():
+    r = get_redis(settings.SPIDERS_DB)
+    keys = r.keys()
+    ans = ''
+    for key in keys:
+        ans = ans + (key + '\n')
+        ans = ans + (r.get(key) + '\n')
+    print ans.encode('utf8')
+    return ans.encode('utf8')

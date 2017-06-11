@@ -5,18 +5,53 @@ import os
 import dat_service
 import settings
 import url_extract_tools
+import base64
 
-
-
-from flask import Flask, render_template, jsonify, request, current_app, redirect
+from flask import Flask, render_template, jsonify, request, current_app, redirect, send_from_directory, abort
 from gen_spiderInitfile_of_news import generate_spider_init
 
 app = Flask(__name__)
+app.config['BASEDIR'] = os.path.abspath(os.path.dirname(__file__)) # app.py所在的目录
+app.config['UPLOAD_FOLDER'] = 'upload' # 用文件夹‘upload’来存储新上传的文件
 
+
+# 用于判断文件后缀
+def allowed_file(filename):
+    return '.' in filename and filename.rsplit('.',1)[1] in ['txt','png','PNG','jpg','JPG','gif','GIF','xls','xlsx']
+
+# 用于测试上传，稍后用到
+@app.route('/test/upload')
+def upload_test():
+    return render_template('upload.html')
+
+# 上传文件
+@app.route('/api/upload',methods=['POST'],strict_slashes=False)
+def api_upload():
+    file_dir=os.path.join(app.config['BASEDIR'], app.config['UPLOAD_FOLDER'])
+    if not os.path.exists(file_dir):
+        os.makedirs(file_dir)
+    f=request.files['myfile']  # 从表单的file字段获取文件，myfile为该表单的name值
+    if f and allowed_file(f.filename):  # 判断是否是允许上传的文件类型
+        f.save(os.path.join(file_dir,f.filename))  #保存文件到upload目录
+        token = base64.b64encode(f.filename)
+        print token
+        return jsonify({"msg":"upload success","token":token})
+    else:
+        return jsonify({"errno":1001,"errmsg":"upload fail"})
+
+@app.route('/api/download',methods=['GET'],strict_slashes=False)
+def download():
+    filename = request.args.get('filename')
+    if filename is None:
+        filename = 'swap.txt'
+    if request.method=="GET":
+        if os.path.isfile(os.path.join('upload', filename)):
+            return send_from_directory('upload',filename,as_attachment=True)
+        abort(404)
 
 @app.route('/')
 def index():
-    return redirect('/static/index.html')
+    return redirect('/static/v2/login.html')
 
 
 @app.route('/monitor')
@@ -101,23 +136,15 @@ def init_mysql():
 
 @app.route('/get_table', methods=['GET'])
 def get_table():
-    data_dic = dat_service.get_data_from_mysql('ECommerce')
-    '''
     table_name = request.args.get('table_name')
     if table_name is None:
-        table_name = 'Article'
+        data_dic = []
     if(table_name == 'Article'):
         data_dic = dat_service.get_data_from_mongo(table_name)
     elif(table_name == 'ECommerce' or table_name == 'ECommerceShop' or table_name == 'ECommerceShopComment' or table_name == 'ECommerceGood' or table_name == 'ECommerceGoodComment'):
         data_dic = dat_service.get_data_from_mysql(table_name)
-    '''
     return jsonify(data_dic)
-"""
-return jsonify([('ID', 'URL', '状态'),
-                ('001', 'http://www.h-ui.net/Hui-3.3-table.shtml', '状态A'),
-                ('002', 'http://172.20.140.14:5020/static/show/demo.html', '状态B'),
-                ('003', 'https://www.datatables.net/', '状态C')])
-"""
+
 
 
 # 获取新闻爬虫名
@@ -142,6 +169,7 @@ def get_spider_info():
 # 删除爬虫，形式：/delte_spider?key=163.com
 @app.route('/delte_spider', methods=['GET'])
 def delte_spider():
+
     # todo
     print '已删除..'
     return jsonify('ok')
@@ -158,16 +186,21 @@ def delte_all_spider():
 # 批量导入，注意是POST，文本参数在变量txt里
 @app.route('/batch_import_spider', methods=['POST'])
 def batch_import_spider():
-    # todo
-    print '已批量导入..'
-    return jsonify('ok')
-
+    txt = request.form.get('txt', '')
+    try:
+        dat_service.batch_import_spider(txt)
+        print '已批量导入..'
+        return jsonify('ok')
+    except:
+        print '导入失败'
 
 # 批量导出，直接返回文本就好
 @app.route('/batch_export_spider', methods=['GET'])
 def batch_export_spider():
     # todo
-    return """hehe"""
+    ans = dat_service.batch_export_spider()
+
+    return ans
 
 
 @app.before_first_request

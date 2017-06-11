@@ -119,6 +119,32 @@ return jsonify([('ID', 'URL', '状态'),
                 ('003', 'https://www.datatables.net/', '状态C')])
 """
 
+
+# 获取新闻爬虫名
+@app.route('/get_news_spider_name', methods=['GET'])
+def get_news_spider_name():
+    r = redis.Redis(settings.REDIS_HOST, settings.REDIS_PORT, db=settings.SPIDERS_DB)
+    keys = r.keys()
+    return jsonify(keys)
+
+
+# 获取爬虫配置
+@app.route('/get_spider_info', methods=['GET'])
+def get_spider_info():
+    key = request.args.get('key')
+    r = redis.Redis(settings.REDIS_HOST, settings.REDIS_PORT, db=settings.SPIDERS_DB)
+    res = r.get(key)
+    dic = eval(res)
+    ss = json.dumps(dic)
+    print ss
+    return ss
+
+@app.route('/delte_spider', methods=['GET'])
+def delte_spider():
+    # todo
+    print '已删除..'
+    return jsonify('ok')
+
 @app.before_first_request
 def init():
     current_app.r = redis.Redis(host=settings.REDIS_HOST, port=settings.REDIS_PORT, db=settings.MONITOR_DB)

@@ -1,18 +1,18 @@
 # -*- coding: utf-8 -*-
 # mi_manager
-APP_HOST = '192.168.1.19'
+APP_HOST = '172.20.140.18'
 APP_PORT = 5020
 # redis服务器
-REDIS_HOST = '192.168.139.239'
+REDIS_HOST = '122.114.62.116'
 REDIS_PORT = 7001
 # mysql数据库的配置信息
-MYSQL_HOST = '192.168.139.239'
+MYSQL_HOST = '122.114.62.116'
 MYSQL_PORT = 3306
 MYSQL_DBNAME = 'data_20170607_01'    #数据库名字
 MYSQL_USER = 'root'                 #数据库账号
 MYSQL_PASSWD = 'mi'                 #数据库密码
 # mongodb数据库的配置信息
-MONGO_HOST = '192.168.139.239'
+MONGO_HOST = '122.114.62.116'
 MONGO_PORT = 27017
 MONGO_DATABASE = 'data_20170605_03'
 

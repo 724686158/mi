@@ -30,10 +30,10 @@ AUTOTHROTTLE_DEBUG = True
 #DEPTH_LIMIT = 20 #爬取深度,20是为了避免那些动态生成链接的网站造成的死循环,暂时没遇到这种网站,先禁用了
 
 # redis —— url存储
-REDIS_HOST = '192.168.139.239'
+REDIS_HOST = '122.114.62.116'
 REDIS_PORT = 7001
 # redis —— 去重队列
-FILTER_HOST = '192.168.139.239'
+FILTER_HOST = '122.114.62.116'
 FILTER_PORT = 7001
 
 # 用于存储调度队列 ———— 的redis数据据库编号（0～15）
@@ -61,7 +61,7 @@ MONITOR_DB = 15
 STATS_KEYS = ["downloader/request_count", "downloader/response_count", "downloader/response_status_count/200", "item_scraped_count"]
 
 # mongodb数据库的配置信息
-MONGO_HOST = '192.168.139.239'
+MONGO_HOST = '122.114.62.116'
 MONGO_PORT = 27017
 MONGO_DATABASE = 'data_20170605_03'
 #监控服务器信息
@@ -69,7 +69,7 @@ MONITOR_HOST = "0.0.0.0"
 MONITOR_PORT = "5020"
 
 # mysql数据库的配置信息
-MYSQL_HOST = "192.168.139.239"
+MYSQL_HOST = "122.114.62.116"
 MYSQL_PORT = 3306
 MYSQL_DBNAME = 'data_20170607_01'    #数据库名字
 MYSQL_USER = 'root'                 #数据库账号

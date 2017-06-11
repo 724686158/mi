@@ -1,0 +1,233 @@
+<div class="row">
+    <div class="col-md-12">
+        <div class="box box-success">
+            <div class="box-header ui-sortable-handle" style="cursor: move;">
+                <i class="ion ion-clipboard"></i>
+                <h3 class="box-title">新闻类爬虫列表</h3>
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body">
+                <div class="box-body pad table-responsive">
+                    <table class="table table-bordered text-center">
+                        <tbody>
+                        <tr>
+                            <td>
+                                <button type="button" class="btn btn-block btn-success btn-flat"
+                                        data-toggle="modal" data-target="#myModal"
+                                        onclick="init_modify(null)">
+                                    添加
+                                </button>
+                            </td>
+                            <td>
+                                <button type="button" class="btn btn-block btn-success btn-flat">导入</button>
+                            </td>
+                            <td>
+                                <button type="button" class="btn btn-block btn-success btn-flat">导出</button>
+                            </td>
+                            <td>
+                                <button type="button" class="btn btn-block btn-success btn-flat">清空</button>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <ul class="list-group todo-list ui-sortable" id="list_tmp">
+                    <li class="list-group-item list-group-item-success">
+                        <span class="text">{0}</span>
+                        <div class="tools">
+                            <i class="fa fa-edit" data-toggle="modal" data-target="#myModal"
+                               onclick="init_modify('{1}')">
+                                编辑
+                            </i>
+                            <i class="fa fa-trash-o" onclick="delete_spider('{2}')">删除</i>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span></button>
+                <h4 class="modal-title">配置爬虫</h4>
+            </div>
+            <div class="modal-body">
+                <form action="" method="post" class="form form-horizontal responsive" id="demoform">
+                    <div class="form-group">
+                        <label class="col-xs-3 control-label">start_urls</label>
+                        <div class="formControls col-xs-9">
+                        <textarea cols="" rows="3" class="textarea form-control" id="start_urls"
+                                  placeholder="一行一个"></textarea>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-xs-3 control-label">name</label>
+                        <div class="formControls col-xs-9">
+                            <input type="text" class="form-control" id="name" placeholder="爬虫备注信息">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-xs-3 control-label">allowed_domains</label>
+                        <div class="formControls col-xs-9">
+                        <textarea cols="" rows="3" class="textarea form-control" id="allowed_domains"
+                                  placeholder="一行一个"></textarea>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-xs-3 control-label">rule_allow</label>
+                        <div class="formControls col-xs-9">
+                        <textarea cols="" rows="3" class="textarea form-control" id="rule_allow"
+                                  placeholder="一行一个"></textarea>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-xs-3 control-label">rule_deny</label>
+                        <div class="formControls col-xs-9">
+                        <textarea cols="" rows="3" class="textarea form-control" id="rule_deny"
+                                  placeholder="一行一个"></textarea>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-xs-3 control-label">xpath_title</label>
+                        <div class="formControls col-xs-9">
+                        <textarea cols="" rows="3" class="textarea form-control" id="xpath_title"
+                                  placeholder="一行一个"></textarea>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-xs-3 control-label">xpath_content</label>
+                        <div class="formControls col-xs-9">
+                        <textarea cols="" rows="3" class="textarea form-control" id="xpath_content"
+                                  placeholder="一行一个"></textarea>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default pull-left" data-dismiss="modal">取消</button>
+                <button type="button" class="btn btn-success" onclick="submit_add_spider()">保存修改</button>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+
+
+<link rel="stylesheet" type="text/css" href="plugins/datatables/jquery.dataTables.min.css"/>
+<script type="text/javascript" src="plugins/datatables/jquery.dataTables.min.js"></script>
+<script type="text/javascript" src="plugins/datatables/dataTables.bootstrap.min.js"></script>
+
+<script type="text/javascript" src="../const.js"></script>
+
+<script>
+    String.prototype.format = function (args) {
+        var result = this;
+        if (arguments.length > 0) {
+            if (arguments.length == 1 && typeof (args) == "object") {
+                for (var key in args) {
+                    if (args[key] != undefined) {
+                        var reg = new RegExp("({" + key + "})", "g");
+                        result = result.replace(reg, args[key]);
+                    }
+                }
+            }
+            else {
+                for (var i = 0; i < arguments.length; i++) {
+                    if (arguments[i] != undefined) {
+                        //var reg = new RegExp("({[" + i + "]})", "g");//这个在索引大于9时会有问题，谢谢何以笙箫的指出
+                        var reg = new RegExp("({)" + i + "(})", "g");
+                        result = result.replace(reg, arguments[i]);
+                    }
+                }
+            }
+        }
+        return result;
+    }
+</script>
+
+<script>
+    var html = $('#list_tmp').html();
+    $('#list_tmp').empty();
+    var GET_URL = POST_URL_PREFIX + "/get_news_spider_name";
+    console.log(GET_URL);
+    $.get(GET_URL).success(function (dat) {
+        for (var i = 0; i < dat.length; ++i) {
+            var ins = html.format(dat[i], dat[i], dat[i]);
+            $('#list_tmp').append(ins);
+        }
+    });
+</script>
+
+<script>
+    function init_modify(name) {
+        if (name == null) {
+            $("#name").val("");
+            $("#start_urls").val("");
+            $("#allowed_domains").val("");
+            $("#rule_allow").val("");
+            $("#rule_deny").val("");
+            $("#xpath_title").val("");
+            $("#xpath_content").val("");
+            return;
+        }
+        var GET_URL = POST_URL_PREFIX + "/get_spider_info?key=" + name;
+        console.log(GET_URL);
+        $.getJSON(GET_URL).success(function (dat) {
+            console.log(dat);
+            $("#name").val(dat["name"]);
+            $("#start_urls").val(dat["start_urls"].join('\n'));
+            $("#allowed_domains").val(dat["allowed_domains"].join('\n'));
+            $("#rule_allow").val(dat["rule_allow"].join('\n'));
+            $("#rule_deny").val(dat["rule_deny"].join('\n'));
+            $("#xpath_title").val(dat["xpath_title"].join('\n'));
+            $("#xpath_content").val(dat["xpath_content"].join('\n'));
+        });
+    }
+</script>
+
+<script>
+    function delete_spider(name) {
+        if (confirm("注意：真的删除爬虫" + name + "?")) {
+            var GET_URL = POST_URL_PREFIX + "/delte_spider";
+            console.log(GET_URL);
+            $.getJSON(GET_URL).success(function (dat) {
+                console.log(dat);
+                reload_content();
+            });
+        }
+    }
+</script>
+
+
+<script>
+    var POST_URL = POST_URL_PREFIX + "/gen_spider";
+    function submit_add_spider() {
+        var js = {
+            name: $("#name").val(),
+            start_urls: $("#start_urls").val().split('\n'),
+            allowed_domains: $("#allowed_domains").val().split("\n"),
+            rule_allow: $("#rule_allow").val().split("\n"),
+            rule_deny: $("#rule_deny").val().split("\n"),
+            xpath_title: $("#xpath_title").val().split("\n"),
+            xpath_content: $("#xpath_content").val().split("\n")
+        };
+        var str = JSON.stringify(js);
+        console.log(str);
+        $.post(POST_URL, {json_result: str}).success(function () {
+            alert("操作spider" + js.name + "成功！");
+            reload_content();
+        });
+    }
+</script>

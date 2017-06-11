@@ -15,17 +15,29 @@
                                 <button type="button" class="btn btn-block btn-success btn-flat"
                                         data-toggle="modal" data-target="#myModal"
                                         onclick="init_modify(null)">
-                                    添加
+                                    添加新爬虫
                                 </button>
                             </td>
                             <td>
-                                <button type="button" class="btn btn-block btn-success btn-flat">导入</button>
+                                <button type="button"
+                                        class="btn btn-block btn-success btn-flat"
+                                        data-toggle="modal" data-target="#myModal2">
+                                    批量导入数据
+                                </button>
                             </td>
                             <td>
-                                <button type="button" class="btn btn-block btn-success btn-flat">导出</button>
+                                <button type="button"
+                                        class="btn btn-block btn-success btn-flat"
+                                        onclick="batch_export_spider()">
+                                    批量导出数据
+                                </button>
                             </td>
                             <td>
-                                <button type="button" class="btn btn-block btn-success btn-flat">清空</button>
+                                <button type="button"
+                                        class="btn btn-block btn-success btn-flat"
+                                        onclick="bat_delete_spider()">
+                                    清空所有爬虫
+                                </button>
                             </td>
                         </tr>
                         </tbody>
@@ -124,6 +136,35 @@
     <!-- /.modal-dialog -->
 </div>
 
+<div class="modal" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span></button>
+                <h4 class="modal-title">批量导入爬虫数据</h4>
+            </div>
+            <div class="modal-body">
+                <form action="" method="post" class="form form-horizontal responsive">
+                    <div class="form-group">
+                        <div class="formControls col-xs-12">
+                        <textarea cols="" rows="24" class="textarea form-control" id="import_spider_dat"
+                                  placeholder=""></textarea>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default pull-left" data-dismiss="modal">取消</button>
+                <button type="button" class="btn btn-success" onclick="batch_import_spider()">导入</button>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+
+
 
 <link rel="stylesheet" type="text/css" href="plugins/datatables/jquery.dataTables.min.css"/>
 <script type="text/javascript" src="plugins/datatables/jquery.dataTables.min.js"></script>
@@ -200,7 +241,7 @@
 <script>
     function delete_spider(name) {
         if (confirm("注意：真的删除爬虫" + name + "?")) {
-            var GET_URL = POST_URL_PREFIX + "/delte_spider";
+            var GET_URL = POST_URL_PREFIX + "/delte_spider?key=" + name;
             console.log(GET_URL);
             $.getJSON(GET_URL).success(function (dat) {
                 console.log(dat);
@@ -210,6 +251,44 @@
     }
 </script>
 
+<script>
+    function bat_delete_spider() {
+        if (confirm("注意：真的删除全部爬虫吗？")) {
+            var GET_URL = POST_URL_PREFIX + "/delte_all_spider";
+            console.log(GET_URL);
+            $.getJSON(GET_URL).success(function (dat) {
+                console.log(dat);
+                reload_content();
+            });
+        }
+    }
+</script>
+
+<script>
+    function batch_import_spider() {
+        var POST_URL = POST_URL_PREFIX + "/batch_import_spider";
+        var dat = $('#import_spider_dat').val();
+        console.log(dat);
+        console.log(POST_URL);
+        $.post(POST_URL, {txt: dat}).success(function () {
+            alert("操作成功！");
+            $("#myModal2").modal("toggle");
+            reload_content();
+        });
+    }
+</script>
+
+<script>
+    function batch_export_spider() {
+        var GET_URL = POST_URL_PREFIX + "/batch_export_spider";
+        console.log(GET_URL);
+        $.get(GET_URL).success(function (dat) {
+            console.log(dat);
+            myWindow=window.open('','','width=800,height=600');
+            myWindow.document.write(dat);
+        });
+    }
+</script>
 
 <script>
     var POST_URL = POST_URL_PREFIX + "/gen_spider";
@@ -227,6 +306,7 @@
         console.log(str);
         $.post(POST_URL, {json_result: str}).success(function () {
             alert("操作spider" + js.name + "成功！");
+            $("#myModal").modal("toggle");
             reload_content();
         });
     }

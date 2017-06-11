@@ -136,14 +136,39 @@ def get_spider_info():
     res = r.get(key)
     dic = eval(res)
     ss = json.dumps(dic)
-    print ss
     return ss
 
+
+# 删除爬虫，形式：/delte_spider?key=163.com
 @app.route('/delte_spider', methods=['GET'])
 def delte_spider():
     # todo
     print '已删除..'
     return jsonify('ok')
+
+
+# 删除全部爬虫
+@app.route('/delte_all_spider', methods=['GET'])
+def delte_all_spider():
+    # todo
+    print '已删除..'
+    return jsonify('ok')
+
+
+# 批量导入，注意是POST，文本参数在变量txt里
+@app.route('/batch_import_spider', methods=['POST'])
+def batch_import_spider():
+    # todo
+    print '已批量导入..'
+    return jsonify('ok')
+
+
+# 批量导出，直接返回文本就好
+@app.route('/batch_export_spider', methods=['GET'])
+def batch_export_spider():
+    # todo
+    return """hehe"""
+
 
 @app.before_first_request
 def init():

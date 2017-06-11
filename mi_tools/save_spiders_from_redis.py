@@ -1,6 +1,6 @@
 #  -*- coding: utf-8 -*-
 import redis
-import mi.settings as settings
+import settings as settings
 filename = "all_spiders.txt"
 r = redis.Redis(settings.REDIS_HOST, settings.REDIS_PORT, db=settings.SPIDERS_DB)
 keys = r.keys()

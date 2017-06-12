@@ -3,6 +3,13 @@
   <component name="ChangeListManager">
     <list default="true" id="a39a0442-fbe6-436f-9f04-2e92cc314079" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mi_manager/monitor/app.py" afterPath="$PROJECT_DIR$/mi_manager/monitor/app.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mi_manager/monitor/settings.py" afterPath="$PROJECT_DIR$/mi_manager/monitor/settings.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mi_manager/monitor/static/const.js" afterPath="$PROJECT_DIR$/mi_manager/monitor/static/const.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mi_manager/monitor/static/v2/page-add_ip.html" afterPath="$PROJECT_DIR$/mi_manager/monitor/static/v2/page-add_ip.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mi_manager/monitor/static/v2/page-index.html" afterPath="$PROJECT_DIR$/mi_manager/monitor/static/v2/page-index.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mi_manager/monitor/static/v2/page-news_spider.html" afterPath="$PROJECT_DIR$/mi_manager/monitor/static/v2/page-news_spider.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mi_manager/monitor/static/v2/starter.html" afterPath="$PROJECT_DIR$/mi_manager/monitor/static/v2/starter.html" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -16,14 +23,79 @@
     <SUITE FILE_PATH="coverage/mi$start.coverage" NAME="start Coverage Results" MODIFIED="1497161022961" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/mi" />
     <SUITE FILE_PATH="coverage/mi$lpush.coverage" NAME="lpush Coverage Results" MODIFIED="1496893976164" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/mi$save_spiders_from_redis.coverage" NAME="save_spiders_from_redis Coverage Results" MODIFIED="1497161654538" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/mi_tools" />
-    <SUITE FILE_PATH="coverage/mi$app.coverage" NAME="app Coverage Results" MODIFIED="1497172711002" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/mi_manager/monitor" />
+    <SUITE FILE_PATH="coverage/mi$Unittests_in_app_py.coverage" NAME="Unittests in app.py Coverage Results" MODIFIED="1497258441799" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
+    <SUITE FILE_PATH="coverage/mi$app.coverage" NAME="app Coverage Results" MODIFIED="1497261958474" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/mi_manager/monitor" />
   </component>
   <component name="CreatePatchCommitExecutor">
     <option name="PATCH_PATH" value="" />
   </component>
   <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
   <component name="FileEditorManager">
-    <leaf />
+    <leaf>
+      <file leaf-file-name="settings.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/mi_manager/monitor/settings.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="44">
+              <caret line="2" column="26" lean-forward="false" selection-start-line="2" selection-start-column="26" selection-end-line="2" selection-end-column="26" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="app.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/mi_manager/monitor/app.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-15">
+              <caret line="212" column="24" lean-forward="true" selection-start-line="212" selection-start-column="24" selection-end-line="212" selection-end-column="24" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="page-index.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/mi_manager/monitor/static/v2/page-index.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="461">
+              <caret line="90" column="0" lean-forward="true" selection-start-line="90" selection-start-column="0" selection-end-line="90" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="starter.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/mi_manager/monitor/static/v2/starter.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="461">
+              <caret line="404" column="37" lean-forward="false" selection-start-line="404" selection-start-column="36" selection-end-line="404" selection-end-column="37" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="page-add_ip.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/mi_manager/monitor/static/v2/page-add_ip.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="219">
+              <caret line="92" column="16" lean-forward="true" selection-start-line="92" selection-start-column="16" selection-end-line="92" selection-end-column="31" />
+              <folding>
+                <element signature="n#style#0;n#div#0;n#div#0;n#div#0;n#div#0;n#!!top" expanded="true" />
+                <marker date="1497262059087" expanded="false" signature="4841:4854" ph="..." />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="page-news_spider.html" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/mi_manager/monitor/static/v2/page-news_spider.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="344">
+              <caret line="222" column="8" lean-forward="false" selection-start-line="222" selection-start-column="8" selection-end-line="222" selection-end-column="8" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -35,13 +107,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>hp_collection_name</find>
-      <find>Houseinf</find>
-      <find>grandfather</find>
-      <find>Alexander Pierce</find>
-      <find>fa-chrome</find>
-      <find>blue</find>
-      <find>管理员</find>
       <find>user2-160x160.jpg</find>
       <find>13</find>
       <find>\#  \-\*\- coding\: utf\-8 \-\*\-\nimport pymongo\nimport settings as settings\nconnection \= pymongo\.MongoClient\(settings\.MONGO_HOST\, settings\.MONGO_PORT\)\ndb \= connection\[settings\.MONGO_DATABASE\]\ntable \= db\[settings\.MONGO_COLLECTION_NAME \+ \'_\' \+ \'DomTreeItem\'\]\ncon \= 0\nprint type\(table\.find\(\)\)\nfor item in table\.find\(\)\:\n    try\:\n\n        print \&quot;Number\:\&quot; \, con\n        print item\[\'articleUrl\'\]\n        con \= con \+ 1\n    except Exception\:\n        print \&quot;exception\&quot;\n</find>
@@ -59,7 +124,19 @@
       <find>'''</find>
       <find>&quot;</find>
       <find>&quot;&quot;&quot;</find>
+      <find>新闻</find>
+      <find>spider_result.html?name</find>
+      <find>spider_result.html?nam</find>
+      <find>spider_result.html?na</find>
+      <find>spider_result.html?n</find>
+      <find>spider_result.html?</find>
+      <find>spider_result.html</find>
+      <find>代理ip</find>
+      <find>({</find>
+      <find>{</find>
       <find>myModal2</find>
+      <find>get_news_spider_name</find>
+      <find>import_dat</find>
     </findStrings>
     <replaceStrings>
       <replace>hehehe</replace>
@@ -88,20 +165,20 @@
         <option value="$PROJECT_DIR$/mi_tools/vague_urls/__init__.py" />
         <option value="$PROJECT_DIR$/mi_manager/monitor/static/v2/mypage/index.html" />
         <option value="$PROJECT_DIR$/mi_manager/monitor/static/v2/page-add_spider.html" />
-        <option value="$PROJECT_DIR$/mi_manager/monitor/static/v2/page-add_ip.html" />
-        <option value="$PROJECT_DIR$/mi_manager/monitor/static/v2/page-index.html" />
         <option value="$PROJECT_DIR$/mi_manager/monitor/static/v2/page-target_urls.html" />
         <option value="$PROJECT_DIR$/mi_manager/monitor/static/v2/page-spider_result.html" />
         <option value="$PROJECT_DIR$/mi_manager/monitor/dat_service.py" />
         <option value="$PROJECT_DIR$/mi_manager/monitor/static/v2/login.html" />
-        <option value="$PROJECT_DIR$/mi_manager/monitor/settings.py" />
         <option value="$PROJECT_DIR$/mi/mi/settings.py" />
         <option value="$PROJECT_DIR$/mi/start.py" />
         <option value="$PROJECT_DIR$/mi_tools/pymongo_tool.py" />
         <option value="$PROJECT_DIR$/mi_tools/save_spiders_from_redis.py" />
+        <option value="$PROJECT_DIR$/mi_manager/monitor/settings.py" />
+        <option value="$PROJECT_DIR$/mi_manager/monitor/static/v2/page-index.html" />
         <option value="$PROJECT_DIR$/mi_manager/monitor/static/v2/starter.html" />
-        <option value="$PROJECT_DIR$/mi_manager/monitor/static/v2/page-news_spider.html" />
         <option value="$PROJECT_DIR$/mi_manager/monitor/app.py" />
+        <option value="$PROJECT_DIR$/mi_manager/monitor/static/v2/page-add_ip.html" />
+        <option value="$PROJECT_DIR$/mi_manager/monitor/static/v2/page-news_spider.html" />
       </list>
     </option>
   </component>
@@ -113,9 +190,9 @@
   </component>
   <component name="ProjectFrameBounds">
     <option name="x" value="-8" />
-    <option name="y" value="-8" />
-    <option name="width" value="1936" />
-    <option name="height" value="1056" />
+    <option name="y" value="1" />
+    <option name="width" value="1932" />
+    <option name="height" value="1055" />
   </component>
   <component name="ProjectLevelVcsManager">
     <ConfirmationsSetting value="2" id="Add" />
@@ -135,6 +212,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -144,20 +222,6 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="mi" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="mi" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="mi" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="mi_tools" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -275,7 +339,6 @@
           </PATH>
         </subPane>
       </pane>
-      <pane id="Scope" />
       <pane id="Scratches" />
     </panes>
   </component>
@@ -314,26 +377,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.save_spiders_from_redis">
-    <configuration default="false" name="lpush" type="PythonConfigurationType" factoryName="Python" temporary="true">
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <module name="version02" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/project_mi/lpush.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <method />
-    </configuration>
+  <component name="RunManager" selected="Python.app">
     <configuration default="false" name="app" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -603,20 +647,18 @@
       <option name="_new_targetType" value="&quot;PATH&quot;" />
       <method />
     </configuration>
-    <list size="5">
-      <item index="0" class="java.lang.String" itemvalue="Python.lpush" />
-      <item index="1" class="java.lang.String" itemvalue="Python.app" />
-      <item index="2" class="java.lang.String" itemvalue="Python.start" />
-      <item index="3" class="java.lang.String" itemvalue="Python.save_spiders_from_redis" />
-      <item index="4" class="java.lang.String" itemvalue="Python.pymongo_tool" />
+    <list size="4">
+      <item index="0" class="java.lang.String" itemvalue="Python.app" />
+      <item index="1" class="java.lang.String" itemvalue="Python.start" />
+      <item index="2" class="java.lang.String" itemvalue="Python.save_spiders_from_redis" />
+      <item index="3" class="java.lang.String" itemvalue="Python.pymongo_tool" />
     </list>
     <recent_temporary>
-      <list size="5">
+      <list size="4">
         <item index="0" class="java.lang.String" itemvalue="Python.app" />
         <item index="1" class="java.lang.String" itemvalue="Python.save_spiders_from_redis" />
         <item index="2" class="java.lang.String" itemvalue="Python.pymongo_tool" />
         <item index="3" class="java.lang.String" itemvalue="Python.start" />
-        <item index="4" class="java.lang.String" itemvalue="Python.lpush" />
       </list>
     </recent_temporary>
     <configuration default="true" type="tests" factoryName="Attests">
@@ -695,19 +737,30 @@
     <history-entry file="Unittests_in_Huxiu_Spider - 2017.04.02 at 15h 49m 21s.xml">
       <configuration name="Unittests in Huxiu_Spider" configurationId="tests" />
     </history-entry>
+    <history-entry file="Unittests_in_app_py - 2017.06.12 at 17h 06m 52s.xml">
+      <configuration name="Unittests in app.py" configurationId="tests" />
+    </history-entry>
+    <history-entry file="Unittests_in_app_py - 2017.06.12 at 17h 07m 06s.xml">
+      <configuration name="Unittests in app.py" configurationId="tests" />
+    </history-entry>
+    <history-entry file="Unittests_in_app_py - 2017.06.12 at 17h 07m 22s.xml">
+      <configuration name="Unittests in app.py" configurationId="tests" />
+    </history-entry>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
+    <frame x="-8" y="1" width="1932" height="1055" extended-state="0" />
+    <editor active="true" />
     <layout>
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.19029851" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="true" content_ui="tabs" />
-      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32936078" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32394367" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.46312365" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32901832" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.19284189" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.399137" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Data View" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -716,7 +769,6 @@
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
@@ -740,7 +792,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/mi_manager/monitor/static/v2/dist/img/credit/mestro.png" />
     <entry file="file://$PROJECT_DIR$/mi_manager/monitor/static/v2/dist/img/credit/paypal.png" />
     <entry file="file://$PROJECT_DIR$/mi_manager/monitor/static/v2/dist/img/credit/paypal2.png" />
     <entry file="file://$PROJECT_DIR$/mi_manager/monitor/static/v2/dist/img/credit/visa.png" />
@@ -758,9 +809,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/mi_manager/monitor/static/v2/page-index.html" />
-    <entry file="file://$PROJECT_DIR$/mi_manager/monitor/static/v2/page-target_urls.html" />
-    <entry file="file://$PROJECT_DIR$/mi_manager/monitor/static/v2/page-add_ip.html" />
     <entry file="file://$PROJECT_DIR$/mi_manager/monitor/static/show/demo.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="264">
@@ -864,20 +912,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/mi_manager/monitor/static/v2/page-spider_result.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="646">
-          <caret line="59" column="7" lean-forward="true" selection-start-line="40" selection-start-column="4" selection-end-line="59" selection-end-column="7" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/mi_manager/monitor/settings.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="660">
-          <caret line="39" column="10" lean-forward="false" selection-start-line="39" selection-start-column="0" selection-end-line="39" selection-end-column="10" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/mi_manager/monitor/static/v2/page-add_spider.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -948,21 +982,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/mi_manager/monitor/dat_service.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-704">
-          <caret line="55" column="4" lean-forward="false" selection-start-line="55" selection-start-column="4" selection-end-line="55" selection-end-column="4" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/mi_tools/settings.py" />
-    <entry file="file://$PROJECT_DIR$/mi_manager/monitor/static/v2/starter.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="646">
-          <caret line="432" column="30" lean-forward="true" selection-start-line="432" selection-start-column="30" selection-end-line="432" selection-end-column="30" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://C:/Python27/Lib/site-packages/flask/app.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="199">
@@ -977,17 +996,94 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/mi_tools/settings.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="506">
+          <caret line="23" column="6" lean-forward="true" selection-start-line="23" selection-start-column="6" selection-end-line="23" selection-end-column="6" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mi_manager/monitor/static/v2/index2.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mi_manager/monitor/static/v2/page-target_urls.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mi_manager/monitor/static/v2/page-spider_result.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="447">
+          <caret line="50" column="26" lean-forward="true" selection-start-line="50" selection-start-column="26" selection-end-line="50" selection-end-column="26" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mi_manager/monitor/dat_service.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1635">
+          <caret line="55" column="4" lean-forward="false" selection-start-line="55" selection-start-column="4" selection-end-line="55" selection-end-column="4" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mi_manager/monitor/static/v2/page-index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="461">
+          <caret line="90" column="0" lean-forward="true" selection-start-line="90" selection-start-column="0" selection-end-line="90" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mi_manager/monitor/static/v2/starter.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="461">
+          <caret line="404" column="37" lean-forward="false" selection-start-line="404" selection-start-column="36" selection-end-line="404" selection-end-column="37" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mi_manager/monitor/settings.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="44">
+          <caret line="2" column="26" lean-forward="false" selection-start-line="2" selection-start-column="26" selection-end-line="2" selection-end-column="26" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/mi_manager/monitor/app.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="189">
-          <caret line="56" column="12" lean-forward="false" selection-start-line="56" selection-start-column="12" selection-end-line="56" selection-end-column="12" />
+        <state relative-caret-position="-15">
+          <caret line="212" column="24" lean-forward="true" selection-start-line="212" selection-start-column="24" selection-end-line="212" selection-end-column="24" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mi_manager/monitor/static/v2/page-add_ip.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="219">
+          <caret line="92" column="16" lean-forward="true" selection-start-line="92" selection-start-column="16" selection-end-line="92" selection-end-column="31" />
+          <folding>
+            <element signature="n#style#0;n#div#0;n#div#0;n#div#0;n#div#0;n#!!top" expanded="true" />
+            <marker date="1497262059087" expanded="false" signature="4841:4854" ph="..." />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/mi_manager/monitor/static/v2/page-news_spider.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="404">
-          <caret line="150" column="50" lean-forward="false" selection-start-line="150" selection-start-column="50" selection-end-line="150" selection-end-column="50" />
+        <state relative-caret-position="344">
+          <caret line="222" column="8" lean-forward="false" selection-start-line="222" selection-start-column="8" selection-end-line="222" selection-end-column="8" />
+          <folding />
         </state>
       </provider>
     </entry>

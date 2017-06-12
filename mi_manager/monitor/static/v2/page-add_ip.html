@@ -1,41 +1,154 @@
 ﻿<div class="row">
-    <div class="col-md-10">
+    <div class="col-md-12">
         <div class="box box-success">
-            <div class="box-header with-border">
-                <h3 class="box-title">添加代理IP</h3>
+            <div class="box-header ui-sortable-handle" style="cursor: move;">
+                <i class="ion ion-clipboard"></i>
+                <h3 class="box-title">代理IP列表</h3>
             </div>
+            <!-- /.box-header -->
             <div class="box-body">
-
-                <textarea cols="" rows="" class="textarea form-control" name="ips" id="ips"
-                          style="height: 400px"
-                          placeholder="ips，一行一个"></textarea>
-            </div>
-            <div class="box-footer">
-                <div class="pull-right">
-                    <button type="submit" class="btn btn-success"
-                        onclick="submit_add_spider()">
-                    提交
-                </button>
+                <div class="box-body pad table-responsive">
+                    <table class="table table-bordered text-center">
+                        <tbody>
+                        <tr>
+                           <td>
+                                <button type="button"
+                                        class="btn btn-block btn-success btn-flat"
+                                        data-toggle="modal" data-target="#myModal2">
+                                    批量导入IP代理
+                                </button>
+                            </td>
+                            <td>
+                                <button type="button"
+                                        class="btn btn-block btn-success btn-flat"
+                                        onclick="bat_delete()">
+                                    清空代理列表
+                                </button>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
                 </div>
-
-              </div>
-            <!-- /.box-body -->
+                <ul class="list-group todo-list ui-sortable" id="list_tmp">
+                    <li class="list-group-item list-group-item-success">
+                        <span class="text">{0}</span>
+                        <div class="tools">
+                            <i class="fa fa-edit" data-toggle="modal" data-target="#myModal"
+                               onclick="">
+                                编辑
+                            </i>
+                            <i class="fa fa-trash-o" onclick="">删除</i>
+                        </div>
+                    </li>
+                </ul>
+            </div>
         </div>
     </div>
 </div>
 
+<div class="modal" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span></button>
+                <h4 class="modal-title">批量导入IP代理</h4>
+            </div>
+            <div class="modal-body">
+                <form action="" method="post" class="form form-horizontal responsive">
+                    <div class="form-group">
+                        <div class="formControls col-xs-12">
+                        <textarea cols="" rows="24" class="textarea form-control" id="import_dat"
+                                  placeholder=""></textarea>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default pull-left" data-dismiss="modal">取消</button>
+                <button type="button" class="btn btn-success" onclick="batch_import()">导入</button>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+
+
+
+
+<link rel="stylesheet" type="text/css" href="plugins/datatables/jquery.dataTables.min.css"/>
+<script type="text/javascript" src="plugins/datatables/jquery.dataTables.min.js"></script>
+<script type="text/javascript" src="plugins/datatables/dataTables.bootstrap.min.js"></script>
 
 <script type="text/javascript" src="../const.js"></script>
+
 <script>
-    var POST_URL = POST_URL_PREFIX + "/add_ips";
-    function submit_add_spider() {
-        var js = {
-            ips: $("#ips").val().split('\n')
-        };
-        var str = JSON.stringify(js);
-        console.log(str);
-        $.post(POST_URL, {ips: str}).success(function () {
-            alert("添加代理IP成功！");
+    function bat_delete() {
+        if (confirm("注意：真的删除全部吗？")) {
+            var GET_URL = POST_URL_PREFIX + "/delte_all_proxy";
+            console.log(GET_URL);
+            $.getJSON(GET_URL).success(function (dat) {
+                console.log(dat);
+                alert("操作成功！");
+                reload_content();
+            });
+        }
+    }
+</script>
+
+<script>
+    function batch_import() {
+        var POST_URL = POST_URL_PREFIX + "/batch_import_proxy";
+        var dat = $('#import_dat').val();
+        console.log(dat);
+        console.log(POST_URL);
+        $.post(POST_URL, {txt: dat}).success(function () {
+            alert("操作成功！");
+            $("#myModal2").modal("toggle");
+            reload_content();
         });
     }
 </script>
+
+<!--<div class="row">-->
+    <!--<div class="col-md-10">-->
+        <!--<div class="box box-success">-->
+            <!--<div class="box-header with-border">-->
+                <!--<h3 class="box-title">添加代理IP</h3>-->
+            <!--</div>-->
+            <!--<div class="box-body">-->
+
+                <!--<textarea cols="" rows="" class="textarea form-control" name="ips" id="ips"-->
+                          <!--style="height: 400px"-->
+                          <!--placeholder="ips，一行一个"></textarea>-->
+            <!--</div>-->
+            <!--<div class="box-footer">-->
+                <!--<div class="pull-right">-->
+                    <!--<button type="submit" class="btn btn-success"-->
+                        <!--onclick="submit_add_spider()">-->
+                    <!--提交-->
+                <!--</button>-->
+                <!--</div>-->
+
+              <!--</div>-->
+            <!--&lt;!&ndash; /.box-body &ndash;&gt;-->
+        <!--</div>-->
+    <!--</div>-->
+<!--</div>-->
+
+
+<!--<script type="text/javascript" src="../const.js"></script>-->
+<!--<script>-->
+    <!--var POST_URL = POST_URL_PREFIX + "/add_ips";-->
+    <!--function submit_add_spider() {-->
+        <!--var js = {-->
+            <!--ips: $("#ips").val().split('\n')-->
+        <!--};-->
+        <!--var str = JSON.stringify(js);-->
+        <!--console.log(str);-->
+        <!--$.post(POST_URL, {ips: str}).success(function () {-->
+            <!--alert("添加代理IP成功！");-->
+        <!--});-->
+    <!--}-->
+<!--</script>-->

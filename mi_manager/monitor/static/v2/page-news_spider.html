@@ -45,7 +45,7 @@
                 </div>
                 <ul class="list-group todo-list ui-sortable" id="list_tmp">
                     <li class="list-group-item list-group-item-success">
-                        <span class="text">{0}</span>
+                        <span class="text">{0} (备注)</span>
                         <div class="tools">
                             <i class="fa fa-edit" data-toggle="modal" data-target="#myModal"
                                onclick="init_modify('{1}')">
@@ -213,14 +213,15 @@
 
 <script>
     function init_modify(name) {
+        $("#name").val("");
+        $("#start_urls").val("");
+        $("#allowed_domains").val("");
+        $("#rule_allow").val("");
+        $("#rule_deny").val("");
+        $("#xpath_title").val("");
+        $("#xpath_content").val("");
+
         if (name == null) {
-            $("#name").val("");
-            $("#start_urls").val("");
-            $("#allowed_domains").val("");
-            $("#rule_allow").val("");
-            $("#rule_deny").val("");
-            $("#xpath_title").val("");
-            $("#xpath_content").val("");
             return;
         }
         var GET_URL = POST_URL_PREFIX + "/get_spider_info?key=" + name;
@@ -245,6 +246,7 @@
             console.log(GET_URL);
             $.getJSON(GET_URL).success(function (dat) {
                 console.log(dat);
+                alert("操作成功！");
                 reload_content();
             });
         }
@@ -258,6 +260,7 @@
             console.log(GET_URL);
             $.getJSON(GET_URL).success(function (dat) {
                 console.log(dat);
+                alert("操作成功！");
                 reload_content();
             });
         }

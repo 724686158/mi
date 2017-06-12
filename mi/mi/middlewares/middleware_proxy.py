@@ -34,7 +34,7 @@ class RandomProxyMiddleware(object):
         #加载proxy文件
         self.proxy_dict = {}
         r = redis.Redis(host=settings.get('REDIS_HOST'), port=settings.get('REDIS_PORT'), db=settings.get('PROXY_DB'))
-        proxys = r.lrange('valid_proxy', 0, -1)
+        proxys = r.smembers('valid_proxy')
         self.proxy_dict = self.read_proxy_from_redis(proxys)
 
     @classmethod

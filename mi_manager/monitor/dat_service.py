@@ -154,6 +154,7 @@ def get_data_from_mysql(table_name):
             t = (col['eCommerceName'], col['goodId'], col['goodCommentsUrl'], col['goodCommentsData'], col['updateTime'])
             dic.append(t)
     return dic
+
 def batch_import_whitelist_of_news(txt):
     r = get_redis(settings.SPIDERS_DB)
     dic = eval(txt)
@@ -167,9 +168,26 @@ def batch_export_whitelist_of_news():
     for key in keys:
         ans[key] = r.get(key)
     return str(ans).encode('utf8')
-def delect_news_in_whitelist(name):
+
+def delete_news_in_whitelist(name):
     r = get_redis(settings.SPIDERS_DB)
     r.delete(name)
+
 def clear_whitelist():
     r = get_redis(settings.SPIDERS_DB)
     r.flushdb()
+
+def batch_import_proxys(txt):
+    r = get_redis(settings.PROXY_DB)
+    proxys = txt.split('\n')
+    for proxy in proxys:
+        print proxy
+        r.sadd('valid_proxy', proxy)
+
+def clear_proxys():
+    r = get_redis(settings.PROXY_DB)
+    r.flushdb()
+
+def delte_proxy(proxy):
+    r = get_redis(settings.SPIDERS_DB)
+    r.srem('valid_proxy', proxy)

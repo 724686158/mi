@@ -91,14 +91,15 @@ def gen_spider():
     generate_spider_init(jsonstr)
     return jsonify('ok')
 
-
+# 旧API, 勿用
+'''
 @app.route('/add_ips', methods=['GET', 'POST'])
 def add_ips():
     jsonstr = request.form.get('ips', '')
     ips_array = json.loads(jsonstr)['ips']
     dat_service.save_proxys(ips_array)
     return jsonify('ok')
-
+'''
 
 @app.route('/target_urls', methods=['GET', 'POST'])
 def target_urls():
@@ -170,7 +171,7 @@ def get_spider_info():
 def delect_news_in_whitelist():
     key = request.args.get('key')
     print key
-    dat_service.delect_news_in_whitelist(key)
+    dat_service.delete_news_in_whitelist(key)
     return jsonify('ok')
 
 # 清空白名单
@@ -199,16 +200,36 @@ def batch_export_whitelist_of_news():
 
 # 代理IP批量导入
 @app.route('/batch_import_proxy', methods=['POST'])
-def batch_import_whitelist_of_news():
+def batch_import_proxy():
     txt = request.form.get('txt', '')
     try:
-        dat_service.batch_import_proxy(txt)
+        dat_service.batch_import_proxys(txt)
         print '已批量导入..'
         return jsonify('ok')
     except:
         print '导入失败'
 
+# 清空代理IP
+@app.route('/delte_all_proxy', methods=['GET'])
+def clear_proxys():
+    dat_service.clear_proxys()
+    return jsonify('ok')
 
+# 删除一个http代理，形式：/delte_proxy?proxy=http://36.97.145.29:9797
+@app.route('/delte_proxy', methods=['GET'])
+def delte_proxy():
+    proxy = request.args.get('proxy')
+    print proxy
+    dat_service.delte_proxy(proxy)
+    return jsonify('ok')
+
+'''
+# 检查并纠正代理IP（删除无效代理）
+@app.route('/check_all_proxy', methods=['GET'])
+def clear_proxys():
+    dat_service.check_proxys()
+    return jsonify('ok')
+'''
 @app.before_first_request
 def init():
     current_app.r = redis.Redis(host=settings.REDIS_HOST, port=settings.REDIS_PORT, db=settings.MONITOR_DB)

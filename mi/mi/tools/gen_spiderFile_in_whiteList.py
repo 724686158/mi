@@ -35,7 +35,7 @@ def generate_spider(spidername, jsonfile):
     try:
         dic = eval(jsonfile)
         arr = (
-            dic['name'],
+            spidername.split('.')[0],
             spidername,
             spidername,
             arr2str(dic['allowed_domains']),

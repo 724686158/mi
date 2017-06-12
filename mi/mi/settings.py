@@ -63,7 +63,7 @@ STATS_KEYS = ["downloader/request_count", "downloader/response_count", "download
 # mongodb数据库的配置信息
 MONGO_HOST = '122.114.62.116'
 MONGO_PORT = 27017
-MONGO_DATABASE = 'data_20170605_03'
+MONGO_DATABASE = 'data_20170612_01'
 #监控服务器信息
 MONITOR_HOST = "0.0.0.0"
 MONITOR_PORT = "5020"
@@ -71,7 +71,7 @@ MONITOR_PORT = "5020"
 # mysql数据库的配置信息
 MYSQL_HOST = "122.114.62.116"
 MYSQL_PORT = 3306
-MYSQL_DBNAME = 'data_20170607_01'    #数据库名字
+MYSQL_DBNAME = 'data_20170612_01'    #数据库名字
 MYSQL_USER = 'root'                 #数据库账号
 MYSQL_PASSWD = 'mi'                 #数据库密码
 

@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 # mi_manager
-APP_HOST = 'localhost'
+APP_HOST = '192.168.210.152'
 APP_PORT = 5020
 # redis服务器
 REDIS_HOST = '122.114.62.116'
@@ -8,13 +8,13 @@ REDIS_PORT = 7001
 # mysql数据库的配置信息
 MYSQL_HOST = '122.114.62.116'
 MYSQL_PORT = 3306
-MYSQL_DBNAME = 'data_20170607_01'    #数据库名字
+MYSQL_DBNAME = 'data_20170612_01'    #数据库名字
 MYSQL_USER = 'root'                 #数据库账号
 MYSQL_PASSWD = 'mi'                 #数据库密码
 # mongodb数据库的配置信息
 MONGO_HOST = '122.114.62.116'
 MONGO_PORT = 27017
-MONGO_DATABASE = 'data_20170605_03'
+MONGO_DATABASE = 'data_20170612_01'
 
 # 监控器相关参数
 TIMEINTERVAL = 500#监控台刷新时间间隔，单位毫秒

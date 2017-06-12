@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from twisted.enterprise import adbapi
 import pymysql
-from mi.items import ECommerce
+from mi.items import ECommerceItem
 from mi.items import ECommerceShopItem
 from mi.items import ECommerceShopCommentItem
 from mi.items import ECommerceGoodItem
@@ -24,7 +24,7 @@ class MysqlPipeline(object):
 
 
     def process_item(self, item, spider):
-        if isinstance(item, ECommerce):
+        if isinstance(item, ECommerceItem):
             query = self.dbpool.runInteraction(self._conditional_insert_ECommerce, item)  # 调用插入的方法
             query.addErrback(self._handle_error, item, spider)  # 调用异常处理方法
 

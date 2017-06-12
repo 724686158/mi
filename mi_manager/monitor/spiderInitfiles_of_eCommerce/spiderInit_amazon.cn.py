@@ -10,7 +10,7 @@ def init():
     print "try insert eCommerceId......"
     try:
         db = MysqlHelper()
-        sql = "insert into ECommerce(eCommerceId, eCommerceName, eCommerceUrl) values( 2, 'amazon.cn', 'https://www.amazon.cn');".encode(encoding='utf-8')
+        sql = "insert into ECommerce(eCommerceName, eCommerceUrl) values('amazon.cn', 'https://www.amazon.cn');".encode(encoding='utf-8')
         db.insert(sql)
         print "insert eCommerceId success"
     except Exception:

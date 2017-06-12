@@ -184,6 +184,12 @@ def batch_import_proxys(txt):
         print proxy
         r.sadd('valid_proxy', proxy)
 
+def get_all_proxy():
+    r = get_redis(settings.PROXY_DB)
+    data = r.smembers('valid_proxy')
+    return data
+
+
 def clear_proxys():
     r = get_redis(settings.PROXY_DB)
     r.flushdb()
@@ -191,3 +197,14 @@ def clear_proxys():
 def delte_proxy(proxy):
     r = get_redis(settings.SPIDERS_DB)
     r.srem('valid_proxy', proxy)
+
+def get_news_spider_name():
+    r = get_redis(settings.SPIDERS_DB)
+    keys = r.keys()
+    return keys
+
+def get_news_spider_describe(name):
+    r = get_redis(settings.SPIDERS_DB)
+    attr = r.get(name)
+    describe = eval(attr)['name']
+    return describe

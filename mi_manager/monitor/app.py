@@ -148,10 +148,15 @@ def get_table():
 # 获取新闻爬虫名
 @app.route('/get_news_spider_name', methods=['GET'])
 def get_news_spider_name():
-    r = redis.Redis(settings.REDIS_HOST, settings.REDIS_PORT, db=settings.SPIDERS_DB)
-    keys = r.keys()
-    return jsonify(keys)
+    data = dat_service.get_news_spider_name()
+    return jsonify(data)
 
+# 获取新闻爬虫描述
+@app.route('/get_news_spider_describe', methods=['GET'])
+def get_news_spider_describe():
+    name = request.args.get('name')
+    data = dat_service.get_news_spider_describe(name)
+    return jsonify(data)
 
 # 获取爬虫配置
 @app.route('/get_spider_info', methods=['GET'])
@@ -206,6 +211,12 @@ def batch_import_proxy():
         return jsonify('ok')
     except:
         print '导入失败'
+
+# 获取全部代理IP
+@app.route('/get_all_proxy', methods=['GET'])
+def get_all_proxy():
+    data = dat_service.get_all_proxy()
+    return jsonify(data)
 
 # 清空代理IP
 @app.route('/delte_all_proxy', methods=['GET'])

@@ -5,7 +5,7 @@ from scrapy.utils.conf import arglist_to_dict
 from tld import get_tld
 
 import mi.settings as prime_settings
-from tools.gen_spiderFile_in_whiteList import generate_spider
+from mi.tools.gen_spiderFile_in_whiteList import generate_spider
 
 
 class Command(ScrapyCommand):

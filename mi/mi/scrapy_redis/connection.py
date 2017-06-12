@@ -28,7 +28,6 @@ def from_settings_filter(settings):
     host = settings.get('FILTER_HOST', FILTER_HOST)
     port = settings.get('FILTER_PORT', FILTER_PORT)
     db = settings.get('FILTER_DB', FILTER_DB)
-
     if url:
         return redis.from_url(url)
     else:

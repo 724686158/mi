@@ -2,10 +2,9 @@
 import redis
 import scrapy.cmdline as cmd
 from tld import get_tld
-
 import mi.settings as prime_settings
-import tools.gen_spiderFile_in_whiteList as gen_spiderFile_in_whiteList
-import tools.gen_spiderFile_need_fuzzymatching as gen_spiderFile_need_fuzzymatching
+import mi.tools.gen_spiderFile_in_whiteList as gen_spiderFile_in_whiteList
+import mi.tools.gen_spiderFile_need_fuzzymatching as gen_spiderFile_need_fuzzymatching
 
 if __name__ == '__main__':
 

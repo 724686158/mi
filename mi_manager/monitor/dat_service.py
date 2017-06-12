@@ -23,9 +23,6 @@ def save_data(spider_name, json_str):
     js = dict(json.loads(json_str))
     r.set(spider_name, js)
 
-def query_data(spider_name):
-    r = get_redis(settings.SPIDERS_DB)
-
 # 获取新闻爬虫白名单
 def get_whitelist():
     r = get_redis(settings.SPIDERS_DB)
@@ -157,32 +154,22 @@ def get_data_from_mysql(table_name):
             t = (col['eCommerceName'], col['goodId'], col['goodCommentsUrl'], col['goodCommentsData'], col['updateTime'])
             dic.append(t)
     return dic
-def batch_import_spider(txt):
-    print '==============='
-    print txt
-    '''
+def batch_import_whitelist_of_news(txt):
     r = get_redis(settings.SPIDERS_DB)
-    filename = "spiders_swap.txt"
-        key = f.readline()
-        con = 0
-        while key.__len__() > 0:
-            con = con + 1
-            print con
-            key = key.split('\n')[0]
-            print key
-            info = f.readline().split('\n')[0]
-            print info
-            #r.set(key, info)
-            key = f.readline()
-            if key.__len__() < 2:
-                key = f.readline()
-    '''
-def batch_export_spider():
+    dic = eval(txt)
+    for key in dic:
+        r.set(key, dic[key])
+
+def batch_export_whitelist_of_news():
     r = get_redis(settings.SPIDERS_DB)
     keys = r.keys()
-    ans = ''
+    ans = {}
     for key in keys:
-        ans = ans + (key + '\n')
-        ans = ans + (r.get(key) + '\n')
-    print ans.encode('utf8')
-    return ans.encode('utf8')
+        ans[key] = r.get(key)
+    return str(ans).encode('utf8')
+def delect_news_in_whitelist(name):
+    r = get_redis(settings.SPIDERS_DB)
+    r.delete(name)
+def clear_whitelist():
+    r = get_redis(settings.SPIDERS_DB)
+    r.flushdb()

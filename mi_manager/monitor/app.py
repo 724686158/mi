@@ -19,7 +19,11 @@ app.config['UPLOAD_FOLDER'] = 'upload' # 用文件夹‘upload’来存储新上
 def allowed_file(filename):
     return '.' in filename and filename.rsplit('.',1)[1] in ['txt','png','PNG','jpg','JPG','gif','GIF','xls','xlsx']
 
-# 用于测试上传，稍后用到
+@app.route('/')
+def index():
+    return redirect('/static/v2/login.html')
+
+# 用于测试上传
 @app.route('/test/upload')
 def upload_test():
     return render_template('upload.html')
@@ -49,10 +53,6 @@ def download():
             return send_from_directory('upload',filename,as_attachment=True)
         abort(404)
 
-@app.route('/')
-def index():
-    return redirect('/static/v2/login.html')
-
 
 @app.route('/monitor')
 def monitor():
@@ -80,7 +80,6 @@ def signal():
     elif signal == 'running':
         current_app.spider_is_run = True
     return jsonify('')
-
 
 @app.route('/gen_spider', methods=['GET', 'POST'])
 def gen_spider():
@@ -166,41 +165,48 @@ def get_spider_info():
     return ss
 
 
-# 删除爬虫，形式：/delte_spider?key=163.com
+# 删除白名单中的一条记录，形式：/delte_spider?key=163.com
 @app.route('/delte_spider', methods=['GET'])
-def delte_spider():
-
-    # todo
-    print '已删除..'
+def delect_news_in_whitelist():
+    key = request.args.get('key')
+    print key
+    dat_service.delect_news_in_whitelist(key)
     return jsonify('ok')
 
-
-# 删除全部爬虫
+# 清空白名单
 @app.route('/delte_all_spider', methods=['GET'])
-def delte_all_spider():
-    # todo
-    print '已删除..'
+def clear_whitelist():
+    dat_service.clear_whitelist()
     return jsonify('ok')
 
 
-# 批量导入，注意是POST，文本参数在变量txt里
+# 白名单批量导入，注意是POST，文本参数在变量txt里
 @app.route('/batch_import_spider', methods=['POST'])
-def batch_import_spider():
+def batch_import_whitelist_of_news():
     txt = request.form.get('txt', '')
     try:
-        dat_service.batch_import_spider(txt)
+        dat_service.batch_import_whitelist_of_news(txt)
         print '已批量导入..'
         return jsonify('ok')
     except:
         print '导入失败'
 
-# 批量导出，直接返回文本就好
+# 白名单批量导出
 @app.route('/batch_export_spider', methods=['GET'])
-def batch_export_spider():
-    # todo
-    ans = dat_service.batch_export_spider()
-
+def batch_export_whitelist_of_news():
+    ans = dat_service.batch_export_whitelist_of_news()
     return ans
+
+# 代理IP批量导入
+@app.route('/batch_import_proxy', methods=['POST'])
+def batch_import_whitelist_of_news():
+    txt = request.form.get('txt', '')
+    try:
+        dat_service.batch_import_proxy(txt)
+        print '已批量导入..'
+        return jsonify('ok')
+    except:
+        print '导入失败'
 
 
 @app.before_first_request

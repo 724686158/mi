@@ -127,6 +127,5 @@ class RandomProxyMiddleware(object):
         # 遇到错误尝试重试
         EXCEPTIONS_TO_RETRY = (defer.TimeoutError, TimeoutError, DNSLookupError, ConnectionRefusedError, ConnectionDone,
         ConnectError, ConnectionLost, TCPTimedOutError, ResponseFailed, IOError)
-        if isinstance(exception, EXCEPTIONS_TO_RETRY) \
-                and not request.meta.get('dont_retry', False):
+        if isinstance(exception, EXCEPTIONS_TO_RETRY) and not request.meta.get('dont_retry', False):
             return self._retry(request, exception, spider)

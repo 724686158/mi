@@ -228,9 +228,46 @@ def add_resources_mongo(name, info_dic):
 def get_resources_redis():
     r = get_redis(settings.RESOURCES_REDIS_DB)
     keys = r.keys()
-    dic = []
+    data = []
     for key in keys:
-        infos = eval(r.get(key))
-        dic.append((infos['name'], infos['host'], infos['post']))
-    return dic
+        dic = {}
+        dic['name'] = key
+        dic['type'] = 'Redis'
+        dic['detail'] = eval(r.get(key))
+        data.append(dic)
+    return data
 
+def get_resources_mysql():
+    r = get_redis(settings.RESOURCES_MYSQL_DB)
+    keys = r.keys()
+    data = []
+    for key in keys:
+        dic = {}
+        dic['name'] = key
+        dic['type'] = 'Mysql'
+        dic['detail'] = eval(r.get(key))
+        data.append(dic)
+    return data
+
+def get_resources_mongo():
+    r = get_redis(settings.RESOURCES_MONGO_DB)
+    keys = r.keys()
+    data = []
+    for key in keys:
+        dic = {}
+        dic['name'] = key
+        dic['type'] = 'Mongo'
+        dic['detail'] = eval(r.get(key))
+        data.append(dic)
+    return data
+
+def delete_resources(name, type):
+    if type == 'Redis':
+        r = get_redis(settings.RESOURCES_REDIS_DB)
+        r.delete(name)
+    elif type == 'Mysql':
+        r = get_redis(settings.RESOURCES_MYSQL_DB)
+        r.delete(name)
+    elif type == 'Mongo':
+        r = get_redis(settings.RESOURCES_MONGO_DB)
+        r.delete(name)

@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 # mi_manager
-APP_HOST = '192.168.210.152'
+APP_HOST = '127.0.0.1'
 APP_PORT = 5020
 # redis服务器
 REDIS_HOST = '122.114.62.116'
@@ -17,9 +17,9 @@ MONGO_PORT = 27017
 MONGO_DATABASE = 'data_20170612_01'
 
 # 监控器相关参数
-TIMEINTERVAL = 500#监控台刷新时间间隔，单位毫秒
-POINTINTERVAL = 5#图上各点之间间隔，越小则表示点越密集
-POINTLENGTH = 10000#图上点的数量，越大则表示图上时间跨度越长
+TIMEINTERVAL = 2000#监控台刷新时间间隔，单位毫秒
+POINTINTERVAL = 10#图上各点之间间隔，越小则表示点越密集
+POINTLENGTH = 2000#图上点的数量，越大则表示图上时间跨度越长
 # 存储爬虫运行数据的四个队列
 STATS_KEYS = ['downloader/request_count', 'downloader/response_count', 'downloader/response_status_count/200', 'item_scraped_count']
 

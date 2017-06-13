@@ -216,14 +216,6 @@ def delte_proxy():
     dat_service.delte_proxy(proxy)
     return jsonify('ok')
 
-'''
-# 检查并纠正代理IP（删除无效代理）
-@app.route('/check_all_proxy', methods=['GET'])
-def clear_proxys():
-    dat_service.check_proxys()
-    return jsonify('ok')
-'''
-
 # 清空去重用的redis数据库,此功能慎用
 @app.route('/delte_filter_db', methods=['GET'])
 def delte_filter_db():
@@ -232,32 +224,42 @@ def delte_filter_db():
 
 # 用于添加资源(redis,mysql,mongo)
 @app.route('/add_resources', methods=['POST'])
-def add_resources_redis():
+def add_resources():
     jsonstr = request.form.get('json_result', '')
     dic = dict(json.loads(jsonstr))
+    name = dic['name']
     type = dic['type']
+    info_dic = dic(dic['detail'])
     if type == 'Redis':
-        info_dic = dic(dic['Redis'])
-        name = info_dic['name']
         dat_service.add_resources_redis(name, info_dic)
     elif type == 'Mysql':
-        info_dic = dic(dic['Mysql'])
-        name = info_dic['name']
         dat_service.add_resources_mysql(name, info_dic)
     elif type == 'Mongo':
-        info_dic = dic(dic['Mongo'])
-        name = info_dic['name']
         dat_service.add_resources_mongo(name, info_dic)
     return jsonify('ok')
 
-# 用于获取现有资源列表(redis)
-# 返回的是形如[(name, host, post)]
-@app.route('/get_resources_redis', methods=['GET'])
-def get_resources_redis():
-    data_dic = dat_service.get_resources_redis()
-    return jsonify(data_dic)
+# 获取所有资源的信息 如果带参数type, 则只返回一种类型的资源（可选值： Redis Mysql Mongo）
+@app.route('/get_resources', methods=['GET'])
+def get_resources():
+    type = request.args.get('type')
+    data = []
+    if type:
+        if type == 'Redis':
+            data = dat_service.get_resources_redis()
+        elif type == 'Mysql':
+            data = dat_service.get_resources_mysql()
+        elif type == 'Mongo':
+            data = dat_service.get_resources_mongo()
+    else:
+        data = dat_service.get_resources_redis() + dat_service.get_resources_mysql() + dat_service.get_resources_mongo()
+    return jsonify(data)
 
-
+@app.route('/delete_resources', methods=['GET'])
+def delete_resources():
+    name = request.args.get('name')
+    type = request.args.get('type')
+    dat_service.delete_resources(name, type)
+    return jsonify('ok')
 
 if __name__ == '__main__':
     # 产生包含ip和port的js文件

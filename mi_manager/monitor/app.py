@@ -13,7 +13,7 @@ from gen_spiderInitfile_of_news import generate_spider_init
 app = Flask(__name__)
 app.config['BASEDIR'] = os.path.abspath(os.path.dirname(__file__)) # app.py所在的目录
 app.config['UPLOAD_FOLDER'] = 'upload' # 用文件夹‘upload’来存储新上传的文件
-
+app.monitor_db = redis.Redis(settings.REDIS_HOST, settings.REDIS_PORT, db=settings.MONITOR_DB)
 
 # 用于判断文件后缀
 def allowed_file(filename):
@@ -64,21 +64,8 @@ def monitor():
 @app.route('/ajax')
 def ajax():
     key = request.args.get('key')
-    result = current_app.r.lrange(key, -settings.POINTLENGTH, -1)[::settings.POINTINTERVAL]
-    if not current_app.spider_is_run:
-        # spider is closed
-        return json.dumps(result).replace('"', ''), 404
+    result = app.monitor_db.lrange(key, -settings.POINTLENGTH, -1)[::settings.POINTINTERVAL]
     return json.dumps(result).replace('"', '')
-
-
-@app.route('/signal')
-def signal():
-    signal = request.args.get('sign')
-    if signal == 'closed':
-        current_app.spider_is_run = False
-    elif signal == 'running':
-        current_app.spider_is_run = True
-    return jsonify('')
 
 @app.route('/gen_spider', methods=['GET', 'POST'])
 def gen_spider():
@@ -121,7 +108,6 @@ def get_start_work():
     #
     return jsonify('ok')
 
-
 # 慎用
 @app.route('/init_monitor', methods=['GET'])
 def init_monitor():
@@ -142,8 +128,6 @@ def get_table():
     elif(table_name == 'ECommerce' or table_name == 'ECommerceShop' or table_name == 'ECommerceShopComment' or table_name == 'ECommerceGood' or table_name == 'ECommerceGoodComment'):
         data_dic = dat_service.get_data_from_mysql(table_name)
     return jsonify(data_dic)
-
-
 
 # 获取新闻爬虫名
 @app.route('/get_news_spider_name', methods=['GET'])
@@ -239,13 +223,40 @@ def clear_proxys():
     dat_service.check_proxys()
     return jsonify('ok')
 '''
-@app.before_first_request
-def init():
-    current_app.r = redis.Redis(host=settings.REDIS_HOST, port=settings.REDIS_PORT, db=settings.MONITOR_DB)
-    if current_app.r.get('spider_is_run') == '1':
-        current_app.spider_is_run = True
-    else:
-        current_app.spider_is_run = False
+
+# 清空去重用的redis数据库,此功能慎用
+@app.route('/delte_filter_db', methods=['GET'])
+def delte_filter_db():
+    dat_service.delte_filter_db()
+    return jsonify('ok')
+
+# 用于添加资源(redis,mysql,mongo)
+@app.route('/add_resources', methods=['POST'])
+def add_resources_redis():
+    jsonstr = request.form.get('json_result', '')
+    dic = dict(json.loads(jsonstr))
+    type = dic['type']
+    if type == 'Redis':
+        info_dic = dic(dic['Redis'])
+        name = info_dic['name']
+        dat_service.add_resources_redis(name, info_dic)
+    elif type == 'Mysql':
+        info_dic = dic(dic['Mysql'])
+        name = info_dic['name']
+        dat_service.add_resources_mysql(name, info_dic)
+    elif type == 'Mongo':
+        info_dic = dic(dic['Mongo'])
+        name = info_dic['name']
+        dat_service.add_resources_mongo(name, info_dic)
+    return jsonify('ok')
+
+# 用于获取现有资源列表(redis)
+# 返回的是形如[(name, host, post)]
+@app.route('/get_resources_redis', methods=['GET'])
+def get_resources_redis():
+    data_dic = dat_service.get_resources_redis()
+    return jsonify(data_dic)
+
 
 
 if __name__ == '__main__':

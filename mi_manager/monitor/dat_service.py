@@ -208,3 +208,29 @@ def get_news_spider_describe(name):
     attr = r.get(name)
     describe = eval(attr)['name']
     return describe
+
+def delte_filter_db():
+    r = get_redis(settings.FILTER_DB)
+    r.flushdb()
+
+def add_resources_redis(name, info_dic):
+    r = get_redis(settings.RESOURCES_REDIS_DB)
+    r.set(name, str(info_dic))
+
+def add_resources_mysql(name, info_dic):
+    r = get_redis(settings.RESOURCES_MYSQL_DB)
+    r.set(name, str(info_dic))
+
+def add_resources_mongo(name, info_dic):
+    r = get_redis(settings.RESOURCES_MONGO_DB)
+    r.set(name, str(info_dic))
+
+def get_resources_redis():
+    r = get_redis(settings.RESOURCES_REDIS_DB)
+    keys = r.keys()
+    dic = []
+    for key in keys:
+        infos = eval(r.get(key))
+        dic.append((infos['name'], infos['host'], infos['post']))
+    return dic
+

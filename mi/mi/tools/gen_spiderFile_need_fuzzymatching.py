@@ -11,7 +11,7 @@ from scrapy_redis.spiders import RedisCrawlSpider
 from mi.items import ArticleItem
 from scrapy.spiders import Rule
 from scrapy.linkextractors import LinkExtractor
-from tools.fuzzyMatching import calc_score
+from mi.tools.fuzzyMatching import calc_score
 class Spider_%s(RedisCrawlSpider):
     name = '%s'
     redis_key = '%s:start_urls'

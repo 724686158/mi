@@ -32,7 +32,7 @@ DOWNLOAD_TIMEOUT = 10
 # redis数据库(分布式系统核心数据)
 REDIS_HOST = '122.114.62.116'
 REDIS_PORT = 7001
-# redis —— 去重队列
+# redis数据库(去重专用)
 FILTER_HOST = '122.114.62.116'
 FILTER_PORT = 7001
 
@@ -63,6 +63,17 @@ COMMANDS_MODULE = 'mi.commands'
 
 # 用于存储调度队列 ———— 的redis数据据库编号（0～15）
 FILTER_DB = 0
+
+
+
+# 用于存储資源(REDIS服务器)的信息 ———— 的redis数据据库编号（0～15）
+RESOURCES_REDIS_DB = 7
+
+# 用于存储資源(MYSQL服务器)的信息 ———— 的redis数据据库编号（0～15）
+RESOURCES_MYSQL_DB = 8
+
+# 用于存储資源(MONGO服务器)的信息 ———— 的redis数据据库编号（0～15）
+RESOURCES_MONGO_DB = 9
 
 # 用于存储代理ip ———— 的redis数据据库编号（0～15）
 PROXY_DB = 10

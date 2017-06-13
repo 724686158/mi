@@ -1,8 +1,7 @@
 #  -*- coding: utf-8 -*-
 import redis
-import settings as settings
 filename = "all_spiders.txt"
-r = redis.Redis(settings.REDIS_HOST, settings.REDIS_PORT, db=settings.SPIDERS_DB)
+r = redis.Redis('122.114.62.116', 7001, 13)
 keys = r.keys()
 with open(filename, 'w') as f:
     f.write("")

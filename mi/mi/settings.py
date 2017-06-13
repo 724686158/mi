@@ -3,7 +3,7 @@
 """用户可自行配置"""
 # 任务名
 BOT_NAME = 'mi'
-# 是否启用robots
+# 是否遵守robots(如使用者选择不遵守, 开发者不对其造成的任何后果负责)
 ROBOTSTXT_OBEY = False
 # 是否启用COOKIES
 COOKIES_ENABLED = True
@@ -18,7 +18,7 @@ AUTOTHROTTLE_ENABLED = False
 # 初始下载延迟(单位:秒)
 AUTOTHROTTLE_START_DELAY = 1.0
 # 最大下载延迟(单位:秒)
-AUTOTHROTTLE_MAX_DELAY = 20.0
+AUTOTHROTTLE_MAX_DELAY = 6.0
 # 是否显示AUTOTHROTTLE_DEBUG
 AUTOTHROTTLE_DEBUG = True
 # 间隔时间下限（任何情况下不会小于此值）
@@ -32,8 +32,8 @@ DOWNLOAD_TIMEOUT = 10
 # redis数据库(分布式系统核心数据)
 REDIS_HOST = '122.114.62.116'
 REDIS_PORT = 7001
-# redis数据库(去重专用)
-FILTER_HOST = '122.114.62.116'
+# redis数据库(用于去重的增量, 最好使用内网的redis服务, 以提高速度)
+FILTER_HOST = '192.168.139.239'
 FILTER_PORT = 7001
 
 # mysql数据库的配置信息

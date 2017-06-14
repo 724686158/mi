@@ -12,7 +12,7 @@ COOKIES_DEBUG = True
 # 是否启用重试
 RETRY_ENABLED = False
 # 是否启用HTTP代理(取值为None或400)
-HTTP_PROXY_ENABLED = None
+HTTP_PROXY_ENABLED = 400
 # 是否启用自动限速（启用会牺牲一定的爬取速度，但会照顾到目标网站的负载能力）
 AUTOTHROTTLE_ENABLED = False
 # 初始下载延迟(单位:秒)

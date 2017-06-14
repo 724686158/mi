@@ -33,22 +33,14 @@ class RandomProxyMiddleware(object):
             self.priority_adjust = settings.getint('RETRY_PRIORITY_ADJUST')
         #加载proxy文件
         self.proxy_dict = {}
-        r = redis.Redis(host=settings.get('REDIS_HOST'), port=settings.get('REDIS_PORT'), db=settings.get('PROXY_DB'))
-        proxys = r.smembers('valid_proxy')
+        self.redis = redis.Redis(host=settings.get('REDIS_HOST'), port=settings.get('REDIS_PORT'), db=settings.get('PROXY_DB'))
+        proxys_set = self.redis.smembers('valid_proxy')
+        proxys = list(proxys_set)
         self.proxy_dict = self.read_proxy_from_redis(proxys)
 
     @classmethod
     def from_crawler(cls, crawler):
         return cls(crawler.settings)
-
-    def _load_data(self, path):
-        # 加载proxy数据
-        proxy_dict = {}
-        with codecs.open(path, "r", encoding="utf8") as fr:
-            for url in fr:
-                if url:
-                    proxy_dict[url] = {"status":"valid", "chance":self.max_proxy_chance}
-        return proxy_dict
 
     def read_proxy_from_redis(self, proxys):
         res = {}
@@ -62,9 +54,12 @@ class RandomProxyMiddleware(object):
         failed_proxies = request.meta.get('failed_proxies', list())
         if failed_proxies:
             for proxy in failed_proxies:
-                self.proxy_dict[proxy]["chance"] = self.proxy_dict[proxy]["chance"] - 1
-                if self.proxy_dict[proxy]["chance"] <= 0:
-                    del self.proxy_dict[proxy]
+                if self.proxy_dict[proxy]:
+                    self.proxy_dict[proxy]["chance"] = self.proxy_dict[proxy]["chance"] - 1
+                    if self.proxy_dict[proxy]["chance"] <= 0:
+                        del self.proxy_dict[proxy]
+                        if self.redis.srem('valid_proxy', proxy) == 1:
+                            print '已从核心数据库中删除失效的proxy：' + proxy
 
     def _choose_proxy(self, request):
         # 随机选取代理地址

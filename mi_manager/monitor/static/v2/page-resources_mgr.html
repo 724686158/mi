@@ -1,0 +1,180 @@
+<div class="row">
+    <div class="col-md-4">
+        <div class="box box-primary">
+            <div class="box-header with-border">
+                <h3 class="box-title">MySql资源管理</h3>
+
+                <div class="box-tools pull-right">
+                    <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                    </button>
+                </div>
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body no-padding">
+                <div class="row" style="margin-bottom: 10px; margin-left: 2%; margin-top: 10px">
+                    <button type="button" class="btn btn-sm">添加资源</button>
+                </div>
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th style="width: 10px">#</th>
+                            <th>Name</th>
+                            <th>Host</th>
+                            <th>Post</th>
+                            <th>User</th>
+                            <th style="width: 50px">操作</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tab_row_mysql">
+                        <tr>
+                            <td>{0}.</td>
+                            <td>{1}</td>
+                            <td>{2}</td>
+                            <td>{3}</td>
+                            <td>{4}</td>
+                            <td>
+                                <span class="badge">删除</span>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="col-md-4">
+        <div class="box box-primary">
+            <div class="box-header with-border">
+                <h3 class="box-title">Redis资源管理</h3>
+
+                <div class="box-tools pull-right">
+                    <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                    </button>
+                </div>
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body no-padding">
+                <div class="row" style="margin-bottom: 10px; margin-left: 2%; margin-top: 10px">
+                    <button type="button" class="btn btn-sm">添加资源</button>
+                </div>
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th style="width: 10px">#</th>
+                            <th>Name</th>
+                            <th>Host</th>
+                            <th>Post</th>
+                            <th style="width: 50px">操作</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tab_row_redis">
+                        <tr>
+                            <td>{0}.</td>
+                            <td>{1}</td>
+                            <td>{2}</td>
+                            <td>{3}</td>
+                            <td>
+                                <span class="badge">删除</span>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="box box-primary">
+            <div class="box-header with-border">
+                <h3 class="box-title">Mongo资源管理</h3>
+
+                <div class="box-tools pull-right">
+                    <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                    </button>
+                </div>
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body no-padding">
+                <div class="row" style="margin-bottom: 10px; margin-left: 2%; margin-top: 10px">
+                    <button type="button" class="btn btn-sm">添加资源</button>
+                </div>
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th style="width: 10px">#</th>
+                            <th>Name</th>
+                            <th>Host</th>
+                            <th>Post</th>
+                            <th style="width: 50px">操作</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tab_row_mongo">
+                        <tr>
+                            <td>{0}.</td>
+                            <td>{1}</td>
+                            <td>{2}</td>
+                            <td>{3}</td>
+                            <td>
+                                <span class="badge">删除</span>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<script type="text/javascript" src="../const.js"></script>
+<script type="text/javascript" src="mycommon.js"></script>
+
+<script>
+    function init_table_mysql() {
+        var id_type = '#tab_row_mysql';
+        var html =  $(id_type).html();
+        $(id_type).empty();
+        var GET_URL = POST_URL_PREFIX + "/get_resources_mysql";
+        console.log(GET_URL);
+        $.get(GET_URL).success(function (dat) {
+            console.log(dat);
+            for (var i = 0; i < dat.length; ++i) {
+                var ins = html.format(i+1, dat[i][0], dat[i][1], dat[i][2], dat[i][3]);
+                $(id_type).append(ins);
+            }
+        });
+    }
+    function init_table_redis() {
+        var id_type = '#tab_row_redis';
+        var html =  $(id_type).html();
+        $(id_type).empty();
+        var GET_URL = POST_URL_PREFIX + "/get_resources_redis";
+        console.log(GET_URL);
+        $.get(GET_URL).success(function (dat) {
+            console.log(dat);
+            for (var i = 0; i < dat.length; ++i) {
+                var ins = html.format(i+1, dat[i][0], dat[i][1], dat[i][2]);
+                $(id_type).append(ins);
+            }
+        });
+    }
+    function init_table_mongo() {
+        var id_type = '#tab_row_mongo';
+        var html =  $(id_type).html();
+        $(id_type).empty();
+        var GET_URL = POST_URL_PREFIX + "/get_resources_mongo";
+        console.log(GET_URL);
+        $.get(GET_URL).success(function (dat) {
+            console.log(dat);
+            for (var i = 0; i < dat.length; ++i) {
+                var ins = html.format(i+1, dat[i][0], dat[i][1], dat[i][2]);
+                $(id_type).append(ins);
+            }
+        });
+    }
+    init_table_mysql();
+    init_table_redis();
+    init_table_mongo();
+
+</script>

@@ -33,11 +33,7 @@
                     <li class="list-group-item list-group-item-success">
                         <span class="text">{0}</span>
                         <div class="tools">
-                            <i class="fa fa-edit" data-toggle="modal" data-target="#myModal"
-                               onclick="">
-                                编辑
-                            </i>
-                            <i class="fa fa-trash-o" onclick="">删除</i>
+                            <i class="fa fa-trash-o" onclick="delete_proxy('{1}')">删除</i>
                         </div>
                     </li>
                 </ul>
@@ -82,6 +78,21 @@
 <script type="text/javascript" src="plugins/datatables/dataTables.bootstrap.min.js"></script>
 
 <script type="text/javascript" src="../const.js"></script>
+<script type="text/javascript" src="mycommon.js"></script>
+
+<script>
+    var html = $('#list_tmp').html();
+    $('#list_tmp').empty();
+    var GET_URL = POST_URL_PREFIX + "/get_all_proxy";
+    console.log(GET_URL);
+    $.get(GET_URL).success(function (dat) {
+        console.log(dat);
+        for (var i = 0; i < dat.length; ++i) {
+            var ins = html.format(dat[i], dat[i], dat[i]);
+            $('#list_tmp').append(ins);
+        }
+    });
+</script>
 
 <script>
     function bat_delete() {
@@ -108,6 +119,20 @@
             $("#myModal2").modal("toggle");
             reload_content();
         });
+    }
+</script>
+
+<script>
+    function delete_proxy(name) {
+        if (confirm("注意：真的删除代理" + name + "?")) {
+            var GET_URL = POST_URL_PREFIX + "/delte_proxy?proxy=" + name;
+            console.log(GET_URL);
+            $.getJSON(GET_URL).success(function (dat) {
+                console.log(dat);
+                alert("操作成功！");
+                reload_content();
+            });
+        }
     }
 </script>
 

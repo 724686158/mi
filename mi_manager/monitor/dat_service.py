@@ -199,9 +199,21 @@ def delte_proxy(proxy):
     r = get_redis(settings.PROXY_DB)
     print r.srem('valid_proxy', proxy)
 
+def get_ecommerce_spider_name():
+    names = []
+    oscwd = os.getcwd()
+    path = oscwd + settings.TEMP_PATH + '/spiderInitfiles_of_eCommerce'
+    files = os.listdir(path)
+    for file in files:
+        if 'spiderInit_' in file:
+            spidername = file.replace('spiderInit_', '').replace('.py', '')
+            names.append(spidername)
+    return names
+
 def get_news_spider_name():
     r = get_redis(settings.SPIDERS_DB)
     keys = r.keys()
+    print type(keys)
     return keys
 
 def get_news_spider_describe(name):
@@ -272,3 +284,27 @@ def delete_resources(name, type):
     elif type == 'Mongo':
         r = get_redis(settings.RESOURCES_MONGO_DB)
         r.delete(name)
+
+def add_settings(name, info_dic):
+    r = get_redis(settings.SETTINGS_DB)
+    r.set(name, str(info_dic))
+
+def delete_settings(name):
+    r = get_redis(settings.SETTINGS_DB)
+    r.delete(name)
+
+def get_settings():
+    r = get_redis(settings.SETTINGS_DB)
+    keys = r.keys()
+    data = []
+    for key in keys:
+        dic = {}
+        dic['name'] = key
+        dic['detail'] = eval(r.get(key))
+        data.append(dic)
+    return data
+
+def get_settings_name():
+    r = get_redis(settings.SETTINGS_DB)
+    keys = r.keys()
+    return keys

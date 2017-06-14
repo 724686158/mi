@@ -25,6 +25,10 @@ def allowed_file(filename):
 def index():
     return redirect('/static/v2/login.html')
 
+@app.route('/static/v2/swaplayer')
+def to_real_index():
+    return redirect('/static/v2/starter.html')
+
 @app.before_first_request
 def init():
     current_app.r = redis.Redis(host=settings.REDIS_HOST, port=settings.REDIS_PORT, db=settings.MONITOR_DB)
@@ -135,6 +139,12 @@ def get_table():
         data_dic = dat_service.get_data_from_mysql(table_name)
     return jsonify(data_dic)
 
+# 获取电商爬虫名
+@app.route('/get_ecommerce_spider_name', methods=['GET'])
+def get_ecommerce_spider_name():
+    data = dat_service.get_ecommerce_spider_name()
+    return jsonify(data)
+
 # 获取新闻爬虫名
 @app.route('/get_news_spider_name', methods=['GET'])
 def get_news_spider_name():
@@ -235,7 +245,7 @@ def add_resources():
     dic = dict(json.loads(jsonstr))
     name = dic['name']
     type = dic['type']
-    info_dic = dic(dic['detail'])
+    info_dic = dict(dic['detail'])
     if type == 'Redis':
         dat_service.add_resources_redis(name, info_dic)
     elif type == 'Mysql':
@@ -266,6 +276,56 @@ def delete_resources():
     type = request.args.get('type')
     dat_service.delete_resources(name, type)
     return jsonify('ok')
+
+
+
+# 用于添加Settings
+@app.route('/add_settings', methods=['POST'])
+def add_settings():
+    '''
+    json example:
+    {
+        "name": "配置1",
+        "detail": {
+            "ROBOTSTXT_OBEY": true,
+            "COOKIES_ENABLED": true,
+            "RETRY_ENABLED": false,
+            "HTTP_PROXY_ENABLED": true,
+            "AUTOTHROTTLE_ENABLED": false,
+            "AUTOTHROTTLE_START_DELAY": 1,
+            "AUTOTHROTTLE_MAX_DELAY": 6,
+            "DOWNLOAD_DELAY": 0.5,
+            "CONCURRENT_REQUESTS_PER_DOMAIN": 20,
+            "DOWNLOAD_TIMEOUT": 10
+        }
+    }
+    '''
+    jsonstr = request.form.get('json_result', '')
+    dic = dict(json.loads(jsonstr))
+    name = dic['name']
+    info_dic = dict(dic['detail'])
+    dat_service.add_settings(name, info_dic)
+    return jsonify('ok')
+
+@app.route('/delete_settings', methods=['GET'])
+def delete_settings():
+    name = request.args.get('name')
+    dat_service.delete_settings(name)
+    return jsonify('ok')
+
+# 获取所有设置的信息,包含名字和内容
+@app.route('/get_settings', methods=['GET'])
+def get_settings():
+    data = dat_service.get_settings()
+    return jsonify(data)
+
+# 获取所有设置的名字
+@app.route('/get_settings_name', methods=['GET'])
+def get_settings_name():
+    data = dat_service.get_settings_name()
+    return jsonify(data)
+
+
 
 if __name__ == '__main__':
     # 产生包含ip和port的js文件

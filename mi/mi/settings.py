@@ -1,26 +1,26 @@
 # -*- coding: utf-8 -*-
 
-"""用户可自行配置"""
+"""根据任务信息自动设置"""
 # 任务名
 BOT_NAME = 'mi'
+# 此类容器负责的具体子任务
+SUB_MISSION = 'mengzicheng.cn'
+
+"""用户可自行配置"""
 # 是否遵守robots(如使用者选择不遵守, 开发者不对其造成的任何后果负责)
 ROBOTSTXT_OBEY = False
 # 是否启用COOKIES
 COOKIES_ENABLED = True
-# 是否显示COOKIES_DEBUG
-COOKIES_DEBUG = True
 # 是否启用重试
 RETRY_ENABLED = False
-# 是否启用HTTP代理(取值为None或400)
-HTTP_PROXY_ENABLED = 400
+# 是否启用HTTP代理(取值为 None 或 400 )
+HTTP_PROXY_ENABLED = None
 # 是否启用自动限速（启用会牺牲一定的爬取速度，但会照顾到目标网站的负载能力）
 AUTOTHROTTLE_ENABLED = False
 # 初始下载延迟(单位:秒)
 AUTOTHROTTLE_START_DELAY = 1.0
 # 最大下载延迟(单位:秒)
 AUTOTHROTTLE_MAX_DELAY = 6.0
-# 是否显示AUTOTHROTTLE_DEBUG
-AUTOTHROTTLE_DEBUG = True
 # 间隔时间下限（任何情况下不会小于此值）
 DOWNLOAD_DELAY = 0.5
 # 对单个域名并发量的上限（任何情况下不会高于此值）
@@ -33,7 +33,7 @@ DOWNLOAD_TIMEOUT = 10
 REDIS_HOST = '122.114.62.116'
 REDIS_PORT = 7001
 # redis数据库(用于去重的增量, 最好使用内网的redis服务, 以提高速度)
-FILTER_HOST = '192.168.139.239'
+FILTER_HOST = '122.114.62.116'
 FILTER_PORT = 7001
 
 # mysql数据库的配置信息
@@ -51,6 +51,11 @@ MONGO_DATABASE = 'data_20170612_01'
 
 """向用户隐藏的设置"""
 
+# 是否显示COOKIES_DEBUG
+COOKIES_DEBUG = True
+# 是否显示AUTOTHROTTLE_DEBUG
+AUTOTHROTTLE_DEBUG = True
+
 SPIDER_MODULES = ['mi.spiders', 'mi.spiders_of_eCommerce', 'mi.spiders_of_news_in_whiteList', 'mi.spiders_of_news_need_fuzzymatching']
 NEWSPIDER_MODULES = 'mi.spiders'
 
@@ -63,8 +68,6 @@ COMMANDS_MODULE = 'mi.commands'
 
 # 用于存储调度队列 ———— 的redis数据据库编号（0～15）
 FILTER_DB = 0
-
-
 
 # 用于存储資源(REDIS服务器)的信息 ———— 的redis数据据库编号（0～15）
 RESOURCES_REDIS_DB = 7

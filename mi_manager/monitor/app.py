@@ -13,15 +13,21 @@ from gen_spiderInitfile_of_news import generate_spider_init
 app = Flask(__name__)
 app.config['BASEDIR'] = os.path.abspath(os.path.dirname(__file__)) # app.py所在的目录
 app.config['UPLOAD_FOLDER'] = 'upload' # 用文件夹‘upload’来存储新上传的文件
-app.monitor_db = redis.Redis(settings.REDIS_HOST, settings.REDIS_PORT, db=settings.MONITOR_DB)
 
 # 用于判断文件后缀
+
+
+
 def allowed_file(filename):
     return '.' in filename and filename.rsplit('.',1)[1] in ['txt','png','PNG','jpg','JPG','gif','GIF','xls','xlsx']
 
 @app.route('/')
 def index():
     return redirect('/static/v2/login.html')
+
+@app.before_first_request
+def init():
+    current_app.r = redis.Redis(host=settings.REDIS_HOST, port=settings.REDIS_PORT, db=settings.MONITOR_DB)
 
 # 用于测试上传
 @app.route('/test/upload')
@@ -64,7 +70,7 @@ def monitor():
 @app.route('/ajax')
 def ajax():
     key = request.args.get('key')
-    result = app.monitor_db.lrange(key, -settings.POINTLENGTH, -1)[::settings.POINTINTERVAL]
+    result = current_app.r.lrange(key, -settings.POINTLENGTH, -1)[::settings.POINTINTERVAL]
     return json.dumps(result).replace('"', '')
 
 @app.route('/gen_spider', methods=['GET', 'POST'])

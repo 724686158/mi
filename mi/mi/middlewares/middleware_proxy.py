@@ -33,8 +33,8 @@ class RandomProxyMiddleware(object):
             self.priority_adjust = settings.getint('RETRY_PRIORITY_ADJUST')
         #加载proxy文件
         self.proxy_dict = {}
-        self.redis = redis.Redis(host=settings.get('REDIS_HOST'), port=settings.get('REDIS_PORT'), db=settings.get('PROXY_DB'))
-        proxys_set = self.redis.smembers('valid_proxy')
+        proxy_db = redis.Redis(host=settings.get('REDIS_HOST'), port=settings.get('REDIS_PORT'), db=settings.get('PROXY_DB'))
+        proxys_set = proxy_db.smembers('valid_proxy')
         proxys = list(proxys_set)
         self.proxy_dict = self.read_proxy_from_redis(proxys)
 
@@ -58,8 +58,14 @@ class RandomProxyMiddleware(object):
                     self.proxy_dict[proxy]["chance"] = self.proxy_dict[proxy]["chance"] - 1
                     if self.proxy_dict[proxy]["chance"] <= 0:
                         del self.proxy_dict[proxy]
-                        if self.redis.srem('valid_proxy', proxy) == 1:
-                            print '已从核心数据库中删除失效的proxy：' + proxy
+                        print '删除失效的proxy：' + proxy
+
+                        '''
+                        proxy_db = redis.Redis(host=settings.get('REDIS_HOST'), port=settings.get('REDIS_PORT'),
+                                               db=settings.get('PROXY_DB'))
+                        if proxy_db.srem('valid_proxy', proxy) == 1:
+                        '''
+
 
     def _choose_proxy(self, request):
         # 随机选取代理地址

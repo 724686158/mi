@@ -1,0 +1,79 @@
+<div class="row">
+    <div class="col-md-12">
+        <div class="box box-success">
+            <div class="box-header with-border">
+                <h3 class="box-title">Setting Demo</h3>
+                <div class="box-tools pull-right">
+                    <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                    </button>
+                </div>
+                <div class="box-tools pull-right">
+                    <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i>
+                    </button>
+                </div>
+            </div>
+            <!-- /.box-header -->
+            <!-- form start -->
+            <form role="form" lpformnum="1">
+                <div class="box-body">
+                    <div class="form-group">
+                        <input type="checkbox">&nbsp;&nbsp;
+                        <strong style="color: red">是否遵守robots</strong>&nbsp;（如使用者选择不遵守, 开发者不对其造成的任何后果负责）
+                    </div>
+                    <div class="form-group">
+                        <input type="checkbox">&nbsp;&nbsp;
+                        是否启用COOKIES
+                    </div>
+                    <div class="form-group">
+                        <input type="checkbox">&nbsp;&nbsp;
+                        是否启用重试
+                    </div>
+                    <div class="form-group">
+                        <input type="checkbox">&nbsp;&nbsp;
+                        是否启用HTTP代理
+                    </div>
+                    <div class="form-group">
+                        <input type="checkbox">&nbsp;&nbsp;
+                        是否启用自动限速（启用会牺牲一定的爬取速度，但会照顾到目标网站的负载能力）
+                    </div>
+
+                    <div class="form-group">
+                        <label for="AUTOTHROTTLE_START_DELAY" style="font-weight: normal">初始下载延迟（单位:秒）</label>
+                        <input type="text" class="form-control" id="AUTOTHROTTLE_START_DELAY" placeholder="">
+                    </div>
+                    <div class="form-group">
+                        <label for="AUTOTHROTTLE_MAX_DELAY" style="font-weight: normal">最大下载延迟（单位:秒）</label>
+                        <input type="text" class="form-control" id="AUTOTHROTTLE_MAX_DELAY" placeholder="">
+                    </div>
+                    <div class="form-group">
+                        <label for="DOWNLOAD_DELAY" style="font-weight: normal">间隔时间下限（任何情况下不会小于此值）</label>
+                        <input type="text" class="form-control" id="DOWNLOAD_DELAY" placeholder="">
+                    </div>
+                    <div class="form-group">
+                        <label for="CONCURRENT_REQUESTS_PER_DOMAIN" style="font-weight: normal">对单个域名并发量的上限（任何情况下不会高于此值）</label>
+                        <input type="text" class="form-control" id="CONCURRENT_REQUESTS_PER_DOMAIN" placeholder="">
+                    </div>
+                    <div class="form-group">
+                        <label for="DOWNLOAD_TIMEOUT" style="font-weight: normal">超时时限</label>
+                        <input type="text" class="form-control" id="DOWNLOAD_TIMEOUT" placeholder="">
+                    </div>
+                </div>
+                <!-- /.box-body -->
+
+                <div class="box-footer">
+                    <button type="submit" class="btn btn-success">保存设置</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        $('input').iCheck({
+            checkboxClass: 'icheckbox_square-green',
+            radioClass: 'iradio_square-green',
+            increaseArea: '20%' // optional
+        });
+    });
+</script>

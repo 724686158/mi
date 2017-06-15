@@ -1,0 +1,14 @@
+子任务
+{
+    "name": "mission1_jd.com",
+    "detail": {
+        "spider_name": "jd.com",
+        "father_mission_name": "mission1",
+        "settings": "默认设置1",
+        "priority": 5
+    }
+}
+
+我想了下,，如果像settings这样的属性，应该是只存名字的
+之后对总任务的数据结构设计也会遵守这个原则
+这种情况下，有一个极端情况是用户在创建任务之后，删除了有关对象，所以在取信息的时候要做判空处理。

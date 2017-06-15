@@ -6,8 +6,10 @@ import mi.settings as prime_settings
 import mi.tools.gen_spiderFile_in_whiteList as gen_spiderFile_in_whiteList
 import mi.tools.gen_spiderFile_need_fuzzymatching as gen_spiderFile_need_fuzzymatching
 
-if __name__ == '__main__':
+def init_spider_file():
+    r = redis.Redis(prime_settings.REDIS_HOST, prime_settings.REDIS_PORT, db=prime_settings.SUBMISSION_DB)
 
+if __name__ == '__main__':
     r = redis.Redis(prime_settings.REDIS_HOST, prime_settings.REDIS_PORT, db=prime_settings.MISSIONS_DB)
     r2 = redis.Redis(prime_settings.REDIS_HOST, prime_settings.REDIS_PORT, db=prime_settings.SPIDERS_DB)
     try:

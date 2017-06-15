@@ -16,8 +16,6 @@ app.config['UPLOAD_FOLDER'] = 'upload' # 用文件夹‘upload’来存储新上
 
 # 用于判断文件后缀
 
-
-
 def allowed_file(filename):
     return '.' in filename and filename.rsplit('.',1)[1] in ['txt','png','PNG','jpg','JPG','gif','GIF','xls','xlsx']
 
@@ -325,7 +323,51 @@ def get_settings_name():
     data = dat_service.get_settings_name()
     return jsonify(data)
 
+# 用于添加子任务
+@app.route('/add_submission', methods=['POST'])
+def add_submission():
+    '''
+    {
+        "name": "mission1_jd.com",
+        "detail": {
+            "spider_name": "jd.com",
+            "father_mission_name": "mission1",
+            "settings": "默认设置1",
+            "priority": 5
+        }
+    }
+    '''
+    jsonstr = request.form.get('json_result', '')
+    dic = dict(json.loads(jsonstr))
+    name = dic['name']
+    info_dic = dict(dic['detail'])
+    dat_service.add_submission(name, info_dic)
+    return jsonify('ok')
 
+# 获取所有子任务的信息,包含名字和内容
+@app.route('/get_all_submission', methods=['GET'])
+def get_all_submission():
+    data = dat_service.get_all_submission()
+    return jsonify(data)
+
+# 获取所有子任务的名字
+@app.route('/get_all_submission_name', methods=['GET'])
+def get_all_submission_name():
+    data = dat_service.get_all_submission_name()
+    return jsonify(data)
+
+# 根据名字获取子任务的信息, 包含名字和内容, 格式为字典的串
+@app.route('/get_submission', methods=['GET'])
+def get_settings():
+    name = request.args.get('name')
+    data = dat_service.get_submission(name)
+    return jsonify(data)
+
+@app.route('/delete_submission', methods=['GET'])
+def delete_submission():
+    name = request.args.get('name')
+    dat_service.delete_submission(name)
+    return jsonify('ok')
 
 if __name__ == '__main__':
     # 产生包含ip和port的js文件

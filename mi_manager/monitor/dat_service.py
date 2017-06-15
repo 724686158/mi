@@ -308,3 +308,34 @@ def get_settings_name():
     r = get_redis(settings.SETTINGS_DB)
     keys = r.keys()
     return keys
+
+def add_submission(name, info_dic):
+    r = get_redis(settings.SUBMISSION_DB)
+    r.set(name, str(info_dic))
+
+def get_all_submission():
+    r = get_redis(settings.SUBMISSION_DB)
+    keys = r.keys()
+    data = []
+    for key in keys:
+        dic = {}
+        dic['name'] = key
+        dic['detail'] = eval(r.get(key))
+        data.append(dic)
+    return data
+
+# 根据名字获取一个子任务的信息, 返回字典格式
+def get_submission(name):
+    r = get_redis(settings.SUBMISSION_DB)
+    return {name: r.get(get_redis)}
+
+def get_all_submission_name():
+    r = get_redis(settings.SUBMISSION_DB)
+    keys = r.keys()
+    return keys
+
+
+def delete_submission(name):
+    r = get_redis(settings.SUBMISSION_DB)
+    r.delete(name)
+

@@ -75,6 +75,7 @@ MISSION_DB = 4
 # 用于存储爬虫配置信息 ———— 的redis数据据库编号（0～15）
 SUBMISSION_DB = 5
 
+
 # 用于存储爬虫配置信息 ———— 的redis数据据库编号（0～15）
 SETTINGS_DB = 6
 

@@ -1,0 +1,50 @@
+<div class="row">
+    <div class="col-md-12">
+        <div class="box box-success">
+            <div class="box-header with-border">
+                <h3 class="box-title">电商类爬虫</h3>
+            </div>
+            <div class="box-body">
+                <div class="row" id="spider_list">
+                    <div class="col-md-3 col-sm-6 col-xs-12">
+                        <div class="info-box bg-green">
+                            <span class="info-box-icon"><i class="fa fa-bug"></i></span>
+
+                            <div class="info-box-content">
+                                <span class="info-box-text"># {0}</span>
+                                <span class="info-box-number">{1}</span>
+                                <!--<div class="progress">-->
+                                    <!--<div class="progress-bar" style="width: 70%"></div>-->
+                                <!--</div>-->
+                                <!--<span class="progress-description">70% Increase in 30 Days</span>-->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript" src="../const.js"></script>
+<script type="text/javascript" src="mycommon.js"></script>
+
+<script>
+    function init_list() {
+        var id_type = '#spider_list';
+        var html = $(id_type).html();
+        $(id_type).empty();
+        var GET_URL = POST_URL_PREFIX + "/get_ecommerce_spider_name";
+        console.log(GET_URL);
+        $.get(GET_URL).success(function (dat) {
+            console.log(dat);
+            for (var i = 0; i < dat.length; ++i) {
+                var cur = dat[i];
+                var ins = html.format(i + 1, cur);
+                $(id_type).append(ins);
+            }
+        });
+    }
+    init_list();
+
+</script>

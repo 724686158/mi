@@ -50,7 +50,8 @@
                         <input type="text" class="form-control" id="DOWNLOAD_DELAY" placeholder="">
                     </div>
                     <div class="form-group">
-                        <label for="CONCURRENT_REQUESTS_PER_DOMAIN" style="font-weight: normal">对单个域名并发量的上限（任何情况下不会高于此值）</label>
+                        <label for="CONCURRENT_REQUESTS_PER_DOMAIN"
+                               style="font-weight: normal">对单个域名并发量的上限（任何情况下不会高于此值）</label>
                         <input type="text" class="form-control" id="CONCURRENT_REQUESTS_PER_DOMAIN" placeholder="">
                     </div>
                     <div class="form-group">
@@ -68,6 +69,10 @@
     </div>
 </div>
 
+<script type="text/javascript" src="../const.js"></script>
+<script type="text/javascript" src="mycommon.js"></script>
+
+
 <script>
     $(document).ready(function () {
         $('input').iCheck({
@@ -76,4 +81,12 @@
             increaseArea: '20%' // optional
         });
     });
+</script>
+
+<script>
+//    var GET_URL = POST_URL_PREFIX + "/get_settings";
+//    console.log(GET_URL);
+//    $.get(GET_URL).success(function (dat) {
+//        console.log(dat);
+//    });
 </script>

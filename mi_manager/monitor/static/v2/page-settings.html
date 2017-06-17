@@ -1,92 +1,283 @@
 <div class="row">
+    <div class="col-md-4" style="margin-bottom: 15px; margin-left: 5px">
+        <button type="button" class="btn btn-success" onclick="add_setting()">
+            添加新Settings
+        </button>
+    </div>
     <div class="col-md-12">
         <div class="box box-success">
             <div class="box-header with-border">
-                <h3 class="box-title">Setting Demo</h3>
-                <div class="box-tools pull-right">
-                    <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
-                    </button>
-                </div>
-                <div class="box-tools pull-right">
-                    <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i>
-                    </button>
-                </div>
+                <h3 id="hd_name" class="box-title">
+                    Settings列表
+                </h3>
             </div>
-            <!-- /.box-header -->
-            <!-- form start -->
-            <form role="form" lpformnum="1">
-                <div class="box-body">
-                    <div class="form-group">
-                        <input type="checkbox">&nbsp;&nbsp;
-                        <strong style="color: red">是否遵守robots</strong>&nbsp;（如使用者选择不遵守, 开发者不对其造成的任何后果负责）
-                    </div>
-                    <div class="form-group">
-                        <input type="checkbox">&nbsp;&nbsp;
-                        是否启用COOKIES
-                    </div>
-                    <div class="form-group">
-                        <input type="checkbox">&nbsp;&nbsp;
-                        是否启用重试
-                    </div>
-                    <div class="form-group">
-                        <input type="checkbox">&nbsp;&nbsp;
-                        是否启用HTTP代理
-                    </div>
-                    <div class="form-group">
-                        <input type="checkbox">&nbsp;&nbsp;
-                        是否启用自动限速（启用会牺牲一定的爬取速度，但会照顾到目标网站的负载能力）
-                    </div>
-
-                    <div class="form-group">
-                        <label for="AUTOTHROTTLE_START_DELAY" style="font-weight: normal">初始下载延迟（单位:秒）</label>
-                        <input type="text" class="form-control" id="AUTOTHROTTLE_START_DELAY" placeholder="">
-                    </div>
-                    <div class="form-group">
-                        <label for="AUTOTHROTTLE_MAX_DELAY" style="font-weight: normal">最大下载延迟（单位:秒）</label>
-                        <input type="text" class="form-control" id="AUTOTHROTTLE_MAX_DELAY" placeholder="">
-                    </div>
-                    <div class="form-group">
-                        <label for="DOWNLOAD_DELAY" style="font-weight: normal">间隔时间下限（任何情况下不会小于此值）</label>
-                        <input type="text" class="form-control" id="DOWNLOAD_DELAY" placeholder="">
-                    </div>
-                    <div class="form-group">
-                        <label for="CONCURRENT_REQUESTS_PER_DOMAIN"
-                               style="font-weight: normal">对单个域名并发量的上限（任何情况下不会高于此值）</label>
-                        <input type="text" class="form-control" id="CONCURRENT_REQUESTS_PER_DOMAIN" placeholder="">
-                    </div>
-                    <div class="form-group">
-                        <label for="DOWNLOAD_TIMEOUT" style="font-weight: normal">超时时限</label>
-                        <input type="text" class="form-control" id="DOWNLOAD_TIMEOUT" placeholder="">
-                    </div>
-                </div>
-                <!-- /.box-body -->
-
-                <div class="box-footer">
-                    <button type="submit" class="btn btn-success">保存设置</button>
-                </div>
-            </form>
+            <div class="box-body">
+                <table class="table table-border table-bg table-bordered" id="myTable">
+                    <thead id="tab_head">
+                    <tr>
+                        <th>配置名</th>
+                        <th>遵守robots</th>
+                        <th>COOKIES</th>
+                        <th>重试</th>
+                        <th>HTTP代理</th>
+                        <th>自动限速</th>
+                        <th>初始下载延迟(秒)</th>
+                        <th>最大下载延迟(秒)</th>
+                        <th>间隔时间下限</th>
+                        <th>单域名并发上限</th>
+                        <th>超时时限</th>
+                        <th>操作</th>
+                    </tr>
+                    </thead>
+                    <tbody id="tab_dat">
+                    <tr>
+                        <th>{0}</th>
+                        <th><center>{1}</center></th>
+                        <th><center>{2}</center></th>
+                        <th><center>{3}</center></th>
+                        <th><center>{4}</center></th>
+                        <th><center>{5}</center></th>
+                        <th><center>{6}</center></th>
+                        <th><center>{7}</center></th>
+                        <th><center>{8}</center></th>
+                        <th><center>{9}</center></th>
+                        <th><center>{10}</center></th>
+                        <th>
+                            <a href="#" onclick="modify_setting('{0}')">编辑</a>
+                            <a href="#" onclick="delete_setting('{0}')">删除</a>
+                        </th>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
 </div>
 
+
+<div class="modal" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span></button>
+                <h4 class="modal-title">添加Settings</h4>
+            </div>
+            <div class="modal-body">
+                <form role="form" lpformnum="1" id="my_form">
+                    <div class="box-body">
+                        <div class="form-group">
+                            <label for="settting_name">Setting名称</label>
+                            <input type="text" class="form-control" id="settting_name" placeholder="">
+                        </div>
+                        <div class="form-group">
+                            <input type="checkbox" id="ROBOTSTXT_OBEY">&nbsp;&nbsp;
+                            <strong style="color: red">遵守robots协议</strong>&nbsp;（如使用者选择不遵守, 开发者不对其造成的任何后果负责）
+                        </div>
+                        <div class="form-group">
+                            <input type="checkbox" id="COOKIES_ENABLED">&nbsp;&nbsp;
+                            启用COOKIES
+                        </div>
+                        <div class="form-group">
+                            <input type="checkbox" id="RETRY_ENABLED">&nbsp;&nbsp;
+                            启用重试
+                        </div>
+                        <div class="form-group">
+                            <input type="checkbox" id="HTTP_PROXY_ENABLED">&nbsp;&nbsp;
+                            启用HTTP代理
+                        </div>
+                        <div class="form-group">
+                            <input type="checkbox" id="AUTOTHROTTLE_ENABLED">&nbsp;&nbsp;
+                            启用自动限速（启用会牺牲一定的爬取速度，但会照顾到目标网站的负载能力）
+                        </div>
+
+                        <div class="form-group">
+                            <label for="AUTOTHROTTLE_START_DELAY" style="font-weight: normal">初始下载延迟（单位:秒）</label>
+                            <input type="text" class="form-control" id="AUTOTHROTTLE_START_DELAY"
+                                   placeholder="Example: 1.0">
+                        </div>
+                        <div class="form-group">
+                            <label for="AUTOTHROTTLE_MAX_DELAY" style="font-weight: normal">最大下载延迟（单位:秒）</label>
+                            <input type="text" class="form-control" id="AUTOTHROTTLE_MAX_DELAY"
+                                   placeholder="Example: 6.0">
+                        </div>
+                        <div class="form-group">
+                            <label for="DOWNLOAD_DELAY" style="font-weight: normal">间隔时间下限（任何情况下不会小于此值）</label>
+                            <input type="text" class="form-control" id="DOWNLOAD_DELAY" placeholder="Example: 0.5">
+                        </div>
+                        <div class="form-group">
+                            <label for="CONCURRENT_REQUESTS_PER_DOMAIN"
+                                   style="font-weight: normal">对单个域名并发量的上限（任何情况下不会高于此值）</label>
+                            <input type="text" class="form-control" id="CONCURRENT_REQUESTS_PER_DOMAIN"
+                                   placeholder="Example: 20">
+                        </div>
+                        <div class="form-group">
+                            <label for="DOWNLOAD_TIMEOUT" style="font-weight: normal">超时时限</label>
+                            <input type="text" class="form-control" id="DOWNLOAD_TIMEOUT" placeholder="Example: 10">
+                        </div>
+                    </div>
+                    <div class="box-footer">
+                        <button type="submit" class="btn btn-success" onclick="save_setting()">保存</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+
+<link rel="stylesheet" type="text/css" href="plugins/datatables/jquery.dataTables.min.css"/>
 <script type="text/javascript" src="../const.js"></script>
 <script type="text/javascript" src="mycommon.js"></script>
+<script type="text/javascript" src="plugins/datatables/jquery.dataTables.min.js"></script>
+<script type="text/javascript" src="plugins/datatables/dataTables.bootstrap.min.js"></script>
 
 
 <script>
     $(document).ready(function () {
         $('input').iCheck({
             checkboxClass: 'icheckbox_square-green',
-            radioClass: 'iradio_square-green',
-            increaseArea: '20%' // optional
+            radioClass: 'iradio_square-green'
         });
     });
 </script>
 
 <script>
-//    var GET_URL = POST_URL_PREFIX + "/get_settings";
-//    console.log(GET_URL);
-//    $.get(GET_URL).success(function (dat) {
-//        console.log(dat);
-//    });
+    function toggle_add_model() {
+        $("#myModal2").modal("toggle");
+    }
+    function clear_model_dat() {
+        $('#settting_name').val("");
+        $("#settting_name").attr("disabled", false);
+
+        $('#ROBOTSTXT_OBEY').iCheck('check');
+        $('#COOKIES_ENABLED').iCheck('uncheck');
+        $('#RETRY_ENABLED').iCheck('uncheck');
+        $('#HTTP_PROXY_ENABLED').iCheck('uncheck');
+        $('#AUTOTHROTTLE_ENABLED').iCheck('uncheck');
+
+        $('#AUTOTHROTTLE_START_DELAY').val("");
+        $('#AUTOTHROTTLE_MAX_DELAY').val("");
+        $('#DOWNLOAD_DELAY').val("");
+        $('#CONCURRENT_REQUESTS_PER_DOMAIN').val("");
+        $('#DOWNLOAD_TIMEOUT').val("");
+    }
+</script>
+
+<script>
+    function add_setting() {
+        clear_model_dat();
+        toggle_add_model();
+    }
+</script>
+
+<script>
+    function modify_setting(name) {
+        var dat = _table_cache[name];
+        clear_model_dat();
+        toggle_add_model();
+
+        $("#settting_name").val(name);
+        $("#settting_name").attr("disabled", true);
+
+        $('#ROBOTSTXT_OBEY').iCheck(dat['ROBOTSTXT_OBEY'] ? 'check' : 'uncheck');
+        $('#COOKIES_ENABLED').iCheck(dat['COOKIES_ENABLED'] ? 'check' : 'uncheck');
+        $('#RETRY_ENABLED').iCheck(dat['RETRY_ENABLED'] ? 'check' : 'uncheck');
+        $('#HTTP_PROXY_ENABLED').iCheck(dat['HTTP_PROXY_ENABLED'] ? 'check' : 'uncheck');
+        $('#AUTOTHROTTLE_ENABLED').iCheck(dat['AUTOTHROTTLE_ENABLED'] ? 'check' : 'uncheck');
+
+
+        $('#AUTOTHROTTLE_START_DELAY').val(dat['AUTOTHROTTLE_START_DELAY']);
+        $('#AUTOTHROTTLE_MAX_DELAY').val(dat['AUTOTHROTTLE_MAX_DELAY']);
+        $('#DOWNLOAD_DELAY').val(dat['DOWNLOAD_DELAY']);
+        $('#CONCURRENT_REQUESTS_PER_DOMAIN').val(dat['CONCURRENT_REQUESTS_PER_DOMAIN']);
+        $('#DOWNLOAD_TIMEOUT').val(dat['DOWNLOAD_TIMEOUT']);
+    }
+</script>
+
+<script>
+    function is_checked(id) {
+        return $('#' + id).is(':checked');
+    }
+    function save_setting() {
+        var js = {
+            name: $('#settting_name').val(),
+            detail: {
+                ROBOTSTXT_OBEY: is_checked('ROBOTSTXT_OBEY'),
+                COOKIES_ENABLED: is_checked('COOKIES_ENABLED'),
+                RETRY_ENABLED: is_checked('RETRY_ENABLED'),
+                HTTP_PROXY_ENABLED: is_checked('HTTP_PROXY_ENABLED'),
+                AUTOTHROTTLE_ENABLED: is_checked('AUTOTHROTTLE_ENABLED'),
+                AUTOTHROTTLE_START_DELAY: $('#AUTOTHROTTLE_START_DELAY').val(),
+                AUTOTHROTTLE_MAX_DELAY: $('#AUTOTHROTTLE_MAX_DELAY').val(),
+                DOWNLOAD_DELAY: $('#DOWNLOAD_DELAY').val(),
+                CONCURRENT_REQUESTS_PER_DOMAIN: $('#CONCURRENT_REQUESTS_PER_DOMAIN').val(),
+                DOWNLOAD_TIMEOUT: $('#DOWNLOAD_TIMEOUT').val()
+            }
+        };
+        var POST_URL = POST_URL_PREFIX + "/add_settings";
+        var dat = JSON.stringify(js);
+        console.log(dat);
+        console.log(POST_URL);
+        $.post(POST_URL, {json_result: dat}).success(function () {
+            alert("操作成功！");
+            toggle_add_model();
+            reload_content();
+        });
+    }
+</script>
+
+
+
+
+<script>
+    _table_cache = {};
+    function bool2text(val) {
+        return val ? "启用" : "不启用";
+    }
+    function init_table(name) {
+        var html = $(name).html();
+        $(name).empty();
+        var GET_URL = POST_URL_PREFIX + "/get_settings";
+        console.log(GET_URL);
+        $.get(GET_URL).success(function (dat) {
+            console.log(dat);
+            for (var i = 0; i < dat.length; ++i) {
+                var set_name = dat[i]["name"];
+                var detail = dat[i]["detail"];
+                _table_cache[set_name] = detail;
+                var ins = html.format(
+                    set_name,
+                    bool2text(detail["ROBOTSTXT_OBEY"]),
+                    bool2text(detail["COOKIES_ENABLED"]),
+                    bool2text(detail["RETRY_ENABLED"]),
+                    bool2text(detail["HTTP_PROXY_ENABLED"]),
+                    bool2text(detail["AUTOTHROTTLE_ENABLED"]),
+                    detail["AUTOTHROTTLE_START_DELAY"],
+                    detail["AUTOTHROTTLE_MAX_DELAY"],
+                    detail["DOWNLOAD_DELAY"],
+                    detail["CONCURRENT_REQUESTS_PER_DOMAIN"],
+                    detail["DOWNLOAD_TIMEOUT"]
+                );
+                $(name).append(ins);
+            }
+            $('#myTable').DataTable();
+        });
+    }
+    init_table('#tab_dat');
+</script>
+
+<script>
+    function delete_setting(name) {
+        if (confirm("注意：真的删除配置：" + name + "?")) {
+            var GET_URL = POST_URL_PREFIX + "/delete_settings?name=" + name;
+            console.log(GET_URL);
+            $.getJSON(GET_URL).success(function (dat) {
+                console.log(dat);
+                alert("操作成功！");
+                reload_content();
+            });
+        }
+    }
 </script>

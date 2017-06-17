@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 # marathon的地址 (请确保zookeeper+mesos+marathon框架正常运行)
+MESOS_URL = 'http://122.114.62.116:5050'
 MARATHON_URL = 'http://122.114.62.116:18082'
 
 # 核心redis数据库
@@ -14,8 +15,6 @@ CORE_REDIS_MAX_MEMORY = 2
 # mi_manager web前端的地址及端口
 APP_HOST = '192.168.210.152'
 APP_PORT = 5020
-
-
 
 ##############################################################################################
 # 用于存储调度队列 ———— 的redis数据据库编号（0～15）

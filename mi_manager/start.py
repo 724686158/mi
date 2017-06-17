@@ -5,7 +5,6 @@ import redis
 import settings
 import gen_settings
 
-
 CWD = os.getcwd()
 
 def start_work():
@@ -34,8 +33,8 @@ def verify_core_redis_db():
 
 def set_settings():
     try:
-        gen_settings.generate_setting_of_monitor({'APP_HOST': '192.168.210.152', 'APP_PORT': 5020, 'CORE_REDIS_HOST': '122.114.62.116', 'CORE_REDIS_PORT': 7001})
-        gen_settings.generate_setting_of_daemon({'MARATHON_URL': 'http://122.114.62.116:18082', 'CORE_REDIS_HOST': '122.114.62.116', 'CORE_REDIS_PORT': 7001})
+        gen_settings.generate_setting_of_monitor({'APP_HOST': settings.APP_HOST, 'APP_PORT': settings.APP_PORT, 'CORE_REDIS_HOST': settings.CORE_REDIS_HOST, 'CORE_REDIS_PORT': settings.CORE_REDIS_PORT})
+        gen_settings.generate_setting_of_daemon({'MESOS_URL': settings.MESOS_URL, 'MARATHON_URL': settings.MARATHON_URL, 'CORE_REDIS_HOST': settings.CORE_REDIS_HOST, 'CORE_REDIS_PORT': settings.CORE_REDIS_PORT})
         print '配置项设置成功'
     except:
         raise Exception('set settings failed')

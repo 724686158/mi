@@ -369,6 +369,74 @@ def delete_submission():
     data_service.delete_submission(name)
     return jsonify('ok')
 
+# 用于添加子任务
+@app.route('/add_mission', methods=['POST'])
+def add_mission():
+    '''
+    {
+        "name": "mission",
+        "detail": {
+            "start_time": 1497706154.018272,
+            "end_time": 1497702999.018272,
+            "submission_list": [
+                "submission1",
+                "submission2"
+            ],
+            "resource_dic": {
+                "core_reids": "useful_redis",
+                "filter_redis": "useful_redis",
+                "mongo": "useful_mongo",
+                "mysql": "useful_mysql"
+            },
+            "weight": 0.8,
+            "state": "STOP"
+        }
+    }
+    '''
+    jsonstr = request.form.get('json_result', '')
+    dic = dict(json.loads(jsonstr))
+    name = dic['name']
+    info_dic = dict(dic['detail'])
+    data_service.add_mission(name, info_dic)
+    return jsonify('ok')
+
+# 获取所有子任务的信息,包含名字和内容
+@app.route('/get_all_mission', methods=['GET'])
+def get_all_mission():
+    data = data_service.get_all_mission()
+    return jsonify(data)
+
+# 获取所有子任务的名字
+@app.route('/get_all_mission_name', methods=['GET'])
+def get_all_mission_name():
+    data = data_service.get_all_mission_name()
+    return jsonify(data)
+
+# 根据名字获取子任务的信息, 包含名字和内容, 格式为字典的串
+@app.route('/get_mission', methods=['GET'])
+def get_mission():
+    name = request.args.get('name')
+    data = data_service.get_mission(name)
+    return jsonify(data)
+
+@app.route('/delete_mission', methods=['GET'])
+def delete_mission():
+    name = request.args.get('name')
+    data_service.delete_mission(name)
+    return jsonify('ok')
+
+
+@app.route('/get_default_submissions_by_target_urls', methods=['GET', 'POST'])
+def get_default_submissions_by_target_urls():
+    '''
+    jsonstr = request.form.get('urls', '')
+    urls_array = json.loads(jsonstr)['urls']
+    data_service.classifier_urls(urls_array)
+    submissions = []
+    for spider in
+    '''
+    return jsonify('ok')
+
 if __name__ == '__main__':
     # 产生包含ip和port的js文件
     text = 'POST_URL_PREFIX = "http://' + settings.APP_HOST + ':' + str(settings.APP_PORT) + '"'

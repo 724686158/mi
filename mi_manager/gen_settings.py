@@ -107,6 +107,7 @@ setting_template_of_daemon = \
 '''\
 # -*- coding: utf-8 -*-
 # marathon的地址 (请确保zookeeper+mesos+marathon框架正常运行)
+MESOS_URL = '%s'
 MARATHON_URL = '%s'
 
 # 核心redis服务器
@@ -177,6 +178,7 @@ TEMP_PATH = '/daemon'
 def generate_setting_of_daemon(dic):
     try:
         arr = (
+            dic['MESOS_URL'],
             dic['MARATHON_URL'],
             dic['CORE_REDIS_HOST'],
             dic['CORE_REDIS_PORT']

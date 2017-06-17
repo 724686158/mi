@@ -24,7 +24,6 @@ class Mission(object):
 
     def get_detail(self):
         dic = {}
-
         dic['start_time'] = self.start_time
         dic['end_time'] = self.end_time
         dic['submission_list'] = self.submission_list

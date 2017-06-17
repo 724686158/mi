@@ -32,6 +32,10 @@ def get_whitelist():
     return st
 
 def split_target_urls(urls):
+    # 用于分类爬虫(共三个类别： Whitelist, Fuzzy, Ecommerce)
+    whitelist = []
+    fuzzy = []
+    ecommerce = []
     keys = get_whitelist()
     r = get_redis(settings.TASK_DB)
     # 获取新任务后清空数据库
@@ -41,14 +45,34 @@ def split_target_urls(urls):
         spidername = get_tld(url, fail_silently=True)
         filename = oscwd + settings.TEMP_PATH + '/spiderInitfiles_of_eCommerce' + '/spiderInit_' + spidername + '.py'
         if os.path.isfile(filename):
-            r.rpush(2, url)
+            ecommerce.append(url)
+            r.rpush('Ecommerce', url)
         elif spidername in keys:
-            r.rpush(1, url)
+            whitelist.append(url)
+            r.rpush('Whitelist', url)
             generate_spider_init(spidername, {url})
         else:
-            r.rpush(0, url)
+            fuzzy.append(url)
+            r.rpush('Fuzzy', url)
             generate_spider_init(spidername, {url})
+    ans = {'Whitelist': whitelist, 'Fuzzy': fuzzy, 'Ecommerce': ecommerce}
+    return ans
 
+def classifier_urls(urls):
+    oscwd = os.getcwd()
+    r = get_redis(settings.CLASSIFIER_DB)
+    keys = get_whitelist()
+    for url in urls:
+        spidername = get_tld(url, fail_silently=True)
+        filename = oscwd + settings.TEMP_PATH + '/spiderInitfiles_of_eCommerce' + '/spiderInit_' + spidername + '.py'
+        if os.path.isfile(filename):
+            r.rpush('Ecommerce', url)
+        elif spidername in keys:
+            r.rpush('Whitelist', url)
+            generate_spider_init(spidername, {url})
+        else:
+            r.rpush('Fuzzy', url)
+            generate_spider_init(spidername, {url})
 
 def get_spider_count_from_db():
     r = get_redis(settings.MONITOR_DB)
@@ -309,6 +333,8 @@ def get_settings_name():
     keys = r.keys()
     return keys
 
+#
+
 def add_submission(name, info_dic):
     r = get_redis(settings.SUBMISSION_DB)
     r.set(name, str(info_dic))
@@ -334,8 +360,37 @@ def get_all_submission_name():
     keys = r.keys()
     return keys
 
-
 def delete_submission(name):
     r = get_redis(settings.SUBMISSION_DB)
+    r.delete(name)
+
+
+def add_mission(name, info_dic):
+    r = get_redis(settings.MISSION_DB)
+    r.set(name, str(info_dic))
+
+def get_all_mission():
+    r = get_redis(settings.MISSION_DB)
+    keys = r.keys()
+    data = []
+    for key in keys:
+        dic = {}
+        dic['name'] = key
+        dic['detail'] = eval(r.get(key))
+        data.append(dic)
+    return data
+
+# 根据名字获取一个子任务的信息, 返回字典格式
+def get_mission(name):
+    r = get_redis(settings.MISSION_DB)
+    return {name: r.get(get_redis)}
+
+def get_all_mission_name():
+    r = get_redis(settings.MISSION_DB)
+    keys = r.keys()
+    return keys
+
+def delete_mission(name):
+    r = get_redis(settings.MISSION_DB)
     r.delete(name)
 

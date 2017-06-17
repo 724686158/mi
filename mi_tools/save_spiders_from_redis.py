@@ -1,6 +1,6 @@
 #  -*- coding: utf-8 -*-
 import redis
-filename = "all_spiders.txt"
+filename = "spider_whitelist.txt"
 r = redis.Redis('122.114.62.116', 7001, 13)
 keys = r.keys()
 with open(filename, 'w') as f:

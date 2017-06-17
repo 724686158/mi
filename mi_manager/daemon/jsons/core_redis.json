@@ -1,0 +1,33 @@
+{
+  "id": "coreredis",
+  "cmd": null,
+  "cpus": 1,
+  "mem": 2048,
+  "disk": 2048,
+  "instances": 1,
+  "container": {
+    "docker": {
+      "image": "redis:3.2.8",
+      "network": "HOST"
+    },
+    "type": "DOCKER",
+    "volumes": [
+      {
+        "containerPath": "/data",
+        "hostPath": "/redisdb/20170611",
+        "mode": "RW"
+      }
+    ]
+  },
+  "portDefinitions": [
+    {
+      "port": 0,
+      "protocol": "tcp",
+      "name": null,
+      "labels": null
+    }
+  ],
+  "healthChecks": [],
+  "labels": {},
+  "env": {}
+}

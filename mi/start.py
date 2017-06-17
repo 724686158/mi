@@ -10,7 +10,7 @@ def init_spider_file():
     r = redis.Redis(prime_settings.REDIS_HOST, prime_settings.REDIS_PORT, db=prime_settings.SUBMISSION_DB)
 
 if __name__ == '__main__':
-    r = redis.Redis(prime_settings.REDIS_HOST, prime_settings.REDIS_PORT, db=prime_settings.MISSIONS_DB)
+    r = redis.Redis(prime_settings.REDIS_HOST, prime_settings.REDIS_PORT, db=prime_settings.TASK_DB)
     r2 = redis.Redis(prime_settings.REDIS_HOST, prime_settings.REDIS_PORT, db=prime_settings.SPIDERS_DB)
     try:
         news_in_whitelist_urls = r.lrange('1', 0, -1)

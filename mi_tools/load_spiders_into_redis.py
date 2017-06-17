@@ -1,7 +1,7 @@
 #  -*- coding: utf-8 -*-
 import redis
 import settings as settings
-r = redis.Redis(settings.REDIS_HOST, settings.REDIS_PORT, db=settings.SPIDERS_DB)
+r = redis.Redis(settings.REDIS_HOST, 6379, db=settings.SPIDERS_DB)
 keys = r.keys()
 filename = "spiders.txt"
 with open(filename, 'r') as f:

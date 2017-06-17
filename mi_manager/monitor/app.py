@@ -2,7 +2,7 @@
 import redis
 import json
 import os
-import dat_service
+import data_service
 import settings
 import url_extract_tools
 import base64
@@ -81,7 +81,7 @@ def gen_spider():
     js = dict(json.loads(jsonstr))
     start_urls = list(js['start_urls'])
     spider_name = url_extract_tools.extract_main_url(start_urls)
-    dat_service.save_data(spider_name, jsonstr)
+    data_service.save_data(spider_name, jsonstr)
     return jsonify('ok')
 
 # 旧API, 勿用
@@ -98,33 +98,33 @@ def add_ips():
 def target_urls():
     jsonstr = request.form.get('urls', '')
     urls_array = json.loads(jsonstr)['urls']
-    dat_service.split_target_urls(urls_array)
+    data_service.split_target_urls(urls_array)
     return jsonify('ok')
 
 @app.route('/get_spider_names', methods=['GET'])
 def get_spider_names():
-    return jsonify(dat_service.get_spider_count_from_db())
+    return jsonify(data_service.get_spider_count_from_db())
 
 @app.route('/start_work', methods=['GET'])
 def get_start_work():
     # 初始化监控器数据
-    dat_service.init_monitor()
+    data_service.init_monitor()
     # 初始化mysql数据库
-    dat_service.init_mysql()
+    data_service.init_mysql()
     #
-    dat_service.exec_init_of_missions()
+    data_service.exec_init_of_missions()
     #
     return jsonify('ok')
 
 # 慎用
 @app.route('/init_monitor', methods=['GET'])
 def init_monitor():
-    return jsonify(dat_service.init_monitor())
+    return jsonify(data_service.init_monitor())
 
 # 在个API暂时没有实际意义
 @app.route('/init_mysql', methods=['GET'])
 def init_mysql():
-    return jsonify(dat_service.init_mysql())
+    return jsonify(data_service.init_mysql())
 
 @app.route('/get_table', methods=['GET'])
 def get_table():
@@ -132,28 +132,28 @@ def get_table():
     if table_name is None:
         data_dic = []
     if(table_name == 'Article'):
-        data_dic = dat_service.get_data_from_mongo(table_name)
+        data_dic = data_service.get_data_from_mongo(table_name)
     elif(table_name == 'ECommerce' or table_name == 'ECommerceShop' or table_name == 'ECommerceShopComment' or table_name == 'ECommerceGood' or table_name == 'ECommerceGoodComment'):
-        data_dic = dat_service.get_data_from_mysql(table_name)
+        data_dic = data_service.get_data_from_mysql(table_name)
     return jsonify(data_dic)
 
 # 获取电商爬虫名
 @app.route('/get_ecommerce_spider_name', methods=['GET'])
 def get_ecommerce_spider_name():
-    data = dat_service.get_ecommerce_spider_name()
+    data = data_service.get_ecommerce_spider_name()
     return jsonify(data)
 
 # 获取新闻爬虫名
 @app.route('/get_news_spider_name', methods=['GET'])
 def get_news_spider_name():
-    data = dat_service.get_news_spider_name()
+    data = data_service.get_news_spider_name()
     return jsonify(data)
 
 # 获取新闻爬虫描述
 @app.route('/get_news_spider_describe', methods=['GET'])
 def get_news_spider_describe():
     name = request.args.get('name')
-    data = dat_service.get_news_spider_describe(name)
+    data = data_service.get_news_spider_describe(name)
     return jsonify(data)
 
 # 获取爬虫配置
@@ -172,13 +172,13 @@ def get_spider_info():
 def delect_news_in_whitelist():
     key = request.args.get('key')
     print key
-    dat_service.delete_news_in_whitelist(key)
+    data_service.delete_news_in_whitelist(key)
     return jsonify('ok')
 
 # 清空白名单
 @app.route('/delte_all_spider', methods=['GET'])
 def clear_whitelist():
-    dat_service.clear_whitelist()
+    data_service.clear_whitelist()
     return jsonify('ok')
 
 
@@ -187,7 +187,7 @@ def clear_whitelist():
 def batch_import_whitelist_of_news():
     txt = request.form.get('txt', '')
     try:
-        dat_service.batch_import_whitelist_of_news(txt)
+        data_service.batch_import_whitelist_of_news(txt)
         print '已批量导入..'
         return jsonify('ok')
     except:
@@ -196,7 +196,7 @@ def batch_import_whitelist_of_news():
 # 白名单批量导出
 @app.route('/batch_export_spider', methods=['GET'])
 def batch_export_whitelist_of_news():
-    ans = dat_service.batch_export_whitelist_of_news()
+    ans = data_service.batch_export_whitelist_of_news()
     return ans
 
 # 代理IP批量导入
@@ -204,7 +204,7 @@ def batch_export_whitelist_of_news():
 def batch_import_proxy():
     txt = request.form.get('txt', '')
     try:
-        dat_service.batch_import_proxys(txt)
+        data_service.batch_import_proxys(txt)
         print '已批量导入..'
         return jsonify('ok')
     except:
@@ -213,13 +213,13 @@ def batch_import_proxy():
 # 获取全部代理IP
 @app.route('/get_all_proxy', methods=['GET'])
 def get_all_proxy():
-    data = dat_service.get_all_proxy()
+    data = data_service.get_all_proxy()
     return jsonify(data)
 
 # 清空代理IP
 @app.route('/delte_all_proxy', methods=['GET'])
 def clear_proxys():
-    dat_service.clear_proxys()
+    data_service.clear_proxys()
     return jsonify('ok')
 
 # 删除一个http代理，形式：/delte_proxy?proxy=http://36.97.145.29:9797
@@ -227,13 +227,13 @@ def clear_proxys():
 def delte_proxy():
     proxy = request.args.get('proxy')
     print proxy
-    dat_service.delte_proxy(proxy)
+    data_service.delte_proxy(proxy)
     return jsonify('ok')
 
 # 清空去重用的redis数据库,此功能慎用
 @app.route('/delte_filter_db', methods=['GET'])
 def delte_filter_db():
-    dat_service.delte_filter_db()
+    data_service.delte_filter_db()
     return jsonify('ok')
 
 # 用于添加资源(redis,mysql,mongo)
@@ -245,11 +245,11 @@ def add_resources():
     type = dic['type']
     info_dic = dict(dic['detail'])
     if type == 'Redis':
-        dat_service.add_resources_redis(name, info_dic)
+        data_service.add_resources_redis(name, info_dic)
     elif type == 'Mysql':
-        dat_service.add_resources_mysql(name, info_dic)
+        data_service.add_resources_mysql(name, info_dic)
     elif type == 'Mongo':
-        dat_service.add_resources_mongo(name, info_dic)
+        data_service.add_resources_mongo(name, info_dic)
     return jsonify('ok')
 
 # 获取所有资源的信息 如果带参数type, 则只返回一种类型的资源（可选值： Redis Mysql Mongo）
@@ -259,20 +259,20 @@ def get_resources():
     data = []
     if type:
         if type == 'Redis':
-            data = dat_service.get_resources_redis()
+            data = data_service.get_resources_redis()
         elif type == 'Mysql':
-            data = dat_service.get_resources_mysql()
+            data = data_service.get_resources_mysql()
         elif type == 'Mongo':
-            data = dat_service.get_resources_mongo()
+            data = data_service.get_resources_mongo()
     else:
-        data = dat_service.get_resources_redis() + dat_service.get_resources_mysql() + dat_service.get_resources_mongo()
+        data = data_service.get_resources_redis() + data_service.get_resources_mysql() + data_service.get_resources_mongo()
     return jsonify(data)
 
 @app.route('/delete_resources', methods=['GET'])
 def delete_resources():
     name = request.args.get('name')
     type = request.args.get('type')
-    dat_service.delete_resources(name, type)
+    data_service.delete_resources(name, type)
     return jsonify('ok')
 
 
@@ -302,25 +302,25 @@ def add_settings():
     dic = dict(json.loads(jsonstr))
     name = dic['name']
     info_dic = dict(dic['detail'])
-    dat_service.add_settings(name, info_dic)
+    data_service.add_settings(name, info_dic)
     return jsonify('ok')
 
 @app.route('/delete_settings', methods=['GET'])
 def delete_settings():
     name = request.args.get('name')
-    dat_service.delete_settings(name)
+    data_service.delete_settings(name)
     return jsonify('ok')
 
 # 获取所有设置的信息,包含名字和内容
 @app.route('/get_settings', methods=['GET'])
 def get_settings():
-    data = dat_service.get_settings()
+    data = data_service.get_settings()
     return jsonify(data)
 
 # 获取所有设置的名字
 @app.route('/get_settings_name', methods=['GET'])
 def get_settings_name():
-    data = dat_service.get_settings_name()
+    data = data_service.get_settings_name()
     return jsonify(data)
 
 # 用于添加子任务
@@ -341,32 +341,32 @@ def add_submission():
     dic = dict(json.loads(jsonstr))
     name = dic['name']
     info_dic = dict(dic['detail'])
-    dat_service.add_submission(name, info_dic)
+    data_service.add_submission(name, info_dic)
     return jsonify('ok')
 
 # 获取所有子任务的信息,包含名字和内容
 @app.route('/get_all_submission', methods=['GET'])
 def get_all_submission():
-    data = dat_service.get_all_submission()
+    data = data_service.get_all_submission()
     return jsonify(data)
 
 # 获取所有子任务的名字
 @app.route('/get_all_submission_name', methods=['GET'])
 def get_all_submission_name():
-    data = dat_service.get_all_submission_name()
+    data = data_service.get_all_submission_name()
     return jsonify(data)
 
 # 根据名字获取子任务的信息, 包含名字和内容, 格式为字典的串
 @app.route('/get_submission', methods=['GET'])
-def get_settings():
+def get_submission():
     name = request.args.get('name')
-    data = dat_service.get_submission(name)
+    data = data_service.get_submission(name)
     return jsonify(data)
 
 @app.route('/delete_submission', methods=['GET'])
 def delete_submission():
     name = request.args.get('name')
-    dat_service.delete_submission(name)
+    data_service.delete_submission(name)
     return jsonify('ok')
 
 if __name__ == '__main__':

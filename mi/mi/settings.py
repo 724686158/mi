@@ -66,13 +66,23 @@ COMMANDS_MODULE = 'mi.commands'
 #DEPTH_LIMIT = 20 #爬取深度,20是为了避免那些动态生成链接的网站造成的死循环,暂时没遇到这种网站,先禁用了
 
 
+##############################################################################################
 # 用于存储调度队列 ———— 的redis数据据库编号（0～15）
 FILTER_DB = 0
 
-# 用于存储爬虫配置信息 ———— 的redis数据据库编号（0～15）
+# 用于存储记号变量 ———— 的redis数据据库编号（0～15）
+SYMBOL_DB = 1
+
+# 用于存储task(带处理, 已处理) ———— 的redis数据据库编号（0～15）
+TASK_DB = 2
+
+# 用于进行task调度的有序集合 ———— 的redis数据据库编号（0～15）
+DISPATCH_DB = 3
+
+# 用于存储主任务 ———— 的redis数据据库编号（0～15）
 MISSION_DB = 4
 
-# 用于存储爬虫配置信息 ———— 的redis数据据库编号（0～15）
+# 用于存储子任务 ———— 的redis数据据库编号（0～15）
 SUBMISSION_DB = 5
 
 # 用于存储爬虫配置信息 ———— 的redis数据据库编号（0～15）
@@ -99,11 +109,12 @@ COOKIES_DB = 12
 # 用于存储新闻类爬虫配置参数 ———— 的redis数据据库编号（0～15）
 SPIDERS_DB = 13
 
-# 用于存储任务信息 ———— 的redis数据据库编号（0～15）
-MISSIONS_DB = 14
+# 用于分类爬虫(共三个类别： Whitelist, Fuzzy, Ecommerce) ———— 的redis数据据库编号（0～15）
+CLASSIFIER_DB = 14
 
 # 用于存储Monitor数据 ———— 的redis数据据库编号（0～15）
 MONITOR_DB = 15
+##############################################################################################
 
 #存储爬虫运行数据的四个队列,需要与monitor.monitor_settings中的一致
 STATS_KEYS = ["downloader/request_count", "downloader/response_count", "downloader/response_status_count/200", "item_scraped_count"]

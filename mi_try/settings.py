@@ -101,7 +101,7 @@ COOKIES_DB = 12
 SPIDERS_DB = 13
 
 # 用于存储任务信息 ———— 的redis数据据库编号（0～15）
-MISSIONS_DB = 14
+TASK_DB = 14
 
 # 用于存储Monitor数据 ———— 的redis数据据库编号（0～15）
 MONITOR_DB = 15

@@ -1,28 +1,15 @@
 # -*- coding: utf-8 -*-
-# mi_manager
-APP_HOST = '192.168.210.152'
-APP_PORT = 5020
+# marathon的地址 (请确保zookeeper+mesos+marathon框架正常运行)
+MARATHON_URL = 'http://122.114.62.116:18082'
+
 # 核心redis服务器
 REDIS_HOST = '122.114.62.116'
 REDIS_PORT = 7001
 
-# mysql数据库的配置信息(实现资源读取之后删除)
-MYSQL_HOST = '122.114.62.116'
-MYSQL_PORT = 3306
-MYSQL_DBNAME = 'data_20170612_01'    #数据库名字
-MYSQL_USER = 'root'                 #数据库账号
-MYSQL_PASSWD = 'mi'                 #数据库密码
-# mongodb数据库的配置信息(实现资源读取之后删除)
-MONGO_HOST = '122.114.62.116'
-MONGO_PORT = 27017
-MONGO_DATABASE = 'data_20170612_01'
-
-# 监控器相关参数
-TIMEINTERVAL = 2000#监控台刷新时间间隔，单位毫秒
-POINTINTERVAL = 10#图上各点之间间隔，越小则表示点越密集
-POINTLENGTH = 2000#图上点的数量，越大则表示图上时间跨度越长
-# 存储爬虫运行数据的四个队列
-STATS_KEYS = ['downloader/request_count', 'downloader/response_count', 'downloader/response_status_count/200', 'item_scraped_count']
+# 开启一个工作容器(mi:v8)所需要的CUP数量
+NEED_CPU = 1
+NEED_MEM = 256
+NEED_DISK = 256
 
 ##############################################################################################
 # 用于存储调度队列 ———— 的redis数据据库编号（0～15）
@@ -74,7 +61,6 @@ CLASSIFIER_DB = 14
 MONITOR_DB = 15
 ##############################################################################################
 
-
 # 临时路径,用于解决开发环境和生产环境中路径当前路径不一直的问题（开发环境中设为空）
-TEMP_PATH = '/monitor'
+TEMP_PATH = '/daemon'
 #TEMP_PATH = ''

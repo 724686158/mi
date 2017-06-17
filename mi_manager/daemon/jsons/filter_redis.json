@@ -1,0 +1,27 @@
+{
+  "id": "filterredis",
+  "cmd": null,
+  "cpus": 1,
+  "mem": 8192,
+  "disk": 8192,
+  "instances": 1,
+  "container": {
+    "docker": {
+      "image": "redis:3.2.8",
+      "network": "HOST"
+    },
+    "type": "DOCKER",
+    "volumes": []
+  },
+  "portDefinitions": [
+    {
+      "port": 0,
+      "protocol": "tcp",
+      "name": null,
+      "labels": null
+    }
+  ],
+  "env": {},
+  "labels": {},
+  "healthChecks": []
+}

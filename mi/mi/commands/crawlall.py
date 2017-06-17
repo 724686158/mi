@@ -35,7 +35,7 @@ class Command(ScrapyCommand):
             raise UsageError("Invalid -a value, use -a NAME=VALUE", print_help=False)
 
     def run(self, args, opts):
-        r = redis.Redis(prime_settings.REDIS_HOST, prime_settings.REDIS_PORT, db=prime_settings.MISSIONS_DB)
+        r = redis.Redis(prime_settings.REDIS_HOST, prime_settings.REDIS_PORT, db=prime_settings.TASK_DB)
         news_spiders_need_fuzzymatching = r.lrange('0', 0, -1)
         news_spiders_in_whitelist = r.lrange('1', 0, -1)
         ec_spiders = r.lrange('2', 0, -1)
@@ -47,7 +47,7 @@ class Command(ScrapyCommand):
 
     def init_spiderfiles(self):
         try:
-            r = redis.Redis(prime_settings.REDIS_HOST, prime_settings.REDIS_PORT, db=prime_settings.MISSIONS_DB)
+            r = redis.Redis(prime_settings.REDIS_HOST, prime_settings.REDIS_PORT, db=prime_settings.TASK_DB)
             missions = r.lrange('1', 0, -1)
             r2 = redis.Redis(prime_settings.REDIS_HOST, prime_settings.REDIS_PORT, db = prime_settings.SPIDERS_DB)
             for mission in missions:

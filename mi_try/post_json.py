@@ -24,5 +24,5 @@ data = '''{
 '''
 url = 'http://122.114.62.116:8080/v2/apps'
 headers = {'Authorization' : '(some auth code)', 'Content-Type' : 'application/json'}
-response = requests.post(url, data=open(os.getcwd() + '/jsons/mission1jdcom.json', 'rb'), headers=headers)
+response = requests.post(url, data=open(os.getcwd() + '/jsons/mi.json', 'rb'), headers=headers)
 print response.content

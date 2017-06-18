@@ -31,6 +31,31 @@ def to_real_index():
 def init():
     current_app.r = redis.Redis(host=settings.REDIS_HOST, port=settings.REDIS_PORT, db=settings.MONITOR_DB)
 
+# 旧API
+@app.route('/start_work', methods=['GET'])
+def start_work():
+    # 初始化监控器数据
+    data_service.init_monitor()
+    # 初始化mysql数据库
+    data_service.init_mysql()
+    #
+    data_service.exec_init_of_missions()
+    #
+    return jsonify('ok')
+
+# 当完成任务创建时, 进行各项初始化
+@app.route('/mission_start', methods=['GET'])
+def mission_start():
+    # 初始化监控器数据
+    data_service.init_monitor()
+    # 初始化mysql数据库
+    data_service.init_mysql()
+    #
+    data_service.exec_init_of_missions()
+    #
+    return jsonify('ok')
+
+
 # 用于测试上传
 @app.route('/test/upload')
 def upload_test():
@@ -105,16 +130,6 @@ def target_urls():
 def get_spider_names():
     return jsonify(data_service.get_spider_count_from_db())
 
-@app.route('/start_work', methods=['GET'])
-def get_start_work():
-    # 初始化监控器数据
-    data_service.init_monitor()
-    # 初始化mysql数据库
-    data_service.init_mysql()
-    #
-    data_service.exec_init_of_missions()
-    #
-    return jsonify('ok')
 
 # 慎用
 @app.route('/init_monitor', methods=['GET'])
@@ -379,8 +394,8 @@ def add_mission():
             "start_time": 1497706154.018272,
             "end_time": 1497702999.018272,
             "submission_list": [
-                "submission1",
-                "submission2"
+                {"name": "submission1", "detail": {'spider_name': 'jd.com', 'settings': '设置1', 'priority': 2}},
+                {"name": "submission2", "detail": {'spider_name': 'jd.com', 'settings': '设置2', 'priority': 9}},
             ],
             "resource_dic": {
                 "core_reids": "useful_redis",
@@ -396,8 +411,13 @@ def add_mission():
     jsonstr = request.form.get('json_result', '')
     dic = dict(json.loads(jsonstr))
     name = dic['name']
-    info_dic = dict(dic['detail'])
-    data_service.add_mission(name, info_dic)
+    detail = dic['detail']
+    data_service.add_mission(name, detail)
+    detail_dic = eval(detail)
+    submission_list = list(detail_dic['submission_list'])
+    for submission in submission_list:
+        submission_dic = eval(submission)
+        data_service.add_submission(submission_dic['name'], submission_dic['detail'])
     return jsonify('ok')
 
 # 获取所有子任务的信息,包含名字和内容
@@ -425,17 +445,23 @@ def delete_mission():
     data_service.delete_mission(name)
     return jsonify('ok')
 
-
-@app.route('/get_default_submissions_by_target_urls', methods=['GET', 'POST'])
+# 发post请求, 带参数mission_name(任务名)和urls(json格式的串)
+@app.route('/get_default_submissions_by_target_urls', methods=['POST'])
 def get_default_submissions_by_target_urls():
-    '''
+    mission_name = request.form.get('mission_name', '')
     jsonstr = request.form.get('urls', '')
-    urls_array = json.loads(jsonstr)['urls']
-    data_service.classifier_urls(urls_array)
+    urls = json.loads(jsonstr)['urls']
+    ecommerce_spiders, whitelist_spiders, fuzzy_spiders = data_service.classifier_urls(urls)
     submissions = []
-    for spider in
-    '''
-    return jsonify('ok')
+    for spider in ecommerce_spiders:
+        submissions.append(data_service.get_default_submissions(mission_name, spider, 'Ecommerce'))
+    for spider in whitelist_spiders:
+        submissions.append(data_service.get_default_submissions(mission_name, spider, 'Whitelist'))
+    for spider in fuzzy_spiders:
+        submissions.append(data_service.get_default_submissions(mission_name, spider, 'Fuzzy'))
+    return jsonify(str(submissions))
+
+
 
 if __name__ == '__main__':
     # 产生包含ip和port的js文件

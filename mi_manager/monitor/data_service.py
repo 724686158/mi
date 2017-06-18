@@ -31,49 +31,6 @@ def get_whitelist():
         st.add(unicode(i, 'utf8'))
     return st
 
-def split_target_urls(urls):
-    # 用于分类爬虫(共三个类别： Whitelist, Fuzzy, Ecommerce)
-    whitelist = []
-    fuzzy = []
-    ecommerce = []
-    keys = get_whitelist()
-    r = get_redis(settings.TASK_DB)
-    # 获取新任务后清空数据库
-    r.flushdb()
-    oscwd = os.getcwd()
-    for url in urls:
-        spidername = get_tld(url, fail_silently=True)
-        filename = oscwd + settings.TEMP_PATH + '/spiderInitfiles_of_eCommerce' + '/spiderInit_' + spidername + '.py'
-        if os.path.isfile(filename):
-            ecommerce.append(url)
-            r.rpush('Ecommerce', url)
-        elif spidername in keys:
-            whitelist.append(url)
-            r.rpush('Whitelist', url)
-            generate_spider_init(spidername, {url})
-        else:
-            fuzzy.append(url)
-            r.rpush('Fuzzy', url)
-            generate_spider_init(spidername, {url})
-    ans = {'Whitelist': whitelist, 'Fuzzy': fuzzy, 'Ecommerce': ecommerce}
-    return ans
-
-def classifier_urls(urls):
-    oscwd = os.getcwd()
-    r = get_redis(settings.CLASSIFIER_DB)
-    keys = get_whitelist()
-    for url in urls:
-        spidername = get_tld(url, fail_silently=True)
-        filename = oscwd + settings.TEMP_PATH + '/spiderInitfiles_of_eCommerce' + '/spiderInit_' + spidername + '.py'
-        if os.path.isfile(filename):
-            r.rpush('Ecommerce', url)
-        elif spidername in keys:
-            r.rpush('Whitelist', url)
-            generate_spider_init(spidername, {url})
-        else:
-            r.rpush('Fuzzy', url)
-            generate_spider_init(spidername, {url})
-
 def get_spider_count_from_db():
     r = get_redis(settings.MONITOR_DB)
     keys = r.keys()
@@ -394,3 +351,68 @@ def delete_mission(name):
     r = get_redis(settings.MISSION_DB)
     r.delete(name)
 
+def classifier_urls(urls):
+    oscwd = os.getcwd()
+    r = get_redis(settings.CLASSIFIER_DB)
+    keys = get_whitelist()
+    ecommerce_spiders = []
+    whitelist_spiders = []
+    fuzzy_spiders = []
+    for url in urls:
+        spidername = get_tld(url, fail_silently=True)
+        filename = oscwd + settings.TEMP_PATH + '/spiderInitfiles_of_eCommerce' + '/spiderInit_' + spidername + '.py'
+        if os.path.isfile(filename):
+            r.rpush('Ecommerce', url)
+            ecommerce_spiders.append(spidername)
+        elif spidername in keys:
+            r.rpush('Whitelist', url)
+            generate_spider_init(spidername, {url})
+            whitelist_spiders.append(spidername)
+        else:
+            r.rpush('Fuzzy', url)
+            generate_spider_init(spidername, {url})
+            fuzzy_spiders.append(spidername)
+    return ecommerce_spiders, whitelist_spiders, fuzzy_spiders
+
+def split_target_urls(urls):
+    # 用于分类爬虫(共三个类别： Whitelist, Fuzzy, Ecommerce)
+    whitelist = []
+    fuzzy = []
+    ecommerce = []
+    keys = get_whitelist()
+    r = get_redis(settings.TASK_DB)
+    # 获取新任务后清空数据库
+    r.flushdb()
+    oscwd = os.getcwd()
+    for url in urls:
+        spidername = get_tld(url, fail_silently=True)
+        filename = oscwd + settings.TEMP_PATH + '/spiderInitfiles_of_eCommerce' + '/spiderInit_' + spidername + '.py'
+        if os.path.isfile(filename):
+            ecommerce.append(url)
+            r.rpush('Ecommerce', url)
+        elif spidername in keys:
+            whitelist.append(url)
+            r.rpush('Whitelist', url)
+            generate_spider_init(spidername, {url})
+        else:
+            fuzzy.append(url)
+            r.rpush('Fuzzy', url)
+            generate_spider_init(spidername, {url})
+    ans = {'Whitelist': whitelist, 'Fuzzy': fuzzy, 'Ecommerce': ecommerce}
+    return ans
+
+
+# 根据爬虫名和任务名, 生成默认的子任务
+def get_default_submissions(mission_name, spider, type):
+    name = str(mission_name + '_' + spider)
+    spider_name = str(spider)
+    if type == 'Ecommerce':
+        settings = '电商类爬虫默认配置'
+    elif type == 'Whitelist':
+        settings = '新闻类爬虫默认配置'
+    elif type == 'Fuzzy':
+        settings = '新闻类爬虫默认配置'
+    else:
+        settings = '默认设置'
+    priority = 1
+    return {'name': name, 'detail': {'spider_name': spider_name, 'settings': settings, 'priority': priority}}

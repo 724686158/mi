@@ -81,8 +81,8 @@ MONITOR_DB = 15
 
 
 # 临时路径,用于解决开发环境和生产环境中路径当前路径不一直的问题（开发环境中设为空）
-TEMP_PATH = '/monitor'
-#TEMP_PATH = ''\
+#TEMP_PATH = '/monitor'
+TEMP_PATH = ''\
 '''
 
 def generate_setting_of_monitor(dic):
@@ -173,7 +173,6 @@ MONITOR_DB = 15
 #TEMP_PATH = '/daemon'
 TEMP_PATH = ''\
 '''
-
 
 def generate_setting_of_daemon(dic):
     try:

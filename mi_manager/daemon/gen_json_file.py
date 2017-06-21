@@ -1,15 +1,15 @@
 # -*- coding: utf-8 -*-
 import os
-
+import settings
 # 用于创建新容器的json的模板
 json_template = \
 '''\
 {
   "id": "%smiv8",
   "cmd": null,
-  "cpus": 1,
-  "mem": 256,
-  "disk": 256,
+  "cpus": %s,
+  "mem": %s,
+  "disk": %s,
   "instances": 1,
   "container": {
     "docker": {
@@ -23,11 +23,11 @@ json_template = \
 }
 '''
 # 传入爬虫子任务名
-def generate_json(submission_name):
+def generate_json(container_name, cpu, mem, disk):
     try:
-        arr = (submission_name)
+        arr = (container_name, cpu, mem, disk)
         content = json_template % arr
-        filename = os.getcwd() + '/jsons/'+ submission_name  + '.json'
+        filename = os.getcwd() + settings.TEMP_PATH + '/jsons/'+ container_name  + '.json'
         with open(filename, 'w') as f:
             f.write(content)
             print 'success'

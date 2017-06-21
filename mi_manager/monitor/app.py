@@ -449,7 +449,7 @@ def delete_mission():
 def get_default_submissions_by_target_urls():
     mission_name = request.form.get('mission_name', '')
     jsonstr = request.form.get('urls', '')
-    urls = json.loads(jsonstr)['urls']
+    urls = json.loads(jsonstr)
     ecommerce_spiders, whitelist_spiders, fuzzy_spiders = data_service.classifier_urls(urls)
     submissions = []
     for spider in ecommerce_spiders:
@@ -458,12 +458,12 @@ def get_default_submissions_by_target_urls():
         submissions.append(data_service.get_default_submissions(mission_name, spider, 'Whitelist'))
     for spider in fuzzy_spiders:
         submissions.append(data_service.get_default_submissions(mission_name, spider, 'Fuzzy'))
-    return jsonify(str(submissions))
+    return jsonify(submissions)
 
 @app.route('/get_fuzzy_list', methods=['GET'])
 def get_fuzzy_list():
     data = data_service.get_fuzzy_list()
-    return jsonify(str(data))
+    return jsonify(data)
 
 
 if __name__ == '__main__':

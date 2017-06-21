@@ -107,7 +107,7 @@ def permit_container_number():
     return  marathonHelper.permit_container_number(settings.NEED_CPU, settings.NEED_MEM, settings.NEED_DISK)
 
 def run_new_container(jsonfile_name):
-    marathonHelper.post_json_to_marathon(settings.MARATHON_URL + '/v2/apps', os.getcwd() + '/jsons/'+ jsonfile_name + '.json')
+    marathonHelper.post_json_to_marathon(settings.MARATHON_URL + '/v2/apps', os.getcwd()  + settings.TEMP_PATH + '/jsons/'+ jsonfile_name + '.json')
 
 def issue_tasks(tasks):
     r = get_redis(settings.TASK_DB)
@@ -120,6 +120,6 @@ def record_tasks(tasks):
     for task in tasks:
         r.lpush('history', task)
 
-def gen_json(name):
-    gen_json_file.generate_json(name)
+def gen_json(container_name):
+    gen_json_file.generate_json(container_name, settings.NEED_CPU, settings.NEED_MEM, settings.NEED_DISK)
 

@@ -33,16 +33,11 @@ def get_submission(name):
 def get_settings(name):
     r = get_redis(settings.SETTINGS_DB)
     return r.get(name)
-'''
-def get_spider(type, name):
-    if type == 'Whitelist':
-        r = get_redis(settings.SPIDERS_DB)
-        return r.get(name)
-    elif type == 'Fuzzy':
-        return None
-    elif type == 'Ecommerce':
-        return None
-'''
+
+def get_spider(name):
+    # 如果在新闻爬虫白名单中, 则返回数据库中存储的值, 如果不在新闻爬虫白名单中, 则返回空值
+    r = get_redis(settings.SPIDERS_DB)
+    return r.get(name)
 
 def push_task(info_dic_str, priority):
     r = get_redis(settings.DISPATCH_DB)
@@ -56,7 +51,7 @@ def pop_task(number):
 
     for task in tasks:
         ans.append(task)
-        r.zrem(task)
+        r.zrem('task_zset', task)
     return ans
 
 def check_mission_state(mission_name, start_time, end_time):

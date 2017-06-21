@@ -17,7 +17,7 @@ class Mission(object):
         self.mission_name = name
         self.start_time = dic['start_time']
         self.end_time = dic['end_time']
-        self.submission_list = dic['submission_list']
+        self.submission_list = list(dic['submission_list'])
         self.resource_dic = dic['resource_dic']
         self.weight = dic['weight']
         self.state = dic['state']

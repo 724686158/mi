@@ -29,14 +29,12 @@ def generate_json(submission_name):
         content = json_template % arr
         filename = os.getcwd() + '/jsons/'+ submission_name  + '.json'
         with open(filename, 'w') as f:
-            f.write(content.encode('utf8'))
+            f.write(content)
             print 'success'
-        return True
+            f.close()
     except:
         print 'fall'
-        return False
-    finally:
-        f.close()
+
 
 if __name__ == '__main__':
     generate_json('mission1jdcom')

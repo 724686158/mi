@@ -170,8 +170,8 @@ MONITOR_DB = 15
 ##############################################################################################
 
 # 临时路径,用于解决开发环境和生产环境中路径当前路径不一直的问题（开发环境中设为空）
-TEMP_PATH = '/daemon'
-#TEMP_PATH = ''\
+#TEMP_PATH = '/daemon'
+TEMP_PATH = ''\
 '''
 
 
@@ -187,7 +187,6 @@ def generate_setting_of_daemon(dic):
         filename = os.getcwd() + '/daemon/settings.py'
         with open(filename, 'w') as f:
             f.write(content)
+            f.close()
     except:
         raise Exception('set settings of daemon failed')
-    finally:
-        f.close()

@@ -381,7 +381,7 @@ def add_mission():
             "end_time": 1497702999.018272,
             "submission_list": [
                 {"name": "submission1", "detail": {'spider_name': 'jd.com', 'settings': '设置1', 'priority': 2}},
-                {"name": "submission2", "detail": {'spider_name': 'jd.com', 'settings': '设置2', 'priority': 9}},
+                {"name": "submission2", "detail": {'spider_name': 'jd.com', 'settings': '设置2', 'priority': 9}}
             ],
             "resource_dic": {
                 "core_reids": "useful_redis",

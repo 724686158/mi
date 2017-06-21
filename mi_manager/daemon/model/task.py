@@ -16,7 +16,7 @@ class Task(object):
     def get_dic_str(self):
         dic = {}
         dic['spider_name'] = self.spider_name
-        dic['spider_detail'] = data_service.get_spider(dic['spider_type'], dic['spider_name'])
+        dic['spider_detail'] = data_service.get_spider(self.spider_name)
         dic['father_mission_name'] = self.father_mission_name
         dic['settings_name'] = self.settings_name
         if dic['settings_name']:

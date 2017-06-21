@@ -420,7 +420,7 @@ def get_default_submissions(mission_name, spider, type):
     else:
         settings = '默认设置'
     priority = 1
-    return {'name': name, 'detail': {'spider_name': spider_name, 'settings': settings, 'priority': priority}}
+    return {"name": name, "detail": {"spider_name": spider_name, "settings": settings, "priority": priority}}
 
 ########################################################################################################################
 

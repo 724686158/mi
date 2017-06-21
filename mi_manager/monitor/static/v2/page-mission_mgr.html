@@ -1,3 +1,199 @@
-<script>
+<div class="row">
+    <div class="col-md-4" style="margin-bottom: 15px; margin-left: 5px">
+        <button type="button" class="btn btn-success" data-toggle="modal" data-target="#myModal1">
+            添加任务
+        </button>
+    </div>
+    <div class="col-md-12">
+        <div class="box box-success">
+            <div class="box-header with-border">
+                <h3 class="box-title">所有任务</h3>
 
+                <div class="box-tools pull-right">
+                    <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="box-body">
+                <div id="mission_list">
+                    <p>{0}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<div class="modal" id="myModal1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span></button>
+                <h4 class="modal-title">添加任务（第一步：输入URLS）</h4>
+            </div>
+            <div class="modal-body">
+                <form action="" method="post" class="form form-horizontal responsive">
+                    <div class="form-group">
+                        <div class="formControls col-xs-12">
+                            <input type="text" class="form-control" id="name" placeholder="任务名，不能含有中文">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="formControls col-xs-12">
+                        <textarea cols="" rows="24" class="textarea form-control" id="urls"
+                                  placeholder="请输入URLS，每行一个URL"></textarea>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default pull-left" data-dismiss="modal">取消</button>
+                <button type="button" class="btn btn-success" onclick="step1()">确认</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal" id="myModal2"
+     tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span></button>
+                <h4 class="modal-title">添加任务（第二步：配置子任务）</h4>
+            </div>
+            <div class="modal-body">
+                <form action="" method="post" class="form form-horizontal responsive">
+                    <div id="sub_list">
+                        <div class="form-group">
+                            <label class="col-xs-2 control-label">任务名</label>
+                            <div class="formControls col-xs-10">
+                                <input type="text" class="form-control"
+                                       id="{0}" value="{1}" disabled>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-xs-2 control-label">爬虫名</label>
+                            <div class="formControls col-xs-10">
+                                <input type="text" class="form-control"
+                                       id="{2}" value="{3}" disabled>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-xs-2 control-label">配置</label>
+                            <div class="formControls col-xs-10">
+                                <select class="form-control select_list" id="{4}">
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-xs-2 control-label">权重</label>
+                            <div class="formControls col-xs-10">
+                                <input type="text" class="form-control"
+                                       id="{6}" value="{7}">
+                            </div>
+                        </div>
+                        <hr style="height:1px;border:none;border-top:1px double forestgreen;"/>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default pull-left" data-dismiss="modal">取消</button>
+                <button type="button" class="btn btn-success" onclick="">确认</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script type="text/javascript" src="../const.js"></script>
+<script type="text/javascript" src="mycommon.js"></script>
+
+<script>
+    function init_list() {
+        var id_type = "#mission_list";
+        var html = $(id_type).html();
+        console.log(html);
+        $(id_type).empty();
+        var GET_URL = POST_URL_PREFIX + "/get_all_mission";
+        console.log(GET_URL);
+        $.get(GET_URL).success(function (dat) {
+            for (var i = 0; i < dat.length; ++i) {
+                var cur = dat[i];
+                var ins = html.format(JSON.stringify(cur));
+                $(id_type).append(ins);
+            }
+            console.log(dat);
+        });
+    }
+    init_list();
+</script>
+
+<script>
+    function has_chinese(str) {
+        var ch_reg = /^[u4E00-u9FA5{u-z}]+$/;
+        return !ch_reg.test(str);
+    }
+</script>
+
+<script>
+    function step1() {
+        var mission_name = $("#name").val();
+        if (has_chinese(mission_name)) {
+            alert("任务名不能含有中文！");
+            return;
+        }
+        var urls = $("#urls").val().split("\n");
+        var POST_URL = POST_URL_PREFIX + "/get_default_submissions_by_target_urls";
+        console.log(POST_URL);
+        $.post(POST_URL, {urls: JSON.stringify(urls), mission_name: mission_name})
+            .success(function (result) {
+                console.log(result);
+                $("#myModal1").modal("toggle");
+                show_model2(result);
+            });
+    }
+    function init_select_list() {
+        var GET_URL = POST_URL_PREFIX + "/get_settings_name";
+        var html = '<option value="{0}">{0}</option>';
+        console.log(GET_URL);
+        $.get(GET_URL).success(function (dat) {
+            for (var i = 0; i < dat.length; ++i) {
+                var cur = dat[i];
+                var ins = html.format(cur);
+                $(".select_list").each(function () {
+                    $(this).append(ins);
+                });
+            }
+        });
+    }
+    function show_model2(dat) {
+        $("#myModal2").modal("toggle");
+
+        var id_type = "#sub_list";
+        var html = $(id_type).html();
+        $(id_type).empty();
+
+        console.log(dat);
+        cnt = 0;
+        for (i = 0; i < dat.length; ++i) {
+            var cur = dat[i];
+            var detail = cur["detail"];
+            var ins = html.format(
+                "inp" + cnt++, cur["name"],
+                "inp" + cnt++, detail["spider_name"],
+                "inp" + cnt++, detail["settings"],
+                "inp" + cnt++, detail["priority"]
+            );
+            $(id_type).append(ins);
+        }
+        init_select_list();
+        for (i = 0; i < dat.length; ++i) {
+            cur = dat[i];
+            var id = "#inp" + (i * 4 + 3);
+            $(id).find("option[text='{0}']".format(cur)).attr("selected",true);
+        }
+    }
 </script>

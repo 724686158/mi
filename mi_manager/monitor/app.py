@@ -15,7 +15,6 @@ app.config['BASEDIR'] = os.path.abspath(os.path.dirname(__file__)) # app.py所�
 app.config['UPLOAD_FOLDER'] = 'upload' # 用文件夹‘upload’来存储新上传的文件
 
 # 用于判断文件后缀
-
 def allowed_file(filename):
     return '.' in filename and filename.rsplit('.',1)[1] in ['txt','png','PNG','jpg','JPG','gif','GIF','xls','xlsx']
 
@@ -42,19 +41,6 @@ def start_work():
     data_service.exec_init_of_missions()
     #
     return jsonify('ok')
-
-# 当完成任务创建时, 进行各项初始化
-@app.route('/mission_start', methods=['GET'])
-def mission_start():
-    # 初始化监控器数据
-    data_service.init_monitor()
-    # 初始化mysql数据库
-    data_service.init_mysql()
-    #
-    data_service.exec_init_of_missions()
-    #
-    return jsonify('ok')
-
 
 # 用于测试上传
 @app.route('/test/upload')
@@ -420,6 +406,19 @@ def add_mission():
         data_service.add_submission(submission_dic['name'], submission_dic['detail'])
     return jsonify('ok')
 
+# 命令任务进入停止状态
+@app.route('/mission_start', methods=['GET'])
+def mission_start():
+    name = request.args.get('name')
+    data_service.mission_start(name)
+
+# 命令任务进入开始状态
+@app.route('/mission_stop', methods=['GET'])
+def mission_stop():
+    name = request.args.get('name')
+    data_service.mission_stop(name)
+    return jsonify('ok')
+
 # 获取所有子任务的信息,包含名字和内容
 @app.route('/get_all_mission', methods=['GET'])
 def get_all_mission():
@@ -461,6 +460,10 @@ def get_default_submissions_by_target_urls():
         submissions.append(data_service.get_default_submissions(mission_name, spider, 'Fuzzy'))
     return jsonify(str(submissions))
 
+@app.route('/get_fuzzy_list', methods=['GET'])
+def get_fuzzy_list():
+    data = data_service.get_fuzzy_list()
+    return jsonify(str(data))
 
 
 if __name__ == '__main__':

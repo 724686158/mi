@@ -1,6 +1,6 @@
 <div class="row">
     <div class="col-md-4" style="margin-bottom: 15px; margin-left: 15px">
-        <button type="button" class="btn btn-success" data-toggle="modal" data-target="#myModal2">
+        <button type="button" class="btn btn-success" onclick="clear_and_toggle()">
             添加资源
         </button>
     </div>
@@ -14,10 +14,8 @@
                     <h3 class="box-title">Mongo 资源管理</h3>
 
                     <div class="box-tools pull-right">
-
                     </div>
                 </div>
-                <!-- /.box-header -->
                 <div class="box-body no-padding">
                     <table class="table table-striped">
                         <thead>
@@ -35,6 +33,7 @@
                             <td>{3}</td>
                             <td>
                                 <a class="fa fa-trash-o" onclick="delete_res('Mongo', '{1}')"></a>
+                                &nbsp;&nbsp;<a class="fa fa-edit" onclick="modify_resource('Mongo', '{1}')"></a>
                             </td>
                         </tr>
                         </tbody>
@@ -73,6 +72,7 @@
                             <td>{4}</td>
                             <td>
                                 <a class="fa fa-trash-o" onclick="delete_res('Mysql', '{1}')"></a>
+                                &nbsp;&nbsp;<a class="fa fa-edit" onclick="modify_resource('Mysql', '{1}')"></a>
                             </td>
                         </tr>
                         </tbody>
@@ -112,6 +112,7 @@
                             <td>{3}</td>
                             <td>
                                 <a class="fa fa-trash-o" onclick="delete_res('Redis', '{1}')"></a>
+                                &nbsp;&nbsp;<a class="fa fa-edit" onclick="modify_resource('Redis', '{1}')"></a>
                             </td>
                         </tr>
                         </tbody>
@@ -119,11 +120,7 @@
                 </div>
             </div>
         </div>
-
-
     </div>
-
-
 </div>
 
 <div class="modal" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
@@ -132,7 +129,7 @@
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">×</span></button>
-                <h4 class="modal-title">添加资源</h4>
+                <h4 class="modal-title">添加/编辑资源</h4>
             </div>
             <div class="modal-body">
                 <form action="" method="post" class="form form-horizontal responsive">
@@ -179,15 +176,14 @@
                 <button type="button" class="btn btn-success" onclick="add_res()">确认添加</button>
             </div>
         </div>
-        <!-- /.modal-content -->
     </div>
-    <!-- /.modal-dialog -->
 </div>
 
 <script type="text/javascript" src="../const.js"></script>
 <script type="text/javascript" src="mycommon.js"></script>
 
 <script>
+    _db_cache = {};
     function init_table(name) {
         var id_type = '#tab_row_' + name;
         var html = $(id_type).html();
@@ -198,6 +194,7 @@
             console.log(dat);
             for (var i = 0; i < dat.length; ++i) {
                 var cur = dat[i];
+                _db_cache[name + '_' + cur["name"]] = cur["detail"];
                 var ins = html.format(i + 1, cur["name"], cur["detail"]["host"], cur["detail"]["post"], cur["detail"]["user"]);
                 $(id_type).append(ins);
             }
@@ -206,7 +203,6 @@
     init_table('Mysql');
     init_table('Redis');
     init_table('Mongo');
-
 </script>
 
 <script>
@@ -235,7 +231,7 @@
 
 <script>
     function delete_res(type, name) {
-        if (confirm("注意：真的删除资源" + name + "?")) {
+        if (confirm("注意：真的删除资源: " + name + "?")) {
             var GET_URL = POST_URL_PREFIX + "/delete_resources?name=" + name + "&type=" + type;
             console.log(GET_URL);
             $.getJSON(GET_URL).success(function (dat) {
@@ -244,6 +240,29 @@
                 reload_content();
             });
         }
+    }
+</script>
+
+<script>
+    function clear_and_toggle() {
+        $("#myModal2 input").each(function () {
+            $(this).val("");
+        });
+        $("#name").attr("disabled", false);
+        $("#type").attr("disabled", false);
+        $("#myModal2").modal("toggle");
+    }
+    function modify_resource(type, name) {
+        clear_and_toggle();
+        var detail = _db_cache[type + "_" + name];
+        console.log(detail);
+        $("#name").attr("disabled", true);
+        $("#type").attr("disabled", true);
+        $("#name").val(name);
+        $("#type").val(type);
+        $("#host").val(detail["host"]);
+        $("#post").val(detail["post"]);
+        $("#user").val(detail["user"]);
     }
 </script>
 

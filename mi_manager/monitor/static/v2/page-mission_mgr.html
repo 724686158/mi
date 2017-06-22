@@ -221,26 +221,27 @@
         console.log(GET_URL);
         $.get(GET_URL).success(function (dat) {
             console.log(dat);
+            _main_dat_list_cache = dat;
             render_html_list(dat);
         });
     }
     init_list();
     function start_mission(index) {
-        var name = _misson_mgr_html_cache[index]["name"];
+        var name = _main_dat_list_cache[index]["name"];
         var GET_URL = POST_URL_PREFIX + "/mission_start?name=" + name;
         console.log(GET_URL);
         $.get(GET_URL).success(function (dat) {
-            _misson_mgr_html_cache[index]["detail"]["state"] = "START";
-            render_html_list(_misson_mgr_html_cache);
+            _main_dat_list_cache[index]["detail"]["state"] = "START";
+            render_html_list(_main_dat_list_cache);
         });
     }
     function stop_mission(index) {
-        var name = _misson_mgr_html_cache[index]["name"];
+        var name = _main_dat_list_cache[index]["name"];
         var GET_URL = POST_URL_PREFIX + "/mission_stop?name=" + name;
         console.log(GET_URL);
         $.get(GET_URL).success(function (dat) {
-            _misson_mgr_html_cache[index]["detail"]["state"] = "STOP";
-            render_html_list(_misson_mgr_html_cache);
+            _main_dat_list_cache[index]["detail"]["state"] = "STOP";
+            render_html_list(_main_dat_list_cache);
         });
     }
 </script>

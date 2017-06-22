@@ -5,13 +5,12 @@ class MongoHelper():
     def __init__(self):
         self.host = prime_settings.MONGO_HOST
         self.port = prime_settings.MONGO_PORT
-        self.db = prime_settings.MONGO_DATABASE
 
     def connectMysql(self):
         conn = pymongo.MongoClient(self.host, self.port)
         return conn
 
-    def connectDatabase(self):
+    def connectDatabase(self, dbname = prime_settings.MONGO_DATABASE):
         conn = self.connectMysql()
         db = conn[self.db]
         return db

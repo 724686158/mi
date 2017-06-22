@@ -66,7 +66,7 @@ def exec_init_of_missions():
         filename =  oscwd + settings.TEMP_PATH + '/spiderInitfiles_of_news' + '/spiderInit_' + mission + '.py'
         if os.path.isfile(filename):
             print filename
-            os.system('python2 ' + filename)
+            os.system('python ' + filename)
         else:
             print 'news_spider Init_' + mission + '.py' + ' not exist'
     ec_spiders = r.lrange('2', 0, -1)
@@ -75,17 +75,17 @@ def exec_init_of_missions():
         filename =  oscwd + settings.TEMP_PATH + '/spiderInitfiles_of_eCommerce' + '/spiderInit_' + mission + '.py'
         if os.path.isfile(filename):
             print filename
-            os.system('python2 ' + filename)
+            os.system('python ' + filename)
         else:
             print 'eCommerce_spider Init_' + mission + '.py' + ' not exist'
 
 # 从mongo数据库获取数据
-def get_data_from_mongo(table_name):
+def get_data_from_mongo(table_name, mission_name = settings.MONGO_DATABASE):
     dic = []
     if(table_name == 'Article'):
         dic.append(('url', '标题', '正文', '关键词'))
         mongo = MongoHelper()
-        db = mongo.connectDatabase()
+        db = mongo.connectDatabase(mission_name)
         items = db['Article'].find()
         for item in items:
             t = (item['articleUrl'], item['articleTitle'], item['articleContent'], item['articleFirstTag'] + ' ' + item['articleSecondTag'] + ' ' + item['articleThirdTag'])
@@ -93,14 +93,14 @@ def get_data_from_mongo(table_name):
     return dic
 
 # 从mysql数据库获取数据
-def get_data_from_mysql(table_name):
+def get_data_from_mysql(table_name, mission_name = settings.MYSQL_DBNAME):
     dic = []
     if (table_name == 'ECommerce'):
         dic.append(('电商网站', '网站首页'))
         mysql = MysqlHelper()
         #sql = """SELECT * FROM %s LIMIT 0, 1000;""".encode(encoding='utf-8')
         sql = """SELECT * FROM ECommerce;""".encode(encoding='utf-8')
-        results = mysql.select(sql)
+        results = mysql.select_with_dbname(mission_name, sql)
         for col in results:
             t = (col['eCommerceName'], col['eCommerceUrl'])
             dic.append(t)
@@ -109,7 +109,7 @@ def get_data_from_mysql(table_name):
         mysql = MysqlHelper()
         # sql = """SELECT * FROM %s LIMIT 0, 1000;""".encode(encoding='utf-8')
         sql = """SELECT * FROM ECommerceShop;""".encode(encoding='utf-8')
-        results = mysql.select(sql)
+        results = mysql.select_with_dbname(mission_name, sql)
         for col in results:
             t = (col['eCommerceName'], col['shopId'], col['shopName'], col['shopUrl'], col['shopLocation'], col['shopPhoneNumber'], col['updateTime'])
             dic.append(t)
@@ -118,7 +118,7 @@ def get_data_from_mysql(table_name):
         mysql = MysqlHelper()
         # sql = """SELECT * FROM %s LIMIT 0, 1000;""".encode(encoding='utf-8')
         sql = """SELECT * FROM ECommerceShopComment;""".encode(encoding='utf-8')
-        results = mysql.select(sql)
+        results = mysql.select_with_dbname(mission_name, sql)
         for col in results:
             t = (col['eCommerceName'], col['shopId'], col['shopCommentsUrl'], col['shopCommentsData'], col['updateTime'])
             dic.append(t)
@@ -127,7 +127,7 @@ def get_data_from_mysql(table_name):
         mysql = MysqlHelper()
         # sql = """SELECT * FROM %s LIMIT 0, 1000;""".encode(encoding='utf-8')
         sql = """SELECT * FROM ECommerceGood;""".encode(encoding='utf-8')
-        results = mysql.select(sql)
+        results = mysql.select_with_dbname(mission_name, sql)
         for col in results:
             t = (col['eCommerceName'], col['goodId'], col['shopId'], col['goodName'], col['goodUrl'], col['goodPrice'], col['updateTime'])
             dic.append(t)
@@ -136,7 +136,7 @@ def get_data_from_mysql(table_name):
         mysql = MysqlHelper()
         # sql = """SELECT * FROM %s LIMIT 0, 1000;""".encode(encoding='utf-8')
         sql = """SELECT * FROM ECommerceGoodComment;""".encode(encoding='utf-8')
-        results = mysql.select(sql)
+        results = mysql.select_with_dbname(mission_name, sql)
         for col in results:
             t = (col['eCommerceName'], col['goodId'], col['goodCommentsUrl'], col['goodCommentsData'], col['updateTime'])
             dic.append(t)
@@ -198,6 +198,7 @@ def split_target_urls(urls):
             generate_spider_init(spidername, {url})
     ans = {'Whitelist': whitelist, 'Fuzzy': fuzzy, 'Ecommerce': ecommerce}
     return ans
+########################################################################################################################
 
 ########################################################################################################################
 # WHITELIST
@@ -206,7 +207,6 @@ def split_target_urls(urls):
 def get_news_spider_name():
     r = get_redis(settings.SPIDERS_DB)
     keys = r.keys()
-    print type(keys)
     return keys
 
 # 根据名称从白名单数据库中提取对应爬虫的描述
@@ -312,6 +312,9 @@ def get_resources_redis():
         dic['detail'] = eval(r.get(key))
         data.append(dic)
     return data
+def get_all_redis_resources_name():
+    r = get_redis(settings.RESOURCES_REDIS_DB)
+    return r.keys()
 
 def get_resources_mysql():
     r = get_redis(settings.RESOURCES_MYSQL_DB)
@@ -325,6 +328,10 @@ def get_resources_mysql():
         data.append(dic)
     return data
 
+def get_all_mysql_resources_name():
+    r = get_redis(settings.RESOURCES_MYSQL_DB)
+    return r.keys()
+
 def get_resources_mongo():
     r = get_redis(settings.RESOURCES_MONGO_DB)
     keys = r.keys()
@@ -336,6 +343,10 @@ def get_resources_mongo():
         dic['detail'] = eval(r.get(key))
         data.append(dic)
     return data
+
+def get_all_mongo_resources_name():
+    r = get_redis(settings.RESOURCES_MONGO_DB)
+    return r.keys()
 
 def delete_resources(name, type):
     if type == 'Redis':

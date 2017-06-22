@@ -9,6 +9,7 @@ class MysqlHelper():
         self.passwd = prime_settings.MYSQL_PASSWD
         self.db = prime_settings.MYSQL_DBNAME
 
+    # 连接Mysql
     def connectMysql(self):
         conn = pymysql.connect(host=self.host,
                                port=self.port,
@@ -18,16 +19,7 @@ class MysqlHelper():
                                cursorclass=pymysql.cursors.DictCursor)
         return conn
 
-    def connectDatabase(self):
-        conn = pymysql.connect(host=self.host,
-                               port=self.port,
-                               user=self.user,
-                               passwd=self.passwd,
-                               db=self.db,
-                               charset='utf8',
-                               cursorclass=pymysql.cursors.DictCursor)
-        return conn
-
+    # 创建数据库
     def createDatabase(self):
         conn = self.connectMysql()
         sql = "create database if not exists " + self.db
@@ -36,6 +28,19 @@ class MysqlHelper():
         cur.close()
         conn.close()
 
+
+    # 连接数据库
+    def connectDatabase(self, dbname = prime_settings.MYSQL_DBNAME):
+        conn = pymysql.connect(host=self.host,
+                               port=self.port,
+                               user=self.user,
+                               passwd=self.passwd,
+                               db= dbname,
+                               charset='utf8',
+                               cursorclass=pymysql.cursors.DictCursor)
+        return conn
+
+    # 创建数据表
     def createTable(self, sql):
         conn = self.connectDatabase()
 
@@ -44,15 +49,8 @@ class MysqlHelper():
         cur.close()
         conn.close()
 
-    def insert(self, sql, *params):
-        conn = self.connectDatabase()
-        cur = conn.cursor();
-        cur.execute(sql, params)
-        conn.commit()
-        cur.close()
-        conn.close()
 
-    def update(self, sql, *params):
+    def insert(self, sql, *params):
         conn = self.connectDatabase()
         cur = conn.cursor()
         cur.execute(sql, params)
@@ -68,8 +66,59 @@ class MysqlHelper():
         cur.close()
         conn.close()
 
+    def update(self, sql, *params):
+        conn = self.connectDatabase()
+        cur = conn.cursor()
+        cur.execute(sql, params)
+        conn.commit()
+        cur.close()
+        conn.close()
+
     def select(self, sql):
         conn = self.connectDatabase()
+        cur = conn.cursor()
+        cur.execute(sql)
+        result = cur.fetchall()
+        conn.commit()
+        cur.close()
+        conn.close()
+        return result
+
+    # 创建数据表
+    def createTable_with_dbname(self, dbname, sql):
+        conn = self.connectDatabase(dbname)
+
+        cur = conn.cursor()
+        cur.execute(sql)
+        cur.close()
+        conn.close()
+
+    def insert_with_dbname(self, dbname, sql, *params):
+        conn = self.connectDatabase(dbname)
+        cur = conn.cursor()
+        cur.execute(sql, params)
+        conn.commit()
+        cur.close()
+        conn.close()
+
+    def delete_with_dbname(self, dbname, sql, *params):
+        conn = self.connectDatabase(dbname)
+        cur = conn.cursor()
+        cur.execute(sql, params)
+        conn.commit()
+        cur.close()
+        conn.close()
+
+    def update_with_dbname(self, dbname, sql, *params):
+        conn = self.connectDatabase(dbname)
+        cur = conn.cursor()
+        cur.execute(sql, params)
+        conn.commit()
+        cur.close()
+        conn.close()
+
+    def select_with_dbname(self, dbname, sql):
+        conn = self.connectDatabase(dbname)
         cur = conn.cursor()
         cur.execute(sql)
         result = cur.fetchall()

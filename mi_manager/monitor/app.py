@@ -14,18 +14,24 @@ app = Flask(__name__)
 app.config['BASEDIR'] = os.path.abspath(os.path.dirname(__file__)) # app.py所在的目录
 app.config['UPLOAD_FOLDER'] = 'upload' # 用文件夹‘upload’来存储新上传的文件
 
-# 用于判断文件后缀
-def allowed_file(filename):
-    return '.' in filename and filename.rsplit('.',1)[1] in ['txt','png','PNG','jpg','JPG','gif','GIF','xls','xlsx']
+########################################################################################################################
+# 特殊操作
 
+# 跳转操作
 @app.route('/')
 def index():
     return redirect('/static/v2/login.html')
 
+# 跳转操作(未能实现隔离登录和首页)
 @app.route('/static/v2/swaplayer')
 def to_real_index():
     return redirect('/static/v2/starter.html')
 
+# 用于判断文件后缀
+def allowed_file(filename):
+    return '.' in filename and filename.rsplit('.',1)[1] in ['txt','png','PNG','jpg','JPG','gif','GIF','xls','xlsx']
+
+# 用于给监控器获取数据库支持
 @app.before_first_request
 def init():
     current_app.r = redis.Redis(host=settings.REDIS_HOST, port=settings.REDIS_PORT, db=settings.MONITOR_DB)
@@ -62,6 +68,7 @@ def api_upload():
     else:
         return jsonify({"errno":1001,"errmsg":"upload fail"})
 
+# 提供文件下载服务
 @app.route('/api/download',methods=['GET'],strict_slashes=False)
 def download():
     filename = request.args.get('filename')
@@ -72,20 +79,61 @@ def download():
             return send_from_directory('upload',filename,as_attachment=True)
         abort(404)
 
+# 返回需要用户关注的模糊网址的清单, 可以指导用户进行白名单的扩充
+@app.route('/get_fuzzy_list', methods=['GET'])
+def get_fuzzy_list():
+    data = data_service.get_fuzzy_list()
+    return jsonify(data)
 
+# 初始化数据库, 在个API暂时没有实际意义
+@app.route('/init_mysql', methods=['GET'])
+def init_mysql():
+    return jsonify(data_service.init_mysql())
+
+# 从mysql和mongo数据库中获取数据表单
+@app.route('/get_table', methods=['GET'])
+def get_table():
+    table_name = request.args.get('table_name')
+    if table_name is None:
+        data_dic = []
+    if(table_name == 'Article'):
+        data_dic = data_service.get_data_from_mongo(table_name)
+    elif(table_name == 'ECommerce' or table_name == 'ECommerceShop' or table_name == 'ECommerceShopComment' or table_name == 'ECommerceGood' or table_name == 'ECommerceGoodComment'):
+        data_dic = data_service.get_data_from_mysql(table_name)
+    return jsonify(data_dic)
+
+
+########################################################################################################################
+
+########################################################################################################################
+# MONITOR
+# 监控
 @app.route('/monitor')
 def monitor():
     return render_template('index.html',
                            timeinterval=settings.TIMEINTERVAL,
                            stats_keys=settings.STATS_KEYS,
                            spider_name=request.args.get('spider_name'))
-
+# 监控数据ajax
 @app.route('/ajax')
 def ajax():
     key = request.args.get('key')
     result = current_app.r.lrange(key, -settings.POINTLENGTH, -1)[::settings.POINTINTERVAL]
     return json.dumps(result).replace('"', '')
 
+# 获取受监控器监控的爬虫的列表
+@app.route('/get_spider_names', methods=['GET'])
+def get_spider_names():
+    return jsonify(data_service.get_spider_count_from_db())
+
+# 清空监控数据
+@app.route('/init_monitor', methods=['GET'])
+def init_monitor():
+    return jsonify(data_service.init_monitor())
+
+########################################################################################################################
+# WHITELIST
+# 生成新的新闻爬虫白名单
 @app.route('/gen_spider', methods=['GET', 'POST'])
 def gen_spider():
     jsonstr = request.form.get('json_result', '')
@@ -104,39 +152,6 @@ def add_ips():
     dat_service.save_proxys(ips_array)
     return jsonify('ok')
 '''
-
-@app.route('/target_urls', methods=['GET', 'POST'])
-def target_urls():
-    jsonstr = request.form.get('urls', '')
-    urls_array = json.loads(jsonstr)['urls']
-    data_service.split_target_urls(urls_array)
-    return jsonify('ok')
-
-@app.route('/get_spider_names', methods=['GET'])
-def get_spider_names():
-    return jsonify(data_service.get_spider_count_from_db())
-
-
-# 慎用
-@app.route('/init_monitor', methods=['GET'])
-def init_monitor():
-    return jsonify(data_service.init_monitor())
-
-# 在个API暂时没有实际意义
-@app.route('/init_mysql', methods=['GET'])
-def init_mysql():
-    return jsonify(data_service.init_mysql())
-
-@app.route('/get_table', methods=['GET'])
-def get_table():
-    table_name = request.args.get('table_name')
-    if table_name is None:
-        data_dic = []
-    if(table_name == 'Article'):
-        data_dic = data_service.get_data_from_mongo(table_name)
-    elif(table_name == 'ECommerce' or table_name == 'ECommerceShop' or table_name == 'ECommerceShopComment' or table_name == 'ECommerceGood' or table_name == 'ECommerceGoodComment'):
-        data_dic = data_service.get_data_from_mysql(table_name)
-    return jsonify(data_dic)
 
 # 获取电商爬虫名
 @app.route('/get_ecommerce_spider_name', methods=['GET'])
@@ -167,7 +182,6 @@ def get_spider_info():
     ss = json.dumps(dic)
     return ss
 
-
 # 删除白名单中的一条记录，形式：/delte_spider?key=163.com
 @app.route('/delte_spider', methods=['GET'])
 def delect_news_in_whitelist():
@@ -181,7 +195,6 @@ def delect_news_in_whitelist():
 def clear_whitelist():
     data_service.clear_whitelist()
     return jsonify('ok')
-
 
 # 白名单批量导入，注意是POST，文本参数在变量txt里
 @app.route('/batch_import_spider', methods=['POST'])
@@ -200,6 +213,10 @@ def batch_export_whitelist_of_news():
     ans = data_service.batch_export_whitelist_of_news()
     return ans
 
+########################################################################################################################
+
+########################################################################################################################
+# PROXY
 # 代理IP批量导入
 @app.route('/batch_import_proxy', methods=['POST'])
 def batch_import_proxy():
@@ -237,6 +254,10 @@ def delte_filter_db():
     data_service.delte_filter_db()
     return jsonify('ok')
 
+########################################################################################################################
+
+########################################################################################################################
+# RESOURCES
 # 用于添加资源(redis,mysql,mongo)
 @app.route('/add_resources', methods=['POST'])
 def add_resources():
@@ -276,8 +297,28 @@ def delete_resources():
     data_service.delete_resources(name, type)
     return jsonify('ok')
 
+# 获取所有redis资源的名字
+@app.route('/get_all_redis_resources_name', methods=['GET'])
+def get_all_redis_resources_name():
+    data = data_service.get_all_redis_resources_name()
+    return jsonify(data)
 
+# 获取所有mysql资源的名字
+@app.route('/get_all_mysql_resources_name', methods=['GET'])
+def get_all_mysql_resources_name():
+    data = data_service.get_all_mysql_resources_name()
+    return jsonify(data)
 
+# 获取所有mongo资源的名字
+@app.route('/get_all_mongo_resources_name', methods=['GET'])
+def get_all_mongo_resources_name():
+    data = data_service.get_all_mongo_resources_name()
+    return jsonify(data)
+
+########################################################################################################################
+
+########################################################################################################################
+# SETTINGS
 # 用于添加Settings
 @app.route('/add_settings', methods=['POST'])
 def add_settings():
@@ -324,6 +365,10 @@ def get_settings_name():
     data = data_service.get_settings_name()
     return jsonify(data)
 
+########################################################################################################################
+
+########################################################################################################################
+# SUBMISSION
 # 用于添加子任务
 @app.route('/add_submission', methods=['POST'])
 def add_submission():
@@ -370,6 +415,34 @@ def delete_submission():
     data_service.delete_submission(name)
     return jsonify('ok')
 
+# 旧API勿用
+@app.route('/target_urls', methods=['GET', 'POST'])
+def target_urls():
+    jsonstr = request.form.get('urls', '')
+    urls_array = json.loads(jsonstr)['urls']
+    data_service.split_target_urls(urls_array)
+    return jsonify('ok')
+
+# 发post请求, 带参数mission_name(任务名)和urls(json格式的串)
+@app.route('/get_default_submissions_by_target_urls', methods=['POST'])
+def get_default_submissions_by_target_urls():
+    mission_name = request.form.get('mission_name', '')
+    jsonstr = request.form.get('urls', '')
+    urls = json.loads(jsonstr)
+    ecommerce_spiders, whitelist_spiders, fuzzy_spiders = data_service.classifier_urls(urls)
+    submissions = []
+    for spider in ecommerce_spiders:
+        submissions.append(data_service.get_default_submissions(mission_name, spider, 'Ecommerce'))
+    for spider in whitelist_spiders:
+        submissions.append(data_service.get_default_submissions(mission_name, spider, 'Whitelist'))
+    for spider in fuzzy_spiders:
+        submissions.append(data_service.get_default_submissions(mission_name, spider, 'Fuzzy'))
+    return jsonify(submissions)
+
+########################################################################################################################
+
+########################################################################################################################
+# MISSION
 # 用于添加子任务
 @app.route('/add_mission', methods=['POST'])
 def add_mission():
@@ -438,38 +511,32 @@ def get_mission():
     data = data_service.get_mission(name)
     return jsonify(data)
 
+# 根据name参数删除任务
 @app.route('/delete_mission', methods=['GET'])
 def delete_mission():
     name = request.args.get('name')
     data_service.delete_mission(name)
     return jsonify('ok')
 
-# 发post请求, 带参数mission_name(任务名)和urls(json格式的串)
-@app.route('/get_default_submissions_by_target_urls', methods=['POST'])
-def get_default_submissions_by_target_urls():
-    mission_name = request.form.get('mission_name', '')
-    jsonstr = request.form.get('urls', '')
-    urls = json.loads(jsonstr)
-    ecommerce_spiders, whitelist_spiders, fuzzy_spiders = data_service.classifier_urls(urls)
-    submissions = []
-    for spider in ecommerce_spiders:
-        submissions.append(data_service.get_default_submissions(mission_name, spider, 'Ecommerce'))
-    for spider in whitelist_spiders:
-        submissions.append(data_service.get_default_submissions(mission_name, spider, 'Whitelist'))
-    for spider in fuzzy_spiders:
-        submissions.append(data_service.get_default_submissions(mission_name, spider, 'Fuzzy'))
-    return jsonify(submissions)
+# 从mysql和mongo数据库中获取数据表单, 根据任务名作为数据库库名
+@app.route('/get_table_of_mission', methods=['GET'])
+def get_table_of_mission():
+    table_name = request.args.get('table_name')
+    mission_name = request.args.get('mission_name')
+    if table_name is None:
+        data_dic = []
+    if (table_name == 'Article'):
+        data_dic = data_service.get_data_from_mongo(table_name, mission_name)
+    elif (table_name == 'ECommerce' or table_name == 'ECommerceShop' or table_name == 'ECommerceShopComment' or table_name == 'ECommerceGood' or table_name == 'ECommerceGoodComment'):
+        data_dic = data_service.get_data_from_mysql(table_name, mission_name)
+    return jsonify(data_dic)
 
-@app.route('/get_fuzzy_list', methods=['GET'])
-def get_fuzzy_list():
-    data = data_service.get_fuzzy_list()
-    return jsonify(data)
-
-
+########################################################################################################################
+#主程序
 if __name__ == '__main__':
     # 产生包含ip和port的js文件
     text = 'POST_URL_PREFIX = "http://' + settings.APP_HOST + ':' + str(settings.APP_PORT) + '"'
     filename = os.getcwd() + settings.TEMP_PATH + '/static/const.js'
     with open(filename, 'w') as f:
-        f.write(text.encode('utf8'))
+        f.write(text)
     app.run(host=settings.APP_HOST, port=settings.APP_PORT, debug=False)

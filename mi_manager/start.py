@@ -8,8 +8,9 @@ import gen_settings
 CWD = os.getcwd()
 
 def start_work():
-    subprocess.Popen(['python2', CWD + '/daemon/app.py'])  # 开启守护进程
-    os.system('python2 ' + CWD + '/monitor/app.py')
+    #
+    subprocess.Popen(['python', CWD + '/daemon/app.py'])  # 开启守护进程
+    os.system('python ' + CWD + '/monitor/app.py')
 
 def verify_core_redis_db():
     try:
@@ -33,8 +34,8 @@ def verify_core_redis_db():
 
 def set_settings():
     try:
-        gen_settings.generate_setting_of_monitor({'APP_HOST': settings.APP_HOST, 'APP_PORT': settings.APP_PORT, 'CORE_REDIS_HOST': settings.CORE_REDIS_HOST, 'CORE_REDIS_PORT': settings.CORE_REDIS_PORT})
-        gen_settings.generate_setting_of_daemon({'MESOS_URL': settings.MESOS_URL, 'MARATHON_URL': settings.MARATHON_URL, 'CORE_REDIS_HOST': settings.CORE_REDIS_HOST, 'CORE_REDIS_PORT': settings.CORE_REDIS_PORT})
+        gen_settings.generate_setting_of_monitor({'APP_HOST': settings.APP_HOST, 'APP_PORT': settings.APP_PORT, 'CORE_REDIS_HOST': settings.CORE_REDIS_HOST, 'CORE_REDIS_PORT': settings.CORE_REDIS_PORT, 'TEMP_PATH': settings.MONITOR_TEMP_PATH})
+        gen_settings.generate_setting_of_daemon({'MESOS_URL': settings.MESOS_URL, 'MARATHON_URL': settings.MARATHON_URL, 'CORE_REDIS_HOST': settings.CORE_REDIS_HOST, 'CORE_REDIS_PORT': settings.CORE_REDIS_PORT, 'TEMP_PATH': settings.DAEMON_TEMP_PATH})
         print '配置项设置成功'
     except:
         raise Exception('set settings failed')

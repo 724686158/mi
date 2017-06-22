@@ -79,10 +79,8 @@ CLASSIFIER_DB = 14
 MONITOR_DB = 15
 ##############################################################################################
 
-
 # 临时路径,用于解决开发环境和生产环境中路径当前路径不一直的问题（开发环境中设为空）
-#TEMP_PATH = '/monitor'
-TEMP_PATH = ''\
+TEMP_PATH = '%s'\
 '''
 
 def generate_setting_of_monitor(dic):
@@ -91,7 +89,8 @@ def generate_setting_of_monitor(dic):
             dic['APP_HOST'],
             dic['APP_PORT'],
             dic['CORE_REDIS_HOST'],
-            dic['CORE_REDIS_PORT']
+            dic['CORE_REDIS_PORT'],
+            dic['TEMP_PATH']
         )
         content = setting_template_of_minitor % arr
         filename = os.getcwd() + '/monitor/settings.py'
@@ -170,8 +169,7 @@ MONITOR_DB = 15
 ##############################################################################################
 
 # 临时路径,用于解决开发环境和生产环境中路径当前路径不一直的问题（开发环境中设为空）
-#TEMP_PATH = '/daemon'
-TEMP_PATH = ''\
+TEMP_PATH = '%s'\
 '''
 
 def generate_setting_of_daemon(dic):
@@ -180,7 +178,8 @@ def generate_setting_of_daemon(dic):
             dic['MESOS_URL'],
             dic['MARATHON_URL'],
             dic['CORE_REDIS_HOST'],
-            dic['CORE_REDIS_PORT']
+            dic['CORE_REDIS_PORT'],
+            dic['TEMP_PATH']
         )
         content = setting_template_of_daemon % arr
         filename = os.getcwd() + '/daemon/settings.py'

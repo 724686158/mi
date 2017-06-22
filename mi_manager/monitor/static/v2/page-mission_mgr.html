@@ -89,10 +89,10 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="col-xs-2 control-label">权重</label>
+                            <label class="col-xs-2 control-label">优先度</label>
                             <div class="formControls col-xs-10">
                                 <input type="text" class="form-control"
-                                       id="{6}" value="{7}">
+                                       id="{6}" value="{7}" placeholder="1~9">
                             </div>
                         </div>
                         <hr style="height:1px;border:none;border-top:1px double forestgreen;"/>
@@ -101,7 +101,77 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default pull-left" data-dismiss="modal">取消</button>
-                <button type="button" class="btn btn-success" onclick="">确认</button>
+                <button type="button" class="btn btn-success" onclick="step2()">确认</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal" id="myModal3"
+     tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span></button>
+                <h4 class="modal-title">添加任务（第三步：配置资源）</h4>
+            </div>
+            <div class="modal-body">
+                <form action="" method="post" class="form form-horizontal responsive">
+                    <div class="form-group">
+                        <label class="col-xs-2 control-label">权重</label>
+                        <div class="formControls col-xs-10">
+                            <input type="text" class="form-control" id="st3_weight">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-xs-2 control-label">开始时间</label>
+                        <div class="formControls col-xs-10">
+                            <div class="input-append date form_datetime" data-date="2017-01-01T00:00:00Z">
+                                <input size="16" type="text" value="" class="form-control" id="st3_st_time" readonly>
+                                <span class="add-on"><i class="icon-remove"></i></span>
+                                <span class="add-on"><i class="icon-calendar"></i></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-xs-2 control-label">结束时间</label>
+                        <div class="formControls col-xs-10">
+                            <div class="input-append date form_datetime" data-date="2017-01-01T00:00:00Z">
+                                <input size="16" type="text" value="" class="form-control" id="st3_ed_time" readonly>
+                                <span class="add-on"><i class="icon-remove"></i></span>
+                                <span class="add-on"><i class="icon-calendar"></i></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-xs-2 control-label">Redis资源</label>
+                        <div class="formControls col-xs-10">
+                            <select class="form-control Redis_list" id="st3_Redis">
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-xs-2 control-label">Mysql资源</label>
+                        <div class="formControls col-xs-10">
+                            <select class="form-control Mysql_list" id="st3_Mysql">
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-xs-2 control-label">Mongo资源</label>
+                        <div class="formControls col-xs-10">
+                            <select class="form-control Mongo_list" id="st3_Mongo">
+                            </select>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default pull-left" data-dismiss="modal">取消</button>
+                <button type="button" class="btn btn-default" onclick="step3(false)">添加任务</button>
+                <button type="button" class="btn btn-success" onclick="step3(true)">添加任务并启动</button>
             </div>
         </div>
     </div>
@@ -140,7 +210,7 @@
 
 <script>
     function step1() {
-        var mission_name = $("#name").val();
+        mission_name = $("#name").val();
         if (has_chinese(mission_name)) {
             alert("任务名不能含有中文！");
             return;
@@ -150,12 +220,13 @@
         console.log(POST_URL);
         $.post(POST_URL, {urls: JSON.stringify(urls), mission_name: mission_name})
             .success(function (result) {
+                _list2_cache = result;
                 console.log(result);
                 $("#myModal1").modal("toggle");
                 show_model2(result);
             });
     }
-    function init_select_list() {
+    function init_select_list(lists) {
         var GET_URL = POST_URL_PREFIX + "/get_settings_name";
         var html = '<option value="{0}">{0}</option>';
         console.log(GET_URL);
@@ -166,6 +237,12 @@
                 $(".select_list").each(function () {
                     $(this).append(ins);
                 });
+            }
+            for (i = 0; i < lists.length; ++i) {
+                cur = lists[i]["detail"]["settings"];
+                var id = "#inp" + (i * 4 + 2);
+                var find = "option[value='{0}']".format(cur);
+                $(id).find(find).attr("selected", "selected");
             }
         });
     }
@@ -189,11 +266,72 @@
             );
             $(id_type).append(ins);
         }
-        init_select_list();
-        for (i = 0; i < dat.length; ++i) {
-            cur = dat[i];
-            var id = "#inp" + (i * 4 + 3);
-            $(id).find("option[text='{0}']".format(cur)).attr("selected",true);
+        init_select_list(dat);
+    }
+    function step2() {
+        for (i = 0; i < _list2_cache.length; ++i) {
+            var settings_id = (i * 4 + 2);
+            var priority_id = (i * 4 + 3);
+            _list2_cache[i]["detail"]["settings"]
+                = $("#inp{0} option:selected".format(settings_id)).text();
+            _list2_cache[i]["detail"]["priority"]
+                = $("#inp{0}".format(priority_id)).val();
         }
+        show_model3();
+    }
+    function show_model3() {
+        $("#myModal2").modal("toggle");
+        $("#myModal3").modal("toggle");
+        $(".form_datetime").datetimepicker({
+            lang: "ch",
+            format: "yyyy-mm-dd hh:ii",
+            autoclose: true,
+            todayBtn: true,
+            minuteStep: 1
+        });
+        var GET_URL = POST_URL_PREFIX + "/get_resources";
+        var html = '<option value="{0}">{0}</option>';
+        console.log(GET_URL);
+        $.get(GET_URL).success(function (dat) {
+            console.log(dat);
+            for (var i = 0; i < dat.length; ++i) {
+                var cur = dat[i];
+                var ins = html.format(cur["name"]);
+                var id = "." + cur["type"] + "_list";
+                $(id).append(ins);
+            }
+        });
+    }
+    function to_timestamp(stringTime) {
+        var timestamp2 = Date.parse(new Date(stringTime));
+        timestamp2 = timestamp2 / 1000;
+        console.log(stringTime + "的时间戳为：" + timestamp2);
+        return timestamp2;
+    }
+    function step3(is_start) {
+        var result = {
+            name: mission_name,
+            detail: {
+                start_time: to_timestamp($("#st3_st_time").val()),
+                end_time: to_timestamp($("#st3_ed_time").val()),
+                submission_list: _list2_cache,
+                resource_dic: {
+                    filter_redis: $("#st3_{0} option:selected".format("Redis")).text(),
+                    mongo: $("#st3_{0} option:selected".format("Mongo")).text(),
+                    mysql: $("#st3_{0} option:selected".format("Mysql")).text()
+                },
+                weight: $("#st3_weight").val(),
+                state: is_start ? "START" : "STOP"
+            }
+        };
+        result = JSON.stringify(result);
+        console.log(result);
+        var POST_URL = POST_URL_PREFIX + "/add_mission";
+        console.log(POST_URL);
+        $.post(POST_URL, {json_result: result}).success(function () {
+            alert("操作成功！");
+            $("#myModal3").modal("toggle");
+            reload_content();
+        });
     }
 </script>

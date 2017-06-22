@@ -4,24 +4,39 @@
             添加任务
         </button>
     </div>
-    <div class="col-md-12">
-        <div class="box box-success">
-            <div class="box-header with-border">
-                <h3 class="box-title">所有任务</h3>
-
-                <div class="box-tools pull-right">
-                    <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i>
-                    </button>
+    <div id="mission_list">
+        <div class="col-md-12">
+            <div class="box box-success">
+                <div class="box-header" style="cursor: move; height: 50px">
+                    <i class="fa fa-tasks"></i>
+                    <h3 class="box-title">任务：{0}</h3>
+                    <div class="pull-right box-tools">
+                        <div class="btn-group" data-toggle="btn-toggle">
+                            <button type="button" class="btn btn-default {2}" onclick="start_mission('{4}')">
+                                <i class="fa fa-play text-green"></i>
+                            </button>
+                            <button type="button" class="btn btn-default {3}" onclick="stop_mission('{4}')">
+                                <i class="fa fa-square text-red"></i>
+                            </button>
+                        </div>
+                        <button type="button" class="btn btn-default" data-widget="collapse"><i
+                                class="fa fa-minus"></i>
+                        </button>
+                    </div>
                 </div>
-            </div>
-            <div class="box-body">
-                <div id="mission_list">
-                    <p>{0}</p>
+                <div class="box-body">
+                    <div class="row">
+                        <div class="col-md-4 col-xs-4 col-sm-4">
+                            <img src="dist/img/avatar04.png">
+                        </div>
+                        <div class="col-md-8 col-xs-8 col-sm-8">
+                            <p>{1}</p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-
 </div>
 
 <div class="modal" id="myModal1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
@@ -182,36 +197,65 @@
 <script type="text/javascript" src="mycommon.js"></script>
 
 <script>
+    function render_html_list(dat) {
+        var id_type = "#mission_list";
+        var html = _misson_mgr_html_cache;
+        $(id_type).empty();
+        for (var i = 0; i < dat.length; ++i) {
+            var cur = dat[i];
+            var detail = cur["detail"];
+            var ins = html.format(
+                cur["name"],
+                JSON.stringify(cur),
+                detail["state"] === "START" ? "active" : "",
+                detail["state"] === "STOP" ? "active" : "",
+                i
+            );
+            $(id_type).append(ins);
+        }
+    }
     function init_list() {
         var id_type = "#mission_list";
-        var html = $(id_type).html();
-        console.log(html);
-        $(id_type).empty();
+        _misson_mgr_html_cache = $(id_type).html();
         var GET_URL = POST_URL_PREFIX + "/get_all_mission";
         console.log(GET_URL);
         $.get(GET_URL).success(function (dat) {
-            for (var i = 0; i < dat.length; ++i) {
-                var cur = dat[i];
-                var ins = html.format(JSON.stringify(cur));
-                $(id_type).append(ins);
-            }
             console.log(dat);
+            render_html_list(dat);
         });
     }
     init_list();
+    function start_mission(index) {
+        var name = _misson_mgr_html_cache[index]["name"];
+        var GET_URL = POST_URL_PREFIX + "/mission_start?name=" + name;
+        console.log(GET_URL);
+        $.get(GET_URL).success(function (dat) {
+            _misson_mgr_html_cache[index]["detail"]["state"] = "START";
+            render_html_list(_misson_mgr_html_cache);
+        });
+    }
+    function stop_mission(index) {
+        var name = _misson_mgr_html_cache[index]["name"];
+        var GET_URL = POST_URL_PREFIX + "/mission_stop?name=" + name;
+        console.log(GET_URL);
+        $.get(GET_URL).success(function (dat) {
+            _misson_mgr_html_cache[index]["detail"]["state"] = "STOP";
+            render_html_list(_misson_mgr_html_cache);
+        });
+    }
 </script>
 
 <script>
-    function has_chinese(str) {
-        var ch_reg = /^[u4E00-u9FA5{u-z}]+$/;
-        return !ch_reg.test(str);
+    function is_vilid_name(str) {
+        var ch_reg = /^[0-9a-zA-Z_]+$/;
+        return ch_reg.test(str);
     }
 </script>
 
 <script>
     function step1() {
         mission_name = $("#name").val();
-        if (has_chinese(mission_name)) {
+        if (!is_vilid_name(mission_name)) {
             alert("任务名不能含有中文！");
             return;
         }

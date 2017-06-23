@@ -108,5 +108,7 @@ if __name__ == '__main__':
             
         # 将发布过的task存入task历史记录中
         data_service.record_tasks(tasks_ready)
-
-        time.sleep(1)
+        try:
+            time.sleep(1)
+        except:
+            print '守护进程关闭'

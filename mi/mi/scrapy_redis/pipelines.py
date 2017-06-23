@@ -36,7 +36,10 @@ class RedisPipeline(object):
         return cls.from_settings(crawler.settings)
 
     def process_item(self, item, spider):
-        return deferToThread(self._process_item, item, spider)
+        try:
+            return deferToThread(self._process_item, item, spider)
+        except:
+            print '处理item出错'
 
     def _process_item(self, item, spider):
         key = self.item_key(item, spider)

@@ -101,6 +101,21 @@ def get_table():
         data_dic = data_service.get_data_from_mysql(table_name)
     return jsonify(data_dic)
 
+# 旧API勿用
+@app.route('/target_urls', methods=['GET', 'POST'])
+def target_urls():
+    jsonstr = request.form.get('urls', '')
+    urls_array = json.loads(jsonstr)['urls']
+    data_service.split_target_urls(urls_array)
+    return jsonify('ok')
+
+# 利用Goose批量获取url对应的新闻
+@app.route('/get_news_from_urls', methods=['POST'])
+def target_urls():
+    jsonstr = request.form.get('urls', '')
+    urls_list = json.loads(jsonstr)['urls']
+    data_dic = data_service.get_data_from_goose(urls_list)
+    return jsonify(data_dic)
 
 ########################################################################################################################
 
@@ -221,6 +236,8 @@ def batch_import_whitelist_of_news():
 def batch_export_whitelist_of_news():
     ans = data_service.batch_export_whitelist_of_news()
     return ans
+
+
 
 ########################################################################################################################
 
@@ -424,13 +441,7 @@ def delete_submission():
     data_service.delete_submission(name)
     return jsonify('ok')
 
-# 旧API勿用
-@app.route('/target_urls', methods=['GET', 'POST'])
-def target_urls():
-    jsonstr = request.form.get('urls', '')
-    urls_array = json.loads(jsonstr)['urls']
-    data_service.split_target_urls(urls_array)
-    return jsonify('ok')
+
 
 # 发post请求, 带参数mission_name(任务名)和urls(json格式的串)
 @app.route('/get_default_submissions_by_target_urls', methods=['POST'])

@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 import pymongo
-import mi.settings as settings
 import jieba.analyse
 from mi.items import ArticleItem
 from mi.items import DomTreeItem

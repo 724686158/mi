@@ -8,6 +8,7 @@ from mongoHelper import MongoHelper
 from monitor_init import MonitorInit
 from mysql_init import MysqlInit
 from tld import get_tld
+from gooseHelper import GooseHelper
 
 ########################################################################################################################
 # 特殊操作
@@ -84,7 +85,8 @@ def get_data_from_mongo(table_name, mission_name = settings.MONGO_DATABASE):
     if(table_name == 'Article'):
         dic.append(('url', '标题', '正文', '关键词'))
         mongo = MongoHelper()
-        db = mongo.connectDatabase(mission_name)
+        db = mongo.discovery_and_connectDatabase_for_mission(mission_name)
+        #db = mongo.connectDatabase(mission_name)
         items = db['Article'].find()
         for item in items:
             t = (item['articleUrl'], item['articleTitle'], item['articleContent'], item['articleFirstTag'] + ' ' + item['articleSecondTag'] + ' ' + item['articleThirdTag'])
@@ -99,7 +101,7 @@ def get_data_from_mysql(table_name, mission_name = settings.MYSQL_DBNAME):
         mysql = MysqlHelper()
         #sql = """SELECT * FROM %s LIMIT 0, 1000;""".encode(encoding='utf-8')
         sql = """SELECT * FROM ECommerce;""".encode(encoding='utf-8')
-        results = mysql.select_with_dbname(mission_name, sql)
+        results = mysql.select_for_mission(mission_name, sql)
         for col in results:
             t = (col['eCommerceName'], col['eCommerceUrl'])
             dic.append(t)
@@ -108,7 +110,7 @@ def get_data_from_mysql(table_name, mission_name = settings.MYSQL_DBNAME):
         mysql = MysqlHelper()
         # sql = """SELECT * FROM %s LIMIT 0, 1000;""".encode(encoding='utf-8')
         sql = """SELECT * FROM ECommerceShop;""".encode(encoding='utf-8')
-        results = mysql.select_with_dbname(mission_name, sql)
+        results = mysql.select_for_mission(mission_name, sql)
         for col in results:
             t = (col['eCommerceName'], col['shopId'], col['shopName'], col['shopUrl'], col['shopLocation'], col['shopPhoneNumber'], col['updateTime'])
             dic.append(t)
@@ -117,7 +119,7 @@ def get_data_from_mysql(table_name, mission_name = settings.MYSQL_DBNAME):
         mysql = MysqlHelper()
         # sql = """SELECT * FROM %s LIMIT 0, 1000;""".encode(encoding='utf-8')
         sql = """SELECT * FROM ECommerceShopComment;""".encode(encoding='utf-8')
-        results = mysql.select_with_dbname(mission_name, sql)
+        results = mysql.select_for_mission(mission_name, sql)
         for col in results:
             t = (col['eCommerceName'], col['shopId'], col['shopCommentsUrl'], col['shopCommentsData'], col['updateTime'])
             dic.append(t)
@@ -126,7 +128,7 @@ def get_data_from_mysql(table_name, mission_name = settings.MYSQL_DBNAME):
         mysql = MysqlHelper()
         # sql = """SELECT * FROM %s LIMIT 0, 1000;""".encode(encoding='utf-8')
         sql = """SELECT * FROM ECommerceGood;""".encode(encoding='utf-8')
-        results = mysql.select_with_dbname(mission_name, sql)
+        results = mysql.select_for_mission(mission_name, sql)
         for col in results:
             t = (col['eCommerceName'], col['goodId'], col['shopId'], col['goodName'], col['goodUrl'], col['goodPrice'], col['updateTime'])
             dic.append(t)
@@ -135,11 +137,16 @@ def get_data_from_mysql(table_name, mission_name = settings.MYSQL_DBNAME):
         mysql = MysqlHelper()
         # sql = """SELECT * FROM %s LIMIT 0, 1000;""".encode(encoding='utf-8')
         sql = """SELECT * FROM ECommerceGoodComment;""".encode(encoding='utf-8')
-        results = mysql.select_with_dbname(mission_name, sql)
+        results = mysql.select_for_mission(mission_name, sql)
         for col in results:
             t = (col['eCommerceName'], col['goodId'], col['goodCommentsUrl'], col['goodCommentsData'], col['updateTime'])
             dic.append(t)
     return dic
+
+def get_data_from_goose(urls):
+    gooseHelp = GooseHelper()
+    return gooseHelp.get_news_of_urls(urls)
+
 
 # 获取需要用户注意的模糊爬虫的名单
 def get_fuzzy_list():
@@ -156,16 +163,17 @@ def classifier_urls(urls):
     fuzzy_spiders = []
     for url in urls:
         spidername = get_tld(url, fail_silently=True)
-        filename = oscwd + settings.TEMP_PATH + '/spiderInitfiles_of_eCommerce' + '/spiderInit_' + spidername + '.py'
-        if os.path.isfile(filename):
-            r.rpush('Ecommerce', url)
-            ecommerce_spiders.append(url)
-        elif spidername in keys:
-            r.rpush('Whitelist', url)
-            whitelist_spiders.append(url)
-        else:
-            r.rpush('Fuzzy', url)
-            fuzzy_spiders.append(url)
+        if spidername:
+            filename = oscwd + settings.TEMP_PATH + '/spiderInitfiles_of_eCommerce' + '/spiderInit_' + spidername + '.py'
+            if os.path.isfile(filename):
+                r.rpush('Ecommerce', url)
+                ecommerce_spiders.append(url)
+            elif spidername in keys:
+                r.rpush('Whitelist', url)
+                whitelist_spiders.append(url)
+            else:
+                r.rpush('Fuzzy', url)
+                fuzzy_spiders.append(url)
     return ecommerce_spiders, whitelist_spiders, fuzzy_spiders
 
 # 旧API, 分类URL (弃用)

@@ -14,18 +14,19 @@ class MysqlInit():
     def __init__(self):
         self.dbHelper = MysqlHelper()
 
-    def start(self, dbname):
+    def start(self, mission):
         # 新建数据库
         print "尝试创建mysql数据库"
+        self.dbHelper.createDatabase_for_mission(mission)
         try:
-            self.dbHelper.createDatabase(dbname)
+            pass
             print "创建mysql数据库成功"
         except Exception:
             print "创建mysql数据库失败"
         # 新建表
         print "尝试创建mysql数据表"
         try:
-            self.dbHelper.createTable_with_dbname(dbname, sql_createtable)
+            self.dbHelper.createTable_for_mission(mission, sql_createtable)
             print "创建mysql数据表成功"
         except Exception:
             print "创建mysql数据表失败"
@@ -33,15 +34,15 @@ class MysqlInit():
         # 向数据表ECommerce中插入电商信息
         try:
             sql = "insert into ECommerce(eCommerceName, eCommerceUrl) values('amazon.cn', 'https://www.amazon.cn');".encode(encoding='utf-8')
-            self.dbHelper.insert_with_dbname(dbname, sql)
+            self.dbHelper.insert_for_mission(mission, sql)
             sql = "insert into ECommerce(eCommerceName, eCommerceUrl) values('dangdang.com', 'http://www.dangdang.com');".encode(encoding='utf-8')
-            self.dbHelper.insert_with_dbname(dbname, sql)
+            self.dbHelper.insert_for_mission(mission, sql)
             sql = "insert into ECommerce(eCommerceName, eCommerceUrl) values('gome.com.cn', 'http://www.gome.com.cn');".encode(encoding='utf-8')
-            self.dbHelper.insert_with_dbname(dbname, sql)
+            self.dbHelper.insert_for_mission(mission, sql)
             sql = "insert into ECommerce(eCommerceName, eCommerceUrl) values('jd.com', 'https://item.jd.com');".encode(encoding='utf-8')
-            self.dbHelper.insert_with_dbname(dbname, sql)
+            self.dbHelper.insert_for_mission(mission, sql)
             sql = "insert into ECommerce(eCommerceName, eCommerceUrl) values('taobao.com', 'https://www.taobao.com');".encode(encoding='utf-8')
-            self.dbHelper.insert_with_dbname(dbname, sql)
+            self.dbHelper.insert_for_mission(mission, sql)
             print "插入数据成功"
         except Exception:
             print "插入数据失败"

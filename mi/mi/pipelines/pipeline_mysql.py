@@ -12,15 +12,18 @@ class MysqlPipeline(object):
 
     @classmethod
     def from_settings(cls, settings):
-        dbparams = dict(
-            host=settings['MYSQL_HOST'],
-            user=settings['MYSQL_USER'],
-            passwd=settings['MYSQL_PASSWD'],
-            db=settings['MYSQL_DBNAME'],
-            charset='utf8',
-            cursorclass=pymysql.cursors.DictCursor)
-        dbpool = adbapi.ConnectionPool('pymysql', **dbparams)
-        return cls(dbpool)
+        try:
+            dbparams = dict(
+                host=settings['MYSQL_HOST'],
+                user=settings['MYSQL_USER'],
+                passwd=settings['MYSQL_PASSWD'],
+                db=settings['MYSQL_DBNAME'],
+                charset='utf8',
+                cursorclass=pymysql.cursors.DictCursor)
+            dbpool = adbapi.ConnectionPool('pymysql', **dbparams)
+            return cls(dbpool)
+        except:
+            print '获取配置信息出错'
 
 
     def process_item(self, item, spider):

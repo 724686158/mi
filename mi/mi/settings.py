@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 BOT_NAME = 'testmission12'
-SUB_MISSION = 'taobao.com'
+SUB_MISSION = 'jd.com'
 ROBOTSTXT_OBEY = False
 COOKIES_ENABLED = True
 RETRY_ENABLED = False

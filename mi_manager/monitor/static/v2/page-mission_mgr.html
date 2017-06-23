@@ -141,8 +141,8 @@
                     <div class="form-group">
                         <label class="col-xs-2 control-label">开始时间</label>
                         <div class="formControls col-xs-10">
-                            <div class="input-append date form_datetime" data-date="2017-01-01T00:00:00Z">
-                                <input size="16" type="text" value="" class="form-control" id="st3_st_time" readonly>
+                            <div class="input-append date form_datetime">
+                                <input size="16" type="text" value="" class="form-control" id="st3_st_time" >
                                 <span class="add-on"><i class="icon-remove"></i></span>
                                 <span class="add-on"><i class="icon-calendar"></i></span>
                             </div>
@@ -151,8 +151,8 @@
                     <div class="form-group">
                         <label class="col-xs-2 control-label">结束时间</label>
                         <div class="formControls col-xs-10">
-                            <div class="input-append date form_datetime" data-date="2017-01-01T00:00:00Z">
-                                <input size="16" type="text" value="" class="form-control" id="st3_ed_time" readonly>
+                            <div class="input-append date form_datetime">
+                                <input size="16" type="text" value="" class="form-control" id="st3_ed_time" >
                                 <span class="add-on"><i class="icon-remove"></i></span>
                                 <span class="add-on"><i class="icon-calendar"></i></span>
                             </div>
@@ -259,7 +259,7 @@
                     $('#tab_dat').append(str);
                 }
             }
-            $(document).ready(function(){
+            $(document).ready(function () {
                 $('#myTable').DataTable();
             });
         });
@@ -425,12 +425,25 @@
     function show_model3() {
         $("#myModal2").modal("toggle");
         $("#myModal3").modal("toggle");
+        $.fn.datetimepicker.dates['zh'] = {
+            days: ["星期日", "星期一", "星期二", "星期三", "星期四", "星期五", "星期六", "星期日"],
+            daysShort: ["日", "一", "二", "三", "四", "五", "六", "日"],
+            daysMin: ["日", "一", "二", "三", "四", "五", "六", "日"],
+            months: ["一月", "二月", "三月", "四月", "五月", "六月", "七月", "八月", "九月", "十月", "十一月", "十二月"],
+            monthsShort: ["一", "二", "三", "四", "五", "六", "七", "八", "九", "十", "十一", "十二"],
+            meridiem: ["上午", "下午"],
+            today: "跳转到当前时间"
+        };
         $(".form_datetime").datetimepicker({
             lang: "ch",
             format: "yyyy-mm-dd hh:ii",
             autoclose: true,
             todayBtn: true,
-            minuteStep: 1
+            minuteStep: 1,
+            todayHighlight: true,
+            weekStart: 1,
+            language: 'zh',
+            initialDate: new Date()
         });
         var GET_URL = POST_URL_PREFIX + "/get_resources";
         var html = '<option value="{0}">{0}</option>';

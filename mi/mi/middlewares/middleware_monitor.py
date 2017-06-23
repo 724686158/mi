@@ -12,12 +12,14 @@ class StatcollectorMiddleware(object):
     r = redis.Redis(host="127.0.0.1", port="6379", db=0)
     timer = lambda: time.strftime('%Y-%m-%d %H:%M:%S')
     def __init__(self, settings):
+        BOT_NAME = settings.get('BOT_NAME')
         REDIS_HOST = settings.get('REDIS_HOST')
         REDIS_PORT = settings.get('REDIS_PORT')
         REDIS_DB = settings.get('MONITOR_DB')
         STATS_KEYS = settings.get('STATS_KEYS')
         self.r = redis.Redis(host=REDIS_HOST, port=REDIS_PORT, db=REDIS_DB)
         self.stats_keys = STATS_KEYS
+        self.mission_name = BOT_NAME
 
     @classmethod
     def from_crawler(cls, crawler):
@@ -40,11 +42,11 @@ class StatcollectorMiddleware(object):
             else:
                 add = key_value - self.history_dic.get(key)
                 self.history_dic[key] = key_value
-            now_value = self.r.lindex(key + "_" + name, -1)
+            now_value = self.r.lindex(key + '_' + self.mission_name + '_' + name, -1)
             if now_value is not None:
                 sum = add + eval(now_value)['value'][1]
-            value = {"value": [time, sum]}
-            self.r.rpush(key + "_" + name, value)
+            value = {'value': [time, sum]}
+            self.r.rpush(key + '_' + self.mission_name + '_' + name, value)
         for key in self.stats_keys:
             sum = 0
             redis_keys = self.r.keys()
@@ -53,5 +55,5 @@ class StatcollectorMiddleware(object):
                     one_part_of_value = self.r.lindex(redis_key, -1)
                     if one_part_of_value is not None:
                         sum = sum + eval(one_part_of_value)['value'][1]
-            value = {"value": [time, sum]}
+            value = {'value': [time, sum]}
             self.r.rpush(key, value)

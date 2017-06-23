@@ -21,8 +21,8 @@ class Spider_%s(RedisCrawlSpider):
     def processArticle(self,response):
         try:
             item = ArticleItem()
-            title = response.xpath(''%s'').extract()[0]
-            content = ''.join(response.xpath(''%s'').extract())
+            title = response.xpath('''%s''').extract()[0]
+            content = ''.join(response.xpath('''%s''').extract())
             item['articleTitle'] = title
             item['articleUrl'] = ''.join(response.url)
             item['articleContent'] = content
@@ -40,16 +40,12 @@ def generate_spider(spidername, jsonfile):
             spidername,
             arr2str(dic['allowed_domains']),
             arr2str(dic['rule_allow']),
-            arr2str(dic['xpath_title']),
-            arr2str(dic['xpath_content']))
+            dic['xpath_title'][0],
+            dic['xpath_content'][0])
         ok = spider_template % arr
         filename = os.getcwd() + '/mi/spiders_of_news_in_whiteList/spider_'+ spidername.replace('.', '')  + '.py'
         with open(filename, 'w') as f:
-            f.write(ok.encode('utf8'))
+            f.write(ok)
             print 'success'
-        return True
     except:
         print 'fall'
-        return False
-    finally:
-        f.close()

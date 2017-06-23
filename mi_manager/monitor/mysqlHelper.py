@@ -9,6 +9,7 @@ class MysqlHelper():
         self.passwd = prime_settings.MYSQL_PASSWD
         self.db = prime_settings.MYSQL_DBNAME
 
+
     # 连接Mysql
     def connectMysql(self):
         conn = pymysql.connect(host=self.host,
@@ -20,9 +21,9 @@ class MysqlHelper():
         return conn
 
     # 创建数据库
-    def createDatabase(self):
+    def createDatabase(self, dbname = prime_settings.MYSQL_DBNAME):
         conn = self.connectMysql()
-        sql = "create database if not exists " + self.db
+        sql = "create database if not exists " + dbname
         cur = conn.cursor()
         cur.execute(sql)
         cur.close()
@@ -31,6 +32,14 @@ class MysqlHelper():
 
     # 连接数据库
     def connectDatabase(self, dbname = prime_settings.MYSQL_DBNAME):
+        if dbname == prime_settings.MYSQL_DBNAME:
+            host = self.host
+            port = self.port
+            user = self.user
+            passwd = self.passwd
+        else:
+            pass #这里存在不支持远程数据库的bug
+
         conn = pymysql.connect(host=self.host,
                                port=self.port,
                                user=self.user,

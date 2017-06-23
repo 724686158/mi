@@ -13,24 +13,10 @@ missions = []
 submissions = []
 # task别表
 tasks = []
-def test():
-    mission1 = Mission('mission1', '{"start_time": ' + str(time.time() + 4) + ', "end_time":' + str(time.time() + 39) + ', "submission_list": [{"name": "mission1_163.com", "detail": {"spider_name": "163.com", "settings": "设置1", "priority": 2}}, {"name": "mission1_cctv.com", "detail": {"spider_name": "cctv.com", "settings": "设置1", "priority": 9}}], "resource_dic": {"core_reids": "useful_redis","filter_redis": "useful_redis","mongo": "useful_mongo","mysql": "useful_mysql"}, "weight":0.9, "state": "START"}')
-    mission2 = Mission('mission2', '{"start_time": ' + str(time.time() + 0) + ', "end_time":' + str(time.time() + 24) + ', "submission_list": [], "resource_dic": {"core_reids": "useful_redis","filter_redis": "useful_redis","mongo": "useful_mongo","mysql": "useful_mysql"}, "weight":0.8, "state": "STOP"}')
-    mission3 = Mission('mission3', '{"start_time": ' + str(time.time() + 2) + ', "end_time":' + str(time.time() + 45) + ', "submission_list": [{"name": "mission1_ce.cn", "detail": {"spider_name": "ce.cn", "settings": "设置1", "priority": 9}}], "resource_dic":{"core_reids": "useful_redis","filter_redis": "useful_redis","mongo": "useful_mongo","mysql": "useful_mysql"}, "weight":0.3, "state": "START"}')
-    data_service.save_misson(mission1.get_name(), mission1.get_detail())
-    data_service.save_misson(mission2.get_name(), mission2.get_detail())
-    data_service.save_misson(mission3.get_name(), mission3.get_detail())
-    data_service.is_missions_change()
-
-def test_about_stop():
-    mission2 = Mission('mission2', '{"start_time": ' + str(time.time() + 0) + ', "end_time":' + str(
-        time.time() + 240) + ', "submission_list":[], "resource_dic":{}, "weight":0.8, "state": "START"}')
-    data_service.save_misson(mission2.get_name(), mission2.get_detail())
-    print 'TEST_CHANGE'
 
 if __name__ == '__main__':
     # 载入测试
-    test()
+    #test()
     '''
 
     '''
@@ -41,10 +27,8 @@ if __name__ == '__main__':
     while True:
 
         print 'now time is:' + Time() + '(' + str(time.time()) + ')'
-        # 当任务数据库中的信心发生改变时, 更新任务列表
-        if data_service.is_missions_change():
-            print '任务发生变化, 正在重新加载'
-            missions = data_service.get_all_mission()
+        # 更新任务列表
+        missions = data_service.get_all_mission()
 
         # 更新任务的状态
         for mission in missions:
@@ -79,7 +63,7 @@ if __name__ == '__main__':
 
         # 对每个子任务, 将他产生的task存入调度队列(通过有序集合实现)中等待调度
         for submission in submissions:
-            task = Task(submission.spider_name, submission.resource_dic, submission.settings_name, submission.fathermission_name)
+            task = Task(submission.spider_name, submission.resource_dic, submission.settings_name, submission.fathermission_name, submission.start_url)
             # 下列代码根据task中的信息, 自动补全其他必要信息
             dic = {}
             dic["spider_name"] = task.spider_name
@@ -101,6 +85,7 @@ if __name__ == '__main__':
             if dic["mysql"]:
                 dic["mysql_detail"] = data_service.get_resource('Mysql', dic["mysql"])
             dic["father_mission_name"] = task.father_mission_name
+            dic["start_url"] = task.start_url
             # 向有序队列中压入完整的task信息, 分值是对应子任务的优先度
             data_service.push_task(str(dic), submission.priority)
 

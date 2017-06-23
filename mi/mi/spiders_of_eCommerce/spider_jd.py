@@ -13,7 +13,7 @@ import json
 class Spider_jd(RedisCrawlSpider):
 
     name = 'jd.com'
-    redis_key = 'jd:start_urls'
+    redis_key = 'jd.com:start_urls'
     allowed_domains = ['jd.com']
 
     rules = {

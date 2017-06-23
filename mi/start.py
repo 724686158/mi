@@ -1,40 +1,48 @@
 #-*- coding: utf-8 -*-
+import os
 import redis
 import scrapy.cmdline as cmd
-from tld import get_tld
 import mi.settings as prime_settings
 import mi.tools.gen_spiderFile_in_whiteList as gen_spiderFile_in_whiteList
 import mi.tools.gen_spiderFile_need_fuzzymatching as gen_spiderFile_need_fuzzymatching
+import gen_settings
+def init_spider_file(task):
+    dic = eval(task)
+    spidername = dic['spider_name']
+    oscwd = os.getcwd()
+    filename = oscwd + '/mi/spiders_of_eCommerce' + '/spider_' + str(spidername).split('.')[0] + '.py'
+    if os.path.isfile(filename):
+        pass
+    else:
+        r = redis.Redis(prime_settings.REDIS_HOST, prime_settings.REDIS_PORT, db=prime_settings.SPIDERS_DB)
+        if spidername in r.keys():
+            print spidername, r.get(spidername)
+            gen_spiderFile_in_whiteList.generate_spider(spidername, r.get(spidername))
+        else:
+            gen_spiderFile_need_fuzzymatching.generate_spider(spidername)
 
-def init_spider_file():
-    r = redis.Redis(prime_settings.REDIS_HOST, prime_settings.REDIS_PORT, db=prime_settings.SUBMISSION_DB)
+def init_settings(task):
+    gen_settings.generate_setting_of_mi(task)
+
+def start_work(task):
+    dic = eval(task)
+    spider_name = dic['spider_name']
+    start_url = dic['start_url']
+    r = redis.Redis(prime_settings.REDIS_HOST, prime_settings.REDIS_PORT, db=prime_settings.FILTER_DB)
+
+    r.lpush(spider_name +':start_urls', start_url)
+    cmd.execute(str('scrapy crawl ' + spider_name).split())
 
 if __name__ == '__main__':
-    r = redis.Redis(prime_settings.REDIS_HOST, prime_settings.REDIS_PORT, db=prime_settings.TASK_DB)
-    r2 = redis.Redis(prime_settings.REDIS_HOST, prime_settings.REDIS_PORT, db=prime_settings.SPIDERS_DB)
     try:
-        news_in_whitelist_urls = r.lrange('1', 0, -1)
-        for mission in news_in_whitelist_urls:
-            spidername = get_tld(mission, fail_silently=True)
-            attr = r2.get(spidername)
-            bo = gen_spiderFile_in_whiteList.generate_spider(spidername, attr)
-            if bo == True:
-                print '加载新闻爬虫(白名单)文件成功'
-            else:
-                print '加载新闻爬虫(白名单)文件失败'
-    except:
-        print '加载新闻爬虫(白名单)文件失败'
-    news_need_fuzzymatching_urls = r.lrange('0', 0, -1)
-    for mission in news_need_fuzzymatching_urls:
-        spidername = get_tld(mission, fail_silently=True)
-        bo = gen_spiderFile_need_fuzzymatching.generate_spider(spidername)
-        if bo == True:
-            print '加载新闻爬虫(模糊匹配)文件成功'
+        r = redis.Redis(prime_settings.REDIS_HOST, prime_settings.REDIS_PORT, db=prime_settings.TASK_DB)
+        task = r.rpop('ready')
+        if task:
+            init_settings(task)
+            init_spider_file(task)
+            start_work(task)
+            r.lpush('used', task)
         else:
-            print '加载新闻爬虫(模糊匹配)文件失败'
-    try:
-        pass
+            print '没有需要执行的任务'
     except:
-        print '加载新闻爬虫(模糊匹配)文件失败'
-
-    cmd.execute('scrapy crawlall'.split())
+        print '无法连接至核心数据库'

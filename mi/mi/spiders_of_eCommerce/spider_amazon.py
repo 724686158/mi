@@ -12,7 +12,7 @@ import re
 class Spider_Amazon(RedisCrawlSpider):
 
     name = 'amazon.cn'
-    redis_key = 'amazon:start_urls'
+    redis_key = 'amazon.cn:start_urls'
     allowed_domains = ['amazon.cn']
 
     rules = {

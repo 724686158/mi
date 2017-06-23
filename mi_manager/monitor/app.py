@@ -8,7 +8,6 @@ import url_extract_tools
 import base64
 
 from flask import Flask, render_template, jsonify, request, current_app, redirect, send_from_directory, abort
-from gen_spiderInitfile_of_news import generate_spider_init
 
 app = Flask(__name__)
 app.config['BASEDIR'] = os.path.abspath(os.path.dirname(__file__)) # app.py所在的目录
@@ -107,18 +106,28 @@ def get_table():
 
 ########################################################################################################################
 # MONITOR
-# 监控
+
+# 监控页面, 旧API
 @app.route('/monitor')
 def monitor():
     return render_template('index.html',
                            timeinterval=settings.TIMEINTERVAL,
                            stats_keys=settings.STATS_KEYS,
                            spider_name=request.args.get('spider_name'))
-# 监控数据ajax
+# 监控数据ajax, 旧API
 @app.route('/ajax')
 def ajax():
     key = request.args.get('key')
     result = current_app.r.lrange(key, -settings.POINTLENGTH, -1)[::settings.POINTINTERVAL]
+    return json.dumps(result).replace('"', '')
+
+
+# 监控数据ajax
+@app.route('/monitor_ajax')
+def monitor_ajax():
+    mission_name = request.args.get('mission_name')
+    spider_name = request.args.get('spider_name')
+    result = current_app.r.lrange(mission_name + '_' + spider_name, -settings.POINTLENGTH, -1)[::settings.POINTINTERVAL]
     return json.dumps(result).replace('"', '')
 
 # 获取受监控器监控的爬虫的列表
@@ -430,13 +439,15 @@ def get_default_submissions_by_target_urls():
     jsonstr = request.form.get('urls', '')
     urls = json.loads(jsonstr)
     ecommerce_spiders, whitelist_spiders, fuzzy_spiders = data_service.classifier_urls(urls)
+    #data_service.push_urls_as_start_url()
     submissions = []
-    for spider in ecommerce_spiders:
-        submissions.append(data_service.get_default_submissions(mission_name, spider, 'Ecommerce'))
-    for spider in whitelist_spiders:
-        submissions.append(data_service.get_default_submissions(mission_name, spider, 'Whitelist'))
-    for spider in fuzzy_spiders:
-        submissions.append(data_service.get_default_submissions(mission_name, spider, 'Fuzzy'))
+    for url in ecommerce_spiders:
+        submissions.append(data_service.get_default_submissions(mission_name, url, 'Ecommerce'))
+    for url in whitelist_spiders:
+        submissions.append(data_service.get_default_submissions(mission_name, url, 'Whitelist'))
+    for url in fuzzy_spiders:
+        submissions.append(data_service.get_default_submissions(mission_name, url, 'Fuzzy'))
+    print submissions
     return jsonify(submissions)
 
 ########################################################################################################################
@@ -453,8 +464,8 @@ def add_mission():
             "start_time": 1497706154.018272,
             "end_time": 1497702999.018272,
             "submission_list": [
-                {"name": "submission1", "detail": {'spider_name': 'jd.com', 'settings': '设置1', 'priority': 2}},
-                {"name": "submission2", "detail": {'spider_name': 'jd.com', 'settings': '设置2', 'priority': 9}}
+                {"name": "submission1", "detail": {'spider_name': 'jd.com', 'settings': '设置1', 'priority': 2, 'start_url': 'www.jd.com', 'type': 'Ecommerce'}},
+                {"name": "submission2", "detail": {'spider_name': 'taobao.com', 'settings': '设置2', 'priority': 9, 'start_url': 'www.taobao.com', 'type': 'Ecommerce'}}
             ],
             "resource_dic": {
                 "core_reids": "useful_redis",
@@ -472,11 +483,9 @@ def add_mission():
     name = dic['name']
     detail = dic['detail']
     data_service.add_mission(name, detail)
-    detail_dic = eval(detail)
-    submission_list = list(detail_dic['submission_list'])
+    submission_list = list(detail['submission_list'])
     for submission in submission_list:
-        submission_dic = eval(submission)
-        data_service.add_submission(submission_dic['name'], submission_dic['detail'])
+        data_service.add_submission(submission['name'], submission['detail'])
     return jsonify('ok')
 
 # 命令任务进入停止状态
@@ -484,6 +493,7 @@ def add_mission():
 def mission_start():
     name = request.args.get('name')
     data_service.mission_start(name)
+    return jsonify('ok')
 
 # 命令任务进入开始状态
 @app.route('/mission_stop', methods=['GET'])

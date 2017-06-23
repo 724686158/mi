@@ -7,7 +7,8 @@ class Submisson(object):
         self.resource_dic = resource_dic
         self.spider_name = detail['spider_name']
         self.settings_name = detail['settings']
-        self.priority = detail['priority'] * weight
+        self.priority = float(detail['priority']) * float(weight)
+        self.start_url = detail['start_url']
 
     def create_task_with_submission_infomathon(self):
         task = Task(self.spider_name, self.resource_dic, self.settings_name, self.fathermission_name)

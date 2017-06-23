@@ -44,7 +44,3 @@ class Mission(object):
 
     def set_all_submission(self):
         pass
-
-if __name__ == '__main__':
-    mis = Mission('任务1', '{"start_time":2014, "end_time":2017, "submission_list":[], "resource_dic":{}, "weight":0.8, "state": "STOP"}')
-    print str(mis.get_detail())

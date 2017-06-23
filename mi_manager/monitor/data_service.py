@@ -8,7 +8,6 @@ from mongoHelper import MongoHelper
 from monitor_init import MonitorInit
 from mysql_init import MysqlInit
 from tld import get_tld
-from gen_spiderInitfile_of_news import generate_spider_init
 
 ########################################################################################################################
 # 特殊操作
@@ -45,9 +44,9 @@ def init_monitor():
     monitor_init.start()
 
 # 初始化mysql数据库
-def init_mysql():
+def init_mysql(name = settings.MYSQL_DBNAME):
     mysql_init = MysqlInit()
-    mysql_init.start()
+    mysql_init.start(name)
 
 # 清理去重队列
 def delte_filter_db():
@@ -160,15 +159,13 @@ def classifier_urls(urls):
         filename = oscwd + settings.TEMP_PATH + '/spiderInitfiles_of_eCommerce' + '/spiderInit_' + spidername + '.py'
         if os.path.isfile(filename):
             r.rpush('Ecommerce', url)
-            ecommerce_spiders.append(spidername)
+            ecommerce_spiders.append(url)
         elif spidername in keys:
             r.rpush('Whitelist', url)
-            generate_spider_init(spidername, {url})
-            whitelist_spiders.append(spidername)
+            whitelist_spiders.append(url)
         else:
             r.rpush('Fuzzy', url)
-            generate_spider_init(spidername, {url})
-            fuzzy_spiders.append(spidername)
+            fuzzy_spiders.append(url)
     return ecommerce_spiders, whitelist_spiders, fuzzy_spiders
 
 # 旧API, 分类URL (弃用)
@@ -191,13 +188,19 @@ def split_target_urls(urls):
         elif spidername in keys:
             whitelist.append(url)
             r.rpush('Whitelist', url)
-            generate_spider_init(spidername, {url})
         else:
             fuzzy.append(url)
             r.rpush('Fuzzy', url)
-            generate_spider_init(spidername, {url})
     ans = {'Whitelist': whitelist, 'Fuzzy': fuzzy, 'Ecommerce': ecommerce}
     return ans
+
+# 将url作为爬虫任务的start_url(存在问题, 未使用)
+def push_urls_as_start_url(urls):
+    r = get_redis(settings.FILTER_DB)
+    for url in urls:
+        spidername = get_tld(url, fail_silently=True)
+        r.lpush(spidername + ':start_urls', url)
+
 ########################################################################################################################
 
 ########################################################################################################################
@@ -419,7 +422,8 @@ def delete_submission(name):
     r.delete(name)
 
 # 根据任务名称和爬虫类型生成默认子任务
-def get_default_submissions(mission_name, spider, type):
+def get_default_submissions(mission_name, url, type):
+    spider = get_tld(url, fail_silently=True)
     name = str(mission_name + '_' + spider)
     spider_name = str(spider)
     if type == 'Ecommerce':
@@ -431,7 +435,7 @@ def get_default_submissions(mission_name, spider, type):
     else:
         settings = '默认设置'
     priority = 1
-    return {"name": name, "detail": {"spider_name": spider_name, "settings": settings, "priority": priority}}
+    return {"name": name, "detail": {"spider_name": spider_name, "settings": settings, "priority": priority, "start_url": url, "type": type}}
 
 ########################################################################################################################
 
@@ -441,6 +445,7 @@ def get_default_submissions(mission_name, spider, type):
 def add_mission(name, info_dic):
     r = get_redis(settings.MISSION_DB)
     r.set(name, str(info_dic))
+    init_mysql(name)
 
 def get_all_mission():
     r = get_redis(settings.MISSION_DB)
@@ -474,25 +479,6 @@ def mission_start(name):
     new_detail = eval(detail)
     new_detail['state'] = 'START'
     r.set(name, str(new_detail))
-    # 
-    '''
-    "detail": {
-      ---      "start_time": 1497706154.018272,
-            "end_time": 1497702999.018272,
-            "submission_list": [
-                {"name": "submission1", "detail": {'spider_name': 'jd.com', 'settings': '设置1', 'priority': 2}},
-                {"name": "submission2", "detail": {'spider_name': 'jd.com', 'settings': '设置2', 'priority': 9}},
-            ],
-            "resource_dic": {
-                "core_reids": "useful_redis",
-                "filter_redis": "useful_redis",
-                "mongo": "useful_mongo",
-                "mysql": "useful_mysql"
-            },
-            "weight": 0.8,
-            "state": "STOP"
-        }
-    '''
 
 def mission_stop(name):
     r = get_redis(settings.MISSION_DB)

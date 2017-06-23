@@ -12,7 +12,7 @@ from mi.items import ECommerceShopItem
 class Spider_dangdang(RedisCrawlSpider):
 
     name = 'dangdang.com'
-    redis_key = 'dangdang:start_urls'
+    redis_key = 'dangdang.com:start_urls'
     allowed_domains = ['dangdang.com']
 
     rules = {

@@ -12,5 +12,5 @@ class MongoHelper():
 
     def connectDatabase(self, dbname = prime_settings.MONGO_DATABASE):
         conn = self.connectMysql()
-        db = conn[self.db]
+        db = conn[dbname]
         return db

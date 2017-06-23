@@ -8,7 +8,6 @@ import gen_settings
 CWD = os.getcwd()
 
 def start_work():
-    #
     subprocess.Popen(['python', CWD + '/daemon/app.py'])  # 开启守护进程
     os.system('python ' + CWD + '/monitor/app.py')
 
@@ -60,6 +59,7 @@ def update_data():
             print '自动加载精准新闻爬虫'
     except:
         raise Exception('loading spider data failed')
+    # 如果系统中没有淘宝商品种类的列表
 
 
 if __name__ == '__main__':

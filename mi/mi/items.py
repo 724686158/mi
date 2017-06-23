@@ -5,9 +5,9 @@ import scrapy
 # DOM树item
 class DomTreeItem(scrapy.Item):
     # 文章的url
-    url = scrapy.Field();
+    url = scrapy.Field()
     # 文章的html
-    html = scrapy.Field();
+    html = scrapy.Field()
 
 # 文章item，文章id用mongodb中自动生成的id来表示
 class ArticleItem(scrapy.Item):

@@ -25,13 +25,11 @@
                     </div>
                 </div>
                 <div class="box-body">
+                    <div class="row" style="margin-bottom: 10px">
+                        {6}
+                    </div>
                     <div class="row">
-                        <div class="col-md-4 col-xs-4 col-sm-4">
-                            <img src="dist/img/avatar04.png">
-                        </div>
-                        <div class="col-md-8 col-xs-8 col-sm-8">
-                            <p>{1}</p>
-                        </div>
+                        {5}
                     </div>
                 </div>
             </div>
@@ -192,9 +190,88 @@
     </div>
 </div>
 
+<div class="modal" id="myModal4"
+     tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" style="width: 1280px">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span></button>
+                <h4 class="modal-title">爬虫结果数据展示</h4>
+            </div>
+            <div class="modal-body">
+                <table class="table table-border table-bg table-bordered" id="myTable">
+                    <thead id="tab_head">
+
+                    </thead>
+                    <tbody id="tab_dat">
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal" id="myModal5"
+     tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" style="width: 800px">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span></button>
+                <h4 class="modal-title">爬虫结果数据展示</h4>
+            </div>
+            <div class="modal-body">
+                <h1>此处是图</h1>
+            </div>
+        </div>
+    </div>
+</div>
+
+<link rel="stylesheet" type="text/css" href="plugins/datatables/jquery.dataTables.min.css"/>
+<script type="text/javascript" src="plugins/datatables/jquery.dataTables.min.js"></script>
+<script type="text/javascript" src="plugins/datatables/dataTables.bootstrap.min.js"></script>
 
 <script type="text/javascript" src="../const.js"></script>
 <script type="text/javascript" src="mycommon.js"></script>
+
+<script>
+    TABLE_ARR = ['Article', 'ECommerceShop', 'ECommerceShopComment', 'ECommerceGood', 'ECommerceGoodComment'];
+    TABLE_CHI = ['新闻数据', '店铺数据', '店铺评论数据', '商品数据', '商品评论数据'];
+    function show_table_model(table, name) {
+        $("#myModal4").modal("toggle");
+        $('#tab_head').empty();
+        $('#tab_dat').empty();
+        var GET_URL = POST_URL_PREFIX + "/get_table_of_mission?table_name=" + table + "&mission_name=" + name;
+        console.log(GET_URL);
+        $.get(GET_URL).success(function (dat) {
+            console.log(dat);
+            for (var i = 0; i < dat.length; ++i) {
+                var str = '<tr>';
+                for (var j = 0; j < dat[i].length; ++j) {
+                    str += '<th>' + dat[i][j] + '</th>';
+                }
+                str += '</tr>';
+                if (i === 0) {
+                    $('#tab_head').append(str);
+                } else {
+                    $('#tab_dat').append(str);
+                }
+            }
+            $(document).ready(function(){
+                $('#myTable').DataTable();
+            });
+        });
+    }
+</script>
+
+<script>
+    function show_chart_model(name, sub) {
+        console.log("显示图...", name, sub);
+        $("#myModal5").modal("toggle");
+    }
+</script>
 
 <script>
     function render_html_list(dat) {
@@ -204,12 +281,28 @@
         for (var i = 0; i < dat.length; ++i) {
             var cur = dat[i];
             var detail = cur["detail"];
+
+            var btn_html = ""; // 子任务按钮组html
+            for (var j = 0; j < detail.submission_list.length; ++j) {
+                var sub_name = detail.submission_list[j].name;
+                var sub_btn_html = '<div class="col-sm-6 col-md-6 col-lg-3"><button type="button" class="btn btn-block btn-default btn-flat" onclick="show_chart_model(\'{1}\', \'{2}\')">{0}</button></div>';
+                btn_html += sub_btn_html.format(sub_name, cur.name, sub_name);
+            }
+
+            var tables_btn_html = ""; // 显示图表的按钮组html
+            for (var j = 0; j < TABLE_ARR.length; ++j) {
+                var tab_html = '<div class="col-sm-2 col-md-2 col-lg-2"><button type="button" class="btn  btn-block btn-flat" onclick="show_table_model(\'{1}\', \'{2}\')">{0}</button></div>';
+                tables_btn_html += tab_html.format(TABLE_CHI[j], TABLE_ARR[j], cur.name);
+            }
+
             var ins = html.format(
                 cur["name"],
                 JSON.stringify(cur),
                 detail["state"] === "START" ? "active" : "",
                 detail["state"] === "STOP" ? "active" : "",
-                i
+                i,
+                btn_html,
+                tables_btn_html
             );
             $(id_type).append(ins);
         }
@@ -291,17 +384,22 @@
             }
         });
     }
+    _show_model2_html_cache = "";
     function show_model2(dat) {
         $("#myModal2").modal("toggle");
 
         var id_type = "#sub_list";
-        var html = $(id_type).html();
+        if (_show_model2_html_cache === "") {
+            _show_model2_html_cache = $(id_type).html();
+        }
+        var html = _show_model2_html_cache;
         $(id_type).empty();
 
         console.log(dat);
         cnt = 0;
         for (i = 0; i < dat.length; ++i) {
             var cur = dat[i];
+            console.log(JSON.stringify(cur));
             var detail = cur["detail"];
             var ins = html.format(
                 "inp" + cnt++, cur["name"],

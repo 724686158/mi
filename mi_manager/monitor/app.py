@@ -111,7 +111,7 @@ def target_urls():
 
 # 利用Goose批量获取url对应的新闻
 @app.route('/get_news_from_urls', methods=['POST'])
-def target_urls():
+def get_news_from_urls():
     jsonstr = request.form.get('urls', '')
     urls_list = json.loads(jsonstr)['urls']
     data_dic = data_service.get_data_from_goose(urls_list)

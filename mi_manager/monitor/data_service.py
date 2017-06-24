@@ -454,6 +454,7 @@ def add_mission(name, info_dic):
     r = get_redis(settings.MISSION_DB)
     r.set(name, str(info_dic))
     init_mysql(name)
+    missions_change()
 
 def get_all_mission():
     r = get_redis(settings.MISSION_DB)
@@ -479,6 +480,7 @@ def get_all_mission_name():
 def delete_mission(name):
     r = get_redis(settings.MISSION_DB)
     r.delete(name)
+    missions_change()
 
 def mission_start(name):
     r = get_redis(settings.MISSION_DB)
@@ -487,6 +489,7 @@ def mission_start(name):
     new_detail = eval(detail)
     new_detail['state'] = 'START'
     r.set(name, str(new_detail))
+    missions_change()
 
 def mission_stop(name):
     r = get_redis(settings.MISSION_DB)
@@ -495,5 +498,11 @@ def mission_stop(name):
     new_detail = eval(detail)
     new_detail['state'] = 'STOP'
     r.set(name, str(new_detail))
+    missions_change()
+
+# 在数据库中设置信号量, 标记任务发生了改变
+def missions_change():
+    r = get_redis(settings.SYMBOL_DB)
+    r.set('MISSIONS_CHANGE', '1')
 
 ########################################################################################################################

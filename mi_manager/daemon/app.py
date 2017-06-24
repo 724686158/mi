@@ -1,34 +1,30 @@
 #-*- coding: utf-8 -*-
 import time
 import data_service
-
+from marathonHelper import MarathonHelper
 from mi_manager.daemon.model.mission import Mission
 from mi_manager.daemon.model.submission import Submisson
 from mi_manager.daemon.model.task import Task
 Time = lambda: time.strftime('%Y-%m-%d %H:%M:%S')
 
-# 任务列表
-missions = []
-# 子任务列表
-submissions = []
-# task别表
-tasks = []
+
 
 if __name__ == '__main__':
-    # 载入测试
-    #test()
-    '''
-
-    '''
-    # 获取全部任务
+    # 从数据库中加载任务
     missions = data_service.get_all_mission()
-
+    # 清空调度队列
+    data_service.clear_dispatch()
+    # 清空task缓存
+    data_service.clear_task()
+    # 获取marathon帮助
+    marathon_helper = MarathonHelper()
     # 进入守护状态
     while True:
-
         print 'now time is:' + Time() + '(' + str(time.time()) + ')'
         # 更新任务列表
-        missions = data_service.get_all_mission()
+        if data_service.is_missions_change():
+            print '任务信息发生改变, 重新加载任务队列'
+            missions = data_service.get_all_mission()
 
         # 更新任务的状态
         for mission in missions:
@@ -89,8 +85,12 @@ if __name__ == '__main__':
             # 向有序队列中压入完整的task信息, 分值是对应子任务的优先度
             data_service.push_task(str(dic), submission.priority)
 
+        # 对一个处理过的任务, 要将其权重下降40%, 直到任务队列出现变化, 重新从数据库中加载任务
+        for mission in missions:
+            mission.weight = str(float(mission.weight) * 0.6)
+
         # 计算集群中可以开启的容器的剩余数量
-        permit_container_number_of_mi = data_service.permit_container_number()
+        permit_container_number_of_mi = data_service.permit_container_number(marathon_helper)
         # 根据负载能力,将最优先的N个task放入就绪队列
         tasks_ready = data_service.pop_task(permit_container_number_of_mi)
         data_service.issue_tasks(tasks_ready)
@@ -104,8 +104,8 @@ if __name__ == '__main__':
             data_service.gen_json(container_name)
 
             # 用json文件创建新容器
-            data_service.run_new_container(container_name)
-            
+            data_service.run_new_container(marathon_helper, container_name)
+
         # 将发布过的task存入task历史记录中
         data_service.record_tasks(tasks_ready)
         try:

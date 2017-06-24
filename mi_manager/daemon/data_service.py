@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 import os
 import redis
-import time
 import mi_manager.daemon.settings as settings
-import marathonHelper
 import gen_json_file
+import time
+Time = lambda: time.strftime('%Y%m%d%H%M%S')
 
 from mi_manager.daemon.model.mission import Mission
 
@@ -97,17 +97,12 @@ def is_missions_change():
 def save_misson(name, detail):
     r = get_redis(settings.MISSION_DB)
     r.set(name, str(detail))
-    missions_change()
 
-def missions_change():
-    r = get_redis(settings.SYMBOL_DB)
-    r.set('MISSIONS_CHANGE', '1')
+def permit_container_number(marathon_helper):
+    return  marathon_helper.permit_container_number(settings.NEED_CPU, settings.NEED_MEM, settings.NEED_DISK)
 
-def permit_container_number():
-    return  marathonHelper.permit_container_number(settings.NEED_CPU, settings.NEED_MEM, settings.NEED_DISK)
-
-def run_new_container(jsonfile_name):
-    marathonHelper.post_json_to_marathon(settings.MARATHON_URL + '/v2/apps', os.getcwd()  + settings.TEMP_PATH + '/jsons/'+ jsonfile_name + '.json')
+def run_new_container(marathon_helper ,jsonfile_name):
+    marathon_helper.post_json_to_marathon(settings.MARATHON_URL + '/v2/apps', os.getcwd()  + settings.TEMP_PATH + '/jsons/'+ jsonfile_name + '.json', jsonfile_name)
 
 def issue_tasks(tasks):
     r = get_redis(settings.TASK_DB)
@@ -123,3 +118,9 @@ def record_tasks(tasks):
 def gen_json(container_name):
     gen_json_file.generate_json(container_name, settings.NEED_CPU, settings.NEED_MEM, settings.NEED_DISK)
 
+def clear_dispatch():
+    r = get_redis(settings.DISPATCH_DB)
+    r.flushdb()
+def clear_task():
+    r = get_redis(settings.TASK_DB)
+    r.flushdb()

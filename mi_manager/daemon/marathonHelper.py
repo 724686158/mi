@@ -10,10 +10,12 @@ class MarathonHelper():
         return self.left - self.now
 
     def post_json_to_marathon(self, url, file, container):
-        headers = {'Authorization': '(some auth code)', 'Content-Type': 'application/json'}
-        response = requests.post(url, data=open(file, 'rb'), headers=headers)
-        self.container_list.append(container)
-        self.left = self.left - 1
-        print response.content
-
+        try:
+            headers = {'Authorization': '(some auth code)', 'Content-Type': 'application/json'}
+            response = requests.post(url, data=open(file, 'rb'), headers=headers)
+            self.container_list.append(container)
+            self.left = self.left - 1
+            print response.content
+        except:
+            print '向marathon发post请求失败'
 

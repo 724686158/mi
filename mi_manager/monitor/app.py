@@ -114,8 +114,8 @@ def target_urls():
 def get_news_from_urls():
     jsonstr = request.form.get('urls', '')
     urls_list = json.loads(jsonstr)['urls']
-    data_dic = data_service.get_data_from_goose(urls_list)
-    return jsonify(data_dic)
+    data_list = data_service.get_data_from_goose(urls_list)
+    return jsonify(data_list)
 
 ########################################################################################################################
 

@@ -1,0 +1,76 @@
+<div class="row">
+
+    <div class="col-md-12">
+        <div class="box box-success">
+            <div class="box-header with-border">
+                <h3 class="box-title">即时爬取任务</h3>
+
+                <div class="box-tools pull-right">
+                </div>
+            </div>
+            <div class="box-body">
+                <form action="" method="post" class="form form-horizontal responsive">
+                    <div class="form-group">
+                        <div class="formControls col-xs-12">
+                        <textarea cols="" rows="24" class="textarea form-control" id="urls"
+                                  placeholder="请输入URLS，每行一个URL"></textarea>
+                        </div>
+                    </div>
+                    <button type="button" class="btn btn-success" onclick="start_work()">提交任务</button>
+                </form>
+                <hr/>
+
+                <div id="wait" hidden>
+                    <h3>任务提交成功，正在爬取中，请稍候...</h3>
+                </div>
+
+                <div id="result_table" hidden>
+                    <table class="table table-border table-bg table-bordered" id="myTable">
+                        <thead id="tab_head">
+
+                        </thead>
+                        <tbody id="tab_dat">
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript" src="../const.js"></script>
+<script type="text/javascript" src="mycommon.js"></script>
+
+
+<script>
+    function start_work() {
+        $("#result_table").prop("hidden", true);
+        $("#wait").prop("hidden", false);
+        var urls = {urls: $('#urls').val().split('\n')};
+        var POST_URL = POST_URL_PREFIX + "/get_news_from_urls";
+        console.log(POST_URL);
+        $.post(POST_URL, {urls: JSON.stringify(urls)}).success(function (dat) {
+            console.log(dat);
+            $("#wait").prop("hidden", true);
+            $("#result_table").prop("hidden", false);
+            $('#tab_head').empty();
+            $('#tab_dat').empty();
+            for (var i = 0; i < dat.length; ++i) {
+                var str = '<tr>';
+                for (var j = 0; j < dat[i].length; ++j) {
+                    str += '<th>' + dat[i][j] + '</th>';
+                }
+                str += '</tr>';
+                if (i === 0) {
+                    $('#tab_head').append(str);
+                } else {
+                    $('#tab_dat').append(str);
+                }
+            }
+            $(document).ready(function () {
+                $('#myTable').dataTable();
+            });
+        });
+    }
+</script>

@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# marathon的地址 (请确保zookeeper+mesos+marathon框架正常运行)
+# mesos和marathon的地址 (请确保zookeeper+mesos+marathon框架正常运行)
 MESOS_URL = 'http://122.114.62.116:5050'
 MARATHON_URL = 'http://122.114.62.116:18082'
 

@@ -3,12 +3,15 @@ import os
 import json
 import redis
 import settings
+import time
 from mysqlHelper import MysqlHelper
 from mongoHelper import MongoHelper
 from monitor_init import MonitorInit
 from mysql_init import MysqlInit
 from tld import get_tld
 from gooseHelper import GooseHelper
+
+Time = lambda: time.strftime('%Y-%m-%d %H:%M:%S')
 
 ########################################################################################################################
 # 特殊操作
@@ -209,6 +212,31 @@ def push_urls_as_start_url(urls):
         spidername = get_tld(url, fail_silently=True)
         r.lpush(spidername + ':start_urls', url)
 
+# 获取MESOS控制台的URL
+def get_mesos_url():
+    r = get_redis(settings.SYMBOL_DB)
+    return  r.get('mesos_url')
+
+# 获取MARATHON控制台的URL
+def get_marathon_url():
+    r = get_redis(settings.SYMBOL_DB)
+    return  r.get('marathon_url')
+
+# 获取系统内时间
+def get_now_time():
+    return Time
+
+# 获取任务权重饼状图
+def get_piechart_of_mission():
+    # 获取全部任务的信息
+    data = []
+    r = get_redis(settings.MISSION_DB)
+    keys = r.keys()
+    for key in keys:
+        detail = eval(r.get(key))
+        if detail['state'] != 'STOP':
+            data.append({'value': float(detail['weight']), 'name': key})
+    return data
 ########################################################################################################################
 
 ########################################################################################################################

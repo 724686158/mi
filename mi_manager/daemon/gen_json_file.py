@@ -6,7 +6,7 @@ import settings
 json_template = \
 '''\
 {
-  "id": "%s",
+  "id": "/spiders/%s",
   "cmd": null,
   "cpus": %s,
   "mem": %s,

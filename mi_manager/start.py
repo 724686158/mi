@@ -4,6 +4,7 @@ import subprocess
 import redis
 import settings
 import gen_settings
+import time
 
 CWD = os.getcwd()
 
@@ -59,7 +60,41 @@ def update_data():
             print '自动加载精准新闻爬虫'
     except:
         raise Exception('loading spider data failed')
-    # 如果系统中没有淘宝商品种类的列表
+    # 如果系统中没有可用的资源
+    r = redis.Redis(settings.CORE_REDIS_HOST, settings.CORE_REDIS_PORT, db=settings.RESOURCES_REDIS_DB)
+    #r.flushdb()
+    keys = r.keys()
+    if len(keys) == 0:
+        r.set("useful_redis", "{'host': '122.114.62.116', 'password': '', 'post': '7001', 'user': ''}")
+    r = redis.Redis(settings.CORE_REDIS_HOST, settings.CORE_REDIS_PORT, db=settings.RESOURCES_MYSQL_DB)
+    #r.flushdb()
+    keys = r.keys()
+    if len(keys) == 0:
+        r.set("useful_mysql", "{'host': '122.114.62.116', 'password': 'mi', 'post': '3306', 'user': 'root'}")
+    r = redis.Redis(settings.CORE_REDIS_HOST, settings.CORE_REDIS_PORT, db=settings.RESOURCES_MONGO_DB)
+    #r.flushdb()
+    keys = r.keys()
+    if len(keys) == 0:
+        r.set("useful_mongo", "{'host': '122.114.62.116', 'password': '', 'post': '27017', 'user': ''}")
+
+    # 如果系统中没有合适的设置
+    r = redis.Redis(settings.CORE_REDIS_HOST, settings.CORE_REDIS_PORT, db=settings.SETTINGS_DB)
+    #r.flushdb()
+    keys = r.keys()
+    if len(keys) == 0:
+        r.set("新闻类爬虫默认配置", "{'AUTOTHROTTLE_MAX_DELAY': '6', 'ROBOTSTXT_OBEY': False, 'CONCURRENT_REQUESTS_PER_DOMAIN': '10', 'RETRY_ENABLED': True, 'AUTOTHROTTLE_START_DELAY': '1', 'AUTOTHROTTLE_ENABLED': True, 'DOWNLOAD_TIMEOUT': '10', 'COOKIES_ENABLED': True, 'HTTP_PROXY_ENABLED': False, 'DOWNLOAD_DELAY': '2'}")
+        r.set("电商类爬虫默认配置", "{'AUTOTHROTTLE_MAX_DELAY': '6', 'ROBOTSTXT_OBEY': False, 'CONCURRENT_REQUESTS_PER_DOMAIN': '20', 'RETRY_ENABLED': False, 'AUTOTHROTTLE_START_DELAY': '1', 'AUTOTHROTTLE_ENABLED': True, 'DOWNLOAD_TIMEOUT': '10', 'COOKIES_ENABLED': True, 'HTTP_PROXY_ENABLED': False, 'DOWNLOAD_DELAY': '1'}")
+    # 如果系统中没有合适的设置
+    r = redis.Redis(settings.CORE_REDIS_HOST, settings.CORE_REDIS_PORT, db=settings.SYMBOL_DB)
+    r.flushdb()
+    keys = r.keys()
+    if len(keys) == 0:
+        r.set('mesos_url', settings.MESOS_URL)
+        r.set('marathon_url', settings.MARATHON_URL)
+    # 设置开始时间
+    r.set('system_start_time', time.time())
+
+
 
 
 if __name__ == '__main__':

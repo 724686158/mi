@@ -117,6 +117,30 @@ def get_news_from_urls():
     data_list = data_service.get_data_from_goose(urls_list)
     return jsonify(data_list)
 
+# 获取MESOS控制台的URL
+@app.route('/get_mesos_url', methods=['GET'])
+def get_mesos_url():
+    data = data_service.get_mesos_url()
+    return jsonify(data)
+
+# 获取MARATHON控制台的URL
+@app.route('/get_mesos_marathon', methods=['GET'])
+def get_marathon_url():
+    data = data_service.get_marathon_url()
+    return jsonify(data)
+
+# 获取系统内时间(暂无实际用处)
+@app.route('/get_now_time', methods=['GET'])
+def get_now_time():
+    data = data_service.get_now_time()
+    return jsonify(data)
+
+# 获取任务权重饼状图
+@app.route('/get_piechart_of_mission', methods=['GET'])
+def get_piechart_of_mission():
+    data = data_service.get_piechart_of_mission()
+    return jsonify(data)
+
 ########################################################################################################################
 
 ########################################################################################################################

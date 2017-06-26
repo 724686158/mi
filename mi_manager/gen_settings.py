@@ -105,7 +105,7 @@ def generate_setting_of_monitor(dic):
 setting_template_of_daemon = \
 '''\
 # -*- coding: utf-8 -*-
-# marathon的地址 (请确保zookeeper+mesos+marathon框架正常运行)
+# mesos和marathon的地址 (请确保zookeeper+mesos+marathon框架正常运行)
 MESOS_URL = '%s'
 MARATHON_URL = '%s'
 

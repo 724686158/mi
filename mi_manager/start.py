@@ -84,6 +84,7 @@ def update_data():
     if len(keys) == 0:
         r.set("新闻类爬虫默认配置", "{'AUTOTHROTTLE_MAX_DELAY': '6', 'ROBOTSTXT_OBEY': False, 'CONCURRENT_REQUESTS_PER_DOMAIN': '10', 'RETRY_ENABLED': True, 'AUTOTHROTTLE_START_DELAY': '1', 'AUTOTHROTTLE_ENABLED': True, 'DOWNLOAD_TIMEOUT': '10', 'COOKIES_ENABLED': True, 'HTTP_PROXY_ENABLED': False, 'DOWNLOAD_DELAY': '2'}")
         r.set("电商类爬虫默认配置", "{'AUTOTHROTTLE_MAX_DELAY': '6', 'ROBOTSTXT_OBEY': False, 'CONCURRENT_REQUESTS_PER_DOMAIN': '20', 'RETRY_ENABLED': False, 'AUTOTHROTTLE_START_DELAY': '1', 'AUTOTHROTTLE_ENABLED': True, 'DOWNLOAD_TIMEOUT': '10', 'COOKIES_ENABLED': True, 'HTTP_PROXY_ENABLED': False, 'DOWNLOAD_DELAY': '1'}")
+
     # 如果系统中没有合适的设置
     r = redis.Redis(settings.CORE_REDIS_HOST, settings.CORE_REDIS_PORT, db=settings.SYMBOL_DB)
     r.flushdb()
@@ -94,7 +95,9 @@ def update_data():
     # 设置开始时间
     r.set('system_start_time', time.time())
 
-
+    # 重置电商类白名单
+    r = redis.Redis(settings.CORE_REDIS_HOST, settings.CORE_REDIS_PORT, db=settings.CLASSIFIER_DB)
+    r.delete('known_ecommerce')
 
 
 if __name__ == '__main__':

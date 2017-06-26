@@ -234,14 +234,57 @@ def get_piechart_of_mission():
     keys = r.keys()
     for key in keys:
         detail = eval(r.get(key))
+        print detail['state']
         if detail['state'] != 'STOP':
             data.append({'value': float(detail['weight']), 'name': key})
     return data
+
+# 获取调度队列中最优先N个task
+def get_top_task(number):
+    ans = []
+    ans.append(('顺位', '任务名', '爬虫任务'))
+    r = get_redis(settings.DISPATCH_DB)
+    tasks = r.zrange('task_zset', 0, number)
+    dix = 1
+    for task in tasks:
+        detail = eval(task)
+        ans.append((str(dix), detail['father_mission_name'],detail['spider_name']))
+        dix = dix + 1
+    while dix <= 10:
+        ans.append((str(dix), '', ''))
+        dix = dix + 1
+    return ans
+
+########################################################################################################################
+
+########################################################################################################################
+# ECommerce
+
+# 获取电商爬虫名称列表
+def get_ecommerce_spider_name():
+    names = []
+    oscwd = os.getcwd()
+    path = oscwd + settings.TEMP_PATH + '/spiderInitfiles_of_eCommerce'
+    files = os.listdir(path)
+    for file in files:
+        if 'spiderInit_' in file:
+            spidername = file.replace('spiderInit_', '').replace('.py', '')
+            names.append(spidername)
+    return names
+
+def get_number_of_ecommerce():
+    return  len(get_ecommerce_spider_name())
+
+
+
 ########################################################################################################################
 
 ########################################################################################################################
 # WHITELIST
-
+def get_number_of_whitelist():
+    r = get_redis(settings.SPIDERS_DB)
+    keys = r.keys()
+    return len(keys)
 # 获取白名单中爬虫名称清单
 def get_news_spider_name():
     r = get_redis(settings.SPIDERS_DB)

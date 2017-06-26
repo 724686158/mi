@@ -43,6 +43,8 @@ class MysqlInit():
             self.dbHelper.insert_for_mission(mission, sql)
             sql = "insert into ECommerce(eCommerceName, eCommerceUrl) values('taobao.com', 'https://www.taobao.com');".encode(encoding='utf-8')
             self.dbHelper.insert_for_mission(mission, sql)
+            sql = "insert into ECommerce(eCommerceName, eCommerceUrl) values('tmall.com', 'https://www.tmall.com');".encode(encoding='utf-8')
+            self.dbHelper.insert_for_mission(mission, sql)
             print "插入数据成功"
         except Exception:
             print "插入数据失败"

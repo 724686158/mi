@@ -47,8 +47,6 @@ def pop_task(number):
     ans = []
     r = get_redis(settings.DISPATCH_DB)
     tasks = r.zrange('task_zset', 0, number)
-    print type(ans)
-
     for task in tasks:
         ans.append(task)
         r.zrem('task_zset', task)

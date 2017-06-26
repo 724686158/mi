@@ -124,7 +124,7 @@ def get_mesos_url():
     return jsonify(data)
 
 # 获取MARATHON控制台的URL
-@app.route('/get_mesos_marathon', methods=['GET'])
+@app.route('/get_marathon_url', methods=['GET'])
 def get_marathon_url():
     data = data_service.get_marathon_url()
     return jsonify(data)
@@ -141,6 +141,17 @@ def get_piechart_of_mission():
     data = data_service.get_piechart_of_mission()
     return jsonify(data)
 
+# 获取精准爬虫数量
+@app.route('/get_number_of_accurate', methods=['GET'])
+def get_number_of_accurate():
+    dic = {'ec': data_service.get_number_of_ecommerce(), 'news': data_service.get_number_of_whitelist()}
+    return jsonify(str(dic))
+
+# 获取调度队列中最优先的10个task(至多十个)
+@app.route('/get_topten_task', methods=['GET'])
+def get_topten_task():
+    data = data_service.get_top_task(10)
+    return jsonify(data)
 ########################################################################################################################
 
 ########################################################################################################################
@@ -180,6 +191,18 @@ def init_monitor():
     return jsonify(data_service.init_monitor())
 
 ########################################################################################################################
+
+########################################################################################################################
+# ECOMMERCE
+# 获取电商爬虫名
+@app.route('/get_ecommerce_spider_name', methods=['GET'])
+def get_ecommerce_spider_name():
+    data = data_service.get_ecommerce_spider_name()
+    return jsonify(data)
+
+########################################################################################################################
+
+########################################################################################################################
 # WHITELIST
 # 生成新的新闻爬虫白名单
 @app.route('/gen_spider', methods=['GET', 'POST'])
@@ -201,11 +224,6 @@ def add_ips():
     return jsonify('ok')
 '''
 
-# 获取电商爬虫名
-@app.route('/get_ecommerce_spider_name', methods=['GET'])
-def get_ecommerce_spider_name():
-    data = data_service.get_ecommerce_spider_name()
-    return jsonify(data)
 
 # 获取新闻爬虫名
 @app.route('/get_news_spider_name', methods=['GET'])

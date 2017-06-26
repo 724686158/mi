@@ -59,6 +59,10 @@ if __name__ == '__main__':
 
         # 对每个子任务, 将他产生的task存入调度队列(通过有序集合实现)中等待调度
         for submission in submissions:
+            data_service.clear_submission_zset()
+            data_service.push_submission(str(
+                {'father_mission_name': submission.fathermission_name, 'spider_name': submission.spider_name}), submission.priority)
+
             task = Task(submission.spider_name, submission.resource_dic, submission.settings_name, submission.fathermission_name, submission.start_url)
             # 下列代码根据task中的信息, 自动补全其他必要信息
             dic = {}
@@ -109,6 +113,6 @@ if __name__ == '__main__':
         # 将发布过的task存入task历史记录中
         data_service.record_tasks(tasks_ready)
         try:
-            time.sleep(1)
+            time.sleep(3)
         except:
             print '守护进程关闭'

@@ -39,6 +39,14 @@ def get_spider(name):
     r = get_redis(settings.SPIDERS_DB)
     return r.get(name)
 
+def clear_submission_zset():
+    r = get_redis(settings.DISPATCH_DB)
+    r.delete('task_submission')
+
+def push_submission(info_dic_str, priority):
+    r = get_redis(settings.DISPATCH_DB)
+    print r.zadd('submission_zset', info_dic_str, priority)
+
 def push_task(info_dic_str, priority):
     r = get_redis(settings.DISPATCH_DB)
     print r.zadd('task_zset', info_dic_str, priority)
@@ -46,7 +54,7 @@ def push_task(info_dic_str, priority):
 def pop_task(number):
     ans = []
     r = get_redis(settings.DISPATCH_DB)
-    tasks = r.zrange('task_zset', 0, number)
+    tasks = r.zrange('task_zset', 0, number, desc = True)
     for task in tasks:
         ans.append(task)
         r.zrem('task_zset', task)

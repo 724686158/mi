@@ -152,6 +152,7 @@ def get_number_of_accurate():
 def get_topten_task():
     data = data_service.get_top_task(10)
     return jsonify(data)
+
 ########################################################################################################################
 
 ########################################################################################################################
@@ -483,8 +484,6 @@ def delete_submission():
     data_service.delete_submission(name)
     return jsonify('ok')
 
-
-
 # 发post请求, 带参数mission_name(任务名)和urls(json格式的串)
 @app.route('/get_default_submissions_by_target_urls', methods=['POST'])
 def get_default_submissions_by_target_urls():
@@ -502,6 +501,12 @@ def get_default_submissions_by_target_urls():
         submissions.append(data_service.get_default_submissions(mission_name, url, 'Fuzzy'))
     print submissions
     return jsonify(submissions)
+
+# 获取调度队列中的submission, 按照优先级排序
+@app.route('/get_top_submissions', methods=['GET'])
+def get_top_submissions():
+    data = data_service.get_top_submissions()
+    return jsonify(data)
 
 ########################################################################################################################
 

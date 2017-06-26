@@ -18,8 +18,21 @@
                     </div>
                     <button type="button" class="btn btn-success" onclick="start_work()">提交任务</button>
                 </form>
-                <hr/>
+            </div>
+        </div>
+    </div>
+</div>
 
+
+<div class="modal" id="myModal1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" style="width: 1280px">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span></button>
+                <h4 class="modal-title">即时爬取任务：结果</h4>
+            </div>
+            <div class="modal-body">
                 <div id="wait" hidden>
                     <h3>任务提交成功，正在爬取中，请稍候...</h3>
                 </div>
@@ -39,12 +52,17 @@
     </div>
 </div>
 
+<link rel="stylesheet" type="text/css" href="plugins/datatables/jquery.dataTables.min.css"/>
+<script type="text/javascript" src="plugins/datatables/jquery.dataTables.min.js"></script>
+<script type="text/javascript" src="plugins/datatables/dataTables.bootstrap.min.js"></script>
+
 <script type="text/javascript" src="../const.js"></script>
 <script type="text/javascript" src="mycommon.js"></script>
 
 
 <script>
     function start_work() {
+        $("#myModal1").modal("toggle");
         $("#result_table").prop("hidden", true);
         $("#wait").prop("hidden", false);
         var urls = {urls: $('#urls').val().split('\n')};

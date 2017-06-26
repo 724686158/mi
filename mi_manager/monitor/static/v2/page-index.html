@@ -14,7 +14,14 @@
             </div>
             <!-- /.box-header -->
             <div class="box-body">
-                欢迎来到 Mi 分布式爬虫系统，这里是管理控制中心！
+                <center>
+                    欢迎来到 Mi 分布式爬虫系统，这里是管理控制中心！
+                    <br/>
+                    <br/>
+                    您可以访问：<a href="http://www.mengzicheng.cn/wordpress/?p=1171" target="_blank">http://www.mengzicheng.cn/wordpress/?p=1171</a>
+                    获取http代理（不定期更新）
+                </center>
+
             </div>
             <!-- /.box-body -->
         </div>
@@ -27,8 +34,8 @@
         <div class="info-box bg-blue">
             <span class="info-box-icon"><i class="fa  fa-bug"></i></span>
             <div class="info-box-content">
-                <span class="info-box-text">爬虫数量</span>
-                <span class="info-box-number">41,410</span>
+                <span class="info-box-text">调度中的子任务</span>
+                <span class="info-box-number">？</span>
             </div><!-- /.info-box-content -->
         </div><!-- /.info-box -->
     </div>
@@ -37,8 +44,8 @@
         <div class="info-box bg-green">
             <span class="info-box-icon"><i class="ion ion-stats-bars"></i></span>
             <div class="info-box-content">
-                <span class="info-box-text">分布式服务器数量</span>
-                <span class="info-box-number">10</span>
+                <span class="info-box-text">分布式节点数量</span>
+                <span class="info-box-number">？</span>
             </div><!-- /.info-box-content -->
         </div><!-- /.info-box -->
     </div>
@@ -47,7 +54,7 @@
         <div class="info-box bg-red">
             <span class="info-box-icon"><i class="fa  fa-compass"></i></span>
             <div class="info-box-content">
-                <span class="info-box-text">负载能力</span>
+                <span class="info-box-text">任务负载能力</span>
                 <span class="info-box-number">10000个/s</span>
             </div><!-- /.info-box-content -->
         </div><!-- /.info-box -->
@@ -55,59 +62,144 @@
 </div>
 
 <div class="row">
-    <div class="col-md-6">
-        <div class="box box-primary">
-            <div class="box-header with-border">
-                <h3 class="box-title">电商类爬虫新闻展示</h3>
 
-                <div class="box-tools pull-right">
-                    <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
-                    </button>
-                </div>
+    <div class="col-md-6">
+        <div class="box box-success">
+            <div class="box-header with-border">
+                <h3 class="box-title">运行中的任务</h3>
             </div>
             <!-- /.box-header -->
             <div class="box-body">
-                <ul class="list-group">
-                    <li class="list-group-item">
-                        <a href="javascript:void(0)"
-                           onclick="load_content('spider_result.html?name=ECommerceShop')">店铺数据</a>
-                    </li>
-                    <li class="list-group-item">
-                        <a href="javascript:void(0)"
-                           onclick="load_content('spider_result.html?name=ECommerceShopComment')">店铺评论数据</a>
-                    </li>
-                    <li class="list-group-item">
-                        <a href="javascript:void(0)"
-                           onclick="load_content('spider_result.html?name=ECommerceGood')">商品数据</a>
-                    </li>
-                    <li class="list-group-item">
-                        <a href="javascript:void(0)"
-                           onclick="load_content('spider_result.html?name=ECommerceGoodComment')">商品评论数据</a>
-                    </li>
-                </ul>
+                <center>
+                <div id="main" style="width: 600px; height:400px;"></div>
+                </center>
             </div>
         </div>
     </div>
 
     <div class="col-md-6">
-        <div class="box box-primary">
+        <div class="box box-success">
             <div class="box-header with-border">
-                <h3 class="box-title">新闻类爬虫数据展示</h3>
-
-                <div class="box-tools pull-right">
-                    <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
-                    </button>
-                </div>
+                <h3 class="box-title">系统内资源</h3>
             </div>
             <!-- /.box-header -->
             <div class="box-body">
-                <ul class="list-group">
-                    <li class="list-group-item">
-                        <a href="javascript:void(0)"
-                           onclick="load_content('spider_result.html?name=Article')">新闻数据</a>
-                    </li>
-                </ul>
+                ......
             </div>
         </div>
     </div>
+
+    <!--<div class="col-md-6">-->
+        <!--<div class="box box-primary">-->
+            <!--<div class="box-header with-border">-->
+                <!--<h3 class="box-title">电商类爬虫新闻展示</h3>-->
+
+                <!--<div class="box-tools pull-right">-->
+                    <!--<button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>-->
+                    <!--</button>-->
+                <!--</div>-->
+            <!--</div>-->
+            <!--&lt;!&ndash; /.box-header &ndash;&gt;-->
+            <!--<div class="box-body">-->
+                <!--<ul class="list-group">-->
+                    <!--<li class="list-group-item">-->
+                        <!--<a href="javascript:void(0)"-->
+                           <!--onclick="load_content('spider_result.html?name=ECommerceShop')">店铺数据</a>-->
+                    <!--</li>-->
+                    <!--<li class="list-group-item">-->
+                        <!--<a href="javascript:void(0)"-->
+                           <!--onclick="load_content('spider_result.html?name=ECommerceShopComment')">店铺评论数据</a>-->
+                    <!--</li>-->
+                    <!--<li class="list-group-item">-->
+                        <!--<a href="javascript:void(0)"-->
+                           <!--onclick="load_content('spider_result.html?name=ECommerceGood')">商品数据</a>-->
+                    <!--</li>-->
+                    <!--<li class="list-group-item">-->
+                        <!--<a href="javascript:void(0)"-->
+                           <!--onclick="load_content('spider_result.html?name=ECommerceGoodComment')">商品评论数据</a>-->
+                    <!--</li>-->
+                <!--</ul>-->
+            <!--</div>-->
+        <!--</div>-->
+    <!--</div>-->
+
+    <!--<div class="col-md-6">-->
+        <!--<div class="box box-primary">-->
+            <!--<div class="box-header with-border">-->
+                <!--<h3 class="box-title">新闻类爬虫数据展示</h3>-->
+
+                <!--<div class="box-tools pull-right">-->
+                    <!--<button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>-->
+                    <!--</button>-->
+                <!--</div>-->
+            <!--</div>-->
+            <!--&lt;!&ndash; /.box-header &ndash;&gt;-->
+            <!--<div class="box-body">-->
+                <!--<ul class="list-group">-->
+                    <!--<li class="list-group-item">-->
+                        <!--<a href="javascript:void(0)"-->
+                           <!--onclick="load_content('spider_result.html?name=Article')">新闻数据</a>-->
+                    <!--</li>-->
+                <!--</ul>-->
+            <!--</div>-->
+        <!--</div>-->
+    <!--</div>-->
 </div>
+
+
+<link rel="stylesheet" type="text/css" href="plugins/datatables/jquery.dataTables.min.css"/>
+<script type="text/javascript" src="plugins/datatables/jquery.dataTables.min.js"></script>
+<script type="text/javascript" src="plugins/datatables/dataTables.bootstrap.min.js"></script>
+<script type="text/javascript" src="plugins/echart/echarts.min.js"></script>
+
+<script type="text/javascript" src="../const.js"></script>
+<script type="text/javascript" src="mycommon.js"></script>
+
+
+
+
+<script>
+    option = {
+        title: {
+            text: '运行中的任务',
+            subtext: '比例图',
+            x: 'center'
+        },
+        tooltip: {
+            trigger: 'item',
+            formatter: "{a} <br/>{b} : {c} ({d}%)"
+        },
+        legend: {
+            orient: 'vertical',
+            left: 'left',
+            data: []
+        },
+        series: [
+            {
+                name: '比例',
+                type: 'pie',
+                radius: '55%',
+                center: ['50%', '60%'],
+                data: [],
+                itemStyle: {
+                    emphasis: {
+                        shadowBlur: 10,
+                        shadowOffsetX: 0,
+                        shadowColor: 'rgba(0, 0, 0, 0.5)'
+                    }
+                }
+            }
+        ]
+    };
+    var GET_URL = POST_URL_PREFIX + "/get_piechart_of_mission";
+    console.log(GET_URL);
+    $.get(GET_URL).success(function (dat) {
+        chart_dat = dat;
+        for (var i = 0; i < chart_dat.length; ++i) {
+            option.legend.data.push(chart_dat[i].name);
+            option.series[0].data.push(chart_dat[i]);
+        }
+        var myChart = echarts.init(document.getElementById('main'));
+        myChart.setOption(option);
+    });
+</script>

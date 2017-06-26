@@ -25,11 +25,19 @@
                     </div>
                 </div>
                 <div class="box-body">
-                    <div class="row" style="margin-bottom: 10px">
-                        {6}
-                    </div>
                     <div class="row">
-                        {5}
+                        <div class="col-md-5">
+                            <ul class="list-group">
+                                {5}
+                            </ul>
+                        </div>
+                        <div class="col-md-7">
+                            。。。。。
+                        </div>
+                        <div class="col-md-2">
+                            <button type="button" class="btn btn-default">编辑</button>
+                            <button type="button" class="btn btn-default">删除</button>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -142,7 +150,7 @@
                         <label class="col-xs-2 control-label">开始时间</label>
                         <div class="formControls col-xs-10">
                             <div class="input-append date form_datetime">
-                                <input size="16" type="text" value="" class="form-control" id="st3_st_time" >
+                                <input size="16" type="text" value="" class="form-control" id="st3_st_time">
                                 <span class="add-on"><i class="icon-remove"></i></span>
                                 <span class="add-on"><i class="icon-calendar"></i></span>
                             </div>
@@ -152,7 +160,7 @@
                         <label class="col-xs-2 control-label">结束时间</label>
                         <div class="formControls col-xs-10">
                             <div class="input-append date form_datetime">
-                                <input size="16" type="text" value="" class="form-control" id="st3_ed_time" >
+                                <input size="16" type="text" value="" class="form-control" id="st3_ed_time">
                                 <span class="add-on"><i class="icon-remove"></i></span>
                                 <span class="add-on"><i class="icon-calendar"></i></span>
                             </div>
@@ -285,15 +293,15 @@
             var btn_html = ""; // 子任务按钮组html
             for (var j = 0; j < detail.submission_list.length; ++j) {
                 var sub_name = detail.submission_list[j].name;
-                var sub_btn_html = '<div class="col-sm-6 col-md-6 col-lg-3"><button type="button" class="btn btn-block btn-default btn-flat" onclick="show_chart_model(\'{1}\', \'{2}\')">{0}</button></div>';
+                var sub_btn_html = '<li class="list-group-item"><center><a onclick="show_chart_model(\'{1}\', \'{2}\')" href="#">{0} 监控</a></center></li>';
                 btn_html += sub_btn_html.format(sub_name, cur.name, sub_name);
             }
 
-            var tables_btn_html = ""; // 显示图表的按钮组html
-            for (var j = 0; j < TABLE_ARR.length; ++j) {
-                var tab_html = '<div class="col-sm-2 col-md-2 col-lg-2"><button type="button" class="btn  btn-block btn-flat" onclick="show_table_model(\'{1}\', \'{2}\')">{0}</button></div>';
-                tables_btn_html += tab_html.format(TABLE_CHI[j], TABLE_ARR[j], cur.name);
-            }
+//            var tables_btn_html = ""; // 显示图表的按钮组html
+//            for (var j = 0; j < TABLE_ARR.length; ++j) {
+//                var tab_html = '<div class="col-md-12"><button type="button" class="btn  btn-block btn-flat" onclick="show_table_model(\'{1}\', \'{2}\')">{0}</button></div>';
+//                tables_btn_html += tab_html.format(TABLE_CHI[j], TABLE_ARR[j], cur.name);
+//            }
 
             var ins = html.format(
                 cur["name"],
@@ -301,8 +309,7 @@
                 detail["state"] === "START" ? "active" : "",
                 detail["state"] === "STOP" ? "active" : "",
                 i,
-                btn_html,
-                tables_btn_html
+                btn_html
             );
             $(id_type).append(ins);
         }

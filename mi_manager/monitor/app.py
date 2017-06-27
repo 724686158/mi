@@ -145,7 +145,7 @@ def get_piechart_of_mission():
 @app.route('/get_number_of_accurate', methods=['GET'])
 def get_number_of_accurate():
     dic = {'ec': data_service.get_number_of_ecommerce(), 'news': data_service.get_number_of_whitelist()}
-    return jsonify(str(dic))
+    return jsonify(dic)
 
 # 获取调度队列中最优先的10个task(至多十个)
 @app.route('/get_topten_task', methods=['GET'])

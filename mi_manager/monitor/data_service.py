@@ -259,7 +259,7 @@ def get_top_submissions():
     tasks = r.zrange('submission_zset', 0, -1, desc = True, withscores=True)
     for task in tasks:
         detail = eval(task[0])
-        ans.append((task[1], detail['father_mission_name'], detail['spider_name']))
+        ans.append((str(task[1]), detail['father_mission_name'], detail['spider_name']))
     return ans
 
 def login_system(username, password):

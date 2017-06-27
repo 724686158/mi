@@ -13,7 +13,7 @@ CORE_REDIS_MAX_MEMORY = 2
 
 
 # mi_manager web前端的地址及端口
-APP_HOST = '127.0.0.1'
+APP_HOST = '192.168.210.29'
 APP_PORT = 5020
 
 # 监控模块的相对路径(开发环境中设为空)

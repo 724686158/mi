@@ -25,6 +25,7 @@ if __name__ == '__main__':
             # 更新任务列表
             if data_service.is_missions_change():
                 print '任务信息发生改变, 重新加载任务队列'
+                data_service.clear_submission_zset()
                 missions = data_service.get_all_mission()
 
             # 更新任务的状态

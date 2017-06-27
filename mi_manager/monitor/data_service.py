@@ -243,7 +243,7 @@ def get_top_task(number):
     r = get_redis(settings.DISPATCH_DB)
     tasks = r.zrange('task_zset', 0, number, desc = True)
     dix = 1
-    for task in tasks:
+    for task in tasks and dix <= 10:
         detail = eval(task)
         ans.append((str(dix), detail['father_mission_name'],detail['spider_name']))
         dix = dix + 1
@@ -256,7 +256,7 @@ def get_top_submissions():
     ans = []
     ans.append(('实际优先度', '任务名', '爬虫任务'))
     r = get_redis(settings.DISPATCH_DB)
-    tasks = r.zrange('submission_zset', 0, -1, desc = True, withscores=True)
+    tasks = r.zrange('submission_zset', 0, -1, desc = True, withscores=True, )
     for task in tasks:
         detail = eval(task[0])
         ans.append((str(task[1]), detail['father_mission_name'], detail['spider_name']))

@@ -57,7 +57,6 @@ class Spider_dangdang(RedisCrawlSpider):
 
             yield goodCommentItem
             if goodItem['shopId'] != 'null':
-                print goodItem['shopId']
                 shopItem = ECommerceShopItem()
                 shopItem['eCommerceName'] = self.name
                 shopItem['shopId'] = goodItem['shopId']

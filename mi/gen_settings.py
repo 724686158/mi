@@ -71,7 +71,6 @@ DOWNLOAD_HANDLERS = {'s3': None,}\
 '''
 
 def generate_setting_of_mi(task):
-    print task
     dic = eval(task)
     father_mission_name = dic['father_mission_name']
     spider_name = dic['spider_name']

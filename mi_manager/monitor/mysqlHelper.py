@@ -159,7 +159,6 @@ class MysqlHelper():
             r = redis.Redis(prime_settings.REDIS_HOST, prime_settings.REDIS_PORT, prime_settings.RESOURCES_MYSQL_DB)
             mysql_detail = r.get(mysql_dbname)
             dic = eval(mysql_detail)
-            print dic['host'], int(dic['post']), dic['user'], dic['password'], mission_name,
             conn = pymysql.connect(host=dic['host'],
                                    port=int(dic['post']),
                                    user=dic['user'],

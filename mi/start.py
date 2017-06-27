@@ -16,7 +16,6 @@ def init_spider_file(task):
     else:
         r = redis.Redis(prime_settings.REDIS_HOST, prime_settings.REDIS_PORT, db=prime_settings.SPIDERS_DB)
         if spidername in r.keys():
-            print spidername, r.get(spidername)
             gen_spiderFile_in_whiteList.generate_spider(spidername, r.get(spidername))
         else:
             gen_spiderFile_need_fuzzymatching.generate_spider(spidername)

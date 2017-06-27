@@ -15,7 +15,8 @@ class MarathonHelper():
             response = requests.post(url, data=open(file, 'rb'), headers=headers)
             self.container_list.append(container)
             self.left = self.left - 1
-            print response.content
+            #print response.content
         except:
-            print '向marathon发post请求失败'
+            pass
+            #print '向marathon发post请求失败'
 

@@ -70,7 +70,6 @@ class Spider_gome(RedisCrawlSpider):
             response.xpath('''//div[@class='right']/div[@class='zy-stores']/span/text()''').extract())
         if isGuomei is '国美自营':
             goodItem['shopId'] = 'null'
-            print  isGuomei
         else:
             pattern3=re.compile(r'cn/\d+/?')
             shop = response.xpath('''//div[@class='ly-stores']/h2/a/@href''').extract()[0]
@@ -79,10 +78,8 @@ class Spider_gome(RedisCrawlSpider):
             yield goodItem
 
             shopName=response.xpath('''//div[@class='ly-stores']/h2/a/text() | //div[@class='zy-stores']/h2/a/text()''').extract()[0]
-            print shopName
 
             shopData=''.join(response.xpath('''//div[@class='services-wrapper']/div[@class='services-stars']/span[@class='score']/text()''').extract()[0])
-            print shopData
 
             shopItem=ECommerceShopItem()
             shopItem['eCommerceName'] = self.name

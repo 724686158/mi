@@ -87,18 +87,20 @@ def update_data():
 
     # 如果系统中没有合适的设置
     r = redis.Redis(settings.CORE_REDIS_HOST, settings.CORE_REDIS_PORT, db=settings.SYMBOL_DB)
-    r.flushdb()
     keys = r.keys()
     if len(keys) == 0:
         r.set('mesos_url', settings.MESOS_URL)
         r.set('marathon_url', settings.MARATHON_URL)
     # 设置开始时间
     r.set('system_start_time', time.time())
-
+    # 设置登录用的密码
+    r.set('admin', '123456')
+    r.set('mengzicheng', '12345678')
     # 重置电商类白名单
+    '''
     r = redis.Redis(settings.CORE_REDIS_HOST, settings.CORE_REDIS_PORT, db=settings.CLASSIFIER_DB)
     r.delete('known_ecommerce')
-
+    '''
 
 if __name__ == '__main__':
     # 首先确认核心数据库可用

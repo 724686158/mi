@@ -6,7 +6,7 @@ import settings
 json_template = \
 '''\
 {
-  "id": "/spiders/%s",
+  "id": "/spiders/%s/%s",
   "cmd": null,
   "cpus": %s,
   "mem": %s,
@@ -24,14 +24,13 @@ json_template = \
 }
 '''
 # 传入爬虫子任务名
-def generate_json(container_name, cpu, mem, disk):
+def generate_json(mission_name, container_name, cpu, mem, disk):
     try:
-        arr = (container_name,cpu, mem, disk)
+        arr = (mission_name, container_name,cpu, mem, disk)
         content = json_template % arr
-        filename = os.getcwd() + settings.TEMP_PATH + '/jsons/'+ container_name  + '.json'
+        filename = os.getcwd() + settings.TEMP_PATH + '/jsons/'+ mission_name + container_name  + '.json'
         with open(filename, 'w') as f:
             f.write(content)
-            print 'success'
             f.close()
     except:
         print 'fall'

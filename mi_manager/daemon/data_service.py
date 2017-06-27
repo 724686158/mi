@@ -45,26 +45,25 @@ def clear_submission_zset():
 
 def push_submission(info_dic_str, priority):
     r = get_redis(settings.DISPATCH_DB)
-    print r.zadd('submission_zset', info_dic_str, priority)
+    r.zadd('submission_zset', info_dic_str, priority)
 
 def push_task(info_dic_str, priority):
     r = get_redis(settings.DISPATCH_DB)
-    print r.zadd('task_zset', info_dic_str, priority)
+    r.zadd('task_zset', info_dic_str, priority)
 
 def pop_task(number):
     ans = []
     r = get_redis(settings.DISPATCH_DB)
-    tasks = r.zrange('task_zset', 0, number, desc = True)
+    tasks = r.zrange('task_zset', 0, number, desc = True, withscores=True)
     for task in tasks:
-        ans.append(task)
-        r.zrem('task_zset', task)
+        ans.append(task[0])
+        r.zrem('task_zset', task[0])
     return ans
 
 def check_mission_state(mission_name, start_time, end_time):
     r = get_redis(settings.DISPATCH_DB)
     # 首先检查时间是否在start_time和end_time之间
     now_time = time.time()
-    # print 'now_time:' + str(now_time) + ' start_time:' + str(start_time) + ' end_time:' + str(end_time)
     if now_time >= start_time and now_time < end_time:
         info = r.zadd('mission_zset', mission_name, 0)
         if info == 1:
@@ -121,8 +120,8 @@ def record_tasks(tasks):
     for task in tasks:
         r.lpush('history', task)
 
-def gen_json(container_name):
-    gen_json_file.generate_json(container_name, settings.NEED_CPU, settings.NEED_MEM, settings.NEED_DISK)
+def gen_json(mission_name, container_name):
+    gen_json_file.generate_json(mission_name, container_name, settings.NEED_CPU, settings.NEED_MEM, settings.NEED_DISK)
 
 def clear_dispatch():
     r = get_redis(settings.DISPATCH_DB)

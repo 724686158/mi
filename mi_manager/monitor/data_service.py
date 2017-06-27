@@ -68,7 +68,6 @@ def exec_init_of_missions():
         mission = get_tld(mission_url, fail_silently=True)
         filename =  oscwd + settings.TEMP_PATH + '/spiderInitfiles_of_news' + '/spiderInit_' + mission + '.py'
         if os.path.isfile(filename):
-            print filename
             os.system('python ' + filename)
         else:
             print 'news_spider Init_' + mission + '.py' + ' not exist'
@@ -77,7 +76,6 @@ def exec_init_of_missions():
         mission = get_tld(mission_url, fail_silently=True)
         filename =  oscwd + settings.TEMP_PATH + '/spiderInitfiles_of_eCommerce' + '/spiderInit_' + mission + '.py'
         if os.path.isfile(filename):
-            print filename
             os.system('python ' + filename)
         else:
             print 'eCommerce_spider Init_' + mission + '.py' + ' not exist'
@@ -234,7 +232,6 @@ def get_piechart_of_mission():
     keys = r.keys()
     for key in keys:
         detail = eval(r.get(key))
-        print detail['state']
         if detail['state'] != 'STOP':
             data.append({'value': float(detail['weight']), 'name': key})
     return data
@@ -260,11 +257,29 @@ def get_top_submissions():
     ans.append(('实际优先度', '任务名', '爬虫任务'))
     r = get_redis(settings.DISPATCH_DB)
     tasks = r.zrange('submission_zset', 0, -1, desc = True, withscores=True)
-    print tasks
     for task in tasks:
         detail = eval(task[0])
         ans.append((task[1], detail['father_mission_name'], detail['spider_name']))
     return ans
+
+def login_system(username, password):
+    r = get_redis(settings.SYMBOL_DB)
+    if r.get(username) == password:
+        if r.get('now_login_time'):
+            r.set('lost_login_time', r.get('now_login_time'))
+            r.set('now_login_time', Time())
+        else:
+            r.set('now_login_time', Time())
+        return 'True'
+    else:
+        return 'False'
+
+def get_last_login_time():
+    r = get_redis(settings.SYMBOL_DB)
+    if r.get('lost_login_time'):
+        return '上一次登录系统的时间是为[' + r.get('lost_login_time') + ']'
+    else:
+        return '首次登录, 点击页面右上角可查看使用帮助'
 
 ########################################################################################################################
 
@@ -363,7 +378,6 @@ def batch_import_proxys(txt):
     proxys = txt.split('\n')
     for proxy in proxys:
         if len(proxy) >= 2:
-            print proxy
             r.sadd('valid_proxy', proxy)
 
 def get_all_proxy():

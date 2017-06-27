@@ -434,6 +434,19 @@ def get_settings_name():
     data = data_service.get_settings_name()
     return jsonify(data)
 
+# 用于登录, 发post请求, 表单带用户名和密码. 回传的值为'True'或'False'(字符串形式)
+@app.route('/login_system', methods=['POST'])
+def login_system():
+    username = request.form.get('username', '')
+    password = request.form.get('password', '')
+    data = data_service.login_system(username, password)
+    return jsonify(data)
+
+# 获取一句关于登录状态的话, 显示到系统通知栏第二行
+@app.route('/get_last_login_time', methods=['GET'])
+def get_last_login_time():
+    data = data_service.get_last_login_time()
+    return jsonify(data)
 ########################################################################################################################
 
 ########################################################################################################################

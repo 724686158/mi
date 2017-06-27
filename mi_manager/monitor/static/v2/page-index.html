@@ -21,7 +21,6 @@
                     您可以访问：<a href="http://www.mengzicheng.cn/wordpress/?p=1171" target="_blank">http://www.mengzicheng.cn/wordpress/?p=1171</a>
                     获取http代理（不定期更新）
                 </center>
-
             </div>
             <!-- /.box-body -->
         </div>
@@ -31,31 +30,40 @@
 
 <div class="row">
     <div class="col-md-3 col-sm-6 col-xs-12">
-        <div class="info-box bg-blue">
+        <div class="info-box bg-green">
+            <!--<span class="info-box-icon"><i class="fa  fa-bug"></i></span>-->
             <span class="info-box-icon"><i class="fa  fa-bug"></i></span>
             <div class="info-box-content">
-                <span class="info-box-text">调度中的子任务</span>
-                <span class="info-box-number">？</span>
+                <h4><strong>精准爬虫数量</strong></h4>
+                <div style="margin-top: 20px"></div>
+                <h5>电商<span id="num_ds"></span>个，新闻<span id="num_xw"></span>个</h5>
             </div><!-- /.info-box-content -->
         </div><!-- /.info-box -->
     </div>
 
     <div class="col-md-3 col-sm-6 col-xs-12">
-        <div class="info-box bg-green">
-            <span class="info-box-icon"><i class="ion ion-stats-bars"></i></span>
+        <div class="info-box bg-blue">
+            <span class="info-box-icon"><i class="fa fa-connectdevelop"></i></span>
             <div class="info-box-content">
-                <span class="info-box-text">分布式节点数量</span>
-                <span class="info-box-number">？</span>
+                <h4><strong>任务容器控制 Marathon</strong></h4>
+                <div style="margin-top: 20px"></div>
+                <a target="_blank" href="http://www.mengzicheng.cn/wordpress/?p=1225" style="color: #ffffff;" id="a_info_1"><i class="fa fa-external-link"></i>&nbsp;说明</a>
+                &nbsp; &nbsp;
+                <a target="_blank" href="#" style="color: #ffffff;" id="a_mgr_1"><i class="fa fa-external-link-square"></i>&nbsp;控制台</a>
+
             </div><!-- /.info-box-content -->
         </div><!-- /.info-box -->
     </div>
 
     <div class="col-md-3 col-sm-6 col-xs-12">
         <div class="info-box bg-red">
-            <span class="info-box-icon"><i class="fa  fa-compass"></i></span>
+            <span class="info-box-icon"><i class="fa   fa-empire"></i></span>
             <div class="info-box-content">
-                <span class="info-box-text">任务负载能力</span>
-                <span class="info-box-number">10000个/s</span>
+                <h4><strong>分布式资源监控 Mesos</strong></h4>
+                <div style="margin-top: 20px"></div>
+                <a target="_blank" href="http://www.mengzicheng.cn/wordpress/?p=1230" style="color: #ffffff;" id="a_info_2"><i class="fa fa-external-link"></i>&nbsp;说明</a>
+                &nbsp; &nbsp;
+                <a target="_blank" href="#" style="color: #ffffff;" id="a_mgr_2"><i class="fa fa-external-link-square"></i>&nbsp;控制台</a>
             </div><!-- /.info-box-content -->
         </div><!-- /.info-box -->
     </div>
@@ -71,7 +79,7 @@
             <!-- /.box-header -->
             <div class="box-body">
                 <center>
-                <div id="main" style="width: 600px; height:400px;"></div>
+                    <div id="main" style="width: 600px; height:410px;"></div>
                 </center>
             </div>
         </div>
@@ -80,70 +88,21 @@
     <div class="col-md-6">
         <div class="box box-success">
             <div class="box-header with-border">
-                <h3 class="box-title">系统内资源</h3>
+                <h3 class="box-title">子任务调度队列 Top10</h3>
             </div>
             <!-- /.box-header -->
             <div class="box-body">
-                ......
+                <table class="table table-border table-bg table-bordered" id="myTable">
+                    <thead id="tab_head">
+
+                    </thead>
+                    <tbody id="tab_dat">
+
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>
-
-    <!--<div class="col-md-6">-->
-        <!--<div class="box box-primary">-->
-            <!--<div class="box-header with-border">-->
-                <!--<h3 class="box-title">电商类爬虫新闻展示</h3>-->
-
-                <!--<div class="box-tools pull-right">-->
-                    <!--<button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>-->
-                    <!--</button>-->
-                <!--</div>-->
-            <!--</div>-->
-            <!--&lt;!&ndash; /.box-header &ndash;&gt;-->
-            <!--<div class="box-body">-->
-                <!--<ul class="list-group">-->
-                    <!--<li class="list-group-item">-->
-                        <!--<a href="javascript:void(0)"-->
-                           <!--onclick="load_content('spider_result.html?name=ECommerceShop')">店铺数据</a>-->
-                    <!--</li>-->
-                    <!--<li class="list-group-item">-->
-                        <!--<a href="javascript:void(0)"-->
-                           <!--onclick="load_content('spider_result.html?name=ECommerceShopComment')">店铺评论数据</a>-->
-                    <!--</li>-->
-                    <!--<li class="list-group-item">-->
-                        <!--<a href="javascript:void(0)"-->
-                           <!--onclick="load_content('spider_result.html?name=ECommerceGood')">商品数据</a>-->
-                    <!--</li>-->
-                    <!--<li class="list-group-item">-->
-                        <!--<a href="javascript:void(0)"-->
-                           <!--onclick="load_content('spider_result.html?name=ECommerceGoodComment')">商品评论数据</a>-->
-                    <!--</li>-->
-                <!--</ul>-->
-            <!--</div>-->
-        <!--</div>-->
-    <!--</div>-->
-
-    <!--<div class="col-md-6">-->
-        <!--<div class="box box-primary">-->
-            <!--<div class="box-header with-border">-->
-                <!--<h3 class="box-title">新闻类爬虫数据展示</h3>-->
-
-                <!--<div class="box-tools pull-right">-->
-                    <!--<button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>-->
-                    <!--</button>-->
-                <!--</div>-->
-            <!--</div>-->
-            <!--&lt;!&ndash; /.box-header &ndash;&gt;-->
-            <!--<div class="box-body">-->
-                <!--<ul class="list-group">-->
-                    <!--<li class="list-group-item">-->
-                        <!--<a href="javascript:void(0)"-->
-                           <!--onclick="load_content('spider_result.html?name=Article')">新闻数据</a>-->
-                    <!--</li>-->
-                <!--</ul>-->
-            <!--</div>-->
-        <!--</div>-->
-    <!--</div>-->
 </div>
 
 
@@ -154,8 +113,6 @@
 
 <script type="text/javascript" src="../const.js"></script>
 <script type="text/javascript" src="mycommon.js"></script>
-
-
 
 
 <script>
@@ -201,5 +158,59 @@
         }
         var myChart = echarts.init(document.getElementById('main'));
         myChart.setOption(option);
+    });
+</script>
+
+<script>
+    $('#tab_head').empty();
+    $('#tab_dat').empty();
+    var GET_URL = POST_URL_PREFIX + "/get_topten_task";
+    console.log(GET_URL);
+    $.get(GET_URL).success(function (dat) {
+        console.log(dat);
+        for (var i = 0; i < dat.length; ++i) {
+            var str = '<tr>';
+            for (var j = 0; j < dat[i].length; ++j) {
+                str += '<th>' + dat[i][j] + '</th>';
+            }
+            str += '</tr>';
+            if (i === 0) {
+                $('#tab_head').append(str);
+            } else {
+                $('#tab_dat').append(str);
+            }
+        }
+//        $(document).ready(function () {
+//            $('#myTable').DataTable();
+//        });
+    });
+</script>
+
+<script>
+    var GET_URL = POST_URL_PREFIX + "/get_number_of_accurate";
+    console.log(GET_URL);
+    $.get(GET_URL).success(function (dat) {
+        console.log(dat);
+        console.log(dat["ec"], typeof dat["ec"]);
+        $("#num_ds").html(dat["ec"]);
+        $("#num_xw").html(dat["news"]);
+    });
+</script>
+
+<script>
+    var GET_URL = POST_URL_PREFIX + "/get_marathon_url";
+    console.log(GET_URL);
+    $.get(GET_URL).success(function (dat) {
+        console.log(dat);
+        $("#a_mgr_1").attr("href", dat);
+    });
+</script>
+
+<script>
+    var GET_URL = POST_URL_PREFIX + "/get_mesos_url";
+    console.log(GET_URL);
+    $.get(GET_URL).success(function (dat) {
+        console.log(dat);
+        $("#a_mgr_2").attr("href", dat);
     });
 </script>

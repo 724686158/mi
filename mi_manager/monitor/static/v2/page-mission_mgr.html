@@ -4,43 +4,82 @@
             添加任务
         </button>
     </div>
-    <div id="mission_list">
-        <div class="col-md-12">
-            <div class="box box-success">
-                <div class="box-header" style="cursor: move; height: 50px">
-                    <i class="fa fa-tasks"></i>
-                    <h3 class="box-title">任务：{0}</h3>
-                    <div class="pull-right box-tools">
-                        <div class="btn-group" data-toggle="btn-toggle">
-                            <button type="button" class="btn btn-default {2}" onclick="start_mission('{4}')">
-                                <i class="fa fa-play text-green"></i>
+    <div class="row">
+        <div class="col-md-8">
+            <div id="mission_list" style="margin-left: 20px">
+                <div class="box box-success">
+                    <div class="box-header" style="cursor: move; height: 50px">
+                        <i class="fa fa-tasks"></i>
+                        <h3 class="box-title">任务：{0}</h3>
+                        <div class="pull-right box-tools">
+                            <div class="btn-group" data-toggle="btn-toggle">
+                                <button type="button" class="btn btn-default {2}" onclick="start_mission('{4}')">
+                                    <i class="fa fa-play text-green"></i>
+                                </button>
+                                <button type="button" class="btn btn-default {3}" onclick="stop_mission('{4}')">
+                                    <i class="fa fa-square text-red"></i>
+                                </button>
+                            </div>
+                            <div class="btn-group">
+                                <!--TABLE_CHI = ['新闻数据', '店铺数据', '店铺评论数据', '商品数据', '商品评论数据'];-->
+                                <!--TABLE_ARR = ['Article', 'ECommerceShop', 'ECommerceShopComment', 'ECommerceGood', 'ECommerceGoodComment'];-->
+                                <button type="button" class="btn btn-default dropdown-toggle"
+                                        data-toggle="dropdown" aria-expanded="true">
+                                    <i class="fa fa-bars"></i></button>
+                                <ul class="dropdown-menu pull-right" role="menu">
+                                    <li><a href="#" onclick="show_table_model('Article', '{0}')">新闻数据展示</a></li>
+                                    <li class="divider"></li>
+                                    <li><a href="#" onclick="show_table_model('ECommerceShop', '{0}')">店铺数据展示</a></li>
+                                    <li><a href="#"
+                                           onclick="show_table_model('ECommerceShopComment', '{0}')">店铺评论数据展示</a></li>
+                                    <li><a href="#" onclick="show_table_model('ECommerceGood', '{0}')">商品数据展示</a></li>
+                                    <li><a href="#"
+                                           onclick="show_table_model('ECommerceGoodComment', '{0}')">商品评论数据展示</a></li>
+                                </ul>
+                            </div>
+                            <button type="button" class="btn btn-default" data-widget="collapse"><i
+                                    class="fa fa-minus"></i>
                             </button>
-                            <button type="button" class="btn btn-default {3}" onclick="stop_mission('{4}')">
-                                <i class="fa fa-square text-red"></i>
+                            <button type="button" class="btn btn-default"
+                                    onclick="delete_mission('{0}')"><i class="fa fa-times"></i>
                             </button>
                         </div>
-                        <button type="button" class="btn btn-default" data-widget="collapse"><i
-                                class="fa fa-minus"></i>
-                        </button>
                     </div>
-                </div>
-                <div class="box-body">
-                    <div class="row">
-                        <div class="col-md-5">
-                            <ul class="list-group">
-                                {5}
-                            </ul>
-                        </div>
-                        <div class="col-md-7">
-                            。。。。。
-                        </div>
-                        <div class="col-md-2">
-                            <button type="button" class="btn btn-default">编辑</button>
-                            <button type="button" class="btn btn-default">删除</button>
+                    <div class="box-body">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <p><strong>爬虫起止时间：</strong>{6} &nbsp;&nbsp; ~ &nbsp;&nbsp;{7}</p>
+                            </div>
+                            <div class="col-md-12">
+                                <ul class="list-group">
+                                    {5}
+                                </ul>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
+        </div>
+        <div class="col-md-4">
+            <div style="margin-right: 20px">
+                <div class="box box-success">
+                    <div class="box-header" style="cursor: move; height: 50px">
+                        <i class="fa  fa-gg"></i>
+                        <h3 class="box-title">工作中的子任务</h3>
+                    </div>
+                    <div class="box-body">
+                        <table class="table table-border table-bg table-bordered" id="myrTable">
+                            <thead id="rtab_head">
+
+                            </thead>
+                            <tbody id="rtab_dat">
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
         </div>
     </div>
 </div>
@@ -221,21 +260,6 @@
     </div>
 </div>
 
-<div class="modal" id="myModal5"
-     tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-    <div class="modal-dialog" style="width: 800px">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">×</span></button>
-                <h4 class="modal-title">爬虫结果数据展示</h4>
-            </div>
-            <div class="modal-body">
-                <h1>此处是图</h1>
-            </div>
-        </div>
-    </div>
-</div>
 
 <link rel="stylesheet" type="text/css" href="plugins/datatables/jquery.dataTables.min.css"/>
 <script type="text/javascript" src="plugins/datatables/jquery.dataTables.min.js"></script>
@@ -277,11 +301,14 @@
 <script>
     function show_chart_model(name, sub) {
         console.log("显示图...", name, sub);
-        $("#myModal5").modal("toggle");
+        window.open("/monitor?spider_name=" + sub);
     }
 </script>
 
 <script>
+    function timestamp2str(val) {
+        return new Date(val * 1000).toLocaleString();
+    }
     function render_html_list(dat) {
         var id_type = "#mission_list";
         var html = _misson_mgr_html_cache;
@@ -297,19 +324,15 @@
                 btn_html += sub_btn_html.format(sub_name, cur.name, sub_name);
             }
 
-//            var tables_btn_html = ""; // 显示图表的按钮组html
-//            for (var j = 0; j < TABLE_ARR.length; ++j) {
-//                var tab_html = '<div class="col-md-12"><button type="button" class="btn  btn-block btn-flat" onclick="show_table_model(\'{1}\', \'{2}\')">{0}</button></div>';
-//                tables_btn_html += tab_html.format(TABLE_CHI[j], TABLE_ARR[j], cur.name);
-//            }
-
             var ins = html.format(
                 cur["name"],
                 JSON.stringify(cur),
                 detail["state"] === "START" ? "active" : "",
                 detail["state"] === "STOP" ? "active" : "",
                 i,
-                btn_html
+                btn_html,
+                timestamp2str(detail["start_time"]),
+                timestamp2str(detail["end_time"])
             );
             $(id_type).append(ins);
         }
@@ -343,6 +366,48 @@
             _main_dat_list_cache[index]["detail"]["state"] = "STOP";
             render_html_list(_main_dat_list_cache);
         });
+    }
+</script>
+
+<script>
+    function init_right_list() {
+        $('#rtab_head').empty();
+        $('#rtab_dat').empty();
+        var GET_URL = POST_URL_PREFIX + "/get_top_submissions";
+        console.log(GET_URL);
+        $.get(GET_URL).success(function (dat) {
+            console.log(dat);
+            for (var i = 0; i < dat.length; ++i) {
+                var str = '<tr>';
+                for (var j = 0; j < dat[i].length; ++j) {
+                    str += '<th>' + dat[i][j] + '</th>';
+                }
+                str += '</tr>';
+                if (i === 0) {
+                    $('#rtab_head').append(str);
+                } else {
+                    $('#rtab_dat').append(str);
+                }
+            }
+//            $(document).ready(function () {
+//                $('#myrTable').DataTable();
+//            });
+        });
+    }
+    init_right_list();
+</script>
+
+<script>
+    function delete_mission(name) {
+        if (confirm("注意：真的删除任务: " + name + "?")) {
+            var GET_URL = POST_URL_PREFIX + "/delete_mission?name=" + name;
+            console.log(GET_URL);
+            $.getJSON(GET_URL).success(function (dat) {
+                console.log(dat);
+                alert("操作成功！");
+                reload_content();
+            });
+        }
     }
 </script>
 

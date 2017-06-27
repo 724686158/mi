@@ -28,7 +28,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <link rel="stylesheet" href="plugins/datepicker/bootstrap-datetimepicker.min.css"/>
 
 
-
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -37,6 +36,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <![endif]-->
 
     <link rel="stylesheet" href="plugins/iCheck/square/green.css">
+
+    <link type="image/x-icon" rel="shortcut icon" href="dist/img/1498442770678662.png"/>
 </head>
 <!--
 BODY TAG OPTIONS:
@@ -146,7 +147,8 @@ desired effect
                     </span></a>
                 </li>
 
-                <li><a href="#" onclick="load_content('instant_spider.html')"><i class="fa  fa-mouse-pointer"></i> <span>
+                <li><a href="#" onclick="load_content('instant_spider.html')"><i class="fa  fa-mouse-pointer"></i>
+                    <span>
                     即时爬取
                     </span></a>
                 </li>
@@ -216,16 +218,24 @@ desired effect
     <aside class="control-sidebar control-sidebar-light">
         <!-- Create the tabs -->
         <ul class="nav nav-tabs nav-justified control-sidebar-tabs">
-            <li class="active"><a href="#control-sidebar-home-tab" data-toggle="tab"><i class="fa fa-home"></i></a></li>
-            <li><a href="#control-sidebar-settings-tab" data-toggle="tab"><i class="fa fa-gears"></i></a></li>
+            <li class="active"><a href="#control-sidebar-home-tab" data-toggle="tab"><i class="fa fa-book"></i>&nbsp;用户手册</a></li>
+            <li><a href="#control-sidebar-settings-tab" data-toggle="tab"><i class="fa fa-weixin"></i>&nbsp;关于</a></li>
         </ul>
         <!-- Tab panes -->
         <div class="tab-content">
             <!-- Home tab content -->
             <div class="tab-pane active" id="control-sidebar-home-tab">
-                <h2 class="control-sidebar-heading">用户手册</h2>
+                <div style="margin-top: 20px"></div>
                 <div>
-                    ......
+                    <a type="button" class="btn btn-default"
+                       href="http://www.mengzicheng.cn/wordpress/?p=1178" target="_blank">
+                        Mi-Manager 文档 &nbsp;<i class="fa fa-external-link"></i>
+                    </a>
+                    <div style="margin-top: 10px"></div>
+                    <a type="button" class="btn btn-default"
+                       href="http://www.mengzicheng.cn/wordpress/?p=1205" target="_blank">
+                        关于白名单的独立文档 &nbsp;<i class="fa fa-external-link"></i>
+                    </a>
                 </div>
 
             </div>
@@ -236,11 +246,22 @@ desired effect
             <!-- Settings tab content -->
             <div class="tab-pane" id="control-sidebar-settings-tab">
                 <form method="post">
-                    <h2 class="control-sidebar-heading">关于开发者</h2>
+                    <div style="margin-top: 20px"></div>
                     <div>
-                        孟子成<br/>
-                        史浩<br/>
-                        张正锟<br/>
+                        <a type="button" class="btn btn-default"
+                           href="http://www.mengzicheng.cn" target="_blank">
+                            孟子成 &nbsp;<i class="fa fa-external-link"></i>
+                        </a>
+                        <div style="margin-top: 10px"></div>
+                        <a type="button" class="btn btn-default"
+                           href="http://2278543193.qzone.qq.com" target="_blank">
+                            史浩 &nbsp;<i class="fa fa-external-link"></i>
+                        </a>
+                        <div style="margin-top: 10px"></div>
+                        <a type="button" class="btn btn-default"
+                           href="http://www.zzkun.com" target="_blank">
+                            张正锟 &nbsp;<i class="fa fa-external-link"></i>
+                        </a>
                     </div>
                 </form>
             </div>

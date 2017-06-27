@@ -27,3 +27,986 @@
 [2017年中国软件杯“分布式爬虫系统”开发记录（六）](http://www.mengzicheng.cn/wordpress/?p=941)
 
 [2017年中国软件杯“分布式爬虫系统”开发记录（七）](http://www.mengzicheng.cn/wordpress/?p=1071)
+
+
+#Mi项目文档
+
+## 整体描述
+
+项目mi（迷）是一个分布式爬虫系统。
+
+我们在开发过程中，紧跟赛题的思路与要求。在多个层次上实现了赛题对分布式的要求。解决传统爬虫的痛点。
+
+在技术层面，我们开发了独立完整的管理系统（mi\_manager），具有资源管理、任务调度、爬虫监控、数据展示等功能。爬虫工作的实际承载者（mi）是python2.7编写的爬虫程序，它支持链接发现、支持url去重、支持代理，自动变速、自动设置cookie、自动添加agent信息，可配置、可监控、可并发。在框架的支撑下、他可以做到最小化的资源占有、高效的并发性能、灵活的调度、原生的分布式。
+
+在此之上，我们还在算法层面做了一些工作、以提高项目在分布式调度与数据挖掘方面的潜力：
+
+* 借助bloom filter算法，减小redis数据库中去重队列的内存占用。
+* 智能鉴别新闻网页
+* 智能提取+人工辅助，提高获取新闻标题与正文的准确性。（总体准确性在90%以上，并且可以引导用户充实人工辅助，进一步提高准确性）
+* 基于支持向量机的新闻分类。
+
+## 架构实现
+
+### 底层：分布式框架（zookeeper+mesos+marathon）
+* 安装zoomkeeper
+
+1. 下载&&解压
+  ```
+  cd /opt/
+  wget http://mirror.bit.edu.cn/apache/zookeeper/zookeeper-3.3.6/zookeeper-3.3.6.tar.gz
+  tar -zxvf zookeeper-3.3.6.tar.gz
+  ```
+2. 修改配置文件
+  ```
+  cd /opt/zookeeper-3.3.6/conf
+  cp zoo_sample.cfg zoo.cfg
+  vim zoo.cfg
+  ```
+3. 设置环境变量
+  ```
+  <span class="hljs-comment"># The number of milliseconds of each tick</span>
+  <span class="hljs-setting">tickTime=<span class="hljs-value"><span class="hljs-number">2000</span></span></span>
+  <span class="hljs-comment"># The number of ticks that the initial</span>
+  <span class="hljs-comment"># synchronization phase can take  </span>
+  <span class="hljs-setting">initLimit=<span class="hljs-value"><span class="hljs-number">10</span></span></span>
+  <span class="hljs-comment"># The number of ticks that can pass between</span>
+  <span class="hljs-comment"># sending a request and getting an acknowledgement  </span>
+  <span class="hljs-setting">syncLimit=<span class="hljs-value"><span class="hljs-number">5</span></span></span>
+  <span class="hljs-comment"># the directory where the snapshot is stored.  </span>
+  <span class="hljs-setting">dataDir=<span class="hljs-value">/usr/zookeeper</span></span>
+  <span class="hljs-setting">dataLogDir=<span class="hljs-value">/usr/zookeeper/log</span></span>
+  <span class="hljs-comment"># the port at which the clients will connect  </span>
+  <span class="hljs-setting">clientPort=<span class="hljs-value"><span class="hljs-number">2181</span></span></span>
+  ```
+4. 启动
+  ```
+  export ZOOKEEPER_INSTALL=/opt/zookeeper-3.3.6
+  export PATH=$PATH:$ZOOKEEPER_INSTALL/bin
+  ```
+
+原理
+
+作用
+
+实现
+
+使用帮助
+
+### 中层：承载项目的运行环境（docker）
+
+原理
+####redis数据库
+
+
+作用
+
+实现
+
+使用帮助
+
+### 上层：独立的管理模块（mi\_manager）与工作模块（mi）
+
+### mi\_manager：
+
+
+架构：进行系统管理的monitor模块与进行任务调度与分布式框架管理的deamon模块同步执行。
+
+monitor模块，是一个前端用AdminLTE，后端用Flask实现的web端服务。
+####mi_manager 使用帮助
+
+#####简单描述
+
+mi_manager是一个后端基于Flask框架，前端使用AdminLET模板的Web应用程序。它是分布式爬虫系统mi(‘迷’)的组成部分。它提供了对于系统管理的一整套服务。
+
+#####主要功能
+
+* 任务管理
+* 即时爬取
+* 精准爬虫管理
+* 设置管理
+* 资源管理
+
+#####模块划分
+
+mi_manager整体模块图：
+
+
+使用详解
+
+1.资源管理
+
+
+
+此功能用于管理redis数据库、mysql数据库、mongo数据库等资源。这些资源在设置任务时会用到。资源与作用的对应情况为：
+
+redis数据库（request的缓存与去重）
+
+mysql数据库——电商数据的存储，如果没有电商的爬取任务则不会用到
+
+mongo数据库——新闻数据的存储，如果没有新闻的爬取任务则不会用到
+
+核心redis数据库。不属于可管理的资源，每个任务都与mi_manager共用相同的核心redis数据库，从数据库中获取关键信息用于配置任务，并在工作时将监控回传给核心redis数据库。
+
+
+
+添加新资源：
+
+
+
+
+输入资源的信息（redis数据库和mongo数据库可以设用户密码也可以不设，mysql数据库通常需要设置用户密码方可正常使用），输入后点击确认添加：
+
+ 
+
+
+
+可以看到Redis资源管理中添加了新资源
+
+
+
+每条信息最右侧的两个图标分别对应删除和修改操作。（修改的界面与创建界面相似、删除后只会删除系统中对数据库资源的记录，并不会对实际部署的数据库服务造成影响）
+
+
+
+2.设置管理
+
+设置管理包括 管理settings设置 和 代理IP设置 两个部分：
+
+ 
+
+默认settings设置
+
+在创建任务时，会对子任务进行settings的设置。
+
+所谓‘settings’是指爬虫任务的实际承载者（mi）的设置，这些设置会影响mi的工作策略，比如是否遵守rebots协议，是否自动限速以照顾目标网站的承载能力。
+
+系统在最初会自动添加以上两个默认设置，这两者可以自动匹配子任务的类型，所以请勿删除。
+
+ 
+
+用户可以点击添加按钮开创建符合自己需要的设置：
+
+
+
+
+
+对已有设置的操作包括修改和删除：
+
+
+
+代理IP设置
+
+用户可以管理记录在系统内的HTTP代理信息，爬虫任务在设置中如果选择了“开启HTTP代理”就会利用这些HTTP代理来进行爬取活动。
+
+此部分有两个功能， 清空代理列表和批量导入代理IP：
+
+
+
+在批量添加时，不需要保证每个代理均可用，因为mi在工作时可以自动更换代理并
+重试失败requset。但过多的失效代理会影响mi的工作效率。实际上，对于大部分的任务，都没有启用代理的必要。盲目使用不安全的代理，会给整个系统带来风险。
+
+系统并未集成在互联网上搜集HTTP代理的功能，您可以使用自行购买的商业代理，或者使用组织或个人维护的HTTP代理资源。或者您可以访问http://www.mengzicheng.cn/wordpress/?p=1171 来获取一些HTTP代理。
+
+
+
+3.精准爬虫列表
+
+包含新闻类和电商类两类精准爬虫：
+
+
+
+新闻类：
+
+
+
+ 
+
+此功能是mi智能爬取的核心功能。它包含了我们团队花了大量时间收集整理并验证的关键数据，这些数据可以用于开启对大量（现有162个）新闻类网站的针对性爬取，我们称之为新闻白名单，他们可以实现接近与100%的爬取正确率，并有极快的处理速度，他们是新闻数据爬取正确率的基石。
+
+在系统开始运行时自动导入162个新闻爬虫数据，可与覆盖各大新闻门户，主要政府网站，基本可以满足用户的需要，对于不在这个列表中的新闻站点，系统还有另外一套模糊爬取的模板，其同样具有较高的正确率，只是速度较慢。
+
+用户可以自行添加新闻爬虫，添加方法请参考：http://www.mengzicheng.cn/wordpress/?p=1205
+
+电商类：
+
+
+
+由于各大电商网站的页面逻辑差距很大，所以我们选择了6个主要的电商网站，编写了针对性的爬虫。这些爬虫在过程，逻辑，增量方式上各有不同。此页面暂时只用于展示，没有添加新爬虫的功能。
+
+用户在使用时只需要将入口url和其他新闻类的入口url混在一起，在创建任务时，系统会自动匹配出需要创建的电商爬虫子任务，并采用与新闻类不同的默认设置。
+
+即时爬取
+
+提供简单的新闻数据爬取功能，用与辅助用户进行检验和设置调整。
+
+
+
+此页面之包含一个URL的输入框，输入数行URL后点击做下方提交任务。
+
+
+
+稍等之后，新闻数据的表格会展示在模态窗口中。新闻数据的个数与URL的个数相等。消耗时间也会随URL个数的增加而增加。
+
+
+
+这些获取的数据，并不会入库保存。只用做测试功能，如有需要请开启实际任务对这些URL做增量爬取。
+作者 admin
+发布于 2017年6月27日
+分类 未分类
+
+daemon：借助mosos和marathon提供的数据接接口，从核心redis数据库中获取用户发布的任务信息，对任务进行调度，自动部署和管理工作模块（包含mi的docker容器）
+
+实现：
+
+数据接口：
+
+API：
+
+配置方法：
+
+数据库支持：
+
+docker镜像获取：
+
+### mi：
+
+基于scrapy-redis。
+####scrapy架构
+* Scrapy是用纯Python实现一个为了爬取网站数据、提取结构性数据而编写的应用框架，用途非常广泛。
+
+* Scrapy 使用了 Twisted['twɪstɪd](其主要对手是Tornado)异步网络框架来处理网络通讯，可以加快我们的下载速度，不用自己去实现异步框架，并且包含了各种中间件接口，可以灵活的完成各种需求。
+
+![scrapy框架架构](/Users/omtbreak/Downloads/1015718-20170306002755735-329816673.png)
+
+* Scrapy Engine(引擎): 负责Spider、ItemPipeline、Downloader、Scheduler中间的通讯，信号、数据传递等。
+
+* Scheduler(调度器): 它负责接受引擎发送过来的Request请求，并按照一定的方式进行整理排列，入队，当引擎需要时，交还给引擎。
+
+* Downloader（下载器）：负责下载Scrapy Engine(引擎)发送的所有Requests请求，并将其获取到的Responses交还给Scrapy Engine(引擎)，由引擎交给Spider来处理，
+
+* Spider（爬虫）：它负责处理所有Responses,从中分析提取数据，获取Item字段需要的数据，并将需要跟进的URL提交给引擎，再次进入Scheduler(调度器)，
+
+* Item Pipeline(管道)：它负责处理Spider中获取到的Item，并进行进行后期处理（详细分析、过滤、存储等）的地方.
+
+* Downloader Middlewares（下载中间件）：你可以当作是一个可以自定义扩展下载功能的组件。
+
+* Spider Middlewares（Spider中间件）：你可以理解为是一个可以自定扩展和操作引擎和Spider中间通信的功能组件（比如进入Spider的Responses;和从Spider出去的Requests）
+
+
+
+####scrapy-redis架构
+scrapy任务调度是基于文件系统，这样只能在单机执行crawl。
+
+scrapy-redis将待抓取request请求信息和数据items信息的存取放到redis queue里，使多台服务器可以同时执行crawl和items process，大大提升了数据爬取和处理的效率。
+
+scrapy-redis是基于redis的scrapy组件，主要功能如下：
+
+* 分布式爬虫
+
+多个爬虫实例分享一个redis request队列，非常适合大范围多域名的爬虫集群
+
+* 分布式后处理
+
+爬虫抓取到的items push到一个redis items队列,这就意味着可以开启多个items processes来处理抓取到的数据，比如存储到Mongodb、Mysql
+
+* 基于scrapy即插即用组件
+
+Scheduler + Duplication Filter, Item Pipeline, Base Spiders.
+
+如上图所示，scrapy-redis在scrapy的架构上增加了redis，基于redis的特性拓展了如下组件：
+![scrapy-redis架构](/Users/omtbreak/Downloads/07-scrapy_redis_structure.jpg)
+* 调度器(Scheduler)
+
+scrapy-redis调度器通过redis的set不重复的特性，巧妙的实现了Duplication Filter去重（DupeFilter set存放爬取过的request）。
+Spider新生成的request，将request的指纹到redis的DupeFilter set检查是否重复，并将不重复的request push写入redis的request队列。
+调度器每次从redis的request队列里根据优先级pop出一个request, 将此request发给spider处理。
+* Item Pipeline
+
+将Spider爬取到的Item给scrapy-redis的Item Pipeline，将爬取到的Item存入redis的items队列。可以很方便的从items队列中提取item，从而实现items processes 集群
+
+####Settings配置文件
+对于Settings配置文件，我们分为3类，分别是：
+* 用户可自行配置--对于不同用户的使用条件与使用需求可以自行对爬虫进行配置
+* 根据资源分配进行设置--需要用户自行对自己使用的数据库信息进行配置
+* 向用户隐藏的设置--这些配置信息是为了保证爬虫可以正常运行所必要的配置文件，用户若进行更改可能会引起爬虫出现异常或错误
+
+
+下面对配置信息进行详细介绍：
+
+*  用户可自行配置
+
+1. 任务名，Scrapy项目实现的bot的名字(也未项目名称)。 这将用来构造默认 User-Agent，同时也用来log。当您使用 startproject 命令创建项目时其也被自动赋值。
+BOT_NAME 
+
+2. 用户是否选择遵守网站的robots协议，如果选择遵守robots协议，将ROBOTSTXT_OBEY设置为True，这一举动可能会造成爬虫出现异常或错误，如果选择不遵守robots协议，将ROBOTSTXT_OBEY设置为False。
+ROBOTSTXT_OBEY 
+
+3. 是否启用COOKIES，是否启用cookies middleware。如果关闭，cookies将不会发送给web server。，如果启用了COOKIES，将COOKIES_ENABLED 设置为True，则在生成request请求时会自动添加COOKIE信息，如果不启动COOKIES，则将COOKIES_ENABLED设置为False
+COOKIES_ENABLED
+
+4. 是否启用HTTP代理(取值为 None 或 400 )
+HTTP_PROXY_ENABLED
+
+5. 是否启用重试，即如果发生服务器在默认的TIMEOUT时间内没有对爬虫的请求进行处理，爬虫是否重新发送这一请求。我们默认这其为False，因为对失败的HTTP请求进行重试会减慢爬取的效率，尤其是当站点响应很慢(甚至失败)时，访问这样的站点会造成超时并重试多次。这是不必要的，同时也占用了爬虫爬取其他站点的能力。
+RETRY_ENABLED 
+
+6. 是否启用自动限速（启用会牺牲一定的爬取速度，但会照顾到目标网站的负载能力）
+AUTOTHROTTLE_ENABLED 
+
+7. 初始下载延迟(单位:秒)
+AUTOTHROTTLE_START_DELAY 
+
+8. 最大下载延迟(单位:秒)
+AUTOTHROTTLE_MAX_DELAY 
+
+9. 此类容器负责的具体子任务
+SUB_MISSION 
+
+10. 间隔时间下限（任何情况下不会小于此值）下载器在下载同一个网站下一个页面前需要等待的时间。该选项可以用来限制爬取速度， 减轻服务器压。该设定影响(默认启用的) RANDOMIZE_DOWNLOAD_DELAY 设定。 默认情况下，Scrapy在两个请求间不等待一个固定的值， 而是使用0.5到1.5之间的一个随机值 * DOWNLOAD_DELAY 的结果作为等待间隔。在Scrapy文档中，对此默认为0，是为了最大提高爬虫效率。
+当 CONCURRENT_REQUESTS_PER_IP 非0时，延迟针对的是每个ip而不是网站。
+DOWNLOAD_DELAY 
+
+11. 对单个域名并发量的上限（任何情况下不会高于此值），对单个网站进行并发请求的最大值。
+CONCURRENT_REQUESTS_PER_DOMAIN 
+
+12. 超时时限，下载器超时时间，单位是秒
+DOWNLOAD_TIMEOUT
+
+
+
+
+
+* 根据资源分配进行设置
+1. redis —— url存储,redis数据库的地址，包括host与port
+REDIS_HOST 
+REDIS_PORT 
+2. redis —— 去重队列，存储request去重队列的redis数据库，包括host和port
+FILTER_HOST
+FILTER_PORT 
+3. mysql数据库的配置信息
+MYSQL_HOST
+MYSQL_PORT 
+MYSQL_DBNAME = 'testmissions12'   
+MYSQL_USER 
+MYSQL_PASSWD 
+4. mongodb数据库的配置信息
+MONGO_HOST 
+MONGO_PORT
+MONGO_DATABASE 
+
+
+* 向用户隐藏的设置，配置信息建议不要更改
+
+1. 项目各个子模块的名字
+SPIDER_MODULES = ['mi.spiders_of_eCommerce', 'mi.spiders_of_news_in_whiteList', 'mi.spiders_of_news_need_fuzzymatching']
+
+2. 爬虫在每一个网站的爬取深度，我们推荐设置为20，是为了避免那些动态生成链接的网站造成的死循环,暂时没遇到这种网站,先禁用了
+DEPTH_LIMIT = 20
+
+3. 是否显示COOKIES_DEBUG，如果启用，Scrapy将记录所有在request(Cookie 请求头)发送的cookies及response接收到的cookies(Set-Cookie 接收头)
+COOKIES_DEBUG = False
+
+4. 用于存储调度队列 ———— 的redis数据据库编号（0～15）
+FILTER_DB = 0
+
+5. 用于存储记号变量 ———— 的redis数据据库编号（0～15）
+SYMBOL_DB = 1
+
+6. 用于存储task(带处理, 已处理) ———— 的redis数据据库编号（0～15）
+TASK_DB = 2
+
+7. 用于进行task调度的有序集合 ———— 的redis数据据库编号（0～15）
+DISPATCH_DB = 3
+
+8. 用于存储主任务 ———— 的redis数据据库编号（0～15）
+MISSION_DB = 4
+
+9. 用于存储子任务 ———— 的redis数据据库编号（0～15）
+SUBMISSION_DB = 5
+
+10. 用于存储爬虫配置信息 ———— 的redis数据据库编号（0～15）
+SETTINGS_DB = 6
+
+11. 用于存储資源(REDIS服务器)的信息 ———— 的redis数据据库编号（0～15）
+RESOURCES_REDIS_DB = 7
+
+12. 用于存储資源(MYSQL服务器)的信息 ———— 的redis数据据库编号（0～15）
+RESOURCES_MYSQL_DB = 8
+
+13. 用于存储資源(MONGO服务器)的信息 ———— 的redis数据据库编号（0～15）
+RESOURCES_MONGO_DB = 9
+
+14. 用于存储代理ip ———— 的redis数据据库编号（0～15）
+PROXY_DB = 10
+
+15. 用于暂存爬虫运行时数据 ———— 的redis数据据库编号（0～15）
+RUNNINGDATA_DB = 11
+
+16. 用于存储Cookie数据 ———— 的redis数据据库编号（0～15）
+COOKIES_DB = 12
+
+17. 用于存储新闻类爬虫配置参数 ———— 的redis数据据库编号（0～15）
+SPIDERS_DB = 13
+
+18. 用于分类爬虫(共三个类别： Whitelist, Fuzzy, Ecommerce) ———— 的redis数据据库编号（0～15）
+CLASSIFIER_DB = 14
+
+19. 用于存储Monitor数据 ———— 的redis数据据库编号（0～15）
+MONITOR_DB = 15
+
+20. 存储爬虫运行数据的四个队列,需要与monitor.monitor_settings中的一致
+STATS_KEYS = ["downloader/request_count", "downloader/response_count", "downloader/response_status_count/200", "item_scraped_count"]
+
+21. 日志设置,禁用“LOG_STDOUT=True”，如果为True，进程所有的标准输出(及错误)将会被重定向到log中。例如， 执行 print 'hello' ，其将会在Scrapy log中显示。
+LOG_FILE='mi.log'
+LOG_LEVEL='INFO'
+
+22. 是否显示AUTOTHROTTLE_DEBUG
+AUTOTHROTTLE_DEBUG
+
+23. pipelines 从300累加,从Spider中抛出的Item首先会被MonogPipeline处理，然后被MysqlPipeline处理
+ITEM_PIPELINES = {
+    'mi.pipelines.pipeline_mongo.MongoPipeline':300,
+    'mi.pipelines.pipeline_mysql.MysqlPipeline':301,
+}
+
+24. 下载中间件，其中包括与代理有关的RandomProxyMiddleware，与UserAgent有关的RotateUserAgentMiddleware，与可视化有关的StatcollectorMiddleware，与COOKIE有关的CookieMiddleware，CookieMiddleware中间件将重试可能由于临时的问题，例如连接超时或者HTTP 500错误导致失败的页面。尝试加上cookie重新访问
+DOWNLOADER_MIDDLEWARES = {
+    'mi.middlewares.middleware_proxy.RandomProxyMiddleware':HTTP_PROXY_ENABLED,
+    'mi.middlewares.middleware_rotateUserAgent.RotateUserAgentMiddleware': 401,
+    'mi.middlewares.middleware_monitor.StatcollectorMiddleware': 402,
+    'mi.middlewares.middleware_cookie.CookieMiddleware': 700,
+}
+
+25. 请求连接失败重试次数
+RETRY_TIMES = 6
+
+26. proxy失败重试次数
+PROXY_USED_TIMES = 2
+
+27， 重试返回码
+RETRY_HTTP_CODES = [500, 503, 504, 599, 403]
+
+28. 选择scrapy_redis框架中的调度器
+SCHEDULER = 'mi.scrapy_redis.scheduler.Scheduler'
+
+29. 允许调度器持久化，即允许将redis中的所有操作均进行持久化，以实现暂停重启爬虫的工作，从上一次暂停或者崩溃的处继续进行，但带来的缺点时是会占用较大部分的硬盘空间。
+SCHEDULER_PERSIST = True
+
+30. 请求调度使用优先队列（默认)
+SCHEDULER_QUEUE_CLASS = 'mi.scrapy_redis.queue.SpiderPriorityQueue'
+
+31. 这是对下载处理器进行设置，不使用其中的s3处理器，若使用s3处理器则有可能出现异常
+DOWNLOAD_HANDLERS = {'s3': None,}
+
+####爬虫工作原理
+  
+新闻博客类和电商类的网站构造以及网页之间的关系差别较大，因此制定的爬虫策略是截然不同的，相比较而言，电商类因为涉及到大量的Ajax技术，需要处理更多的动态问题，复杂性更高
+
+
+#####新闻博客类爬虫逻辑
+
+对新闻博客类网站，我们选择全站爬取。这类网站的各个界面之间的关系是比较简单明了的，而且我们只抓取正文页，因此，只需在URl增量的过程中找到符合每个新闻网站中的正文页url格式的网页，然后交给下载中间件下载，再进一步对标题与正文解析即可。
+
+* 以财经网的爬虫为例
+  1. 首先配置爬虫的基本信息；爬虫的名字，限定访问域以及此爬虫在redis数据库中的键名
+
+  ```
+    name = 'caijing'
+    redis_key = settings.caijing_start_urls
+    allowed_domains = ['caijing.com.cn']
+  ```
+  2. 接下来设置财经网（新闻博客类网站）正文页的URL增量与找到符合要求的正文页后要传递的回调函数。
+     我们使用Scrapy中Rule规则来实现目的。在rules中编写符合我们要求的Rule，每一个Rule有一个LinkExtractor函数参数，在此函数中用正则表达式作为我们从已下载的网页中提取正文URL的方法。提取到的URL在Scrapy框架中交由Scrapy Engine，由Scrapy Engine 传递给Scheduler（调度器），调度器选择适合的时候交给下载中间件下载网页，即我们想要的正文页面。在Rule的第二个参数中设置回调函数，回调函数进一步解析已下载的正文页面。
+     要说明的一点是，我们实现URL增量是在一个基础之上的，即默认正文页上总是能提取出除此正文页外的正文页。当这个环上的所有点都被搜索完后，就实现了对此新闻博客类网站的全站爬取。事实上这是很难实现的，因为每天都会有新的内容加入到这个网站中来。
+
+  ```
+   rules = [
+        Rule(LinkExtractor(allow=('caijing.com.cn/\d{8}/\d*')),callback='processArticle',follow=True)
+    ]
+  ```
+      
+  3. 下面是对正文页进行标题与正文的提取。我们使用XPath表达式完成提取。XPath是用于选择XML文档中的节点的语言，其也可以与HTML一起使用。XPpath是Scrapy内建的选择器，Scrapy选择器构建在lxml库之上，这意味着它们的速度和解析精度非常相似。我们选择XPath而不是流行的BeautifulSoup或者使用正则表达式有以下几点原因：
+      1. XPath是Scrapy内建的选择器，它与Scrapy有天然的默契，更为简便且不需要考虑出了语法本身外别的任何问题。
+      2. XPath的提取效率更高，提取速度比BeautifulSoup更快。
+      3. XPath是基于XML的文档层次结构的，而正则表达式是基于文本特征的，显然XPath对网页内容的提取更为友好，只要我们找到提取内容的位置，XPath要比正则表达式方便的多。
+  ```
+  title = response.xpath("/html/body/div[@class='center']/div[@class='content']/div[@class='main']/div[@class='main_lt article_lt']/div[@id='article']/h2[@id='cont_title']/text()").extract()[0]
+            content = ''.join(response.xpath('//div[@class="article-content"]//p/text()').extract())
+  ```
+  
+
+
+#####电商类爬虫逻辑
+电商类爬虫的基本步骤与新闻博客类类似，明显的区别在于：
+
+1.  更复杂的网页结构
+2.  动态加载问题
+3.  COOKIE，IP等有关的身份验证
+
+
+而由此带来的困难有：
+
+1. URL增量受到影响，动态网页中可能没有可以提取的有用的URl
+2. 数据抓取不到
+3. 访问频率受限，很容易被BAN
+
+针对以上问题，我们做出如下解决方案：
+
+* 网页结构与数据问题
+
+  在新闻博客类网站中，抓取的数据，标题和正文都在同一个页面中，而电商类，抓取的数据往往需要从不同页面中抓取，还要装在同一个数据类型中进行封装。
+  商品和店铺是电商类网站的最核心部分，也是我们爬虫要爬取的核心部分。我们主要分为对商品页面进行处理和对店铺页面进行处理，使用两个回调函数processGood和processShop对商品和店铺页面分开处理，提取数据，并进行封装。
+  
+* URL增量问题
+在编写部分电商网站的爬虫时发现，各个网站的动态加载深度是不一样的，部分网站是可以完成URL增量的，比如京东：
+    ```
+    rules = {
+        Rule(LinkExtractor(allow=('https://item.jd.com/\d+.html'), deny=()),callback='processGood',follow=True),
+        Rule(LinkExtractor(allow=('https://mall.jd.com/shopLevel-\d+.html'), deny=()) ,callback= 'processShop',follow=True),
+    }
+    ```
+    我们可以做到类似新闻博客类网站的URl增量过程。
+    而对于另外的电商类网站，比如淘宝，天猫，它们的动态加载是非常完善的，我们没有办法从它的商品和店铺界面中进行URL增量。但是在实践中发现，我们可以在它的搜索页面上获取到相关的URl，因此只能牺牲一部分的效率，先对对大量的搜索页面进行增量处理，然后在此过程中获取到商品和店铺的URL。
+    
+* 数据抓取不到
+    对于因动态加载而无法直接获取的数据，一般有两种方法：
+    1. 在本地模型浏览器访问，进行Javascript渲染从而获取到有完整数据的界面，然后在从中进行提取数据的操作。
+    由于本地渲染的方法速度太慢，不适合完成大规模爬取的爬虫，因此我们使用了方法2。
+    2.模拟Javascript动态发请求的操作，对同一动态数据来源的URl进行申请，以获得相应的数据。
+
+
+* 访问频率受限
+    这是因为电商类网站对COOKIE和IP的访问限制导致的，所以只要解决COOKIE和IP的问题即可。
+    我们在Scrapy框架的下载中间件的基础上进行扩展，编写了middleware_rotateUserAgent.py,middleware_cookie.py 和 middlwware_proxy.py ，并在scrapy的关于下载中间件的配置文件中启用并调整每一个对网页的下载请求的经历中间件的顺序，使得每一个下载网页的请求都具有符合要求的UserAgent,COOKIE和Ip，从而是爬虫可以连续不断的进行爬取。
+
+
+####数据库类型支持：mysql，mongodb
+
+#####新闻博客类数据结构化与存储
+因为电商网站和新闻博客类网站抓取数据的不同，我们根据其特点设计不同的结构化数据类型，并使用不同的数据库进行存储
+
+* 新闻博客类 
+
+因为新闻博客类抓去的数据是文章标题和文章正文，因此我们设计了如下的数据类型
+
+  ```
+  class ArticleItem(scrapy.Item):
+    文章标题
+    articleTitle = scrapy.Field()
+    文章url
+    articleUrl = scrapy.Field()
+    文章内容
+    articleContent = scrapy.Field()
+    文章关键词1
+    articleFirstTag = scrapy.Field()
+    文章关键词2
+    articleSecondTag = scrapy.Field()
+    文章关键词3
+    articleThirdTag = scrapy.Field()
+  ```
+这是可以覆盖绝大部分新闻博客类网站数据共性的数据类型
+
+在获得结构化数据后，因为文章的结构化数据较容易存储，且为了存储效率，我们选用了mongodb来存储新闻博客类的结构化数据
+
+mongodb是一个非关系型数据库，与传统的关系型数据库不，以下特性
+  * 弱一致性，更能保证用户的访问速度
+  * 文档结构的存储方式，能够更便捷的获取数据
+  * 内置GridFS，支持大容量的存储
+  * 第三方支持丰富
+  * 对json和bson支持优异
+  * 适合搭建集群
+
+mongodb的这些特性，很适合分布式爬虫搭建集群存储数据的需求
+
+以下我们来讲下较为详细的使用mongodb存储新闻博客类结构化数据的步骤
+* 我们在scrapy的pipeline上进行自定义的扩展，编写了pipeline_mongo.py，在此pipeline中实现存储过程
+
+
+1. 首先初始化mongodb
+     ```
+    def __init__(self, mongo_host, mongo_port, mongo_db):
+          self.mongo_host = mongo_host
+          self.mongo_port = mongo_port
+          self.mongo_db = mongo_db
+     ```
+2. 创建mongodb数据库的连接
+    ```
+     def open_spider(self, spider):
+        self.client = pymongo.MongoClient(self.mongo_host, self.mongo_port)
+        self.db = self.client[self.mongo_db]
+    ```
+3. 将数据存储到mongodb中
+      ```
+      def process_item(self, item, spider):
+        if isinstance(item, ArticleItem):
+            self.hp_collection_name = settings.MONGO_COLLECTION_NAME
+            self.db[self.hp_collection_name + '_' + 'ArticleItem'].insert(dict(item))  # 存入数据库原始数据
+        if isinstance(item, DomTreeItem):
+            self.hp_collection_name = settings.MONGO_COLLECTION_NAME
+            self.db[self.hp_collection_name + '_' + "DomTreeItem"].insert(dict(item))  # 存入数据库原始数据
+        return item
+      ```
+4. 关闭数据库的连接
+      ```
+        def close_spider(self, spider):
+        self.client.close()
+      ```
+至此，新闻博客类的结构化数据存储就完成了，以下我们来讲解电商类数据的结构化和存储
+
+#####电商类数据结构化与存储
+
+与新闻博客类不同，电商类数据之间关系要复杂的多，各个电商之间存在着较大的差异，较为共性的是商品信息，商品名字和商品价格是在抓取电商类数据时最为重要的部分，因此我们在结构化数据时对商品设计了如下的数据类型
+  * 电商商品结构化数据格式
+
+  ```
+  class ECommerceGoodItem(scrapy.Item):
+    # 电商网站Id
+    eCommerceId = scrapy.Field()
+    # 商品id
+    goodId = scrapy.Field()
+    # 店家id
+    shopId = scrapy.Field()
+    # 商品名字
+    goodName=scrapy.Field()
+    # 商品链接
+    goodUrl = scrapy.Field()
+    # 商品价格
+    goodPrice=scrapy.Field()
+  ```
+  
+除此之外的其他电商类数据便不尽相同，比如有的电商网站缺少店铺的详细信息，有的网站没有店铺的评分详细数据，更多的是对同一类数据的表现形式的差异，在抓取过程中难以将其转换为同一类型，因为，为了覆盖尽可能多的电商网站，我们还设计了以下三种结构化数据格式
+分别是
+
+  * 电商商品评论结构化数据格式
+  ```
+  class ECommerceGoodCommentItem(scrapy.Item):
+    # 电商网站Id
+    eCommerceId = scrapy.Field()
+    # 商品的id
+    goodId=scrapy.Field()
+    # 商品评论页的链接
+    goodCommentsUrl=scrapy.Field()
+    # 商品评论数据
+    goodCommentsData=scrapy.Field()
+  ```
+  
+  * 电商店铺结构化数据格式
+  ```
+  class ECommerceShopItem(scrapy.Field):
+    # 电商网站Id
+    eCommerceId = scrapy.Field()
+    # 店家id
+    shopId = scrapy.Field()
+    # 店家名字
+    shopName = scrapy.Field()
+    # 店家链接
+    shopUrl = scrapy.Field()
+    # 店家所在地
+    shopLocation=scrapy.Field()
+    # 店家电话
+    shopPhoneNumber=scrapy.Field()
+   ```
+   电商店铺评论结构化数据格式
+   
+  ```
+    class ECommerceShopCommentItem(scrapy.Field):
+    # 电商网站Id
+    eCommerceId = scrapy.Field()
+    # 店家id
+    shopId = scrapy.Field()
+    # 店家评论页的链接
+    shopCommentsUrl = scrapy.Field()
+    # 店家评论数据
+    shopCommentsData=scrapy.Field()
+  ```
+  
+  我们还为电商网站设计了结构化数据格式
+  ```
+  class ECommerce(scrapy.Field):
+    # 电商网站Id
+    eCommerceId = scrapy.Field()
+    # 电商网站名字
+    eCommerceName = scrapy.Field()
+    # 电商网站home页url
+    eCommerceHomeUrl = scrapy.Field()
+  ```
+  因为电商网站的结构不尽相同，爬虫的抓取逻辑差异也较为明显，造成了数据之间较为复杂的数据关系，我们选择了传统的关系型数据库 Mysql 来存储电商类的结构化数据，使用关系型数据库的较为优异的条件还有：
+    1. 电商类的数据会涉及到很多的较为复杂的查询操作，使用 sql 语句可以很好的完成
+    2. 电商类数据往往会用到事务操作
+    
+  而使用 Mysql 的优点有：
+  
+    1.Mysql 是一个成熟的，稳定的关系型数据库，支持很完善的 sql 语句操作规范
+    2.Mysql 可以处理大数据量的操作
+    3.可移植行高，安装简单小巧
+    4.良好的运行效率
+    5.我们的开发团队对之较为熟悉
+    
+    
+因为使用了Mysql数据库来存储电商类的结构化数据，因此从以上的结构化数据格式中便可以看出为方便存储所做的准备，结构化数据的设计参照了表结构
+
+以下我们来讲解详细的使用Mysql存储电商类结构化数据的过程，同样是在scrapy的pipeline的基础上进行扩展，编写pipeline_mysql.py
+
+1. 初始化数据库
+  ```
+      def __init__(self, dbpool):
+        self.dbpool = dbpool
+  ```
+2. 获取数据库的配置信息完成实例化
+  ```
+  def from_settings(cls, settings):
+        try:
+            dbparams = dict(
+                host=settings['MYSQL_HOST'],
+                user=settings['MYSQL_USER'],
+                passwd=settings['MYSQL_PASSWD'],
+                db=settings['MYSQL_DBNAME'],
+                charset='utf8',
+                cursorclass=pymysql.cursors.DictCursor)
+            dbpool = adbapi.ConnectionPool('pymysql', **dbparams)
+            return cls(dbpool)
+        except:
+            print '获取配置信息出错'
+  ```
+  
+3. 判断获取到的是商品结构化数据类型，商品评论结构化数据类型，店铺结构化数据类型，店铺评论结构化数据类型，电商网站结构化数据类型中的哪一种，选择相对应的方法完成存储操作
+
+  ```
+  def process_item(self, item, spider):
+        if isinstance(item, ECommerceItem):
+            query = self.dbpool.runInteraction(self._conditional_insert_ECommerce, item)  # 调用插入的方法
+            query.addErrback(self._handle_error, item, spider)  # 调用异常处理方法
+
+        if isinstance(item, ECommerceShopItem):
+            query = self.dbpool.runInteraction(self._conditional_insert_ECommerceShop, item)  # 调用插入的方法
+            query.addErrback(self._handle_error, item, spider)  # 调用异常处理方法
+
+        if isinstance(item, ECommerceShopCommentItem):
+            query = self.dbpool.runInteraction(self._conditional_insert_ECommerceShopComment, item)  # 调用插入的方法
+            query.addErrback(self._handle_error, item, spider)  # 调用异常处理方法
+
+        if isinstance(item, ECommerceGoodItem):
+            query = self.dbpool.runInteraction(self._conditional_insert_ECommerceGood, item)  # 调用插入的方法
+            query.addErrback(self._handle_error, item, spider)  # 调用异常处理方法
+
+        if isinstance(item, ECommerceGoodCommentItem):
+            query = self.dbpool.runInteraction(self._conditional_insert_ECommerceGoodComment, item)  # 调用插入的方法
+            query.addErrback(self._handle_error, item, spider)  # 调用异常处理方法
+        return item
+  ```
+4. 各个类型的具体存储操作
+  * 如果是电商网站结构化数据类型，则向ECommerce表插入数据
+    ```
+     def _conditional_insert_ECommerce(self, tx, item):
+        # 这个要根据item里的内容,以及表的结构来写
+        sql = "insert into ECommerce(eCommerceName, eCommerceUrl) values(%s,%s)".encode(
+            encoding='utf-8')
+        params = (item["eCommerceName"], item["eCommerceUrl"])
+        tx.execute(sql, params)
+        try:
+            print "插入电商网站数据成功"
+        except:
+            print "插入电商网站数据失败"
+    ```
+  * 如果是商品结构化数据类型，则向ECommerceGood表插入数据
+    ```
+    def _conditional_insert_ECommerceGood(self, tx, item):
+        # 这个要根据item里的内容,以及表的结构来写
+        sql = "insert into ECommerceGood(eCommerceName, goodId, shopId, goodName, goodUrl, goodPrice) values(%s,%s,%s,%s,%s,%s)".encode(
+            encoding='utf-8')
+        params = (
+            item["eCommerceName"], item["goodId"], item["shopId"], item["goodName"], item["goodUrl"], item["goodPrice"])
+        tx.execute(sql, params)
+        try:
+            print "插入商品数据成功"
+        except:
+            print "插入商品数据失败"
+    ```
+  * 如果是商品评论结构化数据类型，则向ECommerceComment表插入数据
+    ```
+    def _conditional_insert_ECommerceGoodComment(self, tx, item):
+        # 这个要根据item里的内容,以及表的结构来写
+        sql = "insert into ECommerceGoodComment(eCommerceName, goodId, goodCommentsUrl, goodCommentsData) values(%s,%s,%s,%s)".encode(
+            encoding='utf-8')
+        params = (item["eCommerceName"], item["goodId"], item["goodCommentsUrl"], item["goodCommentsData"])
+        tx.execute(sql, params)
+        try:
+            print "插入商品评价数据成功"
+        except:
+            print "插入商品评价数据失败"
+    ```
+  * 如果是店铺结构化数据类型，则向ECommerceShop表插入数据
+    ```
+    def _conditional_insert_ECommerceShop(self, tx, item):
+        # 这个要根据item里的内容,以及表的结构来写
+        sql = "insert into ECommerceShop(eCommerceName, shopId, shopName, shopUrl, shopLocation, shopPhoneNumber) values(%s,%s,%s,%s,%s,%s)".encode(
+            encoding='utf-8')
+        params = (item["eCommerceName"], item["shopId"], item["shopName"], item["shopUrl"], item["shopLocation"],
+                  item["shopPhoneNumber"])
+        tx.execute(sql, params)
+        try:
+            print "插入店家数据成功"
+        except:
+            print "插入店家数据失败"
+    ```
+  
+  * 如果是店铺评论结构化数据类型，则向ECommerceShopComment表插入数据
+    ```
+    def _conditional_insert_ECommerceShopComment(self, tx, item):
+        # 这个要根据item里的内容,以及表的结构来写
+        sql = "insert into ECommerceShopComment(eCommerceName, shopId, shopCommentsUrl, shopCommentsData) values(%s,%s,%s,%s)".encode(
+            encoding='utf-8')
+        params = (item["eCommerceName"], item["shopId"], item["shopCommentsUrl"], item["shopCommentsData"])
+        tx.execute(sql, params)
+        try:
+            print "插入店家评价数据成功"
+        except:
+            print "插入店家评价数据失败"
+    ```
+5. 如果插入数据数据存在错误，则调用异常处理
+    ```
+   def _handle_error(self, failue, item, spider):
+        print failue
+    ```
+  
+  
+
+
+  
+---
+docker镜像获取：
+---
+  
+  
+  
+  
+  
+##算法部分
+###BloomDFilter
+  
+  ##我们使用了BloomFilter算法完成url对去重过滤
+  
+  由于网站的链接之间的关系错综复杂，因此爬虫在爬去的过程中很容易遇到相同的要申请下载的url，很容易因此形成闭合的环，所以我们要对url进行判重操作，只有没有被爬取过的url才会被提交给scrapy的下载中间件进行下载
+
+* 在scrapy框架中，scrapy首先计算一个request的fingerprint，这个fingerprint相当于一个request独有的标记，然后将这个fingerprint放在一个set中，通过set来对fingerprint以至于request和url判重。 代码如下：
+   ```
+   def request_seen(self, request):
+    fp = self.request_fingerprint(request)
+    if fp in self.fingerprints:
+        return True
+    self.fingerprints.add(fp)
+    if self.file:
+        self.file.write(fp + os.linesep)
+   ```
+   
+* 在scrapy-redis框架中，使用同样的方法计算request的fingerprint，同样使用一个set用来判重，只不过这个set是在redis数据库中。代码如下：
+   ```
+   def request_seen(self, request):
+    fp = request_fingerprint(request)
+    added = self.server.sadd(self.key, fp)
+    return not added
+   ```
+   
+这两种使用set的方法在数据量比较小时是很有效的，但是当数据量比较大时，因为这两种方法的set都是在内存中，set占用的内存空间会急剧上升。那使用持久化方法，将url存进数据库中，是不是一种好方法呢？当然不是。如果将url保存在数据库中，那么每一次判重操作都需要完成一次数据库查询，那带来的效率是极低的。
+
+为了解决以上两种问题，我们选择使用Bloomfilter算法来完成url判重。
+先来介绍下BloomFilter算法：
+* 建一个m位BitSet，先将所有位初始化为0，然后选择k个不同的哈希函数。第i个哈希函数对字符串str哈希的结果记为h（i，str），且h（i，str）的范围是0到m-1 。
+* (1) 加入字符串过程下面是每个字符串处理的过程，首先是将字符串str“记录”到BitSet中的过程：对于字符串str，分别计算h（1，str），h（2，str）…… h（k，str）。然后将BitSet的第h（1，str）、h（2，str）…… h（k，str）位设为1。
+* (2) 检查字符串是否存在的过程。下面是检查字符串str是否被BitSet记录过的过程：对于字符串str，分别计算h（1，str），h（2，str）…… h（k，str）。然后检查BitSet的第h（1，str）、h（2，str）…… h（k，str）位是否为1，若其中任何一位不为1则可以判定str一定没有被记录过。若全部位都是1，则“认为”字符串str存在。若一个字符串对应的Bit不全为1，则可以肯定该字符串一定没有被BloomFilter记录过。（这是显然的，因为字符串被记录过，其对应的二进制位肯定全部被设为1了）但是若一个字符串对应的Bit全为1，实际上是不能100%的肯定该字符串被BloomFilter记录过的。（因为有可能该字符串的所有位都刚好是被其他字符串所对应）这种将该字符串划分错的情况，称为false positive 。
+
+下面是具体的实现过程
+
+1.我们首先实现一个BloomFilter算法：
+
+  1. 设计一个可以调整参数的hash类
+      ```
+      class SimpleHash(object):
+      def __init__(self, cap, seed):
+          self.cap = cap
+          self.seed = seed
+
+      def hash(self, value):
+          ret = 0
+          for i in range(len(value)):
+              ret += self.seed * ret + ord(value[i])
+          return (self.cap - 1) & ret
+      ```
+  2. 在BloomFilter类中分发不同的seed以创建不同的hash类，然后按照BloomFilter算法实现判重操作
+      ```
+      class BloomFilter(object):
+      def __init__(self, server, key, blockNum=1):
+          self.bit_size = 1 << 31  
+          self.seeds = [5, 7, 11, 13, 31, 37, 61]
+          self.server = server
+          self.key = key
+          self.blockNum = blockNum
+          self.hashfunc = []
+          for seed in self.seeds:
+            self.hashfunc.append(SimpleHash(self.bit_size, seed))
+
+      def isContains(self, str_input):
+          if not str_input:
+              return False
+          ret = True
+
+          name = self.key + str(int(str_input[0:2], 16) % self.blockNum)
+          for f in self.hashfunc:
+              loc = f.hash(str_input)
+              ret = ret & self.server.getbit(name, loc)
+          return ret
+
+      def insert(self, str_input):
+          name = self.key + str(int(str_input[0:2], 16) % self.blockNum)
+          for f in self.hashfunc:
+              loc = f.hash(str_input)
+              self.server.setbit(name, loc, 1)
+      ```
+
+2.重写scrapy-redis框架中的dupefilter.py文件，将scrapy-redis的判重由原来的借助redis数据库中的set集合改为BloomFilter算法实现
+
+  1. 初始化RFPDupeFilter过滤器
+       ```
+        def __init__(self, server, key):
+          self.server = server
+          self.key = key
+          self.bf = BloomFilter(server, key, blockNum=1)
+        ```
+  2. 重写request_seen方法，将原操作改为BloomFilter操作
+   
+        ```
+        def request_seen(self, request):
+            fp = request_fingerprint(request)
+            if self.bf.isContains(fp):
+              return True
+            else:
+              self.bf.insert(fp)
+              return False
+        ```
+
+
+通过实现BloomFilter算法并在scrapy-redis的基础上对scrapy-redis框架进行修改，完成了使scrapy-redis支持BloomFilter去重
+
+---
+docker镜像获取：
+---
+
+
+## 算法：
+
+###支持向量机
+
+支持向量机(support vector machine)是一种分类算法，通过寻求结构化风险最小来提高学习机泛化能力，实现经验风险和置信范围的最小化，从而达到在统计样本量较少的情况下，亦能获得良好统计规律的目的。通俗来讲，它是一种二类分类模型，其基本模型定义为特征空间上的间隔最大的线性分类器，即支持向量机的学习策略便是间隔最大化，最终可转化为一个凸二次规划问题的求解。
+支持向量机（SVM）算法是根据有限的样本信息，在模型的复杂性与学习能力之间寻求最佳折中，以求获得最好的推广能力支持向量机算法的主要优点有：
+
+（1）专门针对有限样本情况，其目标是得到现有信息下的最优解而不仅仅是样本数量趋于无穷大时的最优值；
+
+（2）算法最终转化为一个二次型寻优问题，理论上得到的是全局最优点，解决了在神经网络方法中无法避免的局部极值问题；
+
+（3）支持向量机算法能同时适用于稠密特征矢量与稀疏特征矢量两种情况，而其他一些文本分类算法不能同时满足两种情况。
+
+（4）支持向量机算法能够找出包含重要分类信息的支持向量，是强有力的增量学习和主动学习工具，在文本分类中具有很大的应用潜力。
+
+###模糊新闻爬虫

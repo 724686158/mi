@@ -50,42 +50,14 @@
 ## 架构实现
 
 ### 底层：分布式框架（zookeeper+mesos+marathon）
-* 安装zoomkeeper
 
-1. 下载&&解压
-  ```
-  cd /opt/
-  wget http://mirror.bit.edu.cn/apache/zookeeper/zookeeper-3.3.6/zookeeper-3.3.6.tar.gz
-  tar -zxvf zookeeper-3.3.6.tar.gz
-  ```
-2. 修改配置文件
-  ```
-  cd /opt/zookeeper-3.3.6/conf
-  cp zoo_sample.cfg zoo.cfg
-  vim zoo.cfg
-  ```
-3. 设置环境变量
-  ```
-  <span class="hljs-comment"># The number of milliseconds of each tick</span>
-  <span class="hljs-setting">tickTime=<span class="hljs-value"><span class="hljs-number">2000</span></span></span>
-  <span class="hljs-comment"># The number of ticks that the initial</span>
-  <span class="hljs-comment"># synchronization phase can take  </span>
-  <span class="hljs-setting">initLimit=<span class="hljs-value"><span class="hljs-number">10</span></span></span>
-  <span class="hljs-comment"># The number of ticks that can pass between</span>
-  <span class="hljs-comment"># sending a request and getting an acknowledgement  </span>
-  <span class="hljs-setting">syncLimit=<span class="hljs-value"><span class="hljs-number">5</span></span></span>
-  <span class="hljs-comment"># the directory where the snapshot is stored.  </span>
-  <span class="hljs-setting">dataDir=<span class="hljs-value">/usr/zookeeper</span></span>
-  <span class="hljs-setting">dataLogDir=<span class="hljs-value">/usr/zookeeper/log</span></span>
-  <span class="hljs-comment"># the port at which the clients will connect  </span>
-  <span class="hljs-setting">clientPort=<span class="hljs-value"><span class="hljs-number">2181</span></span></span>
-  ```
-4. 启动
-  ```
-  export ZOOKEEPER_INSTALL=/opt/zookeeper-3.3.6
-  export PATH=$PATH:$ZOOKEEPER_INSTALL/bin
-  ```
+介绍：
 
+* ZooKeeper：ZooKeeper是一个开源的分布式应用程序协调服务。它是一个为分布式应用提供一致性服务的软件，提供的功能包括：配置维护、名字服务、分布式同步、组服务等。
+
+* Mesos：Mesos是Apache下的开源分布式资源管理框架，它被称为是分布式系统的内核。Mesos能够在集群机器上运行多种分布式系统类型，动态有效率地共享资源。提供失败侦测，任务发布，任务跟踪，任务监控，低层次资源管理和细粒度的资源共享，可以扩展伸缩到数千个节点。
+
+* Marathon：Marathon是一个成熟的，轻量级的，扩展性很强的Apache Mesos的容器编排框架，能够支持运行长服务，比如web应用等。能够在集群中原样运行任何Linux二进制发布版本，进行集群的多进程管理。在本系统中，Marathon主要负责调度docker容器。
 原理
 
 作用

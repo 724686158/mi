@@ -340,21 +340,21 @@ def get_whitelist():
         st.add(unicode(i, 'utf8'))
     return st
 
-# 批量导出白名单
+# 批量导入白名单
 def batch_import_whitelist_of_news(txt):
     r = get_redis(settings.SPIDERS_DB)
     dic = eval(txt)
     for key in dic:
         r.set(key, dic[key])
 
-# 批量导入白名单
+# 批量导出白名单
 def batch_export_whitelist_of_news():
     r = get_redis(settings.SPIDERS_DB)
     keys = r.keys()
     ans = {}
     for key in keys:
         ans[key] = r.get(key)
-    return str(ans).encode('utf8')
+    return str(ans)
 
 # 根据名字删除白名单中的一个新闻爬虫
 def delete_news_in_whitelist(name):

@@ -117,6 +117,6 @@ if __name__ == '__main__':
         except:
             print '守护进程此轮操作出错'
         try:
-            time.sleep(2)
+            time.sleep(6)
         except:
             print '守护进程关闭'

@@ -5,11 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a39a0442-fbe6-436f-9f04-2e92cc314079" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ReadMe/07-scrapy_redis_structure.jpg" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ReadMe/bushutu.png" afterPath="$PROJECT_DIR$/ReadMe/bushutu.png" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/README.md" afterPath="$PROJECT_DIR$/README.md" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mi_manager/monitor/static/const.js" afterPath="$PROJECT_DIR$/mi_manager/monitor/static/const.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mi_manager/daemon/app.py" afterPath="$PROJECT_DIR$/mi_manager/daemon/app.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mi_manager/monitor/data_service.py" afterPath="$PROJECT_DIR$/mi_manager/monitor/data_service.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -35,41 +33,63 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="bushutu.png" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/ReadMe/bushutu.png">
-          <provider selected="true" editor-type-id="images">
-            <state />
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="README.md" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/README.md">
+      <file leaf-file-name="settings.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/mi_manager/daemon/settings.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="187">
-              <caret line="797" column="2" lean-forward="true" selection-start-line="797" selection-start-column="2" selection-end-line="797" selection-end-column="2" />
+            <state relative-caret-position="17">
+              <caret line="23" column="0" lean-forward="false" selection-start-line="23" selection-start-column="0" selection-end-line="23" selection-end-column="0" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="duibiao.png" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/ReadMe/duibiao.png">
-          <provider selected="true" editor-type-id="images">
-            <state />
+      <file leaf-file-name="mesosHelper.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/mi_manager/daemon/mesosHelper.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="306">
+              <caret line="20" column="42" lean-forward="false" selection-start-line="20" selection-start-column="42" selection-end-line="20" selection-end-column="42" />
+              <folding />
+            </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="dichengjiegoutu.png" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/ReadMe/dichengjiegoutu.png">
-          <provider selected="true" editor-type-id="images">
-            <state />
+      <file leaf-file-name="data_service.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/mi_manager/daemon/data_service.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="17">
+              <caret line="41" column="4" lean-forward="false" selection-start-line="41" selection-start-column="4" selection-end-line="41" selection-end-column="4" />
+              <folding />
+            </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="mi_managermokuaitu.png" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/ReadMe/mi_managermokuaitu.png">
-          <provider selected="true" editor-type-id="images">
-            <state />
+      <file leaf-file-name="app.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/mi_manager/daemon/app.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="410">
+              <caret line="119" column="24" lean-forward="false" selection-start-line="119" selection-start-column="24" selection-end-line="119" selection-end-column="24" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="app.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/mi_manager/monitor/app.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="207">
+              <caret line="279" column="41" lean-forward="false" selection-start-line="279" selection-start-column="41" selection-end-line="279" selection-end-column="41" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="data_service.py" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/mi_manager/monitor/data_service.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-2725">
+              <caret line="349" column="9" lean-forward="false" selection-start-line="349" selection-start-column="9" selection-end-line="349" selection-end-column="9" />
+              <folding />
+            </state>
           </provider>
         </entry>
       </file>
@@ -116,7 +136,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>创建mysql数据</find>
       <find>get_ta</find>
       <find>dic</find>
       <find>MISSIONS_CHANGE</find>
@@ -146,6 +165,7 @@
       <find>scrapy_structure</find>
       <find>框架</find>
       <find>架构</find>
+      <find>batch_export_spider</find>
     </findStrings>
     <replaceStrings>
       <replace>hehehe</replace>
@@ -234,10 +254,10 @@
         <option value="$PROJECT_DIR$/mi_manager/monitor/app.py" />
         <option value="$PROJECT_DIR$/mi_manager/monitor/classifier.py" />
         <option value="$PROJECT_DIR$/mi_manager/monitor/gooseHelper.py" />
-        <option value="$PROJECT_DIR$/mi_manager/daemon/app.py" />
         <option value="$PROJECT_DIR$/mi_manager/settings.py" />
-        <option value="$PROJECT_DIR$/mi_manager/monitor/data_service.py" />
         <option value="$PROJECT_DIR$/README.md" />
+        <option value="$PROJECT_DIR$/mi_manager/daemon/app.py" />
+        <option value="$PROJECT_DIR$/mi_manager/monitor/data_service.py" />
       </list>
     </option>
   </component>
@@ -270,8 +290,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
-      <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -295,6 +313,24 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="mi_manager" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="mi" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="mi" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="mi_manager" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="monitor" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -518,6 +554,8 @@
           </PATH>
         </subPane>
       </pane>
+      <pane id="Scratches" />
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -1024,7 +1062,14 @@
       <option name="project" value="LOCAL" />
       <updated>1498626560695</updated>
     </task>
-    <option name="localTasksCounter" value="29" />
+    <task id="LOCAL-00029" summary="修改图片和文档">
+      <created>1498657181731</created>
+      <option name="number" value="00029" />
+      <option name="presentableId" value="LOCAL-00029" />
+      <option name="project" value="LOCAL" />
+      <updated>1498657181731</updated>
+    </task>
+    <option name="localTasksCounter" value="30" />
     <servers />
   </component>
   <component name="TestHistory">
@@ -1051,14 +1096,14 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="30" width="1920" height="1050" extended-state="6" />
-    <editor active="true" />
+    <frame x="0" y="30" width="1920" height="1050" extended-state="0" />
+    <editor active="false" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24526316" sideWeight="0.48795182" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32901832" sideWeight="0.49157894" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.30097088" sideWeight="0.55" order="6" side_tool="true" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.35382956" sideWeight="0.47894737" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32686085" sideWeight="0.45" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32686085" sideWeight="0.45" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32901832" sideWeight="0.49789473" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3840345" sideWeight="0.57842106" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -1101,7 +1146,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="OFFER_MOVE_TO_ANOTHER_CHANGELIST_ON_PARTIAL_COMMIT" value="false" />
-    <MESSAGE value="version-0.799 重构前端页面，目前已迁移动态ip、动态url和爬虫展示部分" />
     <MESSAGE value="version-0.80 修复dat_service手误" />
     <MESSAGE value="version-0.81 完成web端登陆功能和新闻类精准爬虫，新服务器IP" />
     <MESSAGE value="修正代理模块" />
@@ -1126,7 +1170,8 @@
     <MESSAGE value="修正:后端数据接口" />
     <MESSAGE value="version 0.9 加入新闻分类功能(利用支持向量机实现)" />
     <MESSAGE value="修正: 后台数据接口&#10;补充: 提交两个自动生成的新闻爬虫文件（白名单爬虫:spider_huxiucom.py, 模糊爬虫: spider_mengzichengcn.py）" />
-    <option name="LAST_COMMIT_MESSAGE" value="修正: 后台数据接口&#10;补充: 提交两个自动生成的新闻爬虫文件（白名单爬虫:spider_huxiucom.py, 模糊爬虫: spider_mengzichengcn.py）" />
+    <MESSAGE value="修改图片和文档" />
+    <option name="LAST_COMMIT_MESSAGE" value="修改图片和文档" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1266,7 +1311,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1309">
           <caret line="77" column="0" lean-forward="false" selection-start-line="77" selection-start-column="0" selection-end-line="77" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1274,7 +1318,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="3128">
           <caret line="184" column="8" lean-forward="false" selection-start-line="184" selection-start-column="8" selection-end-line="184" selection-end-column="54" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1282,17 +1325,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="612">
           <caret line="44" column="25" lean-forward="false" selection-start-line="44" selection-start-column="25" selection-end-line="44" selection-end-column="25" />
-          <folding>
-            <element signature="e#24#33#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/mi_manager/monitor/app.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2448">
-          <caret line="152" column="28" lean-forward="false" selection-start-line="152" selection-start-column="28" selection-end-line="152" selection-end-column="28" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1300,7 +1332,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1887">
           <caret line="117" column="8" lean-forward="false" selection-start-line="117" selection-start-column="8" selection-end-line="117" selection-end-column="8" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1308,7 +1339,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="34">
           <caret line="2" column="0" lean-forward="false" selection-start-line="2" selection-start-column="0" selection-end-line="2" selection-end-column="20" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1316,7 +1346,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1324,7 +1353,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="595">
           <caret line="41" column="12" lean-forward="false" selection-start-line="41" selection-start-column="12" selection-end-line="41" selection-end-column="12" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1332,7 +1360,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1340,15 +1367,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="374">
           <caret line="22" column="0" lean-forward="false" selection-start-line="22" selection-start-column="0" selection-end-line="22" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/mi_manager/daemon/mesosHelper.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="306">
-          <caret line="20" column="42" lean-forward="false" selection-start-line="20" selection-start-column="42" selection-end-line="20" selection-end-column="42" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1356,23 +1374,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="272">
           <caret line="19" column="36" lean-forward="false" selection-start-line="19" selection-start-column="36" selection-end-line="19" selection-end-column="36" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/mi_manager/daemon/settings.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-217">
-          <caret line="23" column="0" lean-forward="false" selection-start-line="23" selection-start-column="0" selection-end-line="23" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/mi_manager/monitor/data_service.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="405">
-          <caret line="249" column="19" lean-forward="false" selection-start-line="249" selection-start-column="8" selection-end-line="249" selection-end-column="19" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1380,7 +1381,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="89">
           <caret line="30" column="38" lean-forward="false" selection-start-line="30" selection-start-column="38" selection-end-line="30" selection-end-column="38" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1388,7 +1388,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="289">
           <caret line="23" column="29" lean-forward="false" selection-start-line="23" selection-start-column="29" selection-end-line="23" selection-end-column="29" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1401,7 +1400,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="408">
           <caret line="27" column="12" lean-forward="false" selection-start-line="27" selection-start-column="12" selection-end-line="27" selection-end-column="12" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1409,7 +1407,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1003">
           <caret line="59" column="13" lean-forward="false" selection-start-line="59" selection-start-column="13" selection-end-line="59" selection-end-column="13" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1421,18 +1418,16 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/mi_manager/daemon/data_service.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-219">
-          <caret line="41" column="4" lean-forward="false" selection-start-line="41" selection-start-column="4" selection-end-line="41" selection-end-column="4" />
-          <folding />
-        </state>
+    <entry file="file://$PROJECT_DIR$/ReadMe/07-scrapy_redis_structure.jpg" />
+    <entry file="file://$PROJECT_DIR$/ReadMe/bushutu.png">
+      <provider selected="true" editor-type-id="images">
+        <state />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/mi_manager/daemon/app.py">
+    <entry file="file://$PROJECT_DIR$/README.md">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="189">
-          <caret line="94" column="12" lean-forward="false" selection-start-line="94" selection-start-column="12" selection-end-line="95" selection-end-column="65" />
+        <state relative-caret-position="1072">
+          <caret line="816" column="100" lean-forward="false" selection-start-line="816" selection-start-column="100" selection-end-line="816" selection-end-column="100" />
           <folding />
         </state>
       </provider>
@@ -1465,30 +1460,60 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/ReadMe/scrapyjiagou.png">
-      <provider selected="true" editor-type-id="images">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ReadMe/07-scrapy_redis_structure.jpg">
-      <provider selected="true" editor-type-id="images">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ReadMe/bushutu.png">
-      <provider selected="true" editor-type-id="images">
-        <state />
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/ReadMe/scrapy_structure.jpg">
       <provider selected="true" editor-type-id="images">
         <state />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/README.md">
+    <entry file="file://$PROJECT_DIR$/ReadMe/scrapyjiagou.png">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mi_manager/daemon/settings.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="187">
-          <caret line="797" column="2" lean-forward="true" selection-start-line="797" selection-start-column="2" selection-end-line="797" selection-end-column="2" />
+        <state relative-caret-position="17">
+          <caret line="23" column="0" lean-forward="false" selection-start-line="23" selection-start-column="0" selection-end-line="23" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mi_manager/daemon/mesosHelper.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="306">
+          <caret line="20" column="42" lean-forward="false" selection-start-line="20" selection-start-column="42" selection-end-line="20" selection-end-column="42" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mi_manager/daemon/data_service.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="17">
+          <caret line="41" column="4" lean-forward="false" selection-start-line="41" selection-start-column="4" selection-end-line="41" selection-end-column="4" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mi_manager/daemon/app.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="410">
+          <caret line="119" column="24" lean-forward="false" selection-start-line="119" selection-start-column="24" selection-end-line="119" selection-end-column="24" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mi_manager/monitor/app.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="207">
+          <caret line="279" column="41" lean-forward="false" selection-start-line="279" selection-start-column="41" selection-end-line="279" selection-end-column="41" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mi_manager/monitor/data_service.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-2725">
+          <caret line="349" column="9" lean-forward="false" selection-start-line="349" selection-start-column="9" selection-end-line="349" selection-end-column="9" />
           <folding />
         </state>
       </provider>

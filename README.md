@@ -69,7 +69,7 @@
 ### 中层：承载项目的运行环境（docker）
 
 原理
-####redis数据库
+#### redis数据库
 
 
 作用
@@ -92,7 +92,7 @@ monitor模块，是一个前端用AdminLTE，后端用Flask实现的web端服务
 
 mi_manager是一个后端基于Flask框架，前端使用AdminLET模板的Web应用程序。它是分布式爬虫系统mi(‘迷’)的组成部分。它提供了对于系统管理的一整套服务。
 
-#####主要功能
+##### 主要功能
 
 * 任务管理
 * 即时爬取
@@ -100,7 +100,7 @@ mi_manager是一个后端基于Flask框架，前端使用AdminLET模板的Web应
 * 设置管理
 * 资源管理
 
-#####模块划分
+##### 模块划分
 
 mi_manager整体模块图：
 
@@ -268,7 +268,7 @@ docker镜像获取：
 
 
 
-####scrapy-redis架构
+#### Scrapy-redis架构
 scrapy任务调度是基于文件系统，这样只能在单机执行crawl。
 
 scrapy-redis将待抓取request请求信息和数据items信息的存取放到redis queue里，使多台服务器可以同时执行crawl和items process，大大提升了数据爬取和处理的效率。
@@ -298,7 +298,7 @@ Spider新生成的request，将request的指纹到redis的DupeFilter set检查�
 
 将Spider爬取到的Item给scrapy-redis的Item Pipeline，将爬取到的Item存入redis的items队列。可以很方便的从items队列中提取item，从而实现items processes 集群
 
-####Settings配置文件
+#### Settings配置文件
 对于Settings配置文件，我们分为3类，分别是：
 * 用户可自行配置--对于不同用户的使用条件与使用需求可以自行对爬虫进行配置
 * 根据资源分配进行设置--需要用户自行对自己使用的数据库信息进行配置
@@ -856,10 +856,10 @@ docker镜像获取：
   
   
   
-##算法部分
-###BloomDFilter
+## 算法部分
+### BloomDFilter
   
-  ##我们使用了BloomFilter算法完成url对去重过滤
+  ## 我们使用了BloomFilter算法完成url对去重过滤
   
   由于网站的链接之间的关系错综复杂，因此爬虫在爬去的过程中很容易遇到相同的要申请下载的url，很容易因此形成闭合的环，所以我们要对url进行判重操作，只有没有被爬取过的url才会被提交给scrapy的下载中间件进行下载
 
@@ -969,7 +969,7 @@ docker镜像获取：
 
 ## 算法：
 
-###支持向量机
+### 支持向量机
 
 支持向量机(support vector machine)是一种分类算法，通过寻求结构化风险最小来提高学习机泛化能力，实现经验风险和置信范围的最小化，从而达到在统计样本量较少的情况下，亦能获得良好统计规律的目的。通俗来讲，它是一种二类分类模型，其基本模型定义为特征空间上的间隔最大的线性分类器，即支持向量机的学习策略便是间隔最大化，最终可转化为一个凸二次规划问题的求解。
 支持向量机（SVM）算法是根据有限的样本信息，在模型的复杂性与学习能力之间寻求最佳折中，以求获得最好的推广能力支持向量机算法的主要优点有：

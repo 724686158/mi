@@ -6,7 +6,7 @@
 
     小组名称：“迷”
 
-    成        员：孟子成、张正锟、史浩
+    成    员：孟子成、张正锟、史浩
 
     指导老师：倪维健
 
@@ -51,9 +51,9 @@
 
 ![部署图](https://github.com/724686158/mi/raw/master/ReadMe/bushutu.png)
 
-### 底层：分布式框架（zookeeper+mesos+marathon+docker）
+## 分布式框架（zookeeper+mesos+marathon+docker）
 
-#### 介绍
+### 介绍
 * ZooKeeper：ZooKeeper是一个开源的分布式应用程序协调服务。它是一个为分布式应用提供一致性服务的软件，提供的功能包括：配置维护、名字服务、分布式同步、组服务等。
 
 * Mesos：Mesos是Apache下的开源分布式资源管理框架，它被称为是分布式系统的内核。Mesos能够在集群机器上运行多种分布式系统类型，动态有效率地共享资源。提供失败侦测，任务发布，任务跟踪，任务监控，低层次资源管理和细粒度的资源共享，可以扩展伸缩到数千个节点。
@@ -62,7 +62,7 @@
 
 * Docker  是一个开源的应用容器引擎，让开发者可以打包他们的应用以及依赖包到一个可移植的容器中，然后发布到任何流行的 Linux 机器上，也可以实现虚拟化。它彻底释放了计算虚拟化的威力，极大提高了应用的运行效率，降低了云计算资源供应的成本，使用 Docker，可以让应用的部署、测试和分发都变得前所未有的高效和轻松
 
-#### 设计
+### 设计
 在项目的初期，为满足赛题对分布式的要求，我们了解并尝试了docker，docker良好的性能表现和方便的使用方法令人印象深刻，在此之后我们坚持使用docker，在项目过程中，有意识得创建和整理docker镜像。在我们自己搭建的私有docker仓库中，保存了以下三类docker镜像。
 
 基础镜像与服务镜像：
@@ -101,15 +101,18 @@ mongo数据库镜像
 ![底层框架结构图](https://github.com/724686158/mi/raw/master/ReadMe/dichengjiegoutu.png)
 
 
-#### 实现
+### 测试
 
-在开发环境中，采用一台master，两台slave的结构。所以并不涉及选举行为。
+校内网环境:
+测试环境采用一台master，一台agent，在两台服务器上安装了Zookeeper、Mesos、Marathon、Docker服务。整合两台服务器的资源。在测试时可同时稳定运行30个的容器，容器间相互隔离，独自占用指定数量的CPU、内存、硬盘资源。
+
+外网环境：
+仅有一台服务器, 同时运行mesos-master服务和mesos-agent服务, 同样安装了Zookeeper、Marathon、Docker服务。
+Mesos控制台    : 122.114.62.116:5050
+Marathon控制台 ：122.114.62.116:?????
 
 
-
-#### 使用帮助
-
-##### 环境安装
+### 安装帮助
 
 ZooKeeper安装：http://www.mengzicheng.cn/wordpress/?p=1221
 
@@ -117,20 +120,33 @@ Mesos安装：http://www.mengzicheng.cn/wordpress/?p=1125
 
 marathon安装：http://www.mengzicheng.cn/wordpress/?p=1023
 
-##### 便利化脚本
 
-在项目开发过程开发人员总结了一些脚本，并上传到github上：https://github.com/724686158/MYSHELLLS。
+### 辅助脚本
 
-用户可以clone库到本地，其中包含启动各服务的shell脚本。
+开发过程中总结了一些脚本，并开源到github:
+
+https://github.com/724686158/MYSHELLLS
+
+可提供服务安装、服务启动、docker镜像管理、docker容器创建等方面的帮助。
+
+### 注意
+
+分布式系统的稳定运行除了需要安装服务软件外，还需要专业的运维人员进行维护，此外还需要注意访问控制、用户认证等安全问题。
 
 
 
+## 分布式爬虫管理系统（mi_manager）
 
-### 分布式爬虫管理系统（mi_manager）
+### 模块划分
 
-#### 架构
+* 进行系统管理的monitor模块
+* 进行任务调度与分布式框架管理的deamon模块。
 
-进行系统管理的monitor模块与进行任务调度与分布式框架管理的deamon模块同步执行。
+### 工作流程
+
+工作流程图：
+
+![工作流程图](https://github.com/724686158/mi/raw/master/ReadMe/mimanagerliuchengtu.jpg)
 
 monitor模块，是一个前端用AdminLTE，后端用Flask实现的web端服务。
 
@@ -138,11 +154,11 @@ monitor模块，是一个前端用AdminLTE，后端用Flask实现的web端服务
 
 daemon模块：借助mosos和marathon提供的数据接接口，从核心redis数据库中获取用户发布的任务信息，对任务进行调度，自动部署和管理工作模块（包含mi的docker容器）
 
-#### 模块划分
+### 模块划分
 
 ![mi_manager整体模块图](https://github.com/724686158/mi/raw/master/ReadMe/mi_managermokuaitu.png)
 
-#### 主要功能
+### 主要功能
 
 * 任务管理
 * 即时爬取
@@ -150,21 +166,20 @@ daemon模块：借助mosos和marathon提供的数据接接口，从核心redis�
 * 设置管理
 * 资源管理
 
-#### 实现
+### 实现
 
-![工作流程图](https://github.com/724686158/mi/raw/master/ReadMe/mimanagerliuchengtu.jpg)
 
 需写实现
 
 
-### 支持分布式的智能爬虫（mi）
+## 支持分布式的智能爬虫（mi）
 
 
-#### 基础框架 
+### 基础框架 
 
 基于Scrapy框架和Scrapy-redis框架
 
-##### Scrapy框架
+#### Scrapy框架
 
 * Scrapy是用纯Python实现一个为了爬取网站数据、提取结构性数据而编写的应用框架，用途非常广泛。
 
@@ -187,7 +202,7 @@ daemon模块：借助mosos和marathon提供的数据接接口，从核心redis�
 
 * Spider Middlewares（Spider中间件）：是一个可以自定扩展和操作引擎和Spider中间通信的功能组件（比如进入Spider的Responses;和从Spider出去的Requests）
 
-##### Scrapy-redis框架
+#### Scrapy-redis框架
 
 结构图：
 
@@ -225,13 +240,14 @@ Spider新生成的request，将request的指纹到redis的DupeFilter set检查�
 将Spider爬取到的Item给scrapy-redis的Item Pipeline，将爬取到的Item存入redis的items队列。可以很方便的从items队列中提取item，从而实现items processes 集群
 
 
-#### 实现
+### 实现
 
 ![mi的活动图](https://github.com/724686158/mi/raw/master/ReadMe/miliuchengtu.png)
 
-#### 技术细节
+### 技术细节
 
-##### Settings配置文件
+#### Settings配置文件
+
 对于Settings配置文件，我们分为3类，分别是：
 * 用户可自行配置--对于不同用户的使用条件与使用需求可以自行对爬虫进行配置
 * 根据资源分配进行设置--需要用户自行对自己使用的数据库信息进行配置
@@ -403,11 +419,11 @@ SCHEDULER_QUEUE_CLASS = 'mi.scrapy_redis.queue.SpiderPriorityQueue'
 31. 这是对下载处理器进行设置，不使用其中的s3处理器，若使用s3处理器则有可能出现异常
 DOWNLOAD_HANDLERS = {'s3': None,}
 
-爬虫工作原理
+#### 爬虫工作原理
   
 新闻博客类和电商类的网站构造以及网页之间的关系差别较大，因此制定的爬虫策略是截然不同的，相比较而言，电商类因为涉及到大量的Ajax技术，需要处理更多的动态问题，复杂性更高
 
-新闻博客类爬虫逻辑
+##### 新闻博客类爬虫逻辑
 
 对新闻博客类网站，选择全站爬取。这类网站的各个界面之间的关系是较为简明的，而且由于只抓取正文页，因此，只需在URl增量的过程中找到符合每个新闻网站中的正文页url格式的网页，然后交给下载中间件下载，再进一步对标题与正文解析即可。
 
@@ -431,20 +447,20 @@ DOWNLOAD_HANDLERS = {'s3': None,}
       
   3. 下面是对正文页进行标题与正文的提取，此过程使用XPath表达式完成提取。XPath是用于选择XML文档中的节点的语言，其也可以与HTML一起使用。XPpath是Scrapy内建的选择器，Scrapy选择器构建在lxml库之上，这意味着它们的速度和解析精度非常相似。选择XPath而不是流行的BeautifulSoup或者使用正则表达式有以下几点原因：
   
-      1. XPath是Scrapy内建的选择器，它与Scrapy有天然的默契，更为简便且不需要考虑出了语法本身外别的任何问题。
+    1. XPath是Scrapy内建的选择器，它与Scrapy有天然的默契，更为简便且不需要考虑出了语法本身外别的任何问题。
       
-      2. XPath的提取效率更高，提取速度比BeautifulSoup更快。
+    2. XPath的提取效率更高，提取速度比BeautifulSoup更快。
       
-      3. XPath是基于XML的文档层次结构的，而正则表达式是基于文本特征的，显然XPath对网页内容的提取更为友好，只要我们找到提取内容的位置，XPath要比正则表达式方便的多。
+    3. XPath是基于XML的文档层次结构的，而正则表达式是基于文本特征的，显然XPath对网页内容的提取更为友好，只要我们找到提取内容的位置，XPath要比正则表达式方便的多。
       
   ```
   title = response.xpath("/html/body/div[@class='center']/div[@class='content']/div[@class='main']/div[@class='main_lt article_lt']/div[@id='article']/h2[@id='cont_title']/text()").extract()[0]
             content = ''.join(response.xpath('//div[@class="article-content"]//p/text()').extract())
   ```
   
+  
+##### 电商类爬虫逻辑
 
-
-###### 电商类爬虫逻辑
 电商类爬虫的基本步骤与新闻博客类类似，明显的区别在于：
 
 1.  更复杂的网页结构
@@ -490,9 +506,8 @@ DOWNLOAD_HANDLERS = {'s3': None,}
     在Scrapy框架的下载中间件的基础上进行扩展，编写了middleware_rotateUserAgent.py,middleware_cookie.py 和 middlwware_proxy.py ，并在scrapy的关于下载中间件的配置文件中启用并调整每一个对网页的下载请求的经历中间件的顺序，使得每一个下载网页的请求都具有符合要求的UserAgent,COOKIE和Ip，从而是爬虫可以连续不断的进行爬取。
 
 
-#### 数据库类型支持：mysql，mongodb
+#### 新闻博客类数据结构化与存储
 
-##### 新闻博客类数据结构化与存储
 因为电商网站和新闻博客类网站抓取数据的不同，因此根据其特点设计不同的结构化数据类型，并使用不同的数据库进行存储
 
 * 新闻博客类 
@@ -528,8 +543,7 @@ mongodb是一个非关系型数据库，与传统的关系型数据库不，以�
 
 mongodb的这些特性，很适合分布式爬虫搭建集群存储数据的需求
 
-以下是详细的使用mongodb存储新闻博客类结构化数据的步骤
-* 在scrapy的pipeline上进行自定义的扩展，编写了pipeline_mongo.py，在此pipeline中实现存储过程
+以下是使用mongodb存储新闻博客类数据的步骤（在scrapy的pipeline上进行扩展，编写了pipeline_mongo.py）
 
 
 1. 首先初始化mongodb
@@ -570,18 +584,18 @@ mongodb的这些特性，很适合分布式爬虫搭建集群存储数据的需�
         self.client.close()
         
     ```
-      
-     
+
 至此，新闻博客类的结构化数据存储就完成了。
 
-##### 电商类数据结构化与存储
 
-电商数据E-R图
+#### 电商类数据结构化与存储
 
-![](https://github.com/724686158/mi/raw/master/ReadMe/er.png)
 
 与新闻博客类不同，电商类数据之间关系要复杂的多，各个电商之间存在着较大的差异，较为共性的是商品信息，商品名字和商品价格是在抓取电商类数据时最为重要的部分，因此对商品设计了如下的数据类型
-  * 电商商品结构化数据格式
+
+不同电商网站中的商品数据具有相似的结构
+
+* 电商商品结构化数据格式
 
   ```
   class ECommerceGoodItem(scrapy.Item):
@@ -598,8 +612,8 @@ mongodb的这些特性，很适合分布式爬虫搭建集群存储数据的需�
     # 商品价格
     goodPrice=scrapy.Field()
   ```
-  
-除此之外的其他电商类数据便不尽相同，比如有的电商网站缺少店铺的详细信息，有的网站没有店铺的评分详细数据，更多的是对同一类数据的表现形式的差异，在抓取过程中难以将其转换为同一类型，因为，为了覆盖尽可能多的电商网站，设计了以下三种结构化数据格式
+  
+不同的电商网站在商品评价数据、店铺数据、店铺评论数据上具有较大的差异。有些电商网站缺少店铺的详细信息，有的网站没有店铺评分详细数据。此外还有对同一类数据的表现形式的差异，在抓取过程中难以将其转换为同一类型，因为，为了覆盖尽可能多的电商网站，设计了以下三种结构化数据格式
 分别是
 
   * 电商商品评论结构化数据格式
@@ -645,32 +659,30 @@ mongodb的这些特性，很适合分布式爬虫搭建集群存储数据的需�
     shopCommentsData=scrapy.Field()
   ```
   
-  为电商网站设计的结构化数据格式
-  ```
-  class ECommerce(scrapy.Field):
-    # 电商网站Id
-    eCommerceId = scrapy.Field()
-    # 电商网站名字
-    eCommerceName = scrapy.Field()
-    # 电商网站home页url
-    eCommerceHomeUrl = scrapy.Field()
-  ```
+
   电商网站的结构不尽相同，爬虫的抓取逻辑差异也较为明显，造成了数据之间较为复杂的数据关系，因此选择了传统的关系型数据库 Mysql 来存储电商类的结构化数据，使用关系型数据库的较为优异的条件还有：
-    1. 电商类的数据会涉及到很多的较为复杂的查询操作，使用 sql 语句可以很好的完成
-    2. 电商类数据往往会用到事务操作
+  
+   1. 电商类的数据会涉及到很多的较为复杂的查询操作，使用 sql 语句可以很好的完成
+   2. 电商类数据往往会用到事务操作
     
   而使用 Mysql 的优点有：
   
-    1.Mysql 是一个成熟的，稳定的关系型数据库，支持很完善的 sql 语句操作规范
-    2.Mysql 可以处理大数据量的操作
-    3.可移植行高，安装简单小巧
-    4.良好的运行效率
-    5.我们的开发团队对之较为熟悉
-    
-    
-因为使用了Mysql数据库来存储电商类的结构化数据，因此从以上的结构化数据格式中便可以看出为方便存储所做的准备，结构化数据的设计参照了表结构
+   1.Mysql 是一个成熟的，稳定的关系型数据库，支持很完善的 sql 语句操作规范
+   2.Mysql 可以处理大数据量的操作
+   3.可移植行高，安装简单小巧
+   4.良好的运行效率
+   
+  
+数据库设计:
 
-以下我们来讲解详细的使用Mysql存储电商类结构化数据的过程，同样是在scrapy的pipeline的基础上进行扩展，编写pipeline_mysql.py
+![电商数据图](https://github.com/724686158/mi/raw/master/ReadMe/er.png)
+
+数据字典：
+
+[待写]
+
+    
+以下是使用Mysql存储电商类数据的过程（对scrapy的pipeline的基础上进行扩展，编写pipeline_mysql.py）
 
 1. 初始化数据库
   ```
@@ -835,7 +847,7 @@ mongodb的这些特性，很适合分布式爬虫搭建集群存储数据的需�
 
 1.首先实现一个BloomFilter算法：
 
-  1. 设计一个可以调整参数的hash类
+  * 设计一个可以调整参数的hash类
       ```
       class SimpleHash(object):
       def __init__(self, cap, seed):
@@ -848,7 +860,7 @@ mongodb的这些特性，很适合分布式爬虫搭建集群存储数据的需�
               ret += self.seed * ret + ord(value[i])
           return (self.cap - 1) & ret
       ```
-  2. 在BloomFilter类中分发不同的seed以创建不同的hash类，然后按照BloomFilter算法实现判重操作
+  * 在BloomFilter类中分发不同的seed以创建不同的hash类，然后按照BloomFilter算法实现判重操作
       ```
       class BloomFilter(object):
       def __init__(self, server, key, blockNum=1):
@@ -881,14 +893,14 @@ mongodb的这些特性，很适合分布式爬虫搭建集群存储数据的需�
 
 2.重写scrapy-redis框架中的dupefilter.py文件，将scrapy-redis的判重由原来的借助redis数据库中的set集合改为BloomFilter算法实现
 
-  1. 初始化RFPDupeFilter过滤器
+  *  初始化RFPDupeFilter过滤器
        ```
         def __init__(self, server, key):
           self.server = server
           self.key = key
           self.bf = BloomFilter(server, key, blockNum=1)
         ```
-  2. 重写request_seen方法，将原操作改为BloomFilter操作
+  *  重写request_seen方法，将原操作改为BloomFilter操作
    
         ```
         def request_seen(self, request):
@@ -905,7 +917,7 @@ mongodb的这些特性，很适合分布式爬虫搭建集群存储数据的需�
 
 #### 算法应用
 
-本系统设计的智能爬虫，均在改进后的scrapy-redis框架上进行工作，能够有效缩小内存占用，降低对Redis数据库资源的消耗。
+本系统设计的智能爬虫，均在改进后的scrapy-redis框架上进行工作，相较于使用常规能够有效缩小内存占用，降低对Redis数据库资源的消耗。
 
 ### 支持向量机
 
@@ -977,7 +989,7 @@ mongodb的这些特性，很适合分布式爬虫搭建集群存储数据的需�
   
 #### 算法应用
 
-使用此算法为模糊爬取任务提供URL判别服务
+使用此算法为模糊爬取任务提供URL判别服务 [待写]
 
 
 

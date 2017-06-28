@@ -243,10 +243,12 @@ def get_top_task(number):
     r = get_redis(settings.DISPATCH_DB)
     tasks = r.zrange('task_zset', 0, number, desc = True)
     dix = 1
-    for task in tasks and dix <= 10:
+    for task in tasks:
         detail = eval(task)
         ans.append((str(dix), detail['father_mission_name'],detail['spider_name']))
         dix = dix + 1
+        if dix > 10:
+            break
     while dix <= 10:
         ans.append((str(dix), '', ''))
         dix = dix + 1

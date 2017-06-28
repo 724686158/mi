@@ -4,42 +4,11 @@
     <bookmark url="file://$PROJECT_DIR$/mi_manager/gen_settings.py" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a39a0442-fbe6-436f-9f04-2e92cc314079" name="Default" comment="补充： 1.返回资源列表的接口 2.数据库操作可以自定义数据库名">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/mi/gen_settings.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/mi_manager/redis.helper.py" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/mi/mi/commands/crawlall.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/mi/mi/pipelines/pipeline_monitor.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/mi/mi/spiders/__init__.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/mi/mi/spiders_depot/Spider_baidunews.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/mi/mi/tools/get_missions.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/mi/spiders.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/mi/start_EC.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/mi_manager/monitor/gen_spiderInitfile_of_news.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/mi_manager/monitor/spiderInitfiles_of_news/spiderInit_mengzicheng.cn.py" afterPath="" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/mi/mi/commands/__init__.py" afterPath="$PROJECT_DIR$/mi_manager/good_types.txt" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/mi/mi/spiders_depot/__init__.py" afterPath="$PROJECT_DIR$/mi/settings.py" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/mi_manager/monitor/spiderInitfiles_of_news/__init__.py" afterPath="$PROJECT_DIR$/mi/__init__.py" />
+    <list default="true" id="a39a0442-fbe6-436f-9f04-2e92cc314079" name="Default" comment="补充:1.对首页的数据支持 2.登录功能的简单后端实现">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mi/mi/items.py" afterPath="$PROJECT_DIR$/mi/mi/items.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mi/mi/middlewares/middleware_monitor.py" afterPath="$PROJECT_DIR$/mi/mi/middlewares/middleware_monitor.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mi/mi/settings.py" afterPath="$PROJECT_DIR$/mi/mi/settings.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mi/mi/spiders_of_eCommerce/spider_amazon.py" afterPath="$PROJECT_DIR$/mi/mi/spiders_of_eCommerce/spider_amazon.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mi/mi/spiders_of_eCommerce/spider_dangdang.py" afterPath="$PROJECT_DIR$/mi/mi/spiders_of_eCommerce/spider_dangdang.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mi/mi/spiders_of_eCommerce/spider_gome.py" afterPath="$PROJECT_DIR$/mi/mi/spiders_of_eCommerce/spider_gome.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mi/mi/spiders_of_eCommerce/spider_jd.py" afterPath="$PROJECT_DIR$/mi/mi/spiders_of_eCommerce/spider_jd.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mi/mi/spiders_of_eCommerce/spider_taobao.py" afterPath="$PROJECT_DIR$/mi/mi/spiders_of_eCommerce/spider_taobao.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mi/mi/tools/gen_spiderFile_in_whiteList.py" afterPath="$PROJECT_DIR$/mi/mi/tools/gen_spiderFile_in_whiteList.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mi/start.py" afterPath="$PROJECT_DIR$/mi/start.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mi_manager/daemon/app.py" afterPath="$PROJECT_DIR$/mi_manager/daemon/app.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mi_manager/daemon/model/mission.py" afterPath="$PROJECT_DIR$/mi_manager/daemon/model/mission.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mi_manager/daemon/model/submission.py" afterPath="$PROJECT_DIR$/mi_manager/daemon/model/submission.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mi_manager/daemon/model/task.py" afterPath="$PROJECT_DIR$/mi_manager/daemon/model/task.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mi_manager/monitor/app.py" afterPath="$PROJECT_DIR$/mi_manager/monitor/app.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mi_manager/daemon/settings.py" afterPath="$PROJECT_DIR$/mi_manager/daemon/settings.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mi_manager/monitor/data_service.py" afterPath="$PROJECT_DIR$/mi_manager/monitor/data_service.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mi_manager/monitor/mongoHelper.py" afterPath="$PROJECT_DIR$/mi_manager/monitor/mongoHelper.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mi_manager/monitor/mysqlHelper.py" afterPath="$PROJECT_DIR$/mi_manager/monitor/mysqlHelper.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mi_manager/monitor/mysql_init.py" afterPath="$PROJECT_DIR$/mi_manager/monitor/mysql_init.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mi_manager/start.py" afterPath="$PROJECT_DIR$/mi_manager/start.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mi_manager/settings.py" afterPath="$PROJECT_DIR$/mi_manager/settings.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -65,103 +34,101 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="mysql_init.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/mi_manager/monitor/mysql_init.py">
+      <file leaf-file-name="gooseHelper.py" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/mi_manager/monitor/gooseHelper.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="127">
-              <caret line="17" column="15" lean-forward="false" selection-start-line="17" selection-start-column="15" selection-end-line="17" selection-end-column="15" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="gen_settings.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/mi/gen_settings.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="422">
-              <caret line="74" column="0" lean-forward="false" selection-start-line="74" selection-start-column="0" selection-end-line="74" selection-end-column="0" />
-              <folding>
-                <element signature="e#24#33#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="app.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/mi_manager/daemon/app.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="76">
-              <caret line="84" column="28" lean-forward="true" selection-start-line="84" selection-start-column="28" selection-end-line="84" selection-end-column="28" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="start.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/mi/start.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="348">
-              <caret line="36" column="8" lean-forward="false" selection-start-line="36" selection-start-column="8" selection-end-line="36" selection-end-column="8" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="app.py" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/mi_manager/monitor/app.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="323">
-              <caret line="123" column="0" lean-forward="true" selection-start-line="123" selection-start-column="0" selection-end-line="123" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="scheduler.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/mi/mi/scrapy_redis/scheduler.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="218">
-              <caret line="68" column="0" lean-forward="false" selection-start-line="68" selection-start-column="0" selection-end-line="68" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="defer.py" pinned="false" current-in-tab="false">
-        <entry file="file:///usr/lib/python2.7/dist-packages/twisted/internet/defer.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="218">
-              <caret line="1273" column="0" lean-forward="false" selection-start-line="1273" selection-start-column="0" selection-end-line="1273" selection-end-column="0" />
+            <state relative-caret-position="89">
+              <caret line="30" column="38" lean-forward="false" selection-start-line="30" selection-start-column="38" selection-end-line="30" selection-end-column="38" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
       <file leaf-file-name="settings.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/mi/settings.py">
+        <entry file="file://$PROJECT_DIR$/mi_manager/settings.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="476">
-              <caret line="28" column="36" lean-forward="true" selection-start-line="28" selection-start-column="36" selection-end-line="28" selection-end-column="36" />
+            <state relative-caret-position="172">
+              <caret line="59" column="13" lean-forward="false" selection-start-line="59" selection-start-column="13" selection-end-line="59" selection-end-column="13" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="queue.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/mi/mi/scrapy_redis/queue.py">
+      <file leaf-file-name="settings.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/mi_manager/daemon/settings.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="218">
-              <caret line="76" column="0" lean-forward="false" selection-start-line="76" selection-start-column="0" selection-end-line="76" selection-end-column="0" />
+            <state relative-caret-position="-217">
+              <caret line="23" column="0" lean-forward="false" selection-start-line="23" selection-start-column="0" selection-end-line="23" selection-end-column="0" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="index.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/mi_manager/monitor/templates/index.html">
+      <file leaf-file-name="marathonHelper.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/mi_manager/daemon/marathonHelper.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="255">
-              <caret line="15" column="60" lean-forward="true" selection-start-line="15" selection-start-column="60" selection-end-line="15" selection-end-column="60" />
+            <state relative-caret-position="374">
+              <caret line="22" column="0" lean-forward="true" selection-start-line="22" selection-start-column="0" selection-end-line="22" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="mesosHelper.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/mi_manager/daemon/mesosHelper.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="306">
+              <caret line="20" column="42" lean-forward="true" selection-start-line="20" selection-start-column="42" selection-end-line="20" selection-end-column="42" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="README.md" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/README.md">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="0">
+              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="start.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/mi_manager/start.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="512">
+              <caret line="120" column="15" lean-forward="false" selection-start-line="120" selection-start-column="15" selection-end-line="120" selection-end-column="37" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="spider_whitelist.txt" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/mi_manager/spider_whitelist.txt">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="0">
+              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="data_service.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/mi_manager/monitor/data_service.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="405">
+              <caret line="249" column="19" lean-forward="false" selection-start-line="249" selection-start-column="8" selection-end-line="249" selection-end-column="19" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="spider_huxiucom.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/mi/mi/spiders_of_news_in_whiteList/spider_huxiucom.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="272">
+              <caret line="19" column="36" lean-forward="false" selection-start-line="19" selection-start-column="36" selection-end-line="19" selection-end-column="36" />
               <folding />
             </state>
           </provider>
@@ -179,36 +146,36 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>add_mi</find>
-      <find>jsonify(str(</find>
-      <find>print</find>
-      <find>']</find>
-      <find>data_service</find>
+      <find>DNSLookupError</find>
+      <find>okieMiddlew</find>
+      <find>adbapi</find>
+      <find>deferToThread</find>
+      <find>创建mysql数据</find>
+      <find>get_ta</find>
       <find>dic</find>
-      <find>submission_name</find>
-      <find>python2</find>
-      <find>, dbname</find>
-      <find>select_with_dbname</find>
-      <find>AUTOTHROTTLE_ENABLED</find>
-      <find>redis</find>
-      <find>eval</find>
-      <find>filter_redis_detail</find>
-      <find>&quot;&quot;&quot;</find>
-      <find>#</find>
-      <find>&quot;</find>
-      <find>r2</find>
-      <find>spidername</find>
-      <find>spider</find>
-      <find>processShopItem</find>
-      <find>dic['spider_name']</find>
-      <find>= settings.MYSQL_DBNAME</find>
-      <find>ECommerceGoodItem</find>
-      <find>',</find>
-      <find>tao</find>
-      <find>settings</find>
-      <find>mysql</find>
-      <find>start_</find>
-      <find>数据库</find>
+      <find>MISSIONS_CHANGE</find>
+      <find>mission.weight</find>
+      <find>article</find>
+      <find>u'</find>
+      <find>Resources</find>
+      <find>mesos_url</find>
+      <find>WHIT</find>
+      <find>taobao</find>
+      <find>耗时</find>
+      <find>r.zrange</find>
+      <find>print</find>
+      <find>success</find>
+      <find>, 请手动开</find>
+      <find>, 请手动开启</find>
+      <find>SYMBOL_DB</find>
+      <find>POST</find>
+      <find>top</find>
+      <find>login</find>
+      <find>get_news_from_urls</find>
+      <find>item['articleContent']</find>
+      <find>text</find>
+      <find>missions</find>
+      <find>重新</find>
     </findStrings>
     <replaceStrings>
       <replace>hehehe</replace>
@@ -220,7 +187,6 @@
       <replace>CORE_REDIS_HOST</replace>
       <replace>used_mem</replace>
       <replace>settings.</replace>
-      <replace>mission</replace>
       <replace>&quot;</replace>
       <replace>&quot;]</replace>
       <replace>task</replace>
@@ -230,10 +196,19 @@
       <replace>mysql</replace>
       <replace>mongo_detail</replace>
       <replace>###</replace>
+      <replace>mission</replace>
+      <replace>data</replace>
+      <replace>article_default</replace>
+      <replace>article_chinese</replace>
       <replace>'</replace>
+      <replace>'tmall</replace>
+      <replace>tmall</replace>
+      <replace>content</replace>
     </replaceStrings>
     <dirStrings>
       <dir>$PROJECT_DIR$/mi_manager/daemon</dir>
+      <dir>$PROJECT_DIR$/mi_manager</dir>
+      <dir>$PROJECT_DIR$</dir>
     </dirStrings>
   </component>
   <component name="Git.Settings">
@@ -242,57 +217,57 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/mi/mi/commands/crawlall.py" />
-        <option value="$PROJECT_DIR$/mi_manager/monitor/dat_service.py" />
-        <option value="$PROJECT_DIR$/mi_tools/add_EC_missions.py" />
-        <option value="$PROJECT_DIR$/mi_try/settings.py" />
-        <option value="$PROJECT_DIR$/mi_manager/monitor/templates/index.html" />
-        <option value="$PROJECT_DIR$/mi_manager/daemon/dat_server.py" />
-        <option value="$PROJECT_DIR$/mi_try/jsons/filter_redis.json" />
-        <option value="$PROJECT_DIR$/mi_tools/save_spiders_from_redis.py" />
-        <option value="$PROJECT_DIR$/mi_try/jsons/core_redis.json" />
-        <option value="$PROJECT_DIR$/mi_tools/load_spiders_into_redis.py" />
-        <option value="$PROJECT_DIR$/mi_manager/daemon/model/minInfo.py" />
-        <option value="$PROJECT_DIR$/mi_manager/daemon/dat_service.py" />
-        <option value="$PROJECT_DIR$/mi_try/try_zset.py" />
-        <option value="$PROJECT_DIR$/mi_manager/daemon/model/redis_helper.py" />
-        <option value="$PROJECT_DIR$/mi_manager/daemon/redis_helper.py" />
-        <option value="$PROJECT_DIR$/mi_manager/daemon/marathonHelper.py" />
-        <option value="$PROJECT_DIR$/mi_manager/model/submission.py" />
         <option value="$PROJECT_DIR$/mi_manager/monitor/dao/mission.py" />
         <option value="$PROJECT_DIR$/mi_manager/monitor/redis_test_helper.py" />
-        <option value="$PROJECT_DIR$/mi_manager/daemon/data_service.py" />
-        <option value="$PROJECT_DIR$/mi_manager/daemon/gen_json_file.py" />
         <option value="$PROJECT_DIR$/mi_manager/daemon/settings.py" />
         <option value="$PROJECT_DIR$/mi_manager/daemon/jsons/mission3cecn.json" />
-        <option value="$PROJECT_DIR$/mi_manager/settings.py" />
         <option value="$PROJECT_DIR$/mi_manager/monitor/settings.py" />
-        <option value="$PROJECT_DIR$/mi_manager/gen_settings.py" />
         <option value="$PROJECT_DIR$/mi/settings.py" />
         <option value="$PROJECT_DIR$/mi_manager/daemon/model/mission.py" />
         <option value="$PROJECT_DIR$/mi_manager/daemon/model/task.py" />
         <option value="$PROJECT_DIR$/mi_manager/daemon/model/submission.py" />
-        <option value="$PROJECT_DIR$/mi/mi/spiders_of_news_in_whiteList/spider_huxiucom.py" />
         <option value="$PROJECT_DIR$/mi/mi/tools/gen_spiderFile_in_whiteList.py" />
         <option value="$PROJECT_DIR$/mi/mi/settings.py" />
         <option value="$PROJECT_DIR$/mi_manager/monitor/spiderInitfiles_of_eCommerce/spiderInit_jd.com.py" />
-        <option value="$PROJECT_DIR$/mi_manager/start.py" />
         <option value="$PROJECT_DIR$/mi/mi/items.py" />
         <option value="$PROJECT_DIR$/mi/mi/middlewares/middleware_monitor.py" />
-        <option value="$PROJECT_DIR$/mi_manager/redis.helper.py" />
-        <option value="$PROJECT_DIR$/mi_manager/monitor/mongoHelper.py" />
-        <option value="$PROJECT_DIR$/mi_manager/monitor/data_service.py" />
-        <option value="$PROJECT_DIR$/mi/gen_settings.py" />
         <option value="$PROJECT_DIR$/mi/mi/spiders_of_eCommerce/spider_amazon.py" />
-        <option value="$PROJECT_DIR$/mi/mi/spiders_of_eCommerce/spider_dangdang.py" />
-        <option value="$PROJECT_DIR$/mi/mi/spiders_of_eCommerce/spider_gome.py" />
         <option value="$PROJECT_DIR$/mi/mi/spiders_of_eCommerce/spider_jd.py" />
         <option value="$PROJECT_DIR$/mi/mi/spiders_of_eCommerce/spider_taobao.py" />
-        <option value="$PROJECT_DIR$/mi_manager/monitor/mysqlHelper.py" />
+        <option value="$PROJECT_DIR$/mi/mi/pipelines/pipeline_mongo.py" />
+        <option value="$PROJECT_DIR$/mi_manager/monitor/service_discovery.py" />
+        <option value="$PROJECT_DIR$/mi_manager/monitor/mongoHelper.py" />
+        <option value="$PROJECT_DIR$/mi/mi/middlewares/middleware_proxy.py" />
+        <option value="$PROJECT_DIR$/mi/mi/pipelines/pipeline_mysql.py" />
+        <option value="$PROJECT_DIR$/mi/mi/scrapy_redis/pipelines.py" />
+        <option value="$PROJECT_DIR$/mi_manager/gen_settings.py" />
+        <option value="$PROJECT_DIR$/mi_manager/daemon/mesosHelper.py" />
+        <option value="$PROJECT_DIR$/mi/mi/spiders_of_eCommerce/spider_tmall.py" />
         <option value="$PROJECT_DIR$/mi_manager/monitor/mysql_init.py" />
-        <option value="$PROJECT_DIR$/mi_manager/monitor/app.py" />
-        <option value="$PROJECT_DIR$/mi_manager/daemon/app.py" />
+        <option value="$PROJECT_DIR$/mi/mi/spiders_of_news_in_whiteList/spider_huxiucom.py" />
+        <option value="$PROJECT_DIR$/mi/mi/tools/gen_spiderFile_need_fuzzymatching.py" />
         <option value="$PROJECT_DIR$/mi/start.py" />
+        <option value="$PROJECT_DIR$/mi/mi/spiders_of_eCommerce/spider_dangdang.py" />
+        <option value="$PROJECT_DIR$/mi/mi/spiders_of_eCommerce/spider_gome.py" />
+        <option value="$PROJECT_DIR$/mi_manager/redis.helper.py" />
+        <option value="$PROJECT_DIR$/mi_manager/monitor/mysqlHelper.py" />
+        <option value="$PROJECT_DIR$/mi_manager/daemon/data_service.py" />
+        <option value="$PROJECT_DIR$/mi_manager/daemon/gen_json_file.py" />
+        <option value="$PROJECT_DIR$/mi_manager/daemon/marathonHelper.py" />
+        <option value="$PROJECT_DIR$/mi_manager/start.py" />
+        <option value="$PROJECT_DIR$/mi/gen_settings.py" />
+        <option value="$PROJECT_DIR$/mi_manager/daemon/jsons/testmission15bjnewscomcn.json" />
+        <option value="$PROJECT_DIR$/mi_manager/daemon/jsons/testmission15gomecomcn.json" />
+        <option value="$PROJECT_DIR$/mi_manager/daemon/jsons/testmission15taobaocom.json" />
+        <option value="$PROJECT_DIR$/mi_manager/daemon/jsons/testmission16mengzichengcn.json" />
+        <option value="$PROJECT_DIR$/mi_manager/daemon/jsons/testmission17mengzichengcn.json" />
+        <option value="$PROJECT_DIR$/mi_manager/daemon/jsons/testmission12taobaocom.json" />
+        <option value="$PROJECT_DIR$/mi_manager/monitor/app.py" />
+        <option value="$PROJECT_DIR$/mi_manager/monitor/classifier.py" />
+        <option value="$PROJECT_DIR$/mi_manager/monitor/gooseHelper.py" />
+        <option value="$PROJECT_DIR$/mi_manager/daemon/app.py" />
+        <option value="$PROJECT_DIR$/mi_manager/settings.py" />
+        <option value="$PROJECT_DIR$/mi_manager/monitor/data_service.py" />
       </list>
     </option>
   </component>
@@ -325,6 +300,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
@@ -388,51 +364,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="templates" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="mi" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="mi" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="mi_manager" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="monitor" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="static" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="mi" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="mi" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="mi_manager" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="monitor" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="spiderInitfiles_of_eCommerce" />
+              <option name="myItemId" value="training" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -482,17 +414,170 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value=".idea" />
+              <option name="myItemId" value="mi" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="mi" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="mi" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="mi" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="mi" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="tools" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="mi" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="mi" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="mi" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="mi" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="spiders_of_news_need_fuzzymatching" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="mi" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="mi" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="mi" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="mi" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="spiders_of_news_in_whiteList" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="mi" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="mi" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="mi" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="mi" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="spiders_of_eCommerce" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="mi" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="mi" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="mi" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="mi" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="scrapy_redis" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="mi" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="mi" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="mi" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="mi" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="pipelines" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="mi" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="mi" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="mi" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="mi" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="middlewares" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/mi_manager/daemon" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
     <property name="DefaultHtmlFileTemplate" value="HTML File" />
@@ -507,11 +592,11 @@
       <recent name="$PROJECT_DIR$/mi_manager/daemon/model" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/mi_manager/monitor" />
+      <recent name="$PROJECT_DIR$/mi/mi/spiders_of_eCommerce" />
+      <recent name="$PROJECT_DIR$/mi_manager/monitor/spiderInitfiles_of_eCommerce" />
       <recent name="$PROJECT_DIR$/mi/mi" />
       <recent name="$PROJECT_DIR$/mi_manager/daemon" />
-      <recent name="$PROJECT_DIR$/mi_try" />
-      <recent name="D:\BDCloud\Work\SoftwareCup\mi\mi_tools" />
-      <recent name="D:\BDCloud\Work\SoftwareCup\mi\mi_manager\monitor\static\v2" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -526,7 +611,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.start (1)">
+  <component name="RunManager" selected="Python.start">
     <configuration default="false" name="start" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -541,24 +626,6 @@
       <module name="version02" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/mi_manager/start.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <method />
-    </configuration>
-    <configuration default="false" name="app" type="PythonConfigurationType" factoryName="Python" temporary="true">
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/mi_manager/daemon" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <module name="version02" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/mi_manager/daemon/app.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <method />
@@ -599,20 +666,38 @@
       <option name="SHOW_COMMAND_LINE" value="false" />
       <method />
     </configuration>
-    <configuration default="false" name="redis.helper" type="PythonConfigurationType" factoryName="Python" temporary="true">
+    <configuration default="false" name="mesosHelper" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
       <envs>
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
       <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/mi_manager" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/mi_manager/daemon" />
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <module name="version02" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/mi_manager/redis.helper.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/mi_manager/daemon/mesosHelper.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <method />
+    </configuration>
+    <configuration default="false" name="classifier" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/mi_manager/monitor" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="version02" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/mi_manager/monitor/classifier.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <method />
@@ -770,17 +855,17 @@
     </configuration>
     <list size="5">
       <item index="0" class="java.lang.String" itemvalue="Python.start" />
-      <item index="1" class="java.lang.String" itemvalue="Python.app" />
-      <item index="2" class="java.lang.String" itemvalue="Python.app (1)" />
-      <item index="3" class="java.lang.String" itemvalue="Python.start (1)" />
-      <item index="4" class="java.lang.String" itemvalue="Python.redis.helper" />
+      <item index="1" class="java.lang.String" itemvalue="Python.app (1)" />
+      <item index="2" class="java.lang.String" itemvalue="Python.start (1)" />
+      <item index="3" class="java.lang.String" itemvalue="Python.mesosHelper" />
+      <item index="4" class="java.lang.String" itemvalue="Python.classifier" />
     </list>
     <recent_temporary>
       <list size="5">
         <item index="0" class="java.lang.String" itemvalue="Python.start" />
-        <item index="1" class="java.lang.String" itemvalue="Python.start (1)" />
-        <item index="2" class="java.lang.String" itemvalue="Python.redis.helper" />
-        <item index="3" class="java.lang.String" itemvalue="Python.app" />
+        <item index="1" class="java.lang.String" itemvalue="Python.classifier" />
+        <item index="2" class="java.lang.String" itemvalue="Python.mesosHelper" />
+        <item index="3" class="java.lang.String" itemvalue="Python.start (1)" />
         <item index="4" class="java.lang.String" itemvalue="Python.app (1)" />
       </list>
     </recent_temporary>
@@ -918,7 +1003,77 @@
       <option name="project" value="LOCAL" />
       <updated>1498104620479</updated>
     </task>
-    <option name="localTasksCounter" value="18" />
+    <task id="LOCAL-00018" summary="修正: 1.mi模块开始逻辑 2.任务间数据隔离 3.后台数据接口&#10;补充: 数据展示与监控的新API">
+      <created>1498204139049</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1498204139049</updated>
+    </task>
+    <task id="LOCAL-00019" summary="version 0.88 实现任务的数据库发现与连接, 实现批量地根据url获取新闻信息">
+      <created>1498229270104</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1498229270104</updated>
+    </task>
+    <task id="LOCAL-00020" summary="修正： 1.在线提取模块后台接口 2.daemon模块task调度算法 3.marathonHelper业务逻辑">
+      <created>1498284596488</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1498284596488</updated>
+    </task>
+    <task id="LOCAL-00021" summary="修正： 1.即时爬取模块无法正确获得回传数据的问题 2.mi.daemon.marathonHelper无法连接marathon造成守护进程崩溃的问题">
+      <created>1498397723586</created>
+      <option name="number" value="00021" />
+      <option name="presentableId" value="LOCAL-00021" />
+      <option name="project" value="LOCAL" />
+      <updated>1498397723586</updated>
+    </task>
+    <task id="LOCAL-00022" summary="补充: 1.mesos帮助模块 2.首页数据的后台接口">
+      <created>1498458318145</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1498458318145</updated>
+    </task>
+    <task id="LOCAL-00023" summary="补充: 首页数据的后台接口">
+      <created>1498482988727</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1498482988727</updated>
+    </task>
+    <task id="LOCAL-00024" summary="补充: 任务管理模块的后台接口">
+      <created>1498488850859</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1498488850859</updated>
+    </task>
+    <task id="LOCAL-00025" summary="补充:1.对首页的数据支持 2.登录功能的简单后端实现">
+      <created>1498546549210</created>
+      <option name="number" value="00025" />
+      <option name="presentableId" value="LOCAL-00025" />
+      <option name="project" value="LOCAL" />
+      <updated>1498546549210</updated>
+    </task>
+    <task id="LOCAL-00026" summary="修正:后端数据接口">
+      <created>1498564593567</created>
+      <option name="number" value="00026" />
+      <option name="presentableId" value="LOCAL-00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1498564593567</updated>
+    </task>
+    <task id="LOCAL-00027" summary="version 0.9 加入新闻分类功能(利用支持向量机实现)">
+      <created>1498607594704</created>
+      <option name="number" value="00027" />
+      <option name="presentableId" value="LOCAL-00027" />
+      <option name="project" value="LOCAL" />
+      <updated>1498607594704</updated>
+    </task>
+    <option name="localTasksCounter" value="28" />
     <servers />
   </component>
   <component name="TestHistory">
@@ -948,22 +1103,22 @@
     <frame x="0" y="30" width="1920" height="1050" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.19578947" sideWeight="0.48795182" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32901832" sideWeight="0.49578947" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32470334" sideWeight="0.52947366" order="6" side_tool="true" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.5070119" sideWeight="0.48736843" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32470334" sideWeight="0.4705263" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32901832" sideWeight="0.49789473" order="9" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.26752967" sideWeight="0.46526316" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24526316" sideWeight="0.48795182" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32901832" sideWeight="0.49157894" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.30097088" sideWeight="0.55" order="6" side_tool="true" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32686085" sideWeight="0.45" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Python Console" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32901832" sideWeight="0.49789473" order="2" side_tool="true" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3840345" sideWeight="0.57842106" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32901832" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
-      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.19263157" sideWeight="0.5120482" order="2" side_tool="true" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32901832" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.19263157" sideWeight="0.5120482" order="3" side_tool="true" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.399137" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.35382956" sideWeight="0.47894737" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Data View" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -994,6 +1149,7 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
+    <option name="OFFER_MOVE_TO_ANOTHER_CHANGELIST_ON_PARTIAL_COMMIT" value="false" />
     <MESSAGE value="version-0.78 添加数据展示前端页面和接口" />
     <MESSAGE value="version-0.799 重构前端页面，目前已迁移动态ip、动态url和爬虫展示部分" />
     <MESSAGE value="version-0.80 修复dat_service手误" />
@@ -1009,114 +1165,297 @@
     <MESSAGE value="修正： 1.mi_manager.monitor.app中的数据接口 2.mi_manager.daemon.app中的task调度" />
     <MESSAGE value="补充： 1.返回资源列表的接口 2.数据库查表可以自定义数据库名" />
     <MESSAGE value="补充： 1.返回资源列表的接口 2.数据库操作可以自定义数据库名" />
-    <option name="LAST_COMMIT_MESSAGE" value="补充： 1.返回资源列表的接口 2.数据库操作可以自定义数据库名" />
+    <MESSAGE value="修正: 1.mi模块开始逻辑 2.任务间数据隔离 3.后台数据接口&#10;补充: 数据展示与监控的新API" />
+    <MESSAGE value="version 0.88 实现任务的数据库发现与连接, 实现批量地根据url获取新闻信息" />
+    <MESSAGE value="修正： 1.在线提取模块后台接口 2.daemon模块task调度算法 3.marathonHelper业务逻辑" />
+    <MESSAGE value="修正： 1.即时爬取模块无法正确获得回传数据的问题 2.mi.daemon.marathonHelper无法连接marathon造成守护进程崩溃的问题" />
+    <MESSAGE value="补充: 1.mesos帮助模块 2.首页数据的后台接口" />
+    <MESSAGE value="补充: 首页数据的后台接口" />
+    <MESSAGE value="补充: 任务管理模块的后台接口" />
+    <MESSAGE value="补充:1.对首页的数据支持 2.登录功能的简单后端实现" />
+    <MESSAGE value="修正:后端数据接口" />
+    <MESSAGE value="version 0.9 加入新闻分类功能(利用支持向量机实现)" />
+    <option name="LAST_COMMIT_MESSAGE" value="version 0.9 加入新闻分类功能(利用支持向量机实现)" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="16" />
+      <option name="time" value="17" />
     </breakpoint-manager>
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/mi/mi/spiders_of_news_in_whiteList/spider_huxiucom.py">
+    <entry file="file://$PROJECT_DIR$/mi/mi/spiders_of_eCommerce/spider_taobao.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="323">
-          <caret line="22" column="15" lean-forward="true" selection-start-line="22" selection-start-column="15" selection-end-line="22" selection-end-column="15" />
+        <state relative-caret-position="357">
+          <caret line="33" column="0" lean-forward="false" selection-start-line="33" selection-start-column="0" selection-end-line="33" selection-end-column="0" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/mi/mi/tools/gen_spiderFile_need_fuzzymatching.py">
+    <entry file="file://$PROJECT_DIR$/mi/mi/tools/fuzzyMatching.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="663">
-          <caret line="51" column="4" lean-forward="false" selection-start-line="51" selection-start-column="4" selection-end-line="51" selection-end-column="4" />
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/mi/mi/tools/gen_spiderFile_in_whiteList.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="501">
-          <caret line="47" column="22" lean-forward="false" selection-start-line="47" selection-start-column="22" selection-end-line="47" selection-end-column="22" />
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/mi_manager/monitor/spiderInitfiles_of_news/spiderInit_huxiu.com.py" />
-    <entry file="file://$PROJECT_DIR$/mi_manager/monitor/gen_spiderInitfile_of_news.py" />
-    <entry file="file://$PROJECT_DIR$/mi_manager/monitor/spiderInitfiles_of_news/spiderInit_mengzicheng.cn.py" />
-    <entry file="file://$PROJECT_DIR$/mi_manager/monitor/spiderInitfiles_of_eCommerce/spiderInit_taobao.com.py">
+    <entry file="file://$PROJECT_DIR$/mi/mi/tools/gen_spiderFile_need_fuzzymatching.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="51">
-          <caret line="15" column="8" lean-forward="false" selection-start-line="15" selection-start-column="8" selection-end-line="15" selection-end-column="139" />
+        <state relative-caret-position="748">
+          <caret line="44" column="0" lean-forward="true" selection-start-line="44" selection-start-column="0" selection-end-line="44" selection-end-column="0" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/mi_manager/monitor/spiderInitfiles_of_eCommerce/spiderInit_jd.com.py">
+    <entry file="file://$USER_HOME$/.PyCharmCE2016.3/system/python_stubs/-1247972723/__builtin__.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="170">
-          <caret line="10" column="8" lean-forward="false" selection-start-line="10" selection-start-column="8" selection-end-line="10" selection-end-column="132" />
+        <state relative-caret-position="527">
+          <caret line="31" column="0" lean-forward="false" selection-start-line="31" selection-start-column="0" selection-end-line="31" selection-end-column="0" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/mi_manager/monitor/spiderInitfiles_of_eCommerce/spiderInit_gome.com.cn.py">
+    <entry file="file://$PROJECT_DIR$/mi/mi/middlewares/middleware_cookie.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="119">
-          <caret line="9" column="8" lean-forward="false" selection-start-line="9" selection-start-column="8" selection-end-line="9" selection-end-column="140" />
+        <state relative-caret-position="191">
+          <caret line="27" column="12" lean-forward="false" selection-start-line="27" selection-start-column="12" selection-end-line="27" selection-end-column="12" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/mi_manager/monitor/spiderInitfiles_of_eCommerce/spiderInit_dangdang.com.py">
+    <entry file="file://$PROJECT_DIR$/mi/mi/spiders_of_eCommerce/spider_dangdang.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="119">
-          <caret line="9" column="8" lean-forward="false" selection-start-line="9" selection-start-column="8" selection-end-line="9" selection-end-column="142" />
+        <state relative-caret-position="735">
+          <caret line="58" column="44" lean-forward="false" selection-start-line="58" selection-start-column="44" selection-end-line="58" selection-end-column="44" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/mi_manager/monitor/spiders_swap.txt">
+    <entry file="file://$PROJECT_DIR$/mi/mi/spiders_of_eCommerce/spider_gome.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="174">
+          <caret line="81" column="154" lean-forward="false" selection-start-line="81" selection-start-column="154" selection-end-line="81" selection-end-column="154" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mi/mi/spiders_of_eCommerce/spider_tmall.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="268">
+          <caret line="115" column="16" lean-forward="false" selection-start-line="115" selection-start-column="16" selection-end-line="115" selection-end-column="16" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mi_manager/redis.helper.py" />
+    <entry file="file://$PROJECT_DIR$/mi_manager/daemon/gen_json_file.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="511">
+          <caret line="33" column="13" lean-forward="false" selection-start-line="33" selection-start-column="13" selection-end-line="33" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mi_manager/daemon/jsons/testmission15bjnewscomcn.json">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/mi_manager/spider_whitelist.txt">
+    <entry file="file://$PROJECT_DIR$/mi_manager/daemon/jsons/testmission15gomecomcn.json">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/mi_manager/settings.py">
+    <entry file="file://$PROJECT_DIR$/mi_manager/daemon/jsons/testmission15taobaocom.json">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="579">
-          <caret line="60" column="14" lean-forward="false" selection-start-line="60" selection-start-column="0" selection-end-line="60" selection-end-column="14" />
-          <folding />
+        <state relative-caret-position="136">
+          <caret line="8" column="15" lean-forward="false" selection-start-line="8" selection-start-column="15" selection-end-line="8" selection-end-column="15" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mi_manager/daemon/jsons/testmission16mengzichengcn.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mi_manager/daemon/jsons/testmission17mengzichengcn.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mi_manager/good_types.txt" />
+    <entry file="file://$PROJECT_DIR$/mi_manager/daemon/jsons/testmission12taobaocom.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="1" lean-forward="false" selection-start-line="0" selection-start-column="1" selection-end-line="17" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mi_manager/monitor/mysqlHelper.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1021">
+          <caret line="170" column="12" lean-forward="false" selection-start-line="170" selection-start-column="12" selection-end-line="170" selection-end-column="12" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mi_manager/monitor/training/__init__.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mi/start.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="232">
+          <caret line="23" column="29" lean-forward="false" selection-start-line="23" selection-start-column="29" selection-end-line="23" selection-end-column="29" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mi/gen_settings.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="340">
+          <caret line="21" column="18" lean-forward="true" selection-start-line="58" selection-start-column="60" selection-end-line="58" selection-end-column="78" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/mi/mi/scrapy_redis/pipelines.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
+        <state relative-caret-position="697">
+          <caret line="41" column="28" lean-forward="false" selection-start-line="41" selection-start-column="28" selection-end-line="41" selection-end-column="28" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/mi/mi/items.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="153">
-          <caret line="9" column="25" lean-forward="false" selection-start-line="9" selection-start-column="25" selection-end-line="9" selection-end-column="25" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/mi/__init__.py">
+    <entry file="file://$PROJECT_DIR$/mi/mi/scrapy_redis/dupefilter.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mi/mi/middlewares/middleware_proxy.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1581">
+          <caret line="133" column="12" lean-forward="false" selection-start-line="133" selection-start-column="12" selection-end-line="133" selection-end-column="12" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mi/mi/middlewares/middleware_monitor.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mi/mi/settings.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1037">
+          <caret line="61" column="17" lean-forward="false" selection-start-line="61" selection-start-column="0" selection-end-line="61" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/.local/lib/python2.7/site-packages/sklearn/externals/joblib/__init__.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mi_manager/monitor/mongoHelper.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="34">
+          <caret line="4" column="0" lean-forward="false" selection-start-line="4" selection-start-column="0" selection-end-line="4" selection-end-column="20" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mi_manager/monitor/monitor_init.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/.local/lib/python2.7/site-packages/sklearn/externals/joblib/numpy_pickle.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="257">
+          <caret line="566" column="0" lean-forward="false" selection-start-line="566" selection-start-column="0" selection-end-line="566" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mi_manager/monitor/settings.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1309">
+          <caret line="77" column="0" lean-forward="false" selection-start-line="77" selection-start-column="0" selection-end-line="77" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/mi/mi/spiders_of_eCommerce/__init__.py">
+    <entry file="file://$PROJECT_DIR$/mi_manager/gen_settings.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="3128">
+          <caret line="184" column="8" lean-forward="false" selection-start-line="184" selection-start-column="8" selection-end-line="184" selection-end-column="54" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mi_manager/monitor/classifier.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="612">
+          <caret line="44" column="25" lean-forward="false" selection-start-line="44" selection-start-column="25" selection-end-line="44" selection-end-column="25" />
+          <folding>
+            <element signature="e#24#33#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mi_manager/monitor/app.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2448">
+          <caret line="152" column="28" lean-forward="false" selection-start-line="152" selection-start-column="28" selection-end-line="152" selection-end-column="28" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mi/mi/pipelines/pipeline_mysql.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1887">
+          <caret line="117" column="8" lean-forward="false" selection-start-line="117" selection-start-column="8" selection-end-line="117" selection-end-column="8" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mi/mi/pipelines/pipeline_mongo.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="34">
+          <caret line="2" column="0" lean-forward="false" selection-start-line="2" selection-start-column="0" selection-end-line="2" selection-end-column="20" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mi_manager/daemon/data_service.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="629">
+          <caret line="41" column="4" lean-forward="false" selection-start-line="41" selection-start-column="4" selection-end-line="41" selection-end-column="4" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mi_manager/daemon/app.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="17">
+          <caret line="36" column="35" lean-forward="false" selection-start-line="36" selection-start-column="35" selection-end-line="36" selection-end-column="35" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mi_manager/daemon/jsons/testmission12huxiucom.json">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
@@ -1126,286 +1465,88 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/mi/mi/spiders_of_news_need_fuzzymatching/spider_mengzichengcn.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-77">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        <state relative-caret-position="595">
+          <caret line="41" column="12" lean-forward="false" selection-start-line="41" selection-start-column="12" selection-end-line="41" selection-end-column="12" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/mi_manager/gen_settings.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="620">
-          <caret line="184" column="42" lean-forward="false" selection-start-line="184" selection-start-column="42" selection-end-line="184" selection-end-column="42" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/mi_manager/monitor/spiderInitfiles_of_eCommerce/spiderInit_amazon.cn.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="391">
-          <caret line="26" column="48" lean-forward="false" selection-start-line="26" selection-start-column="48" selection-end-line="26" selection-end-column="48" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/mi/mi/middlewares/middleware_proxy.py">
+    <entry file="file://$PROJECT_DIR$/mi_manager/spider_whitelist.txt">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/mi/mi/settings.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="17">
-          <caret line="1" column="8" lean-forward="false" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="8" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/mi_manager/monitor/monitor_init.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="4" column="8" lean-forward="false" selection-start-line="4" selection-start-column="8" selection-end-line="4" selection-end-column="8" />
-          <folding>
-            <element signature="e#24#36#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/mi_manager/good_types.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/mi_manager/redis.helper.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="136">
-          <caret line="9" column="9" lean-forward="true" selection-start-line="9" selection-start-column="9" selection-end-line="9" selection-end-column="9" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/mi_manager/monitor/settings.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="552">
-          <caret line="77" column="0" lean-forward="false" selection-start-line="77" selection-start-column="0" selection-end-line="77" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/mi_manager/monitor/mongoHelper.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="255">
-          <caret line="15" column="17" lean-forward="true" selection-start-line="15" selection-start-column="17" selection-end-line="15" selection-end-column="17" />
-          <folding>
-            <element signature="e#24#38#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/mi/mi/middlewares/middleware_monitor.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-9">
-          <caret line="25" column="34" lean-forward="true" selection-start-line="25" selection-start-column="34" selection-end-line="25" selection-end-column="34" />
-          <folding>
-            <element signature="e#24#36#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file:///usr/local/lib/python2.7/dist-packages/redis/connection.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="218">
-          <caret line="441" column="0" lean-forward="false" selection-start-line="441" selection-start-column="0" selection-end-line="441" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/mi_manager/daemon/model/mission.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="218">
-          <caret line="14" column="8" lean-forward="false" selection-start-line="14" selection-start-column="8" selection-end-line="14" selection-end-column="8" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/mi_manager/daemon/data_service.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="218">
-          <caret line="78" column="4" lean-forward="false" selection-start-line="78" selection-start-column="4" selection-end-line="78" selection-end-column="4" />
-          <folding>
-            <element signature="e#24#33#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/mi/mi/spiders_of_eCommerce/spider_amazon.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="153">
-          <caret line="9" column="5" lean-forward="false" selection-start-line="9" selection-start-column="5" selection-end-line="9" selection-end-column="5" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/mi/mi/spiders_of_eCommerce/spider_jd.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="119">
-          <caret line="7" column="5" lean-forward="false" selection-start-line="7" selection-start-column="5" selection-end-line="7" selection-end-column="5" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/mi/mi/spiders_of_eCommerce/spider_taobao.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="528">
-          <caret line="127" column="30" lean-forward="false" selection-start-line="127" selection-start-column="30" selection-end-line="127" selection-end-column="30" />
-          <folding>
-            <element signature="e#25#38#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/mi/mi/spiders_of_eCommerce/spider_dangdang.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-842">
-          <caret line="9" column="5" lean-forward="false" selection-start-line="9" selection-start-column="5" selection-end-line="9" selection-end-column="5" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/mi/mi/spiders_of_eCommerce/spider_gome.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-587">
-          <caret line="8" column="9" lean-forward="true" selection-start-line="8" selection-start-column="9" selection-end-line="8" selection-end-column="9" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/mi_manager/start.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="538">
-          <caret line="82" column="0" lean-forward="true" selection-start-line="82" selection-start-column="0" selection-end-line="82" selection-end-column="0" />
+        <state relative-caret-position="512">
+          <caret line="120" column="15" lean-forward="false" selection-start-line="120" selection-start-column="15" selection-end-line="120" selection-end-column="37" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$USER_HOME$/.local/lib/python2.7/site-packages/pymysql/connections.py">
+    <entry file="file://$PROJECT_DIR$/mi_manager/settings.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="524">
-          <caret line="705" column="0" lean-forward="false" selection-start-line="705" selection-start-column="0" selection-end-line="705" selection-end-column="0" />
+        <state relative-caret-position="172">
+          <caret line="59" column="13" lean-forward="false" selection-start-line="59" selection-start-column="13" selection-end-line="59" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/README.md">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mi_manager/daemon/marathonHelper.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="374">
+          <caret line="22" column="0" lean-forward="true" selection-start-line="22" selection-start-column="0" selection-end-line="22" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mi_manager/daemon/mesosHelper.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="306">
+          <caret line="20" column="42" lean-forward="true" selection-start-line="20" selection-start-column="42" selection-end-line="20" selection-end-column="42" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mi/mi/spiders_of_news_in_whiteList/spider_huxiucom.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="272">
+          <caret line="19" column="36" lean-forward="false" selection-start-line="19" selection-start-column="36" selection-end-line="19" selection-end-column="36" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mi_manager/daemon/settings.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-217">
+          <caret line="23" column="0" lean-forward="false" selection-start-line="23" selection-start-column="0" selection-end-line="23" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/mi_manager/monitor/data_service.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="218">
-          <caret line="48" column="18" lean-forward="false" selection-start-line="48" selection-start-column="18" selection-end-line="48" selection-end-column="18" />
+        <state relative-caret-position="405">
+          <caret line="249" column="19" lean-forward="false" selection-start-line="249" selection-start-column="8" selection-end-line="249" selection-end-column="19" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/mi_manager/monitor/mysqlHelper.py">
+    <entry file="file://$PROJECT_DIR$/mi_manager/monitor/gooseHelper.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="136">
-          <caret line="20" column="19" lean-forward="true" selection-start-line="20" selection-start-column="19" selection-end-line="20" selection-end-column="19" />
-          <folding>
-            <element signature="e#24#38#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/mi_manager/daemon/model/submission.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="153">
-          <caret line="9" column="0" lean-forward="false" selection-start-line="9" selection-start-column="0" selection-end-line="9" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/mi/gen_settings.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="422">
-          <caret line="74" column="0" lean-forward="false" selection-start-line="74" selection-start-column="0" selection-end-line="74" selection-end-column="0" />
-          <folding>
-            <element signature="e#24#33#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/mi_manager/monitor/templates/index.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="255">
-          <caret line="15" column="60" lean-forward="true" selection-start-line="15" selection-start-column="60" selection-end-line="15" selection-end-column="60" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/mi/mi/scrapy_redis/queue.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="218">
-          <caret line="76" column="0" lean-forward="false" selection-start-line="76" selection-start-column="0" selection-end-line="76" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/mi_manager/daemon/app.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="76">
-          <caret line="84" column="28" lean-forward="true" selection-start-line="84" selection-start-column="28" selection-end-line="84" selection-end-column="28" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/mi_manager/monitor/mysql_init.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="127">
-          <caret line="17" column="15" lean-forward="false" selection-start-line="17" selection-start-column="15" selection-end-line="17" selection-end-column="15" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/mi/start.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="348">
-          <caret line="36" column="8" lean-forward="false" selection-start-line="36" selection-start-column="8" selection-end-line="36" selection-end-column="8" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/mi/mi/scrapy_redis/scheduler.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="218">
-          <caret line="68" column="0" lean-forward="false" selection-start-line="68" selection-start-column="0" selection-end-line="68" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file:///usr/lib/python2.7/dist-packages/twisted/internet/defer.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="218">
-          <caret line="1273" column="0" lean-forward="false" selection-start-line="1273" selection-start-column="0" selection-end-line="1273" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/mi/settings.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="476">
-          <caret line="28" column="36" lean-forward="true" selection-start-line="28" selection-start-column="36" selection-end-line="28" selection-end-column="36" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/mi_manager/monitor/app.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="323">
-          <caret line="123" column="0" lean-forward="true" selection-start-line="123" selection-start-column="0" selection-end-line="123" selection-end-column="0" />
+        <state relative-caret-position="89">
+          <caret line="30" column="38" lean-forward="false" selection-start-line="30" selection-start-column="38" selection-end-line="30" selection-end-column="38" />
           <folding />
         </state>
       </provider>

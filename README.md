@@ -49,6 +49,8 @@
 
 ## 架构实现
 
+![部署图](mi/ReadMe/屏幕截图 2017-06-28 16_58_13.png)
+
 ### 底层：分布式框架（zookeeper+mesos+marathon+docker）
 
 #### 介绍
@@ -89,7 +91,11 @@ mongo数据库镜像
 * mi:v10
 由mi(python程序源码)在mi_environment上打包而成。运行容器自动获取mi_manager发布的任务，并开始爬虫任务。
 
+![docker镜像打包关系图](mi/ReadMe/屏幕截图 2017-06-28 13_15_01.png)
+
 在应用服务容器化得基础上，开发人员开始寻找管理和调度容器的方法。并最终敲定使用zookeeper+meos+marathon来进行容器的调度，我们整理框架提供的服务与接口，为上层管理系统提供了数个调度容器的方法，使得可以在分布式爬虫系统的web应用（mi_manager）中直接调度任务，令任务自动在合适的时间启动多个工作容器（mi），进行不同的爬虫子任务，满足任务需求。在这个过程中，开发人员认识到，仅仅是docker，并不能称之为分布式，要能实际控制节点资源，并实现分布式的相关算法，才称得上是分布式系统。所以我们最终选择用zookeeper维持底层框架中各服务的持久运行，用mesos来管理分布式系统中各个节点上的资源，用marathon来调度任务、管理docker容器。
+
+![底层框架结构图](mi/ReadMe/1_PEM_EF3OWOJMHW48.png)
 
 结构图：
 
@@ -99,6 +105,8 @@ http://www.mengzicheng.cn/wordpress/wp-content/uploads/2017/06/1_PEM_EF3OWOJMHW4
 #### 实现
 
 在开发环境中，采用一台master，两台slave的结构。所以并不涉及选举行为。
+
+![mesos监控截图](mi/ReadMe/FBAEAC1AE72B090C4A5173FC2A9A248E.png)
 
 #### 使用帮助
 
@@ -133,8 +141,7 @@ daemon模块：借助mosos和marathon提供的数据接接口，从核心redis�
 
 #### 模块划分
 
-mi_manager整体模块图：
-[需画模块图]
+![mi_manager整体模块图](mi/ReadMe/mi_manager模块图.png)
 
 #### 主要功能
 
@@ -146,14 +153,17 @@ mi_manager整体模块图：
 
 #### 实现
 
+![工作流程图](mi/ReadMe/Cache_4b6610d52a4179a3..jpg)
+
 需写实现
 
 
 ### 支持分布式的智能爬虫（mi）
 
-#### 基础框架
 
-基于scrapy-redis。
+#### 基础框架 
+
+基于Scrapy框架和Scrapy-redis框架
 
 ##### Scrapy架构
 
@@ -161,7 +171,9 @@ mi_manager整体模块图：
 
 * Scrapy 使用了 Twisted['twɪstɪd](其主要对手是Tornado)异步网络框架来处理网络通讯，可以加快下载速度，不用自己去实现异步框架，并且包含了各种中间件接口，可以灵活的完成各种需求。
 
-![scrapy框架架构](/Users/omtbreak/Downloads/1015718-20170306002755735-329816673.png)
+![scrapy框架架构](mi/ReadMe/1015718-20170306002755735-329816673.png)
+
+![scrapy框架结构2](mi/ReadMe/scrapy_structure.jpg)
 
 * Scrapy Engine(引擎): 负责Spider、ItemPipeline、Downloader、Scheduler中间的通讯，信号、数据传递等。
 
@@ -198,8 +210,11 @@ scrapy-redis是基于redis的scrapy组件，主要功能如下：
 Scheduler + Duplication Filter, Item Pipeline, Base Spiders.
 
 如上图所示，scrapy-redis在scrapy的架构上增加了redis，基于redis的特性拓展了如下组件：
-![scrapy-redis架构](/Users/omtbreak/Downloads/07-scrapy_redis_structure.jpg)
+
+![scrapy-redis架构](mi/ReadMe/mi_manager模块图.png)
+
 * 调度器(Scheduler)
+
 
 scrapy-redis调度器通过redis的set不重复的特性，巧妙的实现了Duplication Filter去重（DupeFilter set存放爬取过的request）。
 Spider新生成的request，将request的指纹到redis的DupeFilter set检查是否重复，并将不重复的request push写入redis的request队列。
@@ -208,7 +223,14 @@ Spider新生成的request，将request的指纹到redis的DupeFilter set检查�
 
 将Spider爬取到的Item给scrapy-redis的Item Pipeline，将爬取到的Item存入redis的items队列。可以很方便的从items队列中提取item，从而实现items processes 集群
 
-#### Settings配置文件
+
+#### 实现
+
+![mi的活动图](mi/ReadMe/屏幕截图 2017-06-28 17_07_14.png)
+
+#### 技术细节
+
+##### Settings配置文件
 对于Settings配置文件，我们分为3类，分别是：
 * 用户可自行配置--对于不同用户的使用条件与使用需求可以自行对爬虫进行配置
 * 根据资源分配进行设置--需要用户自行对自己使用的数据库信息进行配置
@@ -380,12 +402,12 @@ SCHEDULER_QUEUE_CLASS = 'mi.scrapy_redis.queue.SpiderPriorityQueue'
 31. 这是对下载处理器进行设置，不使用其中的s3处理器，若使用s3处理器则有可能出现异常
 DOWNLOAD_HANDLERS = {'s3': None,}
 
-#### 爬虫工作原理
+##### 爬虫工作原理
   
 新闻博客类和电商类的网站构造以及网页之间的关系差别较大，因此制定的爬虫策略是截然不同的，相比较而言，电商类因为涉及到大量的Ajax技术，需要处理更多的动态问题，复杂性更高
 
 
-##### 新闻博客类爬虫逻辑
+###### 新闻博客类爬虫逻辑
 
 对新闻博客类网站，选择全站爬取。这类网站的各个界面之间的关系是较为简明的，而且由于只抓取正文页，因此，只需在URl增量的过程中找到符合每个新闻网站中的正文页url格式的网页，然后交给下载中间件下载，再进一步对标题与正文解析即可。
 
@@ -422,7 +444,7 @@ DOWNLOAD_HANDLERS = {'s3': None,}
   
 
 
-##### 电商类爬虫逻辑
+###### 电商类爬虫逻辑
 电商类爬虫的基本步骤与新闻博客类类似，明显的区别在于：
 
 1.  更复杂的网页结构
@@ -541,6 +563,7 @@ mongodb的这些特性，很适合分布式爬虫搭建集群存储数据的需�
 
 ##### 电商类数据结构化与存储
 
+![电商数据E-R图](mi/ReadMe/er.png)
 与新闻博客类不同，电商类数据之间关系要复杂的多，各个电商之间存在着较大的差异，较为共性的是商品信息，商品名字和商品价格是在抓取电商类数据时最为重要的部分，因此对商品设计了如下的数据类型
   * 电商商品结构化数据格式
 
@@ -864,9 +887,6 @@ mongodb的这些特性，很适合分布式爬虫搭建集群存储数据的需�
 
 通过实现BloomFilter算法并在scrapy-redis的基础上对scrapy-redis框架进行修改，完成了使scrapy-redis支持BloomFilter去重
 
-
-
-## 算法：
 
 ### 支持向量机
 

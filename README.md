@@ -173,7 +173,7 @@ daemon模块：借助mosos和marathon提供的数据接接口，从核心redis�
 
 ![scrapy框架架构](mi/ReadMe/1015718-20170306002755735-329816673.png)
 
-![scrapy框架结构2](mi/ReadMe/scrapy_structure.jpg)
+![scrapy框架结构2](https://github.com/724686158/mi/raw/master/ReadMe/scrapy_structure.jpg)
 
 * Scrapy Engine(引擎): 负责Spider、ItemPipeline、Downloader、Scheduler中间的通讯，信号、数据传递等。
 

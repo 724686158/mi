@@ -29,6 +29,7 @@
 [2017年中国软件杯“分布式爬虫系统”开发记录（七）](http://www.mengzicheng.cn/wordpress/?p=1071)
 
 
+
 # Mi项目文档
 
 ## 整体描述
@@ -37,9 +38,9 @@
 
 我们在开发过程中，紧跟赛题的思路与要求。在多个层次上实现了赛题对分布式的要求。解决传统爬虫的痛点。
 
-在技术层面，我们开发了独立完整的管理系统（mi\_manager），具有资源管理、任务调度、爬虫监控、数据展示等功能。爬虫工作的实际承载者（mi）是python2.7编写的爬虫程序，它支持链接发现、支持url去重、支持代理，自动变速、自动设置cookie、自动添加agent信息，可配置、可监控、可并发。在框架的支撑下、他可以做到最小化的资源占有、高效的并发性能、灵活的调度、原生的分布式。
+在技术层面，我们借助多个开源项目组成了稳定高效的分布式框架（zookeeper+mesos+marathon+docker），在此之上开发了分布式爬虫管理系统（mi_manager）和支持分布式的智能爬虫（mi）。
 
-在此之上，我们还在算法层面做了一些工作、以提高项目在分布式调度与数据挖掘方面的潜力：
+此外，我们还在算法层面做了一些工作、以提高项目在分布式调度与数据挖掘方面的潜力：
 
 * 借助bloom filter算法，减小redis数据库中去重队列的内存占用。
 * 智能鉴别新闻网页
@@ -407,9 +408,13 @@ DOWNLOAD_HANDLERS = {'s3': None,}
   ```
       
   3. 下面是对正文页进行标题与正文的提取。我们使用XPath表达式完成提取。XPath是用于选择XML文档中的节点的语言，其也可以与HTML一起使用。XPpath是Scrapy内建的选择器，Scrapy选择器构建在lxml库之上，这意味着它们的速度和解析精度非常相似。我们选择XPath而不是流行的BeautifulSoup或者使用正则表达式有以下几点原因：
+  
       1. XPath是Scrapy内建的选择器，它与Scrapy有天然的默契，更为简便且不需要考虑出了语法本身外别的任何问题。
+      
       2. XPath的提取效率更高，提取速度比BeautifulSoup更快。
+      
       3. XPath是基于XML的文档层次结构的，而正则表达式是基于文本特征的，显然XPath对网页内容的提取更为友好，只要我们找到提取内容的位置，XPath要比正则表达式方便的多。
+      
   ```
   title = response.xpath("/html/body/div[@class='center']/div[@class='content']/div[@class='main']/div[@class='main_lt article_lt']/div[@id='article']/h2[@id='cont_title']/text()").extract()[0]
             content = ''.join(response.xpath('//div[@class="article-content"]//p/text()').extract())
@@ -753,10 +758,11 @@ mongodb的这些特性，很适合分布式爬虫搭建集群存储数据的需�
   
   
 ## 算法部分
+
 ### BloomDFilter
   
-  ##我们使用了BloomFilter算法完成url对去重过滤
-  
+  我们使用了BloomFilter算法完成url对去重过滤。
+  
   由于网站的链接之间的关系错综复杂，因此爬虫在爬去的过程中很容易遇到相同的要申请下载的url，很容易因此形成闭合的环，所以我们要对url进行判重操作，只有没有被爬取过的url才会被提交给scrapy的下载中间件进行下载
 
 * 在scrapy框架中，scrapy首先计算一个request的fingerprint，这个fingerprint相当于一个request独有的标记，然后将这个fingerprint放在一个set中，通过set来对fingerprint以至于request和url判重。 代码如下：
@@ -896,5 +902,5 @@ docker镜像获取：
   首先获得json类型的测试数据，将其转换为词频矩阵，调用上一步构建出的训练模型pkl文件对其进行分类。
 
 
-
 ### 模糊新闻爬虫
+

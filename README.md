@@ -476,19 +476,19 @@ DOWNLOAD_HANDLERS = {'s3': None,}
 因为新闻博客类抓去的数据是文章标题和文章正文，因此设计了如下的数据类型
 
   ```
-  class ArticleItem(scrapy.Item):
-    文章标题
-    articleTitle = scrapy.Field()
-    文章url
-    articleUrl = scrapy.Field()
-    文章内容
-    articleContent = scrapy.Field()
-    文章关键词1
-    articleFirstTag = scrapy.Field()
-    文章关键词2
-    articleSecondTag = scrapy.Field()
-    文章关键词3
-    articleThirdTag = scrapy.Field()
+    class ArticleItem(scrapy.Item):
+      文章标题
+      articleTitle = scrapy.Field()
+      文章url
+      articleUrl = scrapy.Field()
+      文章内容
+      articleContent = scrapy.Field()
+      文章关键词1
+      articleFirstTag = scrapy.Field()
+      文章关键词2
+      articleSecondTag = scrapy.Field()
+      文章关键词3
+      articleThirdTag = scrapy.Field()
   ```
 这是可以覆盖绝大部分新闻博客类网站数据共性的数据类型
 
@@ -888,25 +888,23 @@ mongodb的这些特性，很适合分布式爬虫搭建集群存储数据的需�
 
 2. 数据的预处理
 
-1.预处理是因为获得的原始数据中有大量的标点符号是训练模型不需要的，如果不去除这些标点符号会对生成的训练模型造成影响，而且获得的原始数据是字符串的类型，需要对其进行分词处理，将连续的句子处理成一个个单独的单词。
+    1.预处理是因为获得的原始数据中有大量的标点符号是训练模型不需要的，如果不去除这些标点符号会对生成的训练模型造成影响，而且获得的原始数据是字符串的类型，需要对其进行分词处理，将连续的句子处理成一个个单独的单词。
 
-2.预处理过程，对获得的数据类型是字符串，对字符串进行利用jieba进行分词处理，然后对通过jieba处理的字符串进行逐单词的扫描，如果扫描到的单词是标点符号，则舍弃，如果是英文或中文单词，则保留经过预处理的数据便是没有标点符号并且是一个个单独的单词,将最终得到的数据按类型存储为json格式
+    2.预处理过程，对获得的数据类型是字符串，对字符串进行利用jieba进行分词处理，然后对通过jieba处理的字符串进行逐单词的扫描，如果扫描到的单词是标点符号，则舍弃，如果是英文或中文单词，则保留经过预处理的数据便是没有标点符号并且是一个个单独的单词,将最终得到的数据按类型存储为json格式
 
 3. 构建训练模型，支持向量机算法是处理文本分类中较为优秀的一种方法，并且线性向量机更适合处理文本分类。
 
-1.首先按照类别读取上一步预处理的json数据。
+    1.首先按照类别读取上一步预处理的json数据。
 
-2.利用sklearn.feature\_extraction.text的TfidfVectorizer对读取的数据创建TD-IDF的词频矩阵。
+    2.利用sklearn.feature\_extraction.text的TfidfVectorizer对读取的数据创建TD-IDF的词频矩阵。
 
-3.计算词频矩阵的权重。
+    3.计算词频矩阵的权重。
 
-4.完成特征提取。
+    4.完成特征提取。
 
-5.利用支持向量机的方法，调用sklearn.svm 的LinearSVC对之前通过计算权重的得到的数据进行训练，并保存训练模型，生成pkl文件。
+    5.利用支持向量机的方法，调用sklearn.svm 的LinearSVC对之前通过计算权重的得到的数据进行训练，并保存训练模型，生成pkl文件。
 
-4.测试
-
-获得json类型的测试数据，将其转换为词频矩阵，调用上一步构建出的训练模型pkl文件对其进行分类。
+4. 测试，获得json类型的测试数据，将其转换为词频矩阵，调用上一步构建出的训练模型pkl文件对其进行分类。
 
 #### 算法应用
 

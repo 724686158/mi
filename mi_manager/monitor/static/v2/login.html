@@ -23,17 +23,27 @@
     <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
+
+
+    <script type="text/javascript" src="../const.js"></script>
+    <script type="text/javascript" src="mycommon.js"></script>
+
     <script>
         function login() {
             var username = $('#username').val();
             var password = $('#password').val();
-            if (username === 'admin' && password === '123456') {
-                return true;
-            } else {
-                alert('用户名或密码错误！');
-                location.reload();
-                return false;
-            }
+            var POST_URL = POST_URL_PREFIX + "/login_system";
+            console.log(POST_URL);
+            $.post(POST_URL, {username: username, password: password}).success(function (dat) {
+                if (dat === 'False') {
+                    alert('用户名或密码错误！');
+                    location.reload();
+                    return false;
+                }
+                else {
+                    return true;
+                }
+            });
         }
     </script>
 </head>
@@ -66,18 +76,6 @@
                 <!-- /.col -->
             </div>
         </form>
-
-        <!--<div class="social-auth-links text-center">-->
-        <!--<p>- OR -</p>-->
-        <!--<a href="#" class="btn btn-block btn-social btn-facebook btn-flat"><i class="fa fa-facebook"></i> Sign in using-->
-        <!--Facebook</a>-->
-        <!--<a href="#" class="btn btn-block btn-social btn-google btn-flat"><i class="fa fa-google-plus"></i> Sign in using-->
-        <!--Google+</a>-->
-        <!--</div>-->
-        <!--&lt;!&ndash; /.social-auth-links &ndash;&gt;-->
-
-        <!--<a href="#">I forgot my password</a><br>-->
-        <!--<a href="register.html" class="text-center">Register a new membership</a>-->
 
     </div>
     <!-- /.login-box-body -->

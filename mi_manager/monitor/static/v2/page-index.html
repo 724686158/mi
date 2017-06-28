@@ -15,11 +15,10 @@
             <!-- /.box-header -->
             <div class="box-body">
                 <center>
-                    欢迎来到 Mi 分布式爬虫系统，这里是管理控制中心！
-                    <br/>
-                    <br/>
-                    您可以访问：<a href="http://www.mengzicheng.cn/wordpress/?p=1171" target="_blank">http://www.mengzicheng.cn/wordpress/?p=1171</a>
-                    获取http代理（不定期更新）
+                    <p>欢迎来到 Mi 分布式爬虫系统，这里是管理控制中心！</p>
+                    <p id="p_login_time"></p>
+                    <p>您可以访问：<a href="http://www.mengzicheng.cn/wordpress/?p=1171" target="_blank">http://www.mengzicheng.cn/wordpress/?p=1171</a>
+                    获取http代理（不定期更新）</p>
                 </center>
             </div>
             <!-- /.box-body -->
@@ -212,5 +211,14 @@
     $.get(GET_URL).success(function (dat) {
         console.log(dat);
         $("#a_mgr_2").attr("href", dat);
+    });
+</script>
+
+<script>
+    var GET_URL = POST_URL_PREFIX + "/get_last_login_time";
+    console.log(GET_URL);
+    $.get(GET_URL).success(function (dat) {
+        console.log(dat);
+        $("#p_login_time").html(dat);
     });
 </script>

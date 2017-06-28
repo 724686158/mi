@@ -1,3 +1,35 @@
+# Mi
+2017中国软件杯——安全可靠赛题2:分布式爬虫系统
+
+山东科技大学-计算机科学与工程学院
+开发小组：
+
+    小组名称：“迷”
+
+    成        员：孟子成、张正锟、史浩
+
+    指导老师：倪维健
+
+开发环境：[见文档](http://www.mengzicheng.cn/wordpress/?p=771)
+
+日志：
+
+[2017年中国软件杯“分布式爬虫系统”开发记录（一）](http://www.mengzicheng.cn/wordpress/?p=536)
+
+[2017年中国软件杯“分布式爬虫系统”开发记录（二）](http://www.mengzicheng.cn/wordpress/?p=575)
+
+[2017年中国软件杯“分布式爬虫系统”开发记录（三）](http://www.mengzicheng.cn/wordpress/?p=625)
+
+[2017年中国软件杯“分布式爬虫系统”开发记录（四）](http://www.mengzicheng.cn/wordpress/?p=761)
+
+[2017年中国软件杯“分布式爬虫系统”开发记录（五）](http://www.mengzicheng.cn/wordpress/?p=833)
+
+[2017年中国软件杯“分布式爬虫系统”开发记录（六）](http://www.mengzicheng.cn/wordpress/?p=941)
+
+[2017年中国软件杯“分布式爬虫系统”开发记录（七）](http://www.mengzicheng.cn/wordpress/?p=1071)
+
+
+
 #Mi项目文档
 
 ## 整体描述
@@ -17,37 +49,92 @@
 
 ## 架构实现
 
-### 底层：分布式框架（zookeeper+mesos+marathon）
+### 底层：分布式框架（zookeeper+mesos+marathon+docker）
 
+#### 介绍
 * ZooKeeper：ZooKeeper是一个开源的分布式应用程序协调服务。它是一个为分布式应用提供一致性服务的软件，提供的功能包括：配置维护、名字服务、分布式同步、组服务等。
 
 * Mesos：Mesos是Apache下的开源分布式资源管理框架，它被称为是分布式系统的内核。Mesos能够在集群机器上运行多种分布式系统类型，动态有效率地共享资源。提供失败侦测，任务发布，任务跟踪，任务监控，低层次资源管理和细粒度的资源共享，可以扩展伸缩到数千个节点。
 
 * Marathon：Marathon是一个成熟的，轻量级的，扩展性很强的Apache Mesos的容器编排框架，能够支持运行长服务，比如web应用等。能够在集群中原样运行任何Linux二进制发布版本，进行集群的多进程管理。在本系统中，Marathon主要负责调度docker容器。
-原理
 
-作用
+* Docker  是一个开源的应用容器引擎，让开发者可以打包他们的应用以及依赖包到一个可移植的容器中，然后发布到任何流行的 Linux 机器上，也可以实现虚拟化。它彻底释放了计算虚拟化的威力，极大提高了应用的运行效率，降低了云计算资源供应的成本，使用 Docker，可以让应用的部署、测试和分发都变得前所未有的高效和轻松
 
-实现
+#### 设计
+在项目的初期，为满足赛题对分布式的要求，我们了解并尝试了docker，docker良好的性能表现和方便的使用方法令人印象深刻，在此之后我们坚持使用docker，在项目过程中，有意识得创建和整理docker镜像。在我们自己搭建的私有docker仓库中，保存了以下三类docker镜像。
 
-使用帮助
+基础镜像与服务镜像：
+
+* redis:3.2.8
+redis数据库镜像
+
+* daocloud.io/library/mysql:5.7
+mysql数据库镜像
+
+* daocloud.io/library/mongo:3.4.2
+mongo数据库镜像
+
+使用这些镜像，免除了在不同机器上手动安装和设置数据库的痛苦。
+
+项目环境镜像：
+
+* mi_environment:v6
+我们根据python2.7的基础镜像，整合python包依赖，生成mi_environment镜像，随着项目的进展，迭代六次，持续提供可靠地的运行和测试环境。
+
+服务镜像:
+
+* mi_manager:v4
+由 mi_manager(python程序源码)在mi_environment上打包而成,。运行容器可开启web端管理应用和与任务调度相关的守护进程。
+
+* mi:v10
+由mi(python程序源码)在mi_environment上打包而成。运行容器自动获取mi_manager发布的任务，并开始爬虫任务。
+
+在应用服务容器化得基础上，我们开始寻找管理和调度容器的方法。并最终敲定使用zookeeper+meos+marathon来进行容器的调度，我们整理框架提供的服务与接口，为上层管理系统提供了数个调度容器的方法，使我们可以在分布式爬虫系统的web应用（mi_manager）中直接调度任务，令任务自动在合适的时间启动多个工作容器（mi），进行不同的爬虫子任务，满足任务需求。在这个过程中，我们认识到，仅仅是docker，并不能称之为分布式，要能实际控制节点资源，并实现分布式的相关算法，才称得上是分布式系统。所以我们最终选择用zookeeper维持底层框架中各服务的持久运行，用mesos来管理分布式系统中各个节点上的资源，用marathon来调度任务、管理docker容器。
+
+结构图：
+
+http://www.mengzicheng.cn/wordpress/wp-content/uploads/2017/06/1_PEM_EF3OWOJMHW48.png
 
 
-### 上层：独立的管理模块（mi\_manager）与工作模块（mi）
+#### 实现
+
+在开发环境中，我们采用的是一台master，两台slave的结构。所以并不涉及选举行为。
+
+#### 使用帮助
+
+##### 环境安装
+
+ZooKeeper安装：http://www.mengzicheng.cn/wordpress/?p=1221
+
+Mesos安装：http://www.mengzicheng.cn/wordpress/?p=1125
+
+marathon安装：http://www.mengzicheng.cn/wordpress/?p=1023
+
+##### 便利化脚本
+
+在项目开发过程中我总结了一些脚本，并上传到github上：https://github.com/724686158/MYSHELLLS。
+
+您可以clone库到本地，其中包含启动各服务的shell脚本。
+
+
+
+
+### 分布式爬虫管理系统（mi_manager）
 
 ### mi\_manager：
 
 
-架构：进行系统管理的monitor模块与进行任务调度与分布式框架管理的deamon模块同步执行。
+#### 架构
+
+进行系统管理的monitor模块与进行任务调度与分布式框架管理的deamon模块同步执行。
 
 monitor模块，是一个前端用AdminLTE，后端用Flask实现的web端服务。
-#### mi_manager 使用帮助
 
-##### 简单描述
+使用帮助：http://www.mengzicheng.cn/wordpress/?p=1178
 
-mi_manager是一个后端基于Flask框架，前端使用AdminLET模板的Web应用程序。它是分布式爬虫系统mi(‘迷’)的组成部分。它提供了对于系统管理的一整套服务。
+daemon模块：借助mosos和marathon提供的数据接接口，从核心redis数据库中获取用户发布的任务信息，对任务进行调度，自动部署和管理工作模块（包含mi的docker容器）
 
-##### 主要功能
+#### 主要功能
 
 * 任务管理
 * 即时爬取
@@ -55,7 +142,7 @@ mi_manager是一个后端基于Flask框架，前端使用AdminLET模板的Web应
 * 设置管理
 * 资源管理
 
-##### 模块划分
+#### 模块划分
 
 mi_manager整体模块图：
 
@@ -63,8 +150,6 @@ mi_manager整体模块图：
 使用详解
 
 1.资源管理
-
-
 
 此功能用于管理redis数据库、mysql数据库、mongo数据库等资源。这些资源在设置任务时会用到。资源与作用的对应情况为：
 
@@ -197,7 +282,7 @@ API：
 
 docker镜像获取：
 
-### mi：
+### 支持分布式的智能爬虫（mi）
 
 基于scrapy-redis。
 #### Scrapy架构
@@ -302,10 +387,8 @@ CONCURRENT_REQUESTS_PER_DOMAIN
 DOWNLOAD_TIMEOUT
 
 
-
-
-
 * 根据资源分配进行设置
+
 1. redis —— url存储,redis数据库的地址，包括host与port
 REDIS_HOST 
 REDIS_PORT 

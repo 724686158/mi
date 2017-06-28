@@ -153,7 +153,7 @@ daemon模块：借助mosos和marathon提供的数据接接口，从核心redis�
 
 #### 实现
 
-![工作流程图](mi/ReadMe/Cache_4b6610d52a4179a3..jpg)
+![工作流程图](https://github.com/724686158/mi/raw/master/mi/ReadMe/Cache_4b6610d52a4179a3..jpg)
 
 需写实现
 

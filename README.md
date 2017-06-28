@@ -49,7 +49,7 @@
 
 ## 架构实现
 
-![部署图](https://github.com/724686158/mi/ReadMe/屏幕截图 2017-06-28 16_58_13.png)
+![部署图](https://github.com/724686158/mi/raw/master/ReadMe/屏幕截图 2017-06-28 16_58_13.png)
 
 ### 底层：分布式框架（zookeeper+mesos+marathon+docker）
 

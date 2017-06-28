@@ -96,7 +96,7 @@ mongo数据库镜像
 
 在应用服务容器化得基础上，开发人员开始寻找管理和调度容器的方法。并最终敲定使用zookeeper+meos+marathon来进行容器的调度，我们整理框架提供的服务与接口，为上层管理系统提供了数个调度容器的方法，使得可以在分布式爬虫系统的web应用（mi_manager）中直接调度任务，令任务自动在合适的时间启动多个工作容器（mi），进行不同的爬虫子任务，满足任务需求。在这个过程中，开发人员认识到，仅仅是docker，并不能称之为分布式，要能实际控制节点资源，并实现分布式的相关算法，才称得上是分布式系统。所以我们最终选择用zookeeper维持底层框架中各服务的持久运行，用mesos来管理分布式系统中各个节点上的资源，用marathon来调度任务、管理docker容器。
 
-结构图：
+系统结构图如下所示：
 
 ![底层框架结构图](https://github.com/724686158/mi/raw/master/ReadMe/dichengjiegoutu.png)
 
@@ -164,13 +164,13 @@ daemon模块：借助mosos和marathon提供的数据接接口，从核心redis�
 
 基于Scrapy框架和Scrapy-redis框架
 
-##### Scrapy架构
+##### Scrapy框架
 
 * Scrapy是用纯Python实现一个为了爬取网站数据、提取结构性数据而编写的应用框架，用途非常广泛。
 
 * Scrapy 使用了 Twisted['twɪstɪd](其主要对手是Tornado)异步网络框架来处理网络通讯，可以加快下载速度，不用自己去实现异步框架，并且包含了各种中间件接口，可以灵活的完成各种需求。
 
-![scrapy框架架构](https://github.com/724686158/mi/raw/master/ReadMe/scrapy_structure.jpg)
+![scrapy框架](https://github.com/724686158/mi/raw/master/ReadMe/scrapy_structure.jpg)
 
 
 * Scrapy Engine(引擎): 负责Spider、ItemPipeline、Downloader、Scheduler中间的通讯，信号、数据传递等。
@@ -187,11 +187,11 @@ daemon模块：借助mosos和marathon提供的数据接接口，从核心redis�
 
 * Spider Middlewares（Spider中间件）：是一个可以自定扩展和操作引擎和Spider中间通信的功能组件（比如进入Spider的Responses;和从Spider出去的Requests）
 
-##### Scrapy-redis架构
+##### Scrapy-redis框架
 
 结构图：
 
-![scrapy-redis架构](https://github.com/724686158/mi/raw/master/ReadMe/07-scrapy_redis_structure.jpg)
+![scrapy-redis框架](https://github.com/724686158/mi/raw/master/ReadMe/scrapyjiagou.png)
 
 scrapy任务调度是基于文件系统，这样只能在单机执行crawl。
 
@@ -211,7 +211,7 @@ scrapy-redis是基于redis的scrapy组件，主要功能如下：
 
 Scheduler + Duplication Filter, Item Pipeline, Base Spiders.
 
-如上图所示，scrapy-redis在scrapy的架构上增加了redis，基于redis的特性拓展了如下组件：
+如上图所示，scrapy-redis在scrapy的框架上增加了redis，基于redis的特性拓展了如下组件：
 
 
 * 调度器(Scheduler)
@@ -403,12 +403,11 @@ SCHEDULER_QUEUE_CLASS = 'mi.scrapy_redis.queue.SpiderPriorityQueue'
 31. 这是对下载处理器进行设置，不使用其中的s3处理器，若使用s3处理器则有可能出现异常
 DOWNLOAD_HANDLERS = {'s3': None,}
 
-##### 爬虫工作原理
+爬虫工作原理
   
 新闻博客类和电商类的网站构造以及网页之间的关系差别较大，因此制定的爬虫策略是截然不同的，相比较而言，电商类因为涉及到大量的Ajax技术，需要处理更多的动态问题，复杂性更高
 
-
-###### 新闻博客类爬虫逻辑
+新闻博客类爬虫逻辑
 
 对新闻博客类网站，选择全站爬取。这类网站的各个界面之间的关系是较为简明的，而且由于只抓取正文页，因此，只需在URl增量的过程中找到符合每个新闻网站中的正文页url格式的网页，然后交给下载中间件下载，再进一步对标题与正文解析即可。
 

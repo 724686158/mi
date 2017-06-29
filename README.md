@@ -12,7 +12,7 @@
 
 开发环境：[见文档](http://www.mengzicheng.cn/wordpress/?p=771)
 
-日志：
+开发日志：
 
 [2017年中国软件杯“分布式爬虫系统”开发记录（一）](http://www.mengzicheng.cn/wordpress/?p=536)
 
@@ -30,7 +30,10 @@
 
 
 
+
+
 # Mi项目文档
+
 
 ## 整体描述
 
@@ -265,8 +268,11 @@ Spider新生成的request，将request的指纹到redis的DupeFilter set检查�
 #### Settings配置文件
 
 对于Settings配置文件，我们分为3类，分别是：
+
 * 用户可自行配置--对于不同用户的使用条件与使用需求可以自行对爬虫进行配置
+
 * 根据资源分配进行设置--需要用户自行对自己使用的数据库信息进行配置
+
 * 向用户隐藏的设置--这些配置信息是为了保证爬虫可以正常运行所必要的配置文件，用户若进行更改可能会引起爬虫出现异常或错误
 
 
@@ -275,164 +281,213 @@ Spider新生成的request，将request的指纹到redis的DupeFilter set检查�
 *  用户可自行配置
 
 1. 任务名，Scrapy项目实现的bot的名字(也未项目名称)。 这将用来构造默认 User-Agent，同时也用来log。当您使用 startproject 命令创建项目时其也被自动赋值。
+
 BOT_NAME 
 
 2. 用户是否选择遵守网站的robots协议，如果选择遵守robots协议，将ROBOTSTXT_OBEY设置为True，这一举动可能会造成爬虫出现异常或错误，如果选择不遵守robots协议，将ROBOTSTXT_OBEY设置为False。
+
 ROBOTSTXT_OBEY 
 
 3. 是否启用COOKIES，是否启用cookies middleware。如果关闭，cookies将不会发送给web server。，如果启用了COOKIES，将COOKIES_ENABLED 设置为True，则在生成request请求时会自动添加COOKIE信息，如果不启动COOKIES，则将COOKIES_ENABLED设置为False
+
 COOKIES_ENABLED
 
 4. 是否启用HTTP代理(取值为 None 或 400 )
+
 HTTP_PROXY_ENABLED
 
 5. 是否启用重试，即如果发生服务器在默认的TIMEOUT时间内没有对爬虫的请求进行处理，爬虫是否重新发送这一请求。我们默认这其为False，因为对失败的HTTP请求进行重试会减慢爬取的效率，尤其是当站点响应很慢(甚至失败)时，访问这样的站点会造成超时并重试多次。这是不必要的，同时也占用了爬虫爬取其他站点的能力。
+
 RETRY_ENABLED 
 
 6. 是否启用自动限速（启用会牺牲一定的爬取速度，但会照顾到目标网站的负载能力）
+
 AUTOTHROTTLE_ENABLED 
 
 7. 初始下载延迟(单位:秒)
+
 AUTOTHROTTLE_START_DELAY 
 
 8. 最大下载延迟(单位:秒)
+
 AUTOTHROTTLE_MAX_DELAY 
 
 9. 此类容器负责的具体子任务
+
 SUB_MISSION 
 
 10. 间隔时间下限（任何情况下不会小于此值）下载器在下载同一个网站下一个页面前需要等待的时间。该选项可以用来限制爬取速度， 减轻服务器压。该设定影响(默认启用的) RANDOMIZE_DOWNLOAD_DELAY 设定。 默认情况下，Scrapy在两个请求间不等待一个固定的值， 而是使用0.5到1.5之间的一个随机值 * DOWNLOAD_DELAY 的结果作为等待间隔。在Scrapy文档中，对此默认为0，是为了最大提高爬虫效率。
 当 CONCURRENT_REQUESTS_PER_IP 非0时，延迟针对的是每个ip而不是网站。
+
 DOWNLOAD_DELAY 
 
 11. 对单个域名并发量的上限（任何情况下不会高于此值），对单个网站进行并发请求的最大值。
+
 CONCURRENT_REQUESTS_PER_DOMAIN 
 
 12. 超时时限，下载器超时时间，单位是秒
+
 DOWNLOAD_TIMEOUT
 
 * 根据资源分配进行设置
 
 1. redis —— url存储,redis数据库的地址，包括host与port
+
 REDIS_HOST 
 REDIS_PORT 
+
 2. redis —— 去重队列，存储request去重队列的redis数据库，包括host和port
+
 FILTER_HOST
 FILTER_PORT 
+
 3. mysql数据库的配置信息
+
 MYSQL_HOST
 MYSQL_PORT 
 MYSQL_DBNAME = 'testmissions12'   
 MYSQL_USER 
 MYSQL_PASSWD 
+
 4. mongodb数据库的配置信息
+
 MONGO_HOST 
 MONGO_PORT
 MONGO_DATABASE 
 
-
 * 向用户隐藏的设置，配置信息建议不要更改
 
 1. 项目各个子模块的名字
+
 SPIDER_MODULES = ['mi.spiders_of_eCommerce', 'mi.spiders_of_news_in_whiteList', 'mi.spiders_of_news_need_fuzzymatching']
 
 2. 爬虫在每一个网站的爬取深度，推荐设置为20，是为了避免那些动态生成链接的网站造成的死循环,暂时没遇到这种网站,先禁用了
+
 DEPTH_LIMIT = 20
 
 3. 是否显示COOKIES_DEBUG，如果启用，Scrapy将记录所有在request(Cookie 请求头)发送的cookies及response接收到的cookies(Set-Cookie 接收头)
+
 COOKIES_DEBUG = False
 
 4. 用于存储调度队列的redis数据据库编号
+
 ILTER_DB = 0
 
 5. 用于存储记号变量的redis数据据库编号
+
 SYMBOL_DB = 1
 
 6. 用于存储task的redis数据据库编号
+
 TASK_DB = 2
 
 7. 用于进行task调度的有序集合的redis数据据库编号
+
 DISPATCH_DB = 3
 
 8. 用于存储主任务的redis数据据库编号
+
 MISSION_DB = 4
 
 9. 用于存储子任务的redis数据据库编号
+
 SUBMISSION_DB = 5
 
 10. 用于存储爬虫配置信息的redis数据据库编号
+
 SETTINGS_DB = 6
 
 11. 用于存储資源(REDIS服务器)的信息redis数据据库编号
+
 RESOURCES_REDIS_DB = 7
 
 12. 用于存储資源(MYSQL服务器)的信息的redis数据据库编号
+
 RESOURCES_MYSQL_DB = 8
 
 13. 用于存储資源(MONGO服务器)的信息的redis数据据库编号
+
 RESOURCES_MONGO_DB = 9
 
 14. 用于存储代理ip的redis数据据库编号
+
 PROXY_DB = 10
 
 15. 用于暂存爬虫运行时数据的redis数据据库编号
+
 RUNNINGDATA_DB = 11
 
 16. 用于存储Cookie数据的redis数据据库编号
+
 COOKIES_DB = 12
 
 17. 用于存储新闻类爬虫配置参数的redis数据据库编号
+
 SPIDERS_DB = 13
 
 18. 用于分类爬虫的redis数据据库编号
+
 CLASSIFIER_DB = 14
 
 19. 用于存储Monitor数据的redis数据据库编号
+
 MONITOR_DB = 15
 
 20. 存储爬虫运行数据的四个队列,需要与monitor.monitor_settings中的一致
+
 STATS_KEYS = ["downloader/request_count", "downloader/response_count", "downloader/response_status_count/200", "item_scraped_count"]
 
 21. 日志设置,禁用“LOG_STDOUT=True”，如果为True，进程所有的标准输出(及错误)将会被重定向到log中。例如， 执行 print 'hello' ，其将会在Scrapy log中显示。
+
 LOG_FILE='mi.log'
 LOG_LEVEL='INFO'
 
 22. 是否显示AUTOTHROTTLE_DEBUG
+
 AUTOTHROTTLE_DEBUG
 
 23. pipelines 从300累加,从Spider中抛出的Item首先会被MonogPipeline处理，然后被MysqlPipeline处理
+
 ITEM_PIPELINES = {
     'mi.pipelines.pipeline_mongo.MongoPipeline':300,
     'mi.pipelines.pipeline_mysql.MysqlPipeline':301,
 }
 
 24. 下载中间件，其中包括与代理有关的RandomProxyMiddleware，与UserAgent有关的RotateUserAgentMiddleware，与可视化有关的StatcollectorMiddleware，与COOKIE有关的CookieMiddleware，CookieMiddleware中间件将重试可能由于临时的问题，例如连接超时或者HTTP 500错误导致失败的页面。尝试加上cookie重新访问
+
 DOWNLOADER_MIDDLEWARES = {
     'mi.middlewares.middleware_proxy.RandomProxyMiddleware':HTTP_PROXY_ENABLED,
     'mi.middlewares.middleware_rotateUserAgent.RotateUserAgentMiddleware': 401,
     'mi.middlewares.middleware_monitor.StatcollectorMiddleware': 402,
-    'mi.middlewares.middleware_cookie.CookieMiddleware': 700,
+    'mi.middlewares.middleware_cookie.CookieMiddleware': None,
 }
 
 25. 请求连接失败重试次数
+
 RETRY_TIMES = 6
 
 26. proxy失败重试次数
+
 PROXY_USED_TIMES = 2
 
 27， 重试返回码
+
 RETRY_HTTP_CODES = [500, 503, 504, 599, 403]
 
 28. 选择scrapy_redis框架中的调度器
+
 SCHEDULER = 'mi.scrapy_redis.scheduler.Scheduler'
 
 29. 允许调度器持久化，即允许将redis中的所有操作均进行持久化，以实现暂停重启爬虫的工作，从上一次暂停或者崩溃的处继续进行，但带来的缺点时是会占用较大部分的硬盘空间。
+
 SCHEDULER_PERSIST = True
 
 30. 请求调度使用优先队列（默认)
+
 SCHEDULER_QUEUE_CLASS = 'mi.scrapy_redis.queue.SpiderPriorityQueue'
 
 31. 这是对下载处理器进行设置，不使用其中的s3处理器，若使用s3处理器则有可能出现异常
+
 DOWNLOAD_HANDLERS = {'s3': None,}
 
 #### 爬虫工作原理
@@ -451,7 +506,8 @@ DOWNLOAD_HANDLERS = {'s3': None,}
     redis_key = settings.caijing_start_urls
     allowed_domains = ['caijing.com.cn']
   ```
-  2. 接下来设置财经网（新闻博客类网站）正文页的URL增量与找到符合要求的正文页后要传递的回调函数。
+
+2. 接下来设置财经网（新闻博客类网站）正文页的URL增量与找到符合要求的正文页后要传递的回调函数。
      使用Scrapy中Rule规则来实现目的。在rules中编写符合要求的Rule，每一个Rule有一个LinkExtractor函数参数，在此函数中用正则表达式作为从已下载的网页中提取正文URL的方法。提取到的URL在Scrapy框架中交由Scrapy Engine，由Scrapy Engine 传递给Scheduler（调度器），调度器选择适合的时候交给下载中间件下载网页，即我们想要的正文页面。在Rule的第二个参数中设置回调函数，回调函数进一步解析已下载的正文页面。
      要说明的一点是，我们实现URL增量是在一个基础之上的，即默认正文页上总是能提取出除此正文页外的正文页。当这个环上的所有点都被搜索完后，就实现了对此新闻博客类网站的全站爬取。事实上这是很难实现的，因为每天都会有新的内容加入到这个网站中来。
 
@@ -693,9 +749,7 @@ mongodb的这些特性，很适合分布式爬虫搭建集群存储数据的需�
 
 ![电商数据图](https://github.com/724686158/mi/raw/master/ReadMe/er.png)
 
-数据字典：
-
-[待写]
+                                                [图9] 数据库设计图
 
     
 以下是使用Mysql存储电商类数据的过程（对scrapy的pipeline的基础上进行扩展，编写pipeline_mysql.py）
@@ -747,6 +801,7 @@ mongodb的这些特性，很适合分布式爬虫搭建集群存储数据的需�
             query.addErrback(self._handle_error, item, spider)  # 调用异常处理方法
         return item
   ```
+  
 4. 各个类型的具体存储操作
   * 若是电商网站结构化数据类型，则向ECommerce表插入数据
     ```
@@ -854,12 +909,15 @@ mongodb的这些特性，很适合分布式爬虫搭建集群存储数据的需�
 这两种使用set的方法在数据量比较小时是很有效的，但是当数据量比较大时，因为这两种方法的set都是在内存中，set占用的内存空间会急剧上升。那使用持久化方法，将url存进数据库中，是不是一种好方法呢？当然不是。如果将url保存在数据库中，那么每一次判重操作都需要完成一次数据库查询，那带来的效率是极低的。
 
 为了解决以上两种问题，选择使用Bloomfilter算法来完成url判重。
-先来介绍下BloomFilter算法：
+
+
+#### 原理
+
 * 建一个m位BitSet，先将所有位初始化为0，然后选择k个不同的哈希函数。第i个哈希函数对字符串str哈希的结果记为h（i，str），且h（i，str）的范围是0到m-1 。
 * (1) 加入字符串过程下面是每个字符串处理的过程，首先是将字符串str“记录”到BitSet中的过程：对于字符串str，分别计算h（1，str），h（2，str）…… h（k，str）。然后将BitSet的第h（1，str）、h（2，str）…… h（k，str）位设为1。
 * (2) 检查字符串是否存在的过程。下面是检查字符串str是否被BitSet记录过的过程：对于字符串str，分别计算h（1，str），h（2，str）…… h（k，str）。然后检查BitSet的第h（1，str）、h（2，str）…… h（k，str）位是否为1，若其中任何一位不为1则可以判定str一定没有被记录过。若全部位都是1，则“认为”字符串str存在。若一个字符串对应的Bit不全为1，则可以肯定该字符串一定没有被BloomFilter记录过。（这是显然的，因为字符串被记录过，其对应的二进制位肯定全部被设为1了）但是若一个字符串对应的Bit全为1，实际上是不能100%的肯定该字符串被BloomFilter记录过的。（因为有可能该字符串的所有位都刚好是被其他字符串所对应）这种将该字符串划分错的情况，称为false positive 。
 
-下面是具体的实现过程
+#### 应用
 
 1.首先实现一个BloomFilter算法：
 
@@ -929,11 +987,11 @@ mongodb的这些特性，很适合分布式爬虫搭建集群存储数据的需�
         ```
 
 
-通过实现BloomFilter算法并在scrapy-redis的基础上对scrapy-redis框架进行修改，完成了使scrapy-redis支持BloomFilter去重。
+通过实现BloomFilter算法并在对scrapy-redis框架进行改进，使scrapy-redis框架支持BloomFilter去重。
 
-#### 算法应用
+#### 效果
 
-本系统设计的智能爬虫，均在改进后的scrapy-redis框架上进行工作，相较于使用常规能够有效缩小内存占用，降低对Redis数据库资源的消耗。
+本系统设计的智能爬虫，均在工作在改进后的scrapy-redis框架上，相较于改进之前能够有效缩小内存占用，降低对Redis数据库资源的消耗。在硬件资源有限，尤其是内存资源短缺的情况下，能够极大地提高爬虫运行的稳定性
 
 ### 支持向量机
 
@@ -955,21 +1013,21 @@ mongodb的这些特性，很适合分布式爬虫搭建集群存储数据的需�
 
 2. 数据的预处理
 
-    1.预处理是因为获得的原始数据中有大量的标点符号是训练模型不需要的，如果不去除这些标点符号会对生成的训练模型造成影响，而且获得的原始数据是字符串的类型，需要对其进行分词处理，将连续的句子处理成一个个单独的单词。
+    * 预处理是因为获得的原始数据中有大量的标点符号是训练模型不需要的，如果不去除这些标点符号会对生成的训练模型造成影响，而且获得的原始数据是字符串的类型，需要对其进行分词处理，将连续的句子处理成一个个单独的单词。
 
-    2.预处理过程，对获得的数据类型是字符串，对字符串进行利用jieba进行分词处理，然后对通过jieba处理的字符串进行逐单词的扫描，如果扫描到的单词是标点符号，则舍弃，如果是英文或中文单词，则保留经过预处理的数据便是没有标点符号并且是一个个单独的单词,将最终得到的数据按类型存储为json格式
+    * 预处理过程，对获得的数据类型是字符串，对字符串进行利用jieba进行分词处理，然后对通过jieba处理的字符串进行逐单词的扫描，如果扫描到的单词是标点符号，则舍弃，如果是英文或中文单词，则保留经过预处理的数据便是没有标点符号并且是一个个单独的单词,将最终得到的数据按类型存储为json格式
 
 3. 构建训练模型，支持向量机算法是处理文本分类中较为优秀的一种方法，并且线性向量机更适合处理文本分类。
 
-    1.首先按照类别读取上一步预处理的json数据。
+    * 首先按照类别读取上一步预处理的json数据。
 
-    2.利用sklearn.feature\_extraction.text的TfidfVectorizer对读取的数据创建TD-IDF的词频矩阵。
+    * 利用sklearn.feature\_extraction.text的TfidfVectorizer对读取的数据创建TD-IDF的词频矩阵。
 
-    3.计算词频矩阵的权重。
+    * 计算词频矩阵的权重。
 
-    4.完成特征提取。
+    * 完成特征提取。
 
-    5.利用支持向量机的方法，调用sklearn.svm 的LinearSVC对之前通过计算权重的得到的数据进行训练，并保存训练模型，生成pkl文件。
+    * 利用支持向量机的方法，调用sklearn.svm 的LinearSVC对之前通过计算权重的得到的数据进行训练，并保存训练模型，生成pkl文件。
 
 4. 测试，获得json类型的测试数据，将其转换为词频矩阵，调用上一步构建出的训练模型pkl文件对其进行分类。
 
@@ -979,9 +1037,12 @@ mongodb的这些特性，很适合分布式爬虫搭建集群存储数据的需�
 .py
 
 ### 模糊新闻爬虫
+
 本系统设计的模糊新闻爬虫适应性较强，能够对大量随机的新闻博客类网站进行内容爬取，而每一个新闻博客类网站的新闻页URl格式是存在较大差异的，因此在爬取新闻内容前需要对URL进行判断，区分新闻页面也无关页面。
 
 本系统设计设计了一套针对正文页面URL的加分算法，以此判断一个URL是否是正文页面。
+
+#### 原理
 
 算法通过一系列正则表达式对正文URL特征判断的方式，例如判断一个URl中是否含有常见的正文URL的关键字，以及判断是否有日期的格式，对一个URL进行加分，当一个URL获得的分数达到设定的数值时，就认为此URL是一个正文页的URL，然后将其传递给gooseHelper进行接下来的正文与标题抓取。
 
@@ -1003,9 +1064,6 @@ mongodb的这些特性，很适合分布式爬虫搭建集群存储数据的需�
         score += 2
   ```
   
-#### 算法应用
+#### 应用
 
-使用此算法为模糊爬取任务提供URL判别服务 [待写]
-
-
-
+利用此算法为模糊爬取任务提供URL判别服务，能够在1秒内判断20000个以上的url。对200余个新闻站点进行测试，能够达到与精准爬取近似的运行速度和结果准确率，有效扩展了智能爬虫（mi）的适用范围。

@@ -221,7 +221,7 @@ https://github.com/724686158/MYSHELLLS
 
 * Scrapy 使用了 Twisted 异步网络框架来处理网络通讯，可以加快下载速度，不用自己去实现异步框架，并且包含了各种中间件接口，可以灵活的完成各种需求。
 
-![scrapy框架](https://github.com/724686158/mi/raw/master/ReadMe/scrapy_structure.png)
+![scrapy](https://github.com/724686158/mi/raw/master/ReadMe/scrapyjiagou.png)
 
                                                 图6 scrapy框架图
 
@@ -242,11 +242,10 @@ https://github.com/724686158/MYSHELLLS
 
 #### Scrapy-redis框架
 
-结构图：
 
-![scrapy-redis框架](https://github.com/724686158/mi/raw/master/ReadMe/scrapyjiagou.png)
+![scrapy-redis框架](https://github.com/724686158/mi/raw/master/ReadMe/scrapy_structure.png)
 
-                                                图7 Scrapy-redis框架图
+                                                图7 Scrapy-redis框架图
 
 scrapy任务调度是基于文件系统，这样只能在单机执行crawl。
 

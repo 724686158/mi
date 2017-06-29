@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
-BOT_NAME = 'testmission12'
+BOT_NAME = 'mission2017'
 SUB_MISSION = 'huxiu.com'
-ROBOTSTXT_OBEY = False
+ROBOTSTXT_OBEY = True
 COOKIES_ENABLED = True
 RETRY_ENABLED = True
 HTTP_PROXY_ENABLED = None
@@ -17,12 +17,12 @@ FILTER_HOST = '122.114.62.116'
 FILTER_PORT = 7001
 MYSQL_HOST = '122.114.62.116'
 MYSQL_PORT = 3306
-MYSQL_DBNAME = 'testmission12'
+MYSQL_DBNAME = 'mission2017'
 MYSQL_USER = 'root'
 MYSQL_PASSWD = 'mi'
 MONGO_HOST = '122.114.62.116'
 MONGO_PORT = 27017
-MONGO_DATABASE = 'testmission12'
+MONGO_DATABASE = 'mission2017'
 COOKIES_DEBUG = True
 AUTOTHROTTLE_DEBUG = True
 SPIDER_MODULES = ['mi.spiders_of_eCommerce', 'mi.spiders_of_news_in_whiteList', 'mi.spiders_of_news_need_fuzzymatching']

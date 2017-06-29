@@ -6,7 +6,7 @@ import settings
 json_template = \
 '''\
 {
-  "id": "/spiders/%s/%s",
+  "id": "/spiders/%s%s",
   "cmd": null,
   "cpus": %s,
   "mem": %s,
@@ -14,7 +14,7 @@ json_template = \
   "instances": 1,
   "container": {
     "docker": {
-      "image": "mi:v8",
+      "image": "mi:v10",
       "network": "HOST",
       "parameters": []
     },

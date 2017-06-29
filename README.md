@@ -48,15 +48,18 @@
 * 智能提取+人工辅助，提高获取新闻标题与正文的准确性。（总体准确性在90%以上，并且可以引导用户充实人工辅助，进一步提高准确性）
 * 基于支持向量机的新闻分类。
 
+
 ## 系统实现
 
-系统部署在云服务器中，向系统管理人员提供系统管理服务。
+### 系统部署
+
+系统部署在云服务器中，向管理人员提供系统管理服务。
 
 ![部署图](https://github.com/724686158/mi/raw/master/ReadMe/bushutu.png)
                                          
-                                                [图1] 分布式爬虫系统 部署图
+                                                图1 分布式爬虫系统部署图
 
-### 系统管理平台
+### 管理平台
 
 #### 平台地址: http://122.114.62.116:5020
 
@@ -67,7 +70,7 @@
 #### 使用帮助: http://www.mengzicheng.cn/wordpress/?p=1178
 
 
-## 分布式框架（zookeeper+mesos+marathon+docker）
+## 底层分布式框架（zookeeper+mesos+marathon+docker）
 
 ### 介绍
 
@@ -111,7 +114,7 @@ mongo数据库镜像
 
 ![docker镜像打包关系图](https://github.com/724686158/mi/raw/master/ReadMe/jingxiangdabao.png)                                             
                                         
-                                                [图2] 镜像打包关系图
+                                                图2 镜像关系图
 
 在应用服务容器化得基础上，开发人员开始寻找管理和调度容器的方法。并最终敲定使用zookeeper+meos+marathon来进行容器的调度，我们整理框架提供的服务与接口，为上层管理系统提供了数个调度容器的方法，使得可以在分布式爬虫系统的web应用（mi_manager）中直接调度任务，令任务自动在合适的时间启动多个工作容器（mi），进行不同的爬虫子任务，满足任务需求。在这个过程中，开发人员认识到，仅仅是docker，并不能称之为分布式，要能实际控制节点资源，并实现分布式的相关算法，才称得上是分布式系统。所以我们最终选择用zookeeper维持底层框架中各服务的持久运行，用mesos来管理分布式系统中各个节点上的资源，用marathon来调度任务、管理docker容器。
 
@@ -119,7 +122,7 @@ mongo数据库镜像
 
 ![系统结构图](https://github.com/724686158/mi/raw/master/ReadMe/dichengjiegoutu.png)
 
-                                                [图3] 系统结构图
+                                                图3 系统结构图
 ### 测试
 
 校内网环境:
@@ -163,24 +166,19 @@ https://github.com/724686158/MYSHELLLS
 
 ### 工作流程
 
-工作流程图：
-
 ![工作流程图](https://github.com/724686158/mi/raw/master/ReadMe/mimanagerliuchengtu.jpg)
 
-                                                [图4] mi_manager 工作流程图
+                                                图4 mi_manager工作流程图
 
-monitor模块，是一个前端用AdminLTE，后端用Flask实现的web端服务。
+### monitor模块
 
+前端使用AdminLTE模板，后端使用Flask框架搭建的分布式系统管理平台。
 
-daemon模块：借助mosos和marathon提供的数据接接口，从核心redis数据库中获取用户发布的任务信息，对任务进行调度，自动部署和管理工作模块（包含mi的docker容器）
+![Web服务功能模块图](https://github.com/724686158/mi/raw/master/ReadMe/mi_managermokuaitu.png)
 
-### 模块划分
+                                                图5 Web服务功能模块图
 
-![mi_manager整体模块图](https://github.com/724686158/mi/raw/master/ReadMe/mi_managermokuaitu.png)
-
-                                                [图5] mi_manager Web服务模块图
-
-### 主要功能
+#### 主要功能
 
 * 任务管理
 * 即时爬取
@@ -188,10 +186,23 @@ daemon模块：借助mosos和marathon提供的数据接接口，从核心redis�
 * 设置管理
 * 资源管理
 
-### 实现
+#### 技术细节
+
+[待写]
+
+### daemon模块
+
+与monitor模块协同工作的守护进程。
+
+#### 主要功能
+
+* 任务调度
+* 部署和管理任务容器
 
 
-需写实现
+#### 技术细节
+
+[待写]
 
 
 ## 支持分布式的智能爬虫（mi）
@@ -209,7 +220,7 @@ daemon模块：借助mosos和marathon提供的数据接接口，从核心redis�
 
 ![scrapy框架](https://github.com/724686158/mi/raw/master/ReadMe/scrapy_structure.png)
 
-                                                [图6] scrapy框架
+                                                图6 scrapy框架图
 
 
 * Scrapy Engine(引擎): 负责Spider、ItemPipeline、Downloader、Scheduler中间的通讯，信号、数据传递等。
@@ -232,7 +243,7 @@ daemon模块：借助mosos和marathon提供的数据接接口，从核心redis�
 
 ![scrapy-redis框架](https://github.com/724686158/mi/raw/master/ReadMe/scrapyjiagou.png)
 
-                                                [图7] Scrapy-redis框架
+                                                图7 Scrapy-redis框架图
 
 scrapy任务调度是基于文件系统，这样只能在单机执行crawl。
 
@@ -266,11 +277,11 @@ Spider新生成的request，将request的指纹到redis的DupeFilter set检查�
 将Spider爬取到的Item给scrapy-redis的Item Pipeline，将爬取到的Item存入redis的items队列。可以很方便的从items队列中提取item，从而实现items processes 集群
 
 
-### 实现
+### 工作流程
 
 ![mi的活动图](https://github.com/724686158/mi/raw/master/ReadMe/miliuchengtu.png)
 
-                                                [图8] mi 工作流程图
+                                                图8 mi工作流程图
 
 ### 技术细节
 
@@ -354,7 +365,7 @@ FILTER_PORT
 
 MYSQL_HOST
 MYSQL_PORT 
-MYSQL_DBNAME = 'testmissions12'   
+MYSQL_DBNAME
 MYSQL_USER 
 MYSQL_PASSWD 
 
@@ -631,9 +642,9 @@ mongodb的这些特性，很适合分布式爬虫搭建集群存储数据的需�
 
      ```
     def __init__(self, mongo_host, mongo_port, mongo_db):
-          self.mongo_host = mongo_host
-          self.mongo_port = mongo_port
-          self.mongo_db = mongo_db
+      self.mongo_host = mongo_host
+      self.mongo_port = mongo_port
+      self.mongo_db = mongo_db
      ```
      
 2. 创建mongodb数据库的连接
@@ -647,7 +658,7 @@ mongodb的这些特性，很适合分布式爬虫搭建集群存储数据的需�
 3. 将数据存储到mongodb中
 
     ```
-      def process_item(self, item, spider):
+    def process_item(self, item, spider):
         if isinstance(item, ArticleItem):
             self.hp_collection_name = settings.MONGO_COLLECTION_NAME
             self.db[self.hp_collection_name + '_' + 'ArticleItem'].insert(dict(item))  # 存入数据库原始数据
@@ -660,10 +671,8 @@ mongodb的这些特性，很适合分布式爬虫搭建集群存储数据的需�
 4. 关闭数据库的连接
 
     ```
-      
-        def close_spider(self, spider):
-        self.client.close()
-        
+    def close_spider(self, spider):
+        self.client.close()   
     ```
 
 至此，新闻博客类的结构化数据存储就完成了。
@@ -676,8 +685,8 @@ mongodb的这些特性，很适合分布式爬虫搭建集群存储数据的需�
 
 不同电商网站中的商品数据具有相似的结构
 
-* 电商商品结构化数据格式
-
+  * 电商商品结构化数据格式
+  
   ```
   class ECommerceGoodItem(scrapy.Item):
     # 电商网站Id
@@ -698,6 +707,7 @@ mongodb的这些特性，很适合分布式爬虫搭建集群存储数据的需�
 分别是
 
   * 电商商品评论结构化数据格式
+  
   ```
   class ECommerceGoodCommentItem(scrapy.Item):
     # 电商网站Id
@@ -711,6 +721,7 @@ mongodb的这些特性，很适合分布式爬虫搭建集群存储数据的需�
   ```
   
   * 电商店铺结构化数据格式
+  
   ```
   class ECommerceShopItem(scrapy.Field):
     # 电商网站Id
@@ -726,6 +737,7 @@ mongodb的这些特性，很适合分布式爬虫搭建集群存储数据的需�
     # 店家电话
     shopPhoneNumber=scrapy.Field()
    ```
+   
    电商店铺评论结构化数据格式
    
   ```
@@ -743,22 +755,22 @@ mongodb的这些特性，很适合分布式爬虫搭建集群存储数据的需�
 
   电商网站的结构不尽相同，爬虫的抓取逻辑差异也较为明显，造成了数据之间较为复杂的数据关系，因此选择了传统的关系型数据库 Mysql 来存储电商类的结构化数据，使用关系型数据库的较为优异的条件还有：
   
-   1. 电商类的数据会涉及到很多的较为复杂的查询操作，使用 sql 语句可以很好的完成
-   2. 电商类数据往往会用到事务操作
+   * 电商类的数据会涉及到很多的较为复杂的查询操作，使用 sql 语句可以很好的完成
+   * 电商类数据往往会用到事务操作
     
   而使用 Mysql 的优点有：
   
-   1.Mysql 是一个成熟的，稳定的关系型数据库，支持很完善的 sql 语句操作规范
-   2.Mysql 可以处理大数据量的操作
-   3.可移植行高，安装简单小巧
-   4.良好的运行效率
+   * Mysql 是一个成熟的，稳定的关系型数据库，支持很完善的 sql 语句操作规范
+   * Mysql 可以处理大数据量的操作
+   * 可移植行高，安装简单小巧
+   * 良好的运行效率
    
   
 数据库设计:
 
 ![电商数据图](https://github.com/724686158/mi/raw/master/ReadMe/er.png)
 
-                                                [图9] 数据库设计图
+                                                图9 数据库设计图
 
     
 以下是使用Mysql存储电商类数据的过程（对scrapy的pipeline的基础上进行扩展，编写pipeline_mysql.py）
@@ -897,6 +909,7 @@ mongodb的这些特性，很适合分布式爬虫搭建集群存储数据的需�
   由于网站的链接之间的关系错综复杂，因此爬虫在爬去的过程中很容易遇到相同的要申请下载的url，很容易因此形成闭合的环，所以要对url进行判重操作，只有没有被爬取过的url才会被提交给scrapy的下载中间件进行下载
 
 * 在scrapy框架中，scrapy首先计算一个request的fingerprint，这个fingerprint相当于一个request独有的标记，然后将这个fingerprint放在一个set中，通过set来对fingerprint以至于request和url判重。 代码如下：
+
    ```
    def request_seen(self, request):
     fp = self.request_fingerprint(request)
@@ -1008,15 +1021,15 @@ mongodb的这些特性，很适合分布式爬虫搭建集群存储数据的需�
 
 支持向量机（SVM）算法是根据有限的样本信息，在模型的复杂性与学习能力之间寻求最佳折中，以求获得最好的推广能力支持向量机算法的主要优点有：
 
-（1）专门针对有限样本情况，其目标是得到现有信息下的最优解而不仅仅是样本数量趋于无穷大时的最优值；
+（1）专门针对有限样本情况，其目标是得到现有信息下的最优解而不仅仅是样本数量趋于无穷大时的最优值。
 
-（2）算法最终转化为一个二次型寻优问题，理论上得到的是全局最优点，解决了在神经网络方法中无法避免的局部极值问题；
+（2）算法最终转化为一个二次型寻优问题，理论上得到的是全局最优点，解决了在神经网络方法中无法避免的局部极值问题。
 
 （3）支持向量机算法能同时适用于稠密特征矢量与稀疏特征矢量两种情况，而其他一些文本分类算法不能同时满足两种情况。
 
 （4）支持向量机算法能够找出包含重要分类信息的支持向量，是强有力的增量学习和主动学习工具，在文本分类中具有很大的应用潜力。
 
-* 实现步骤
+#### 实现步骤
 
 1. 训练与测试数据收集，利用前期测试爬虫爬取到的新闻数据，拿一部分作为训练数据，一部分作为测试数据，我们对新闻分类为politics,business,health,entertainment,finance,technology,将其存储为json类型的格式。
 

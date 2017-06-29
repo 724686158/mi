@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 # mi_manager
-APP_HOST = '192.168.210.29'
+APP_HOST = '127.0.0.1'
 APP_PORT = 5020
 # 核心redis服务器
 REDIS_HOST = '122.114.62.116'

@@ -28,8 +28,8 @@ def start_work(task):
     spider_name = dic['spider_name']
     start_url = dic['start_url']
     r = redis.Redis(prime_settings.REDIS_HOST, prime_settings.REDIS_PORT, db=prime_settings.FILTER_DB)
-
     r.lpush(spider_name +':start_urls', start_url)
+    print '将对', spider_name, '进行爬取'
     cmd.execute(str('scrapy crawl ' + spider_name).split())
 
 if __name__ == '__main__':
@@ -37,6 +37,7 @@ if __name__ == '__main__':
         r = redis.Redis(prime_settings.REDIS_HOST, prime_settings.REDIS_PORT, db=prime_settings.TASK_DB)
         task = r.rpop('ready')
         if task:
+            print '开始执行任务'
             init_settings(task)
             init_spider_file(task)
             start_work(task)

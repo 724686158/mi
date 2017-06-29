@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # marathon的地址 (请确保zookeeper+mesos+marathon框架正常运行)
-MESOS_URL = 'http://192.168.210.29:5050'
-MARATHON_URL = 'http://192.168.210.29:18082'
+MESOS_URL = 'http://122.114.62.116:5050'
+MARATHON_URL = 'http://122.114.62.116:18082'
 
 # 核心redis数据库
 # 地址
@@ -13,7 +13,7 @@ CORE_REDIS_MAX_MEMORY = 2
 
 
 # mi_manager web前端的地址及端口
-APP_HOST = '192.168.210.29'
+APP_HOST = '122.114.62.116'
 APP_PORT = 5020
 
 # 监控模块的相对路径(开发环境中设为空)

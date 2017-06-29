@@ -1,4 +1,5 @@
 # Mi
+
 2017中国软件杯——安全可靠赛题2:分布式爬虫系统
 
 山东科技大学-计算机科学与工程学院
@@ -9,8 +10,6 @@
     成    员：孟子成、张正锟、史浩
 
     指导老师：倪维健
-
-开发环境：[见文档](http://www.mengzicheng.cn/wordpress/?p=771)
 
 开发日志：
 
@@ -27,7 +26,6 @@
 [2017年中国软件杯“分布式爬虫系统”开发记录（六）](http://www.mengzicheng.cn/wordpress/?p=941)
 
 [2017年中国软件杯“分布式爬虫系统”开发记录（七）](http://www.mengzicheng.cn/wordpress/?p=1071)
-
 
 
 
@@ -50,15 +48,29 @@
 * 智能提取+人工辅助，提高获取新闻标题与正文的准确性。（总体准确性在90%以上，并且可以引导用户充实人工辅助，进一步提高准确性）
 * 基于支持向量机的新闻分类。
 
-## 架构实现
+## 系统实现
+
+系统部署在云服务器中，向系统管理人员提供系统管理服务。
 
 ![部署图](https://github.com/724686158/mi/raw/master/ReadMe/bushutu.png)
-                                               
-                                                    [图1] 分布式爬虫系统 部署图
+                                         
+                                                [图1] 分布式爬虫系统 部署图
+
+### 系统管理平台
+
+#### 平台地址: http://122.114.62.116:5020
+
+#### 管理员账号: admin
+
+#### 管理员密码: 123456
+
+#### 使用帮助: http://www.mengzicheng.cn/wordpress/?p=1178
+
 
 ## 分布式框架（zookeeper+mesos+marathon+docker）
 
 ### 介绍
+
 * ZooKeeper：ZooKeeper是一个开源的分布式应用程序协调服务。它是一个为分布式应用提供一致性服务的软件，提供的功能包括：配置维护、名字服务、分布式同步、组服务等。
 
 * Mesos：Mesos是Apache下的开源分布式资源管理框架，它被称为是分布式系统的内核。Mesos能够在集群机器上运行多种分布式系统类型，动态有效率地共享资源。提供失败侦测，任务发布，任务跟踪，任务监控，低层次资源管理和细粒度的资源共享，可以扩展伸缩到数千个节点。
@@ -108,8 +120,6 @@ mongo数据库镜像
 ![系统结构图](https://github.com/724686158/mi/raw/master/ReadMe/dichengjiegoutu.png)
 
                                                 [图3] 系统结构图
-
-
 ### 测试
 
 校内网环境:
@@ -161,7 +171,6 @@ https://github.com/724686158/MYSHELLLS
 
 monitor模块，是一个前端用AdminLTE，后端用Flask实现的web端服务。
 
-使用帮助：http://www.mengzicheng.cn/wordpress/?p=1178
 
 daemon模块：借助mosos和marathon提供的数据接接口，从核心redis数据库中获取用户发布的任务信息，对任务进行调度，自动部署和管理工作模块（包含mi的docker容器）
 

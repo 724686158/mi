@@ -64,13 +64,14 @@
 
 ### 管理平台
 
-#### 平台地址: http://122.114.62.116:5020
+#### 平台地址 http://122.114.62.116:5020
 
 #### 管理员账号: admin
 
 #### 管理员密码: 123456
 
 #### 使用帮助: http://www.mengzicheng.cn/wordpress/?p=1178
+
 
 
 ## 底层分布式框架（zookeeper+mesos+marathon+docker）
@@ -154,6 +155,7 @@ https://github.com/724686158/MYSHELLLS
 
 可提供服务安装、服务启动、docker镜像管理、docker容器创建等方面的帮助。
 
+
 ### 注意
 
 分布式系统的稳定运行除了需要安装服务软件外，还需要专业的运维人员进行维护，此外还需要注意访问控制、用户认证等安全问题。
@@ -167,11 +169,13 @@ https://github.com/724686158/MYSHELLLS
 * 进行系统管理的monitor模块
 * 进行任务调度与分布式框架管理的deamon模块。
 
+
 ### 工作流程
 
 ![工作流程图](https://github.com/724686158/mi/raw/master/ReadMe/mimanagerliuchengtu.jpg)
 
                                                 图4 mi_manager工作流程图
+
 
 ### monitor模块
 
@@ -180,6 +184,7 @@ https://github.com/724686158/MYSHELLLS
 ![Web服务功能模块图](https://github.com/724686158/mi/raw/master/ReadMe/mi_managermokuaitu.png)
 
                                                 图5 Web服务功能模块图
+
 
 #### 模块功能
 
@@ -194,6 +199,7 @@ https://github.com/724686158/MYSHELLLS
 
 与monitor模块协同工作的守护进程。
 
+
 #### 模块功能
 
 * 任务调度
@@ -207,6 +213,7 @@ https://github.com/724686158/MYSHELLLS
 
 mi_manager使用具有持久化功能的redis数据库作为核心数据库，并借助核心数据库协调monitor模块和daemon模块的工作，使其紧密配合。例如当用户创建新任务时，monitor模块在响应用户请求的同时要向核心数据库中写入一个标志数据。当daemon模块发现这个标志时，就会重新加载核心数据库中的任务信息，更新任务列表，对新任务进行调度。
 
+
 #### 容器调度的原理
 
 daemon模块是通过向marathon的API发送json文件来管理容器的。而这些json文件是daemon调度任务时，结合文件模板与任务信息动态生成的。这些json文件发送个marathon控制台之后，marathon会将他们转化成Applications，之后mesos会在将其作为task部署到节点上。
@@ -214,6 +221,44 @@ daemon模块是通过向marathon的API发送json文件来管理容器的。而�
 
 
 ## 支持分布式的智能爬虫（mi）
+
+
+### 智能爬取
+
+分布式爬虫系统的功能核心。
+
+系统的任务调度是通过调度智能爬虫的容器来实现的。而全部的爬取任务均由智能爬虫承担。
+
+
+#### 精准爬取与模糊爬取相结合
+
+任务在创建阶段会要求用户提供入口URL，这些URL可能是新闻类的，也可能是店商类的。为了适应不同的爬取需求，智能爬虫必须要具有两类网站的爬取能力。这两类网站具有不同的特点。
+
+* 新闻网站包含政府网站、地方新闻、高校新闻、个人博客，这类网站数量众多而但结构相对简单，所以对于新闻网站需要设计一套自动分析网站结构、自动提取新闻内容的方法。
+
+* 电商网站的数量相对较少、但网站结构极为复杂。
+
+
+#### 任务信息加载
+
+智能爬虫本身不包含任务信息，在启动阶段。从核心数据库获取位于task调度队列队首的task。
+
+task的数据结构: 
+
+```
+{'spider_name': u'dangdang.com', 'mysql_detail': "{'host': '122.114.62.116', 'password': 'mi', 'post': '3306', 'user': 'root'}", 'mongo': u'useful_mongo', 'father_mission_name': 'testmission15', 'mongo_detail': "{'host': '122.114.62.116', 'password': '', 'post': '27017', 'user': ''}", 'settings_name': u'\u7535\u5546\u7c7b\u722c\u866b\u9ed8\u8ba4\u914d\u7f6e', 'start_url': u'http://www.dangdang.com', 'filter_redis_detail': "{'host': '122.114.62.116', 'password': '', 'post': '7001', 'user': u''}", 'settings_detail': "{u'AUTOTHROTTLE_MAX_DELAY': u'6', u'ROBOTSTXT_OBEY': True, u'CONCURRENT_REQUESTS_PER_DOMAIN': u'20', u'RETRY_ENABLED': False, u'AUTOTHROTTLE_START_DELAY': u'1', u'AUTOTHROTTLE_ENABLED': True, u'DOWNLOAD_TIMEOUT': u'10', u'COOKIES_ENABLED': True, u'HTTP_PROXY_ENABLED': False, u'DOWNLOAD_DELAY': u'1'}", 'spider_detail': None, 'core_reids': None, 'mysql': u'useful_mysql', 'filter_redis': u'useful_redis'}
+```
+
+在task当中，包含了智能爬虫工作需要的全部信息。task赋予了智能爬虫属性、任务、资源、详细设置、以及精准爬取的关键信息。
+
+
+### 工作流程
+
+![mi的活动图](https://github.com/724686158/mi/raw/master/ReadMe/miliuchengtu.png)
+
+                                                图8 mi工作流程图
+
+
 
 
 ### 基础框架 
@@ -245,6 +290,7 @@ daemon模块是通过向marathon的API发送json文件来管理容器的。而�
 * Downloader Middlewares（下载中间件）：是一个可以自定义扩展下载功能的组件。
 
 * Spider Middlewares（Spider中间件）：是一个可以自定扩展和操作引擎和Spider中间通信的功能组件（比如进入Spider的Responses;和从Spider出去的Requests）
+
 
 #### Scrapy-redis框架
 
@@ -281,13 +327,6 @@ Spider新生成的request，将request的指纹到redis的DupeFilter set检查�
 * Item Pipeline
 
 将Spider爬取到的Item给scrapy-redis的Item Pipeline，将爬取到的Item存入redis的items队列。可以很方便的从items队列中提取item，从而实现items processes 集群
-
-
-### 工作流程
-
-![mi的活动图](https://github.com/724686158/mi/raw/master/ReadMe/miliuchengtu.png)
-
-                                                图8 mi工作流程图
 
 ### 技术细节
 
@@ -521,9 +560,11 @@ SCHEDULER_QUEUE_CLASS = 'mi.scrapy_redis.queue.SpiderPriorityQueue'
 
 DOWNLOAD_HANDLERS = {'s3': None,}
 
+
 #### 爬虫工作原理
   
 新闻博客类和电商类的网站构造以及网页之间的关系差别较大，因此制定的爬虫策略是截然不同的，相比较而言，电商类因为涉及到大量的Ajax技术，需要处理更多的动态问题，复杂性更高
+
 
 ##### 新闻博客类爬虫逻辑
 
@@ -1080,7 +1121,7 @@ mongodb的这些特性，很适合分布式爬虫搭建集群存储数据的需�
 
 #### 原理
 
-算法通过一系列正则表达式判断URL的特征，例如判其中是否含有关键字，是否含有日期信息，是否有特殊字段排列顺序，每满足一个特征就对URL进行加分，当一个URL获得的分数达到设定的数值时，就认为此URL是一个正文页的URL。之后运用Goose进行提取。
+算法通过一系列正则表达式判断URL的特征，例如判其中是否含有关键字，是否含有日期信息，是否有特殊字段排列顺序，每满足一个特征就对URL进行加分，当一个URL获得的分数达到设定的分值时（此分值下文中称之为置信分值），就认为此URL是一个正文页的URL。之后运用Goose进行提取。
 
   
 #### 实现步骤
@@ -1112,8 +1153,9 @@ mongodb的这些特性，很适合分布式爬虫搭建集群存储数据的需�
         if len(a) > 0:
             score += 2
       ```
-4. 利用算法对全部URL进行打分，排序获得得分较少的URL，在对其进行分析，尝试寻找遗漏的特征。优化加分算法。
+4. 利用算法对全部URL进行打分，排序获得得分较少的URL，在对其进行分析，尝试寻找遗漏的特征，并优化加分算法。（最终的算法中包含12种特征，置信分值为3分）
 
+5. 应用算法进行实际爬取活动，结合人工判断，调整置信分值， 以提高判断的准确性。（最终置信分值定为3分）
 
 #### 应用
 

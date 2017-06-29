@@ -94,17 +94,17 @@ mongo数据库镜像
 * mi:v10
 由mi(python程序源码)在mi_environment上打包而成。运行容器自动获取mi_manager发布的任务，并开始爬虫任务。
 
-![docker镜像打包关系图](https://github.com/724686158/mi/raw/master/ReadMe/jingxiangdabao.png)
-                                               
-                                                    [图2] 镜像打包关系图
+![docker镜像打包关系图](https://github.com/724686158/mi/raw/master/ReadMe/jingxiangdabao.png)                                             
+                                        
+                                                [图2] 镜像打包关系图
 
 在应用服务容器化得基础上，开发人员开始寻找管理和调度容器的方法。并最终敲定使用zookeeper+meos+marathon来进行容器的调度，我们整理框架提供的服务与接口，为上层管理系统提供了数个调度容器的方法，使得可以在分布式爬虫系统的web应用（mi_manager）中直接调度任务，令任务自动在合适的时间启动多个工作容器（mi），进行不同的爬虫子任务，满足任务需求。在这个过程中，开发人员认识到，仅仅是docker，并不能称之为分布式，要能实际控制节点资源，并实现分布式的相关算法，才称得上是分布式系统。所以我们最终选择用zookeeper维持底层框架中各服务的持久运行，用mesos来管理分布式系统中各个节点上的资源，用marathon来调度任务、管理docker容器。
 
 系统结构图如下所示：
 
 ![系统结构图](https://github.com/724686158/mi/raw/master/ReadMe/dichengjiegoutu.png)
-                                               
-                                                    [图3] 系统结构图
+
+                                                [图3] 系统结构图
 
 
 ### 测试
@@ -153,8 +153,8 @@ https://github.com/724686158/MYSHELLLS
 工作流程图：
 
 ![工作流程图](https://github.com/724686158/mi/raw/master/ReadMe/mimanagerliuchengtu.jpg)
-                                               
-                                                    [图4] mi_manager 工作流程图
+
+                                                [图4] mi_manager 工作流程图
 
 monitor模块，是一个前端用AdminLTE，后端用Flask实现的web端服务。
 
@@ -166,7 +166,7 @@ daemon模块：借助mosos和marathon提供的数据接接口，从核心redis�
 
 ![mi_manager整体模块图](https://github.com/724686158/mi/raw/master/ReadMe/mi_managermokuaitu.png)
 
-                                                    [图5] mi_manager Web服务模块图
+                                                [图5] mi_manager Web服务模块图
 
 ### 主要功能
 
@@ -197,7 +197,7 @@ daemon模块：借助mosos和marathon提供的数据接接口，从核心redis�
 
 ![scrapy框架](https://github.com/724686158/mi/raw/master/ReadMe/scrapy_structure.jpg)
 
-                                                    [图6] scrapy框架
+                                                [图6] scrapy框架
 
 
 * Scrapy Engine(引擎): 负责Spider、ItemPipeline、Downloader、Scheduler中间的通讯，信号、数据传递等。
@@ -220,7 +220,7 @@ daemon模块：借助mosos和marathon提供的数据接接口，从核心redis�
 
 ![scrapy-redis框架](https://github.com/724686158/mi/raw/master/ReadMe/scrapyjiagou.png)
 
-                                                    [图7] Scrapy-redis框架
+                                                [图7] Scrapy-redis框架
 
 scrapy任务调度是基于文件系统，这样只能在单机执行crawl。
 
@@ -258,7 +258,7 @@ Spider新生成的request，将request的指纹到redis的DupeFilter set检查�
 
 ![mi的活动图](https://github.com/724686158/mi/raw/master/ReadMe/miliuchengtu.png)
 
-                                                    [图8] mi 工作流程图
+                                                [图8] mi 工作流程图
 
 ### 技术细节
 
@@ -342,52 +342,52 @@ DEPTH_LIMIT = 20
 3. 是否显示COOKIES_DEBUG，如果启用，Scrapy将记录所有在request(Cookie 请求头)发送的cookies及response接收到的cookies(Set-Cookie 接收头)
 COOKIES_DEBUG = False
 
-4. 用于存储调度队列 ———— 的redis数据据库编号（0～15）
-FILTER_DB = 0
+4. 用于存储调度队列的redis数据据库编号
+ILTER_DB = 0
 
-5. 用于存储记号变量 ———— 的redis数据据库编号（0～15）
+5. 用于存储记号变量的redis数据据库编号
 SYMBOL_DB = 1
 
-6. 用于存储task(带处理, 已处理) ———— 的redis数据据库编号（0～15）
+6. 用于存储task的redis数据据库编号
 TASK_DB = 2
 
-7. 用于进行task调度的有序集合 ———— 的redis数据据库编号（0～15）
+7. 用于进行task调度的有序集合的redis数据据库编号
 DISPATCH_DB = 3
 
-8. 用于存储主任务 ———— 的redis数据据库编号（0～15）
+8. 用于存储主任务的redis数据据库编号
 MISSION_DB = 4
 
-9. 用于存储子任务 ———— 的redis数据据库编号（0～15）
+9. 用于存储子任务的redis数据据库编号
 SUBMISSION_DB = 5
 
-10. 用于存储爬虫配置信息 ———— 的redis数据据库编号（0～15）
+10. 用于存储爬虫配置信息的redis数据据库编号
 SETTINGS_DB = 6
 
-11. 用于存储資源(REDIS服务器)的信息 ———— 的redis数据据库编号（0～15）
+11. 用于存储資源(REDIS服务器)的信息redis数据据库编号
 RESOURCES_REDIS_DB = 7
 
-12. 用于存储資源(MYSQL服务器)的信息 ———— 的redis数据据库编号（0～15）
+12. 用于存储資源(MYSQL服务器)的信息的redis数据据库编号
 RESOURCES_MYSQL_DB = 8
 
-13. 用于存储資源(MONGO服务器)的信息 ———— 的redis数据据库编号（0～15）
+13. 用于存储資源(MONGO服务器)的信息的redis数据据库编号
 RESOURCES_MONGO_DB = 9
 
-14. 用于存储代理ip ———— 的redis数据据库编号（0～15）
+14. 用于存储代理ip的redis数据据库编号
 PROXY_DB = 10
 
-15. 用于暂存爬虫运行时数据 ———— 的redis数据据库编号（0～15）
+15. 用于暂存爬虫运行时数据的redis数据据库编号
 RUNNINGDATA_DB = 11
 
-16. 用于存储Cookie数据 ———— 的redis数据据库编号（0～15）
+16. 用于存储Cookie数据的redis数据据库编号
 COOKIES_DB = 12
 
-17. 用于存储新闻类爬虫配置参数 ———— 的redis数据据库编号（0～15）
+17. 用于存储新闻类爬虫配置参数的redis数据据库编号
 SPIDERS_DB = 13
 
-18. 用于分类爬虫(共三个类别： Whitelist, Fuzzy, Ecommerce) ———— 的redis数据据库编号（0～15）
+18. 用于分类爬虫的redis数据据库编号
 CLASSIFIER_DB = 14
 
-19. 用于存储Monitor数据 ———— 的redis数据据库编号（0～15）
+19. 用于存储Monitor数据的redis数据据库编号
 MONITOR_DB = 15
 
 20. 存储爬虫运行数据的四个队列,需要与monitor.monitor_settings中的一致

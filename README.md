@@ -207,7 +207,7 @@ daemon模块：借助mosos和marathon提供的数据接接口，从核心redis�
 
 * Scrapy 使用了 Twisted 异步网络框架来处理网络通讯，可以加快下载速度，不用自己去实现异步框架，并且包含了各种中间件接口，可以灵活的完成各种需求。
 
-![scrapy框架](https://github.com/724686158/mi/raw/master/ReadMe/scrapy_structure.jpg)
+![scrapy框架](https://github.com/724686158/mi/raw/master/ReadMe/scrapy_structure.png)
 
                                                 [图6] scrapy框架
 

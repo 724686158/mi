@@ -10,6 +10,9 @@
     成    员：孟子成、张正锟、史浩
 
     指导老师：倪维健
+    
+![队标](https://github.com/724686158/mi/raw/master/ReadMe/duibiao.png)
+
 
 开发日志：
 

@@ -50,6 +50,8 @@
 ## 架构实现
 
 ![部署图](https://github.com/724686158/mi/raw/master/ReadMe/bushutu.png)
+                                               
+                                                    [图1] 分布式爬虫系统 部署图
 
 ## 分布式框架（zookeeper+mesos+marathon+docker）
 
@@ -63,6 +65,7 @@
 * Docker  是一个开源的应用容器引擎，让开发者可以打包他们的应用以及依赖包到一个可移植的容器中，然后发布到任何流行的 Linux 机器上，也可以实现虚拟化。它彻底释放了计算虚拟化的威力，极大提高了应用的运行效率，降低了云计算资源供应的成本，使用 Docker，可以让应用的部署、测试和分发都变得前所未有的高效和轻松
 
 ### 设计
+
 在项目的初期，为满足赛题对分布式的要求，我们了解并尝试了docker，docker良好的性能表现和方便的使用方法令人印象深刻，在此之后我们坚持使用docker，在项目过程中，有意识得创建和整理docker镜像。在我们自己搭建的私有docker仓库中，保存了以下三类docker镜像。
 
 基础镜像与服务镜像：
@@ -92,13 +95,16 @@ mongo数据库镜像
 由mi(python程序源码)在mi_environment上打包而成。运行容器自动获取mi_manager发布的任务，并开始爬虫任务。
 
 ![docker镜像打包关系图](https://github.com/724686158/mi/raw/master/ReadMe/jingxiangdabao.png)
-
+                                               
+                                                    [图2] 镜像打包关系图
 
 在应用服务容器化得基础上，开发人员开始寻找管理和调度容器的方法。并最终敲定使用zookeeper+meos+marathon来进行容器的调度，我们整理框架提供的服务与接口，为上层管理系统提供了数个调度容器的方法，使得可以在分布式爬虫系统的web应用（mi_manager）中直接调度任务，令任务自动在合适的时间启动多个工作容器（mi），进行不同的爬虫子任务，满足任务需求。在这个过程中，开发人员认识到，仅仅是docker，并不能称之为分布式，要能实际控制节点资源，并实现分布式的相关算法，才称得上是分布式系统。所以我们最终选择用zookeeper维持底层框架中各服务的持久运行，用mesos来管理分布式系统中各个节点上的资源，用marathon来调度任务、管理docker容器。
 
 系统结构图如下所示：
 
-![底层框架结构图](https://github.com/724686158/mi/raw/master/ReadMe/dichengjiegoutu.png)
+![系统结构图](https://github.com/724686158/mi/raw/master/ReadMe/dichengjiegoutu.png)
+                                               
+                                                    [图3] 系统结构图
 
 
 ### 测试
@@ -109,7 +115,7 @@ mongo数据库镜像
 外网环境：
 仅有一台服务器, 同时运行mesos-master服务和mesos-agent服务, 同样安装了Zookeeper、Marathon、Docker服务。
 Mesos控制台    : 122.114.62.116:5050
-Marathon控制台 ：122.114.62.116:?????
+Marathon控制台 ：122.114.62.116:18082
 
 
 ### 安装帮助
@@ -147,6 +153,8 @@ https://github.com/724686158/MYSHELLLS
 工作流程图：
 
 ![工作流程图](https://github.com/724686158/mi/raw/master/ReadMe/mimanagerliuchengtu.jpg)
+                                               
+                                                    [图4] mi_manager 工作流程图
 
 monitor模块，是一个前端用AdminLTE，后端用Flask实现的web端服务。
 
@@ -157,6 +165,8 @@ daemon模块：借助mosos和marathon提供的数据接接口，从核心redis�
 ### 模块划分
 
 ![mi_manager整体模块图](https://github.com/724686158/mi/raw/master/ReadMe/mi_managermokuaitu.png)
+
+                                                    [图5] mi_manager Web服务模块图
 
 ### 主要功能
 
@@ -183,9 +193,11 @@ daemon模块：借助mosos和marathon提供的数据接接口，从核心redis�
 
 * Scrapy是用纯Python实现一个为了爬取网站数据、提取结构性数据而编写的应用框架，用途非常广泛。
 
-* Scrapy 使用了 Twisted['twɪstɪd](其主要对手是Tornado)异步网络框架来处理网络通讯，可以加快下载速度，不用自己去实现异步框架，并且包含了各种中间件接口，可以灵活的完成各种需求。
+* Scrapy 使用了 Twisted 异步网络框架来处理网络通讯，可以加快下载速度，不用自己去实现异步框架，并且包含了各种中间件接口，可以灵活的完成各种需求。
 
 ![scrapy框架](https://github.com/724686158/mi/raw/master/ReadMe/scrapy_structure.jpg)
+
+                                                    [图6] scrapy框架
 
 
 * Scrapy Engine(引擎): 负责Spider、ItemPipeline、Downloader、Scheduler中间的通讯，信号、数据传递等。
@@ -207,6 +219,8 @@ daemon模块：借助mosos和marathon提供的数据接接口，从核心redis�
 结构图：
 
 ![scrapy-redis框架](https://github.com/724686158/mi/raw/master/ReadMe/scrapyjiagou.png)
+
+                                                    [图7] Scrapy-redis框架
 
 scrapy任务调度是基于文件系统，这样只能在单机执行crawl。
 
@@ -243,6 +257,8 @@ Spider新生成的request，将request的指纹到redis的DupeFilter set检查�
 ### 实现
 
 ![mi的活动图](https://github.com/724686158/mi/raw/master/ReadMe/miliuchengtu.png)
+
+                                                    [图8] mi 工作流程图
 
 ### 技术细节
 

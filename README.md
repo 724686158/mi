@@ -309,6 +309,8 @@ daemon模块是通过向marathon的API发送json文件来管理容器的。而�
 
 * Spider Middlewares（Spider中间件）：是一个可以自定扩展和操作引擎和Spider中间通信的功能组件（比如进入Spider的Responses;和从Spider出去的Requests）
 
+scrapy任务调度是基于文件系统，只能本地执行，不支持分布式。
+
 
 #### Scrapy-redis框架
 
@@ -317,7 +319,17 @@ daemon模块是通过向marathon的API发送json文件来管理容器的。而�
 
                                                 图7 Scrapy-redis框架图
 
-scrapy任务调度是基于文件系统，这样只能在单机执行crawl。
+上图中的过程1~5分别代表：
+
+1. 调度器从待下载request队列中获取request
+
+2. 调度器将request按照调度算法分发给相对应的Spider
+
+3. 下载器根据request下载网页, 并发送给采集模块
+
+4. 在采集模块中，从下载的网页发现URL，完成URL增量，将其加入待下载的request队列
+
+5. 在采集模块中，提取目标数据，保存对象，交由pipeline完成数据存储
 
 scrapy-redis将待抓取request请求信息和数据items信息的存取放到redis queue里，使多台服务器可以同时执行crawl和items process，大大提升了数据爬取和处理的效率。
 
@@ -1006,6 +1018,7 @@ mongodb的这些特性，很适合分布式爬虫搭建集群存储数据的需�
    ```
    
 * 在scrapy-redis框架中，使用同样的方法计算request的fingerprint，同样使用一个set用来判重，只不过这个set是在redis数据库中。代码如下：
+
    ```
    def request_seen(self, request):
     fp = request_fingerprint(request)
@@ -1027,9 +1040,10 @@ mongodb的这些特性，很适合分布式爬虫搭建集群存储数据的需�
 
 #### 实现
 
-1.首先实现一个BloomFilter算法：
+1. 首先实现一个BloomFilter算法：
 
   * 设计一个可以调整参数的hash类
+  
       ```
       class SimpleHash(object):
       def __init__(self, cap, seed):
@@ -1042,6 +1056,7 @@ mongodb的这些特性，很适合分布式爬虫搭建集群存储数据的需�
               ret += self.seed * ret + ord(value[i])
           return (self.cap - 1) & ret
       ```
+      
   * 在BloomFilter类中分发不同的seed以创建不同的hash类，然后按照BloomFilter算法实现判重操作
       ```
       class BloomFilter(object):
@@ -1073,7 +1088,7 @@ mongodb的这些特性，很适合分布式爬虫搭建集群存储数据的需�
               self.server.setbit(name, loc, 1)
       ```
 
-2.重写scrapy-redis框架中的dupefilter.py文件，将scrapy-redis的判重由原来的借助redis数据库中的set集合改为BloomFilter算法实现
+2. 重写scrapy-redis框架中的dupefilter.py文件，将scrapy-redis的判重由原来的借助redis数据库中的set集合改为BloomFilter算法实现
 
   *  初始化RFPDupeFilter过滤器
        ```
@@ -1177,21 +1192,21 @@ mongodb的这些特性，很适合分布式爬虫搭建集群存储数据的需�
 
 2. 数据的预处理
 
-    * 预处理是因为获得的原始数据中有大量的标点符号是训练模型不需要的，如果不去除这些标点符号会对生成的训练模型造成影响，而且获得的原始数据是字符串的类型，需要对其进行分词处理，将连续的句子处理成一个个单独的单词。
+  * 预处理是因为获得的原始数据中有大量的标点符号是训练模型不需要的，如果不去除这些标点符号会对生成的训练模型造成影响，而且获得的原始数据是字符串的类型，需要对其进行分词处理，将连续的句子处理成一个个单独的单词。
 
-    * 预处理过程，对获得的数据类型是字符串，对字符串进行利用jieba进行分词处理，然后对通过jieba处理的字符串进行逐单词的扫描，如果扫描到的单词是标点符号，则舍弃，如果是英文或中文单词，则保留经过预处理的数据便是没有标点符号并且是一个个单独的单词,将最终得到的数据按类型存储为json格式
+  * 预处理过程，对获得的数据类型是字符串，对字符串进行利用jieba进行分词处理，然后对通过jieba处理的字符串进行逐单词的扫描，如果扫描到的单词是标点符号，则舍弃，如果是英文或中文单词，则保留经过预处理的数据便是没有标点符号并且是一个个单独的单词,将最终得到的数据按类型存储为json格式
 
 3. 构建训练模型，支持向量机算法是处理文本分类中较为优秀的一种方法，并且线性向量机更适合处理文本分类。
 
-    * 首先按照类别读取上一步预处理的json数据。
+  * 首先按照类别读取上一步预处理的json数据。
 
-    * 利用sklearn.feature\_extraction.text的TfidfVectorizer对读取的数据创建TD-IDF的词频矩阵。
+  * 利用sklearn.feature\_extraction.text的TfidfVectorizer对读取的数据创建TD-IDF的词频矩阵。
 
-    * 计算词频矩阵的权重。
+  * 计算词频矩阵的权重。
 
-    * 完成特征提取。
+  * 完成特征提取。
 
-    * 利用支持向量机的方法，调用sklearn.svm 的LinearSVC对之前通过计算权重的得到的数据进行训练，并保存训练模型，生成pkl文件。
+  * 利用支持向量机的方法，调用sklearn.svm 的LinearSVC对之前通过计算权重的得到的数据进行训练，并保存训练模型，生成pkl文件。
 
 4. 测试，获得json类型的测试数据，将其转换为词频矩阵，调用上一步构建出的训练模型pkl文件对其进行分类。
 
@@ -1200,22 +1215,22 @@ mongodb的这些特性，很适合分布式爬虫搭建集群存储数据的需�
 
 利用训练结果，能够快速的根据新闻正文将新闻归类为如下类别中的一类。
 
-* politics(政治)
+  * politics(政治)
 
-* business(商业)
+  * business(商业)
 
-* health(健康)
+  * health(健康)
 
-* entertainment(娱乐)
+  * entertainment(娱乐)
 
-* finance(金融)
+  * finance(金融)
 
-* technology(教育)
+  * technology(教育)
 
-* law(法律)
+  * law(法律)
 
-* military(军事)
+  * military(军事)
 
-* sport(体育)
+  * sport(体育)
 
 将此功能整合到mi_manager的monitor模块中，为前端即时爬取功能提供新闻分类服务，

@@ -103,6 +103,7 @@ def update_data():
     '''
 
 if __name__ == '__main__':
+
     # 首先确认核心数据库可用
     verify_core_redis_db()
 

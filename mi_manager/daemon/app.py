@@ -2,9 +2,8 @@
 import time
 import data_service
 from marathonHelper import MarathonHelper
-from mi_manager.daemon.model.mission import Mission
-from mi_manager.daemon.model.submission import Submisson
-from mi_manager.daemon.model.task import Task
+from model.submission import Submisson
+from model.task import Task
 Time = lambda: time.strftime('%Y-%m-%d %H:%M:%S')
 
 

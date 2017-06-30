@@ -1,12 +1,12 @@
 # -*- coding: utf-8 -*-
 import os
 import redis
-import mi_manager.daemon.settings as settings
+import settings
 import gen_json_file
 import time
 Time = lambda: time.strftime('%Y%m%d%H%M%S')
 
-from mi_manager.daemon.model.mission import Mission
+from model.mission import Mission
 
 def get_redis(db_id):
     return redis.Redis(settings.REDIS_HOST, settings.REDIS_PORT, db_id)

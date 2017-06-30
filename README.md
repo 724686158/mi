@@ -50,7 +50,7 @@ Mi(迷)是一个分布式爬虫系统，由分布式爬虫管理系统(mi_manage
 
 ### 系统部署
 
-系统部署在云服务器中。
+系统部署在云服务器中。管理系统(mi_manager)、智能爬虫(mi)、各类数据库服务，均已docker容器的形式存在。
 
 ![部署图](https://github.com/724686158/mi/raw/master/ReadMe/bushutu.png)
                                          

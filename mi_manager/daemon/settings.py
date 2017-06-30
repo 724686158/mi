@@ -7,6 +7,9 @@ MARATHON_URL = 'http://122.114.62.116:18082'
 REDIS_HOST = '122.114.62.116'
 REDIS_PORT = 7001
 
+# mi的版本号
+MI_VERSION = 'v10'
+
 # 开启一个工作容器(mi:v8)所需要的CUP数量
 NEED_CPU = 1
 NEED_MEM = 256

@@ -14,7 +14,7 @@ json_template = \
   "instances": 1,
   "container": {
     "docker": {
-      "image": "mi:v10",
+      "image": "mi:%s",
       "network": "HOST",
       "parameters": []
     },
@@ -26,7 +26,7 @@ json_template = \
 # 传入爬虫子任务名
 def generate_json(mission_name, container_name, cpu, mem, disk):
     try:
-        arr = (mission_name, container_name,cpu, mem, disk)
+        arr = (mission_name, container_name,cpu, mem, disk, settings.MI_VERSION)
         content = json_template % arr
         filename = os.getcwd() + settings.TEMP_PATH + '/jsons/'+ mission_name + container_name  + '.json'
         with open(filename, 'w') as f:

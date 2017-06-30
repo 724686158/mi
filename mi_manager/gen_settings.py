@@ -113,6 +113,9 @@ MARATHON_URL = '%s'
 REDIS_HOST = '%s'
 REDIS_PORT = %s
 
+# mi的版本号
+MI_VERSION = 'v10'
+
 # 开启一个工作容器(mi:v8)所需要的CUP数量
 NEED_CPU = 1
 NEED_MEM = 256

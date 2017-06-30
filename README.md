@@ -13,6 +13,7 @@
     
 ![队标](https://github.com/724686158/mi/raw/master/ReadMe/duibiao.png)
 
+开发环境：[见文档](http://www.mengzicheng.cn/wordpress/?p=771)
 
 开发日志：
 

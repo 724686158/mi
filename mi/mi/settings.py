@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 BOT_NAME = 'mi20170630'
-SUB_MISSION = 'chinadaily.com.cn'
-ROBOTSTXT_OBEY = True
+SUB_MISSION = 'mengzicheng.cn'
+ROBOTSTXT_OBEY = False
 COOKIES_ENABLED = True
 RETRY_ENABLED = True
 HTTP_PROXY_ENABLED = None

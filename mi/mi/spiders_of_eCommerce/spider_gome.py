@@ -12,7 +12,7 @@ import requests
 class Spider_gome(RedisCrawlSpider):
 
     name = 'gome.com.cn'
-    redis_key = 'guomei.com.cn:start_urls'
+    redis_key = 'gome.com.cn:start_urls'
     allowed_domains = ['gome.com.cn']
 
     rules = {

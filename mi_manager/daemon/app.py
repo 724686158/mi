@@ -90,9 +90,6 @@ if __name__ == '__main__':
                 # 向有序队列中压入完整的task信息, 分值是对应子任务的优先度
                 data_service.push_task(str(dic), submission.priority)
 
-            # 对一个处理过的任务, 要将其权重下降40%, 直到任务队列出现变化, 重新从数据库中加载任务
-            for mission in missions:
-                mission.weight = str(float(mission.weight) * 0.6)
 
             # 计算集群中可以开启的容器的剩余数量
             permit_container_number_of_mi = data_service.permit_container_number(marathon_helper)
@@ -102,6 +99,8 @@ if __name__ == '__main__':
 
             # 向marathon发送等量的新容器请求, 这些新容器在开始运行时, 消费一个task
             for task in tasks_ready:
+
+
                 detail_dic = eval(task)
                 container_name = str(detail_dic['spider_name']).replace('.', '').replace('_', '').replace('-', '').replace(' ', '')
 
@@ -111,6 +110,10 @@ if __name__ == '__main__':
                 # 用json文件创建新容器
                 data_service.run_new_container(marathon_helper, container_name)
 
+                # 发布过的任务权重下降下降5%, 直到任务队列出现变化, 重新从数据库中加载任务
+                for mission in missions:
+                    if mission.mission_name == detail_dic['father_mission_name']:
+                        mission.weight = str(float(mission.weight) * 0.95)
             # 将发布过的task存入task历史记录中
             data_service.record_tasks(tasks_ready)
         except:

@@ -1,3 +1,5 @@
+# 开源协议：GPLv3
+
 # Mi
 
 2017中国软件杯——安全可靠赛题2:分布式爬虫系统
@@ -15,6 +17,8 @@
 
 开发环境：[见文档](http://www.mengzicheng.cn/wordpress/?p=771)
 
+演示视频：http://www.bilibili.com/video/av11755726/
+
 开发日志：
 
 [2017年中国软件杯“分布式爬虫系统”开发记录（一）](http://www.mengzicheng.cn/wordpress/?p=536)
@@ -31,7 +35,7 @@
 
 [2017年中国软件杯“分布式爬虫系统”开发记录（七）](http://www.mengzicheng.cn/wordpress/?p=1071)
 
-
+[2017年中国软件杯“分布式爬虫系统”开发记录（八）](http://www.mengzicheng.cn/wordpress/?p=1322)
 
 
 # Mi项目文档

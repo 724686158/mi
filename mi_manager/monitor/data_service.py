@@ -101,7 +101,7 @@ def get_data_from_mysql(table_name, mission_name = settings.MYSQL_DBNAME):
         dic.append(('电商网站', '网站首页'))
         mysql = MysqlHelper()
         #sql = """SELECT * FROM %s LIMIT 0, 1000;""".encode(encoding='utf-8')
-        sql = """SELECT * FROM ECommerce;""".encode(encoding='utf-8')
+        sql = """SELECT * FROM ECommerce LIMIT 0, 10000;""".encode(encoding='utf-8')
         results = mysql.select_for_mission(mission_name, sql)
         for col in results:
             t = (col['eCommerceName'], col['eCommerceUrl'])
@@ -110,7 +110,7 @@ def get_data_from_mysql(table_name, mission_name = settings.MYSQL_DBNAME):
         dic.append(('电商网站', '店铺ID', '店铺名称', '店铺链接', '店铺所在地', '店铺电话', '更新时间'))
         mysql = MysqlHelper()
         # sql = """SELECT * FROM %s LIMIT 0, 1000;""".encode(encoding='utf-8')
-        sql = """SELECT * FROM ECommerceShop;""".encode(encoding='utf-8')
+        sql = """SELECT * FROM ECommerceShop LIMIT 0, 10000;""".encode(encoding='utf-8')
         results = mysql.select_for_mission(mission_name, sql)
         for col in results:
             t = (col['eCommerceName'], col['shopId'], col['shopName'], col['shopUrl'], col['shopLocation'], col['shopPhoneNumber'], col['updateTime'])
@@ -119,7 +119,7 @@ def get_data_from_mysql(table_name, mission_name = settings.MYSQL_DBNAME):
         dic.append(('电商网站', '店铺ID', '评论链接', '评论数据', '更新时间'))
         mysql = MysqlHelper()
         # sql = """SELECT * FROM %s LIMIT 0, 1000;""".encode(encoding='utf-8')
-        sql = """SELECT * FROM ECommerceShopComment;""".encode(encoding='utf-8')
+        sql = """SELECT * FROM ECommerceShopComment LIMIT 0, 10000;""".encode(encoding='utf-8')
         results = mysql.select_for_mission(mission_name, sql)
         for col in results:
             t = (col['eCommerceName'], col['shopId'], col['shopCommentsUrl'], col['shopCommentsData'], col['updateTime'])
@@ -128,7 +128,7 @@ def get_data_from_mysql(table_name, mission_name = settings.MYSQL_DBNAME):
         dic.append(('电商网站', '商品ID', '店家ID', '商品名字', '商品链接', '商品价格', '更新时间'))
         mysql = MysqlHelper()
         # sql = """SELECT * FROM %s LIMIT 0, 1000;""".encode(encoding='utf-8')
-        sql = """SELECT * FROM ECommerceGood;""".encode(encoding='utf-8')
+        sql = """SELECT * FROM ECommerceGood LIMIT 0, 10000;""".encode(encoding='utf-8')
         results = mysql.select_for_mission(mission_name, sql)
         for col in results:
             t = (col['eCommerceName'], col['goodId'], col['shopId'], col['goodName'], col['goodUrl'], col['goodPrice'], col['updateTime'])
@@ -137,7 +137,7 @@ def get_data_from_mysql(table_name, mission_name = settings.MYSQL_DBNAME):
         dic.append(('电商网站', '商品ID', '评论链接', '评论数据', '更新时间'))
         mysql = MysqlHelper()
         # sql = """SELECT * FROM %s LIMIT 0, 1000;""".encode(encoding='utf-8')
-        sql = """SELECT * FROM ECommerceGoodComment;""".encode(encoding='utf-8')
+        sql = """SELECT * FROM ECommerceGoodComment LIMIT 0, 10000;""".encode(encoding='utf-8')
         results = mysql.select_for_mission(mission_name, sql)
         for col in results:
             t = (col['eCommerceName'], col['goodId'], col['goodCommentsUrl'], col['goodCommentsData'], col['updateTime'])

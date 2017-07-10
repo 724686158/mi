@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # 核心redis数据库
 # 地址
-CORE_REDIS_HOST = '122.114.62.116'
+CORE_REDIS_HOST = '127.0.0.1'
 # 端口
 CORE_REDIS_PORT = 7001
 

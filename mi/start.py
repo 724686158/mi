@@ -39,8 +39,8 @@ def start_work(task):
     start_url = data_service.get_start_url(spider_name, start_url)
     r.delete(spider_name + ':start_urls')
     r.lpush(spider_name +':start_urls', start_url)
-    r.delete(spider_name +':dupefilter0')
-    time.sleep(1)
+    #r.delete(spider_name +':requests')
+    r.delete(spider_name + ':dupefilter0')
     cmd.execute(str('scrapy crawl ' + spider_name).split())
 
 if __name__ == '__main__':

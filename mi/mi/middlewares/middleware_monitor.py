@@ -9,7 +9,8 @@ class StatcollectorMiddleware(object):
     history_dic = {}
 
     # 用于初始化,与实际服务无关
-    r = redis.Redis(host="127.0.0.1", port="6379", db=0)
+    r = redis.Redis(host="", port="", db=0)
+
     timer = lambda: time.strftime('%Y-%m-%d %H:%M:%S')
     def __init__(self, settings):
         BOT_NAME = settings.get('BOT_NAME')

@@ -1,0 +1,31 @@
+# Created by .ignore support plugin (hsz.mobi)
+*.pyc
+.idea
+oldfile
+project.tar.gz
+将删除 .gitignore
+将删除 mi/data_service.pyc
+将删除 mi/gen_settings.pyc
+将删除 mi/mi/spiders_of_eCommerce/spider_tmall.pyc
+将删除 mi/mi/spiders_of_news_in_whiteList/spider_cankaoxiaoxicom.pyc
+将删除 mi/mi/spiders_of_news_in_whiteList/spider_cctvcom.pyc
+将删除 mi/mi/spiders_of_news_in_whiteList/spider_huxiucom.pyc
+将删除 mi/mi/spiders_of_news_in_whiteList/spider_thepapercn.pyc
+将删除 mi/mi/spiders_of_news_need_fuzzymatching/spider_chinadailycomcn.pyc
+将删除 mi/mi/spiders_of_news_need_fuzzymatching/spider_mengzichengcn.pyc
+将删除 mi/mi/spiders_of_news_need_fuzzymatching/spider_peoplecomcn.pyc
+将删除 mi/mi/spiders_of_news_need_fuzzymatching/spider_sinacomcn.pyc
+将删除 mi/settings.pyc
+将删除 mi_manager/daemon/data_service.pyc
+将删除 mi_manager/daemon/gen_json_file.pyc
+将删除 mi_manager/daemon/marathonHelper.pyc
+将删除 mi_manager/daemon/model/__init__.pyc
+将删除 mi_manager/daemon/model/mission.pyc
+将删除 mi_manager/daemon/model/submission.pyc
+将删除 mi_manager/daemon/model/task.pyc
+将删除 mi_manager/daemon/settings.pyc
+将删除 mi_manager/gen_settings.pyc
+将删除 mi_manager/monitor/classifier.pyc
+将删除 mi_manager/monitor/data_service.pyc
+将删除 mi_manager/monitor/gooseHelper.pyc
+将删除 mi_manager/settings.pyc

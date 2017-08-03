@@ -1000,7 +1000,6 @@ mongodb的这些特性，很适合分布式爬虫搭建集群存储数据的需�
 ### BloomFilter算法
   
   使用BloomFilter数据结构及有关算法实现url去重。
-  
   
 #### 介绍
 
@@ -1043,7 +1042,7 @@ mongodb的这些特性，很适合分布式爬虫搭建集群存储数据的需�
 
 1. 首先实现一个BloomFilter算法：
 
-  * 设计一个可以调整参数的hash类
+  * 设计一个可以调整参数的hash类
   
       ```
       class SimpleHash(object):

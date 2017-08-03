@@ -4,9 +4,9 @@ MESOS_URL = 'http://127.0.0.1:5050'
 MARATHON_URL = 'http://127.0.0.1:18082'
 
 # 核心redis数据库
-# 地址
+# 默认地址
 CORE_REDIS_HOST = '127.0.0.1'
-# 端口
+# 默认端口
 CORE_REDIS_PORT = 7001
 
 # 可用内存 (单位G, 建议1G以上)

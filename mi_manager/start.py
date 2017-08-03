@@ -1,5 +1,7 @@
 #-*- coding: utf-8 -*-
 import os
+import sys
+import getopt
 import subprocess
 import redis
 import settings
@@ -12,21 +14,17 @@ def start_work():
     subprocess.Popen(['python', CWD + '/daemon/app.py'])  # 开启守护进程
     os.system('python ' + CWD + '/monitor/app.py')
 
-def verify_core_redis_db():
+def verify_core_redis_db(core_redis_host, core_redis_port):
     try:
-        r = redis.Redis(settings.CORE_REDIS_HOST, settings.CORE_REDIS_PORT)
+        r = redis.Redis(core_redis_host, core_redis_port)
         info =  r.info()
         print '可以正确连接到核心redis数据库'
         used_mem = info['used_memory']
         print '已经使用内存：%.4f%%' % (float(used_mem) / float(settings.CORE_REDIS_MAX_MEMORY * 1024 * 1024 * 1024))
         if used_mem > settings.CORE_REDIS_MAX_MEMORY * 1024 * 1024 * 1024 * 0.8:
             print '核心数据库内存占用超过可用容量的80%（系统将自动清理可能存在的无用缓存, 请检查是否有任务将核心数据库用作缓存数据库'
-            filter_db = redis.Redis(settings.CORE_REDIS_HOST, settings.CORE_REDIS_PORT, 0)
+            filter_db = redis.Redis(core_redis_host, core_redis_port, 0)
             filter_db.flushdb()
-            '''
-            monitor_db = redis.Redis(settings.CORE_REDIS_HOST, settings.CORE_REDIS_PORT, 15)
-            monitor_db.flushdb()
-            '''
         else:
             print '核心数据库状态良好'
     except:
@@ -104,8 +102,33 @@ def update_data():
 
 if __name__ == '__main__':
 
+    # 当命令行参数为空时的默认值, 如果不存在此数据库，将报错
+    core_redis_host = settings.CORE_REDIS_HOST
+    core_redis_port = settings.CORE_REDIS_PORT
+    mesos_url = settings.MESOS_URL
+    marathon_url = settings.MARATHON_URL
+
+    try:
+        opts, args = getopt.getopt(sys.argv[1:], "h:p:s:m:", ["host=", "port=", "mesos=", "marathon="])
+        for opt, arg in opts:
+            if opt in ("-h", "--host"):
+                core_redis_host = arg
+            elif opt in ("-p", "--port"):
+                core_redis_port = arg
+            elif opt in ("-s", "--mesos"):
+                mesos_url = arg
+            elif opt in ("-m", "--marathon"):
+                marathon_url = arg
+    except getopt.GetoptError:
+        print '您没有设置核心数据库的地址与端口, 将使用默认的127.0.0.1:6379'
+        print '您也可以通过添加参数 -h[--host] XXX.XXX.XXX.XXX -p[--port] XXXX 来自定义参数'
+        print '其他备选参数：'
+        print '[MESOS地址]      -s[--mesos] http://XXX.XXX.XXX.XXX:XXXX'
+        print '[MARATHON地址]   -m[--marathon] http://XXX.XXX.XXX.XXX:XXXX'
+
+
     # 首先确认核心数据库可用
-    verify_core_redis_db()
+    verify_core_redis_db(core_redis_host, core_redis_port)
 
     # 整理模块设置
     set_settings()
@@ -113,11 +136,9 @@ if __name__ == '__main__':
     # 收集可能变更的数据, 更新数据库
     update_data()
 
-
     # 正式开始工作
     start_work()
     try:
         pass
     except Exception, e:
         print '[error]: ' + e.args[0]
-

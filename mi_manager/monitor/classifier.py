@@ -43,6 +43,7 @@ def get_type_of_news_by_content(content):
     # Load the models using the already generated .pkl file
     model = joblib.load(filename)
     data = get_data([content])
+    print data.data
     data_weighted = model['vectorizer'].transform(data.data)
     data_weighted = model['feature_selection'].transform(data_weighted)
     prediction = model['clf'].predict(data_weighted)

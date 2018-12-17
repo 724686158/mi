@@ -2,95 +2,13 @@
 import redis
 import pymysql
 import settings as prime_settings
+
+
 class MysqlHelper():
-    # 连接Mysql
-    def connectMysql(self, host = prime_settings.MYSQL_HOST, port = prime_settings.MYSQL_PORT, user = prime_settings.MYSQL_USER, passwd = prime_settings.MYSQL_PASSWD):
-        conn = pymysql.connect(host,
-                               port,
-                               user,
-                               passwd,
-                               charset='utf8',
-                               cursorclass=pymysql.cursors.DictCursor)
-        return conn
-
-    # 创建数据库
-    def createDatabase(self, dbname = prime_settings.MYSQL_DBNAME):
-        conn = self.connectMysql()
-        sql = "create database if not exists " + dbname
-        cur = conn.cursor()
-        cur.execute(sql)
-        cur.close()
-        conn.close()
-
-
-    # 连接数据库
-    def connectDatabase(self, dbname = prime_settings.MYSQL_DBNAME):
-        if dbname == prime_settings.MYSQL_DBNAME:
-            host = self.host
-            port = self.port
-            user = self.user
-            passwd = self.passwd
-        else:
-            pass #这里存在不支持远程数据库的bug
-
-        conn = pymysql.connect(host=self.host,
-                               port=self.port,
-                               user=self.user,
-                               passwd=self.passwd,
-                               db= dbname,
-                               charset='utf8',
-                               cursorclass=pymysql.cursors.DictCursor)
-        return conn
-
-    # 创建数据表
-    def createTable(self, sql):
-        conn = self.connectDatabase()
-
-        cur = conn.cursor()
-        cur.execute(sql)
-        cur.close()
-        conn.close()
-
-
-    def insert(self, sql, *params):
-        conn = self.connectDatabase()
-        cur = conn.cursor()
-        cur.execute(sql, params)
-        conn.commit()
-        cur.close()
-        conn.close()
-
-    def delete(self, sql, *params):
-        conn = self.connectDatabase()
-        cur = conn.cursor()
-        cur.execute(sql, params)
-        conn.commit()
-        cur.close()
-        conn.close()
-
-    def update(self, sql, *params):
-        conn = self.connectDatabase()
-        cur = conn.cursor()
-        cur.execute(sql, params)
-        conn.commit()
-        cur.close()
-        conn.close()
-
-    def select(self, sql):
-        conn = self.connectDatabase()
-        cur = conn.cursor()
-        cur.execute(sql)
-        result = cur.fetchall()
-        conn.commit()
-        cur.close()
-        conn.close()
-        return result
-
-
     # 创建数据库
     def createDatabase_for_mission(self, mission_name):
         conn = self.discovery_and_connect_for_mission(mission_name)
-        sql = "create database if not exists " + mission_name
+        sql = "CREATE DATABASE IF NOT EXISTS " + mission_name + " DEFAULT CHARSET=utf8 COLLATE=utf8_bin"
         cur = conn.cursor()
         cur.execute(sql)
         cur.close()
@@ -120,6 +38,7 @@ class MysqlHelper():
         cur.close()
         conn.close()
 
+
     def update_for_mission(self, mission_name, sql, *params):
         conn = self.discovery_and_connectDatabase_for_mission(mission_name)
         cur = conn.cursor()
@@ -148,9 +67,8 @@ class MysqlHelper():
             conn = pymysql.connect(host=dic['host'], port=int(dic['post']), user=dic['user'], passwd=dic['password'],
                                    charset='utf8', cursorclass=pymysql.cursors.DictCursor)
             return conn
-        except:
-            print '无法连接到任务[' + mission_name + ']所使用的Mysql资源'
-
+        except Exception:
+            print '无法连接到任务[' + mission_name + ']所使用的Mysql资源' + Exception.message
 
     def discovery_and_connectDatabase_for_mission(self, mission_name):
         try:
@@ -167,6 +85,6 @@ class MysqlHelper():
                                    charset='utf8',
                                    cursorclass=pymysql.cursors.DictCursor)
             return conn
-        except:
-            print '无法连接到任务[' + mission_name + ']所使用的Mysql数据库'
+        except Exception:
+            print '无法连接到任务[' + mission_name + ']所使用的Mysql数据库' + Exception.message
 

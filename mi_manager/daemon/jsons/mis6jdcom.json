@@ -1,0 +1,17 @@
+{
+  "id": "/spiders/mis6jdcom",
+  "cmd": null,
+  "cpus": 1,
+  "mem": 256,
+  "disk": 256,
+  "instances": 1,
+  "container": {
+    "docker": {
+      "image": "mi:v10",
+      "network": "HOST",
+      "parameters": []
+    },
+    "type": "DOCKER",
+    "volumes": []
+  }
+}

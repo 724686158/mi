@@ -1,11 +1,11 @@
 # -*- coding: utf-8 -*-
 # mesos和marathon的地址 (请确保zookeeper+mesos+marathon框架正常运行)
-MESOS_URL = 'http://122.114.62.116:5050'
-MARATHON_URL = 'http://122.114.62.116:18082'
+MESOS_URL = 'http://127.0.0.1:5050'
+MARATHON_URL = 'http://127.0.0.1:18082'
 
 # 核心redis服务器
-REDIS_HOST = '122.114.62.116'
-REDIS_PORT = 7001
+REDIS_HOST = '47.98.124.149'
+REDIS_PORT = 6379
 
 # mi的版本号
 MI_VERSION = 'v10'

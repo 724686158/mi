@@ -2,16 +2,18 @@
 import redis
 import pymongo
 import settings as prime_settings
+
 class MongoHelper():
 
-    def connectMongo(self, host = prime_settings.MONGO_HOST, port = prime_settings.MONGO_PORT):
+    def connectMongo(self, host, port):
         conn = pymongo.MongoClient(host, port)
         return conn
 
-    def connectDatabase(self, host = prime_settings.MONGO_HOST, port = prime_settings.MONGO_PORT, dbname = prime_settings.MONGO_DATABASE):
+    def connectDatabase(self, host, port, dbname):
         conn = self.connectMongo(host, port)
         db = conn[dbname]
         return db
+
     def discovery_and_connectDatabase_for_mission(self, mission_name):
         try:
             r = redis.Redis(prime_settings.REDIS_HOST, prime_settings.REDIS_PORT, prime_settings.MISSION_DB)

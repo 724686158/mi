@@ -20,5 +20,5 @@ goose-extractor
 numpy
 scipy
 pandas
-sklearn
+scikit-learn==0.18.1
 xgboost

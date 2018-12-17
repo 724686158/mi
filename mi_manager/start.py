@@ -133,6 +133,8 @@ if __name__ == '__main__':
     # 整理模块设置
     set_settings()
 
+    time.sleep(2)
+
     # 收集可能变更的数据, 更新数据库
     update_data()
 

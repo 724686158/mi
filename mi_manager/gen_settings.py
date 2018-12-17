@@ -11,17 +11,6 @@ APP_PORT = %s
 REDIS_HOST = '%s'
 REDIS_PORT = %s
 
-# mysql数据库的配置信息(实现资源读取之后删除)
-MYSQL_HOST = '122.114.62.116'
-MYSQL_PORT = 3306
-MYSQL_DBNAME = 'data_20170612_01'    #数据库名字
-MYSQL_USER = 'root'                 #数据库账号
-MYSQL_PASSWD = 'mi'                 #数据库密码
-# mongodb数据库的配置信息(实现资源读取之后删除)
-MONGO_HOST = '122.114.62.116'
-MONGO_PORT = 27017
-MONGO_DATABASE = 'data_20170612_01'
-
 # 监控器相关参数
 TIMEINTERVAL = 2000#监控台刷新时间间隔，单位毫秒
 POINTINTERVAL = 10#图上各点之间间隔，越小则表示点越密集

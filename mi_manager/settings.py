@@ -7,7 +7,7 @@ MARATHON_URL = 'http://127.0.0.1:18082'
 # 默认地址
 CORE_REDIS_HOST = '127.0.0.1'
 # 默认端口
-CORE_REDIS_PORT = 7001
+CORE_REDIS_PORT = 6379
 
 # 可用内存 (单位G, 建议1G以上)
 CORE_REDIS_MAX_MEMORY = 2

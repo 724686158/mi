@@ -6,6 +6,8 @@ from model.submission import Submisson
 from model.task import Task
 Time = lambda: time.strftime('%Y-%m-%d %H:%M:%S')
 
+#任务权重下降常数
+TASK_WEIGHT_DECREASE = 0.95
 
 
 if __name__ == '__main__':
@@ -114,7 +116,7 @@ if __name__ == '__main__':
                 # 发布过的任务权重下降下降5%, 直到任务队列出现变化, 重新从数据库中加载任务
                 for mission in missions:
                     if mission.mission_name == detail_dic['father_mission_name']:
-                        mission.weight = str(float(mission.weight) * 0.95)
+                        mission.weight = str(float(mission.weight) * TASK_WEIGHT_DECREASE)
             # 将发布过的task存入task历史记录中
             data_service.record_tasks(tasks_ready)
         except:

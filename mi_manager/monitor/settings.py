@@ -3,19 +3,8 @@
 APP_HOST = '127.0.0.1'
 APP_PORT = 5020
 # 核心redis服务器
-REDIS_HOST = '122.114.62.116'
-REDIS_PORT = 7001
-
-# mysql数据库的配置信息(实现资源读取之后删除)
-MYSQL_HOST = '122.114.62.116'
-MYSQL_PORT = 3306
-MYSQL_DBNAME = 'data_20170612_01'    #数据库名字
-MYSQL_USER = 'root'                 #数据库账号
-MYSQL_PASSWD = 'mi'                 #数据库密码
-# mongodb数据库的配置信息(实现资源读取之后删除)
-MONGO_HOST = '122.114.62.116'
-MONGO_PORT = 27017
-MONGO_DATABASE = 'data_20170612_01'
+REDIS_HOST = '47.98.124.149'
+REDIS_PORT = 6379
 
 # 监控器相关参数
 TIMEINTERVAL = 2000#监控台刷新时间间隔，单位毫秒

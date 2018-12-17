@@ -35,17 +35,6 @@ def allowed_file(filename):
 def init():
     current_app.r = redis.Redis(host=settings.REDIS_HOST, port=settings.REDIS_PORT, db=settings.MONITOR_DB)
 
-# 旧API
-@app.route('/start_work', methods=['GET'])
-def start_work():
-    # 初始化监控器数据
-    data_service.init_monitor()
-    # 初始化mysql数据库
-    data_service.init_mysql()
-    #
-    data_service.exec_init_of_missions()
-    #
-    return jsonify('ok')
 
 # 用于测试上传
 @app.route('/test/upload')
@@ -83,23 +72,6 @@ def download():
 def get_fuzzy_list():
     data = data_service.get_fuzzy_list()
     return jsonify(data)
-
-# 初始化数据库, 在个API暂时没有实际意义
-@app.route('/init_mysql', methods=['GET'])
-def init_mysql():
-    return jsonify(data_service.init_mysql())
-
-# 从mysql和mongo数据库中获取数据表单
-@app.route('/get_table', methods=['GET'])
-def get_table():
-    table_name = request.args.get('table_name')
-    if table_name is None:
-        data_dic = []
-    if(table_name == 'Article'):
-        data_dic = data_service.get_data_from_mongo(table_name)
-    elif(table_name == 'ECommerce' or table_name == 'ECommerceShop' or table_name == 'ECommerceShopComment' or table_name == 'ECommerceGood' or table_name == 'ECommerceGoodComment'):
-        data_dic = data_service.get_data_from_mysql(table_name)
-    return jsonify(data_dic)
 
 # 旧API勿用
 @app.route('/target_urls', methods=['GET', 'POST'])
@@ -214,16 +186,6 @@ def gen_spider():
     spider_name = url_extract_tools.extract_main_url(start_urls)
     data_service.save_data(spider_name, jsonstr)
     return jsonify('ok')
-
-# 旧API, 勿用
-'''
-@app.route('/add_ips', methods=['GET', 'POST'])
-def add_ips():
-    jsonstr = request.form.get('ips', '')
-    ips_array = json.loads(jsonstr)['ips']
-    dat_service.save_proxys(ips_array)
-    return jsonify('ok')
-'''
 
 
 # 获取新闻爬虫名

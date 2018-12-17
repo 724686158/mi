@@ -17,19 +17,18 @@ class MysqlInit():
     def start(self, mission):
         # 新建数据库
         print "尝试创建mysql数据库"
-        self.dbHelper.createDatabase_for_mission(mission)
         try:
-            pass
+            self.dbHelper.createDatabase_for_mission(mission)
             print "创建mysql数据库成功"
         except Exception:
-            print "创建mysql数据库失败"
+            print "创建mysql数据库失败" + Exception.message
         # 新建表
         print "尝试创建mysql数据表"
         try:
             self.dbHelper.createTable_for_mission(mission, sql_createtable)
             print "创建mysql数据表成功"
         except Exception:
-            print "创建mysql数据表失败"
+            print "创建mysql数据表失败" + Exception.message
 
         # 向数据表ECommerce中插入电商信息
         try:
@@ -47,4 +46,4 @@ class MysqlInit():
             self.dbHelper.insert_for_mission(mission, sql)
             print "插入数据成功"
         except Exception:
-            print "插入数据失败"
+            print "插入数据失败" + Exception.message

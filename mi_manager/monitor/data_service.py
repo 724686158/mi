@@ -48,7 +48,7 @@ def init_monitor():
     monitor_init.start()
 
 # 初始化mysql数据库
-def init_mysql(name = settings.MYSQL_DBNAME):
+def init_mysql(name):
     mysql_init = MysqlInit()
     mysql_init.start(name)
 
@@ -81,7 +81,7 @@ def exec_init_of_missions():
             print 'eCommerce_spider Init_' + mission + '.py' + ' not exist'
 
 # 从mongo数据库获取数据
-def get_data_from_mongo(table_name, mission_name = settings.MONGO_DATABASE):
+def get_data_from_mongo(table_name, mission_name):
     dic = []
     if(table_name == 'Article'):
         dic.append(('url', '标题', '正文', '关键词'))
@@ -95,7 +95,7 @@ def get_data_from_mongo(table_name, mission_name = settings.MONGO_DATABASE):
     return dic
 
 # 从mysql数据库获取数据
-def get_data_from_mysql(table_name, mission_name = settings.MYSQL_DBNAME):
+def get_data_from_mysql(table_name, mission_name):
     dic = []
     if (table_name == 'ECommerce'):
         dic.append(('电商网站', '网站首页'))
@@ -138,6 +138,7 @@ def get_data_from_mysql(table_name, mission_name = settings.MYSQL_DBNAME):
             t = (col['eCommerceName'], col['goodId'], col['goodCommentsUrl'], col['goodCommentsData'], col['updateTime'])
             dic.append(t)
     return dic
+
 
 def get_data_from_goose(urls):
     gooseHelp = GooseHelper()

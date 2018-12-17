@@ -8,6 +8,7 @@ import mi.settings as prime_settings
 import mi.tools.gen_spiderFile_in_whiteList as gen_spiderFile_in_whiteList
 import mi.tools.gen_spiderFile_need_fuzzymatching as gen_spiderFile_need_fuzzymatching
 import gen_settings
+
 def init_spider_file(task):
     dic = eval(task)
     spidername = dic['spider_name']
@@ -25,8 +26,10 @@ def init_spider_file(task):
         else:
             gen_spiderFile_need_fuzzymatching.generate_spider(spidername)
 
+
 def init_settings(task):
     gen_settings.generate_setting_of_mi(task)
+
 
 def start_work(task):
     dic = eval(task)
@@ -49,6 +52,7 @@ if __name__ == '__main__':
     if task:
         print '开始执行任务'
         init_settings(task)
+        time.sleep(2)
         init_spider_file(task)
         start_work(task)
         r.lpush('used', task)

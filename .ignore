@@ -138,3 +138,7 @@ crashlytics.properties
 crashlytics-build.properties
 fabric.properties
 
+
+mi_manager.daemon.settings.py
+mi_manager.monitor.settings.py
+

@@ -5,3 +5,6 @@ project.tar.gz
 mi.mi.settings.py
 mi_manager.daemon.settings.py
 mi_manager.monitor.settings.py
+
+*.py[cod]
+*$py.class
